@@ -11,3 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
+
+# RSpec stuff
+spec/examples.txt
