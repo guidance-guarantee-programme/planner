@@ -1,0 +1,10 @@
+sudo: false
+language: ruby
+cache:
+  bundler: true
+before_script:
+  - "bundle exec rake db:create db:migrate RAILS_ENV=test"
+notifications:
+  slack:
+    rooms:
+      secure: VoLUFu4rnDAbmD8aNmxoM0RCAA26K+2aZOPrJGNbwIvExmuOYQh5FFsDhz4crgtYcerH5nuAmNMagqzWFqN69gZ0/44kPsx5KWcaTRZdxnCg5tz5DAwvyLnZtN8fWpnx8AekIxDIHVrDrmSI+yQ8VyiEMgzyZRs8TBXzOVdYvYUMXXTFebPaNCaIjAUFfW56fNSfeFLNJ7M7ltXvcqZwddB0Kh4TJoSSEpQFOUn5jSzwtmoLqP5T1kP/lM6MiOcLaI2I+LJUVd17MZOKdO994RtEW3uexn497fhxSnkIkHtlZInI5tec+PX+NGQ/6bbElwvpnnQZEPwcUnoyw3N8lOO8ekLxiydiPDf3ALIGXiUiuXAOGr+m5oSyPpaRaG0UjaVwPyS5TCv39Imhqqyjf87kiDLRtRtWw3/YGCYLpVDDnzC/GQejYjhjcNv+LcwirI8d7lakbVWnMeL743DRsFvRVpdz/O9ipcLFAuIXD1J+46UA9q7wsz+8OJQReeKPhbnsEpQK6tyCF+5jMdkRii/4XZNbnSJQSnZKhkEHWijVKDWCOdbyGRldBaVox/DKPqkSmpYsbdRnVt28IofCxsb7/6U1rUAHlYMZH2l7merd+N4NR0HwV66qHIOqn3mskeUzkM15diBidt2jdWqoXRF/GTsGQ54zDALKQ29vhKk=
