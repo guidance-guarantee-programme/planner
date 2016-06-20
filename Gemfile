@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
+gem 'gds-sso'
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
@@ -13,7 +14,6 @@ gem 'turbolinks'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
-  gem 'capybara'
 end
 
 group :development do
