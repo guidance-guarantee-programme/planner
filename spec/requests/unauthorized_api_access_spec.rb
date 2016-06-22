@@ -8,7 +8,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def given_an_unpermitted_gds_sso_user
-    GDS::SSO.test_user = User.new
+    create(:user)
   end
 
   def when_an_unauthorized_request_is_made
