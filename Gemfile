@@ -12,7 +12,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry-byebug'
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
 end
 

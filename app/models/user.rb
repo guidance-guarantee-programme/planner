@@ -1,18 +1,8 @@
-class User
-  def has_permission?(*) # rubocop:disable Style/PredicateName
-    false
-  end
+# frozen_string_literal: true
+class User < ActiveRecord::Base
+  PENSION_WISE_API_PERMISSION = 'pension_wise_api_user'
 
-  def permissions
-    []
-  end
+  include GDS::SSO::User
 
-  def update_attribute(*)
-  end
-
-  def clear_remotely_signed_out!
-  end
-
-  def remotely_signed_out?
-  end
+  serialize :permissions, Array
 end

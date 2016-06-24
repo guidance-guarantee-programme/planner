@@ -20,3 +20,7 @@ Rails:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/requests/*'
