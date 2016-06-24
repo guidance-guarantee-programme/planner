@@ -84,6 +84,6 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def and_the_customer_receives_a_confirmation_email
-    skip
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
   end
 end

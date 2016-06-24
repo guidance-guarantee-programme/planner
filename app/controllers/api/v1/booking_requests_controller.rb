@@ -6,7 +6,8 @@ module Api
       before_action :authorise_api_user!
 
       def create
-        BookingRequest.create!(booking_request_params)
+        booking_request = BookingRequest.create!(booking_request_params)
+        BookingRequests.customer(booking_request).deliver_later
 
         head :created
       end

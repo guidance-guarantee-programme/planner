@@ -1,0 +1,39 @@
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Dear <%= @booking_request.name %>,</p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Thank you for requesting a
+guidance appointment with Pension Wise, we'll confirm the appointment slot
+within the next two working days.</p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Your first choice is<br><strong
+   class="emphasize" style="font-size: 24px;"><%= @booking_request.primary_slot %></strong></p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Your second choice is<br><strong
+  class="emphasize" style="font-size: 24px;"><%= @booking_request.secondary_slot %></strong></p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Your third choice is<br><strong
+  class="emphasize" style="font-size: 24px;"><%= @booking_request.tertiary_slot
+  %></strong></p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Your contact number<br> <strong
+class="emphasize" style="font-size: 24px;"><%= @booking_request.phone %></strong></p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Your memorable word<br> <strong
+class="emphasize" style="font-size: 24px;"><%= @booking_request.memorable_word
+%></strong></p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">Your reference number<br> <strong
+class="emphasize" style="font-size: 24px;"><%=
+  @booking_request.reference %></strong></p>
+
+<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
+0;font-size: 16px;line-height: 1.315789474;">To cancel or change your
+appointment, or if any of the information above isn't correct, call 0800 138
+3944 or reply to this email.</p>
