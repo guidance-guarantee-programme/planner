@@ -6,13 +6,21 @@ module Api
       before_action :authorise_api_user!
 
       def create
-        booking_request = BookingRequest.create!(booking_request_params)
-        BookingRequests.customer(booking_request).deliver_later
+        booking_request = BookingRequest.new(booking_request_params)
 
-        head :created
+        if booking_request.save
+          BookingRequests.customer(booking_request).deliver_later
+          head :created
+        else
+          render_errors(booking_request)
+        end
       end
 
       private
+
+      def render_errors(booking_request)
+        render json: { errors: booking_request.errors }, status: :unprocessable_entity
+      end
 
       def booking_request_params # rubocop:disable Metrics/MethodLength
         params.require(:booking_request).permit(

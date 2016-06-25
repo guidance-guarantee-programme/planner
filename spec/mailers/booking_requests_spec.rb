@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BookingRequests do
   describe 'Customer notification' do
-    let(:booking_request) { create(:booking_request_with_slots) }
+    let(:booking_request) { create(:booking_request) }
 
     subject(:mail) { BookingRequests.customer(booking_request) }
 

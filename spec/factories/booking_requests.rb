@@ -12,10 +12,10 @@ FactoryGirl.define do
     marketing_opt_in false
     defined_contribution_pot true
 
-    factory :booking_request_with_slots do
-      after(:create) do |booking_request|
-        3.times { |i| create(:slot, priority: i + 1, booking_request: booking_request) }
-      end
+    after(:build) do |booking_request|
+      booking_request.slots << build(:slot, priority: 1)
+      booking_request.slots << build(:slot, priority: 2)
+      booking_request.slots << build(:slot, priority: 3)
     end
   end
 end
