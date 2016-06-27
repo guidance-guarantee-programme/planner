@@ -10,6 +10,13 @@ RSpec.describe 'POST /api/v1/booking_requests' do
     and_the_customer_receives_a_confirmation_email
   end
 
+  scenario 'attempting to create an invalid booking request' do
+    given_the_client_identifies_as_pension_wise
+    when_an_invalid_booking_request_is_made
+    then_the_service_responds_with_a_422
+    and_the_errors_are_serialized_as_json
+  end
+
   def given_the_client_identifies_as_pension_wise
     create(:pension_wise_api_user)
   end
@@ -85,5 +92,33 @@ RSpec.describe 'POST /api/v1/booking_requests' do
 
   def and_the_customer_receives_a_confirmation_email
     expect(ActionMailer::Base.deliveries.count).to eq(1)
+  end
+
+  def when_an_invalid_booking_request_is_made
+    invalid_payload = {
+      'booking_request' => {
+        'location_id' => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
+        'slots' => [
+          {
+            'date' => '2016-01-01',
+            'from' => '0900',
+            'to' => '1300',
+            'priority' => 1
+          }
+        ]
+      }
+    }
+
+    post api_v1_booking_requests_path(format: :json), invalid_payload.as_json
+  end
+
+  def then_the_service_responds_with_a_422
+    expect(response).to be_unprocessable
+  end
+
+  def and_the_errors_are_serialized_as_json
+    json = JSON.parse(response.body)
+
+    expect(json['errors']['name']).to be
   end
 end
