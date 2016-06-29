@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Planner</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+<% end %>
 
-<%= yield %>
+<%= content_for :app_title do %>
+  Appointment Planner
+<% end %>
 
-</body>
-</html>
+<%= content_for :navbar_items do %>
+  <li>
+    <%= link_to 'Booking Requests', booking_requests_index_path %>
+  </li>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_include_tag 'application' %>
+<% end %>
+
+<%= render template: 'layouts/govuk_admin_template' %>
