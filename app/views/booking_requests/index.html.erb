@@ -40,7 +40,7 @@
                 <%= booking_request.reference %>
               </td>
               <td>
-                <a href="#" class="btn btn-primary">Fulfil</a>
+                <%= link_to("Fulfil", booking_requests_show_path(:id => booking_request.id), class: 'btn btn-primary') %>
               </td>
             </tr>
           <% end %>
