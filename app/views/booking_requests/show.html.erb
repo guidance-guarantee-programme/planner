@@ -5,7 +5,10 @@
     <li class="active"><%= @booking_request.name %></li>
   </ol>
 
-  <h1>Make appointment for <%= @booking_request.name %></h1>
+  <h1>
+    Make appointment for <%= @booking_request.name %><br>
+    <small>Booking reference: <%= @booking_request.id %></small>
+  </h1>
 </div>
 
 <div class="row">
@@ -25,6 +28,9 @@
 
     <h4>Requested location:</h4>
     <p class="lead"><strong><a href="https://www.pensionwise.gov.uk/locations/<%= @booking_request.location_id %>">Hackney Central</a></strong></p>
+
+    <h4>Memorable word:</h4>
+    <p class="lead"><strong><%= @booking_request.memorable_word %></strong></p>
 
     <h4>Age range:</h4>
     <p class="lead"><strong><%= @booking_request.age_range %></strong></p>
