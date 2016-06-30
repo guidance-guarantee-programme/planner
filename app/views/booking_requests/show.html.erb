@@ -1,0 +1,119 @@
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= booking_requests_index_path %>">Booking requests</a></li>
+    <li class="active"><%= @booking_request.name %></li>
+  </ol>
+
+  <h1>Make appointment for <%= @booking_request.name %></h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="lead">If no appointments are available within the customer's preferences, please contact the customer directly to find a suitable time slot, and return to this page to make the appointment.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3>Customer details</h3>
+    <p class="lead">
+      <%= @booking_request.name %><br>
+      <a href="mailto:<%= @booking_request.email %>"><%= @booking_request.email %></a><br>
+      <%= @booking_request.phone %>
+    </p>
+
+    <h4>Requested location:</h4>
+    <p class="lead"><strong><a href="https://www.pensionwise.gov.uk/locations/<%= @booking_request.location_id %>">Hackney Central</a></strong></p>
+
+    <h4>Age range:</h4>
+    <p class="lead"><strong><%= @booking_request.age_range %></strong></p>
+
+    <h4>Accessibility requirements:</h4>
+    <p class="lead"><strong><%= accessibility_requirements(@booking_request.accessibility_requirements) %></strong></p>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Slots requested</h3>
+    <p>The customer has requested the following time slots, in order of preference.</p>
+
+    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>1</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date"><%= @booking_request.slots[0].date.strftime('%A, %b %e') %></p>
+            <p class="SlotPicker-time">
+            <%= @booking_request.slots[0].period.capitalize %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>2</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date"><%= @booking_request.slots[1].date.strftime('%A, %b %e') %></p>
+            <p class="SlotPicker-time">
+            <%= @booking_request.slots[1].period.capitalize %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>3</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date"><%= @booking_request.slots[2].date.strftime('%A, %b %e') %></p>
+            <p class="SlotPicker-time">
+            <%= @booking_request.slots[2].period.capitalize %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="well">
+      <h3>Appointment details</h3>
+      <form>
+        <div class="form-group">
+          <label for="guider">Guider:</label>
+          <select name="guider" id="guider" class="form-control">
+            <option>Robin Arsenal</option>
+            <option>Ben Barnett</option>
+            <option>Smokey Robinson</option>
+            <option>John Cleese</option>
+            <option>Barry White</option>
+            <option>Stewie Griffin</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="location_id">Location:</label>
+          <select name="location_id" id="location_id" class="form-control">
+            <option>Dalston</option>
+            <option selected>Hackney Central</option>
+            <option>Walthamstow</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date of appointment:</label>
+          <input type="date" class="form-control" name="date" id="date" value="<%= Date.today %>">
+        </div>
+
+        <div class="form-group">
+          <label for="time">Time of appointment:</label>
+          <div class="form-control">
+            <%= time_select "appointment", "time", { minute_step: 15 } %>
+          </div>
+        </div>
+
+        <button type="submit" value="submit" class="btn btn-primary btn-block">
+          Make appointment and notify<br><%= @booking_request.name %>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
