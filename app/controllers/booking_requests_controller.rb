@@ -6,4 +6,8 @@ class BookingRequestsController < ApplicationController
   def show
     @booking_request = BookingRequest.find(params[:id])
   end
+
+  def scheduler
+    @booking_request = BookingRequest.find(params[:id])
+  end
 end

@@ -12,4 +12,11 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bo
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( moj.slot-picker/dist/stylesheets/**/*.png )
+Rails.application.config.assets.precompile += %w( moj.slot-picker/dist/stylesheets/**/*.png
+                                                  fullcalendar/dist/fullcalendar.css
+                                                  fullcalendar/dist/fullcalendar.print.css
+                                                  fullcalendar-scheduler/dist/scheduler.css
+                                                  moment/moment.js
+                                                  fullcalendar/dist/fullcalendar.js
+                                                  fullcalendar-scheduler/dist/scheduler.js
+                                                  scheduler.js)
