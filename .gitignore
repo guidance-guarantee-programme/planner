@@ -14,3 +14,7 @@
 
 # RSpec stuff
 spec/examples.txt
+
+# Node/Bower
+vendor/assets/bower_components
+node_modules

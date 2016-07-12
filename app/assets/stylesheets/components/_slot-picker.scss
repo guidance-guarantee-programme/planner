@@ -1,0 +1,56 @@
+@import "moj.slot-picker/dist/stylesheets/moj.slot-picker.ap";
+@import "moj.slot-picker/dist/stylesheets/moj.date-slider.ap";
+
+// scss-lint:disable SelectorFormat
+.BookingCalendar-dates {
+  margin: 0;
+}
+
+.BookingCalendar-legendDesc {
+  margin-top: 1em;
+}
+
+.SlotPicker--selected {
+  .SlotPicker-choiceInner {
+    padding-right: 0;
+  }
+}
+
+.SlotPicker-day {
+  font-size: 85%;
+  margin-left: 0;
+}
+
+.SlotPicker-label {
+  font-size: 13px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.SlotPicker-position {
+  font-size: 32px;
+  width: 48px;
+}
+
+.SlotPicker-position span {
+  margin-top: -0.7em;
+}
+
+.SlotPicker-choice .SlotPicker-choiceInner {
+  min-height: 50px;
+  padding: 7px;
+}
+
+.SlotPicker-choice.is-chosen .SlotPicker-choiceInner {
+  padding-left: 60px;
+  padding-right: 0;
+}
+
+.SlotPicker-choice.is-chosen .SlotPicker-choiceInner p {
+  font-size: 16px;
+}
+
+.SlotPicker-input {
+  display: none;
+}
+// scss-lint:enable SelectorFormat

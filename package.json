@@ -1,0 +1,9 @@
+{
+  "name": "planner",
+  "dependencies": {
+    "bower": "*"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
+  }
+}

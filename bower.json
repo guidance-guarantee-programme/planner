@@ -1,0 +1,7 @@
+{
+  "name": "planner",
+  "private": true,
+  "dependencies": {
+    "moj.slot-picker": "~0.22.2"
+  }
+}

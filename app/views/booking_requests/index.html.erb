@@ -1,0 +1,55 @@
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li class="active">Booking requests</li>
+  </ol>
+
+  <h1>Booking requests</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @booking_requests.empty? %>
+      <p class="no-content t-notice">No booking requests requiring attention.</p>
+    <% else %>
+      <table class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Requested</th>
+            <th>Customer name</th>
+            <th>Location</th>
+            <th>Slots</th>
+            <th>Reference</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @booking_requests.each do |booking_request| %>
+            <tr>
+              <td>
+                <%= time_ago_in_words(booking_request.updated_at) %> ago
+              </td>
+              <td>
+                <%= booking_request.name %>
+              </td>
+              <td>
+                <a href="https://www.pensionwise.gov.uk/locations/<%= booking_request.location_id %>"><%= booking_request.location_id %></a>
+              </td>
+              <td>
+                <%= booking_request.primary_slot %><br>
+                <%= booking_request.secondary_slot %><br>
+                <%= booking_request.tertiary_slot %>
+              </td>
+              <td>
+                <%= booking_request.reference %>
+              </td>
+              <td>
+                <%= link_to("Fulfil", booking_requests_show_path(:id => booking_request.id), class: 'btn btn-primary') %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
