@@ -23,10 +23,7 @@ $(function() {
     defaultView: 'agendaDay',
     now: '2016-07-12',
     allDaySlot: false,
-    eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
-    resourceRender: function(resourceObj, labelTds, bodyTds) {
-      console.log(resourceObj);
-    },
+    // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
     resources: (function() {
       var resources = [];
       for (var group in guiders) {
@@ -58,16 +55,12 @@ var guiders = {
 
 var constraints = {
   'Group1': {
-    id: 'constraint_Group1',
-    start: '2016-07-12T10:00:00',
-    end: '2016-07-12T16:00:00',
-    rendering: 'background'
+    start: '9',
+    end: '14'
   },
   'Group2': {
-    id: 'constraint_Group2',
-    start: '2016-07-12T11:00:00',
-    end: '2016-07-12T17:00:00',
-    rendering: 'background'
+    start: '12',
+    end: '18'
   }
 }
 
@@ -95,20 +88,34 @@ function eventsFor(group) {
   var customers = ['Ann Robinson', 'Geoffrey Cooper', 'Amanda Hart', 'Betty Swooble', 'Nigel Mansel', 'Barry White'];
   var events = [];
 
-  // Add the time constraints for this group
-  // events.push(constraints[group]);
-
   guidersFor(group).forEach(function(guider) {
+    // Add the time constraints for this group
+    events.push({
+      id: 'constraint_' + group + guider.id,
+      rendering: 'background',
+      start: constraints[group].start + ':00:00',
+      end: constraints[group].end + ':00:00',
+      resourceId: guider.id
+    });
+
     customers.forEach(function(name, i) {
+      startTime = randomTimeInConstraint(parseFloat(constraints[group].start), parseFloat(constraints[group].end));
+
       events.push({
         id: 'event' + group + guider.id + i,
         resourceId: guider.id,
-        start: '2016-07-12T' + (Math.floor(Math.random() * 13) + 6) + ':00:00',
+        start: '2016-07-12T' + startTime,
         title: name,
-        constraint: 'constraint_' + group
+        constraint: 'constraint_' + group + guider.id
       });
     });
   });
 
   return events;
+}
+
+
+function randomTimeInConstraint(start, end) {
+  var hour = start + Math.random() * (end - start) | 0;
+  return hour + ':00:00';
 }
