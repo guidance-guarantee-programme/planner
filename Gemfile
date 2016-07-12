@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
+gem 'booking_locations'
 gem 'gds-sso'
 gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'

@@ -9,7 +9,7 @@ module Api
         booking_request = BookingRequest.new(booking_request_params)
 
         if booking_request.save
-          BookingRequests.customer(booking_request).deliver_later
+          CustomerConfirmationJob.perform_later(booking_request)
           head :created
         else
           render_errors(booking_request)
