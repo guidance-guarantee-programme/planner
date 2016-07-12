@@ -12,6 +12,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'puma'
+gem 'foreman'
 
 group :development, :test do
   gem 'pry-byebug'
