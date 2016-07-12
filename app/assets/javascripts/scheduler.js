@@ -50,17 +50,22 @@ $(function() {
 
 var guiders = {
   'Group1': ['Ben Barnett', 'Ben Lovell', 'Matt Lucht', 'Tim Reichardt'],
-  'Group2': ['Mary Jones', 'David Henry', 'Chris Winfrey', 'Henry Kissinger', 'Harry Doylie']
+  'Group2': ['Mary Jones', 'David Henry', 'Chris Winfrey', 'Henry Kissinger', 'Harry Doylie'],
+  'Group3': ['Sally Murray', 'Beryl Clerk']
 };
 
 var constraints = {
   'Group1': {
-    start: '9',
-    end: '14'
+    start: 9,
+    end: 14
   },
   'Group2': {
-    start: '12',
-    end: '18'
+    start: 12,
+    end: 18
+  },
+  'Group3': {
+    start: 15,
+    end: 19
   }
 }
 
@@ -99,6 +104,9 @@ function eventsFor(group) {
     });
 
     customers.forEach(function(name, i) {
+      var randomSkipper = Math.random() * 2;
+      if (randomSkipper >= 1) return false;
+
       startTime = randomTimeInConstraint(parseFloat(constraints[group].start), parseFloat(constraints[group].end));
 
       events.push({
