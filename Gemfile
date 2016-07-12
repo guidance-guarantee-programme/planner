@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'puma'
 gem 'foreman'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry-byebug'
