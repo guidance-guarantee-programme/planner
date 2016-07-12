@@ -1,0 +1,24 @@
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag "fullcalendar/dist/fullcalendar" %>
+  <%= stylesheet_link_tag "fullcalendar-scheduler/dist/scheduler" %>
+<% end %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= booking_requests_index_path %>">Booking requests</a></li>
+    <li><%= link_to(@booking_request.name, booking_requests_show_path(:id => @booking_request.id)) %></li>
+    <li class="active">Find a slot</li>
+  </ol>
+
+  <h1>
+    Find a time for <%= @booking_request.name %><br>
+    <small>Booking reference: <%= @booking_request.id %></small>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="calendar"></div>
+  </div>
+</div>

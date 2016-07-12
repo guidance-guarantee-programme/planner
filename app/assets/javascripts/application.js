@@ -10,4 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require moment/moment
+//= require fullcalendar/dist/fullcalendar
+//= require fullcalendar-scheduler/dist/scheduler
+
 //= require_tree .
