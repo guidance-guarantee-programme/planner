@@ -79,4 +79,17 @@ Rails.application.configure do
 
   # Active Job queue adapter
   config.active_job.queue_adapter = :sidekiq
+
+  # Configure email delivery using Mailgun
+  config.action_mailer.smtp_settings = {
+    port: ENV['MAILGUN_SMTP_PORT'],
+    address: ENV['MAILGUN_SMTP_SERVER'],
+    user_name: ENV['MAILGUN_SMTP_LOGIN'],
+    password: ENV['MAILGUN_SMTP_PASSWORD'],
+    domain: 'pensionwise.gov.uk',
+    authentication: :plain
+  }
+
+  # Configure email delivery method
+  config.action_mailer.delivery_method = :smtp
 end
