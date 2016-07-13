@@ -10,9 +10,3 @@ begin
   RuboCop::RakeTask.new(:default)
 rescue LoadError
 end
-
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:default)
-rescue LoadError
-end
