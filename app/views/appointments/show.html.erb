@@ -1,0 +1,139 @@
+<%
+appointment = random_appointment
+%>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= appointments_index_path %>">Appointments</a></li>
+    <li class="active"><%= appointment[:name] %></li>
+  </ol>
+
+  <h1>
+    Modify/cancel appointment for <%= appointment[:name] %><br>
+    <small>Booking reference: <%= appointment[:id] %></small>
+  </h1>
+</div>
+
+<div class="row">
+
+
+  <div class="col-md-4">
+    <h3>Change appointment details</h3>
+    <p class="lead">Use the form below to change the details of the appointment.</p>
+
+    <form>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="form-control" value="<%= appointment[:name] %>">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" class="form-control" value="<%= appointment[:email] %>">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" id="phone" class="form-control" value="<%= appointment[:phone] %>">
+      </div>
+
+      <div class="form-group">
+        <label for="guider_id">Guider:</label>
+        <select name="guider_id" id="guider_id" class="form-control">
+          <% ["Ben Barnett", "Ben Lovell", "Matt Lucht"].each do |guider| %>
+          <option <%= 'selected' if guider == appointment[:guider] %>><%= guider %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="location_id">Location:</label>
+        <select name="location_id" id="location_id" class="form-control">
+          <option>Dalston</option>
+          <option selected>Hackney Central</option>
+          <option>Walthamstow</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date of appointment:</label>
+        <input type="date" class="form-control" name="date" id="date" value="<%= Date.today %>">
+      </div>
+
+      <div class="form-group">
+        <label for="time">Time of appointment:</label>
+        <div class="form-control">
+          <%= time_select "appointment", "time", { minute_step: 15 } %>
+        </div>
+      </div>
+
+      <button type="submit" value="submit" class="btn btn-primary btn-block">
+        Update appointment and notify<br><%= appointment[:name] %>
+      </button>
+    </form>
+  </div>
+
+  <div class="col-md-4">
+    <h3>After the appointment</h3>
+    <p class="lead">Appointment finished? Update the status below.</p>
+
+    <form>
+      <div class="form-group">
+        <label for="location_id">Appointment status:</label>
+        <select name="location_id" id="location_id" class="form-control">
+          <option selected>Booked</option>
+          <option>Completed</option>
+          <option>Ineligible</option>
+          <option>Cancelled – customer request</option>
+          <option>Cancelled – guider request</option>
+          <option>Cancelled – no show</option>
+        </select>
+      </div>
+
+      <button type="submit" value="submit" class="btn btn-success btn-block">
+        Update status
+      </button>
+    </form>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Original slots requested</h3>
+    <p>For reference, the slots originally requested by the customer are shown below:</p>
+
+    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>1</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date"><%= appointment[:slots][0][:date].strftime('%A, %b %e') %></p>
+            <p class="SlotPicker-time">
+            <%= appointment[:slots][0][:period].capitalize %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>2</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date"><%= appointment[:slots][1][:date].strftime('%A, %b %e') %></p>
+            <p class="SlotPicker-time">
+            <%= appointment[:slots][1][:period].capitalize %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>3</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date"><%= appointment[:slots][2][:date].strftime('%A, %b %e') %></p>
+            <p class="SlotPicker-time">
+            <%= appointment[:slots][2][:period].capitalize %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
