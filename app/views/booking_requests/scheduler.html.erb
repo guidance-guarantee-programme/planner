@@ -1,6 +1,10 @@
 <% content_for(:head) do %>
   <%= stylesheet_link_tag "fullcalendar/dist/fullcalendar" %>
   <%= stylesheet_link_tag "fullcalendar-scheduler/dist/scheduler" %>
+
+  <script>
+  var guiders = <%= guiders_hash %>
+  </script>
 <% end %>
 
 <div class="page-header">
@@ -56,7 +60,15 @@
 
   <div class="col-md-12">
     <br>
-    <p><a href="#" class="btn btn-primary btn-block">Confirm slot & continue</a></p>
+    <p>
+      <%= form_tag(url_for(booking_requests_show_path(:id => @booking_request.id)), method: 'get') do -%>
+        <%= hidden_field_tag 'id', @booking_request.id %>
+        <%= hidden_field_tag 'guider_id' %>
+        <%= hidden_field_tag 'datetime' %>
+
+        <%= submit_tag 'Confirm slot and continue', class: 'btn btn-primary btn-block' %>
+      <% end -%>
+    </p>
     <div id="calendar" class="scheduler" data-name="<%= @booking_request.name %>"></div>
   </div>
 </div>

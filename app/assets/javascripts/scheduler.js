@@ -2,7 +2,6 @@ $(function() {
   $('#calendar').fullCalendar({
     schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
     aspectRatio: 2,
-    height: '100%',
     editable: false,
     scrollTime: '07:00',
     header: {
@@ -50,6 +49,9 @@ $(function() {
           color: '#c00',
           editable: true
         });
+
+        $('#guider_id').val(guider.id);
+        $('#datetime').val(chosenTime);
       }
     },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
@@ -76,12 +78,6 @@ $(function() {
     }())
   });
 });
-
-var guiders = {
-  'Group1': ['Ben Barnett', 'Ben Lovell', 'Matt Lucht', 'Tim Reichardt'],
-  'Group2': ['Mary Jones', 'David Henry', 'Chris Winfrey', 'Henry Kissinger', 'Harry Doylie'],
-  'Group3': ['Sally Murray', 'Beryl Clerk']
-};
 
 /**
  * An array of possible appointment start times for each group
