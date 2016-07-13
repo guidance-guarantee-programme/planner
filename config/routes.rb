@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'appointments/index'
+
+  get 'appointments/show'
+
   root 'booking_requests#index'
 
   get 'booking_requests/index'
