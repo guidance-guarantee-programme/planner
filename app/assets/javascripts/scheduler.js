@@ -7,8 +7,19 @@ $(function() {
     scrollTime: '07:00',
     header: {
       left: 'today prev,next',
-      center: 'title'
+      center: 'title',
+      right: 'agendaDay, timelineDay'
     },
+    views: {
+      agendaDay: {
+        buttonText: 'Vertical',
+      },
+      timelineDay: {
+        buttonText: 'Horizontal'
+      }
+    },
+    resourceLabelText: 'Guiders',
+    resourceGroupField: 'group',
     slotDuration: '00:10',
     defaultTimedEventDuration: '01:00',
     forceEventDuration: true,
