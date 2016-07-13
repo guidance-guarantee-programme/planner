@@ -30,6 +30,15 @@ $(function() {
         var chosenTime = event.start.format();
 
         console.log('Chosen time with ' + guider.title + ' at ' + chosenTime);
+        $('#calendar').fullCalendar('removeEvents', 'selectedEvent');
+        $('#calendar').fullCalendar('renderEvent', {
+          id: 'selectedEvent',
+          resourceId: event.resourceId,
+          title: $('#calendar').data('name'),
+          start: chosenTime,
+          color: '#c00',
+          editable: true
+        });
       }
     },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
