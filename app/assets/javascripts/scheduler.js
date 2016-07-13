@@ -3,7 +3,7 @@ $(function() {
     schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
     aspectRatio: 2,
     height: '100%',
-    editable: true,
+    editable: false,
     scrollTime: '07:00',
     header: {
       left: 'today prev,next',
@@ -23,8 +23,14 @@ $(function() {
     defaultView: 'agendaDay',
     now: '2016-07-12',
     allDaySlot: false,
-    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
-      console.log(event)
+    selectable: true,
+    selectOverlap: function(event) {
+      if (event.rendering === 'background') {
+        var guider = $('#calendar').fullCalendar('getResourceById', event.resourceId);
+        var chosenTime = event.start.format();
+
+        console.log('Chosen time with ' + guider.title + ' at ' + chosenTime);
+      }
     },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
     resources: (function() {
@@ -102,7 +108,7 @@ function eventsFor(group) {
         resourceId: guider.id
       });
 
-      // Randomly add events to each of these slots to demo availability
+      // Randomly add appointments to each of these slots to demo availability
       var randomSkipper = Math.random() * 3;
       if (randomSkipper < 2) {
         var randomCustomer = customers[Math.floor(Math.random()*customers.length)];

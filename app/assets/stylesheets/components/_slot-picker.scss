@@ -16,6 +16,11 @@
   }
 }
 
+.SlotPicker--horizontal {
+  min-height: 0 !important;
+  margin-bottom: 2em;
+}
+
 .SlotPicker-day {
   font-size: 85%;
   margin-left: 0;

@@ -1,4 +1,15 @@
+.scheduler {
+  margin-top: 2em;
+}
+
 .fc-unthemed {
   .fc-divider {
+  }
+
+  .fc-bgevent {
+    &:hover {
+      background: orange;
+      cursor: pointer;
+    }
   }
 }
