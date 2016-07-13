@@ -11,6 +11,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'puma'
+gem 'foreman'
+gem 'sidekiq'
+gem 'bugsnag'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -21,4 +25,8 @@ end
 group :development do
   gem 'rubocop'
   gem 'web-console', '~> 2.0'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
