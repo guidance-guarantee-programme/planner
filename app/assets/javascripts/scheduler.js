@@ -1,7 +1,7 @@
 $(function() {
   $('#calendar').fullCalendar({
     schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-    aspectRatio: 3,
+    aspectRatio: 2,
     height: '100%',
     editable: true,
     scrollTime: '07:00',
@@ -9,7 +9,7 @@ $(function() {
       left: 'today prev,next',
       center: 'title'
     },
-    slotDuration: '01:00',
+    slotDuration: '00:10',
     defaultTimedEventDuration: '01:00',
     forceEventDuration: true,
     businessHours: {
@@ -19,10 +19,13 @@ $(function() {
     },
     minTime: '08:00',
     maxTime: '19:00',
-    snapDuration: '00:30',
+    snapDuration: '00:10',
     defaultView: 'agendaDay',
     now: '2016-07-12',
     allDaySlot: false,
+    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
+      console.log(event)
+    },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
     resources: (function() {
       var resources = [];
@@ -54,19 +57,15 @@ var guiders = {
   'Group3': ['Sally Murray', 'Beryl Clerk']
 };
 
-var constraints = {
-  'Group1': {
-    start: 9,
-    end: 14
-  },
-  'Group2': {
-    start: 12,
-    end: 18
-  },
-  'Group3': {
-    start: 15,
-    end: 19
-  }
+/**
+ * An array of possible appointment start times for each group
+ * A guider is always assigned to a group
+ * @type {Object}
+ */
+var schedule = {
+  'Group1': ['08:30', '09:50', '11:20', '13:30', '14:50'],
+  'Group2': ['09:30', '10:50', '12:20', '14:30', '15:50'],
+  'Group3': ['11:20', '12:20', '13:50', '16:00', '17:20']
 }
 
 /**
@@ -94,36 +93,32 @@ function eventsFor(group) {
   var events = [];
 
   guidersFor(group).forEach(function(guider) {
-    // Add the time constraints for this group
-    events.push({
-      id: 'constraint_' + group + guider.id,
-      rendering: 'background',
-      start: constraints[group].start + ':00:00',
-      end: constraints[group].end + ':00:00',
-      resourceId: guider.id
-    });
-
-    customers.forEach(function(name, i) {
-      var randomSkipper = Math.random() * 2;
-      if (randomSkipper >= 1) return false;
-
-      startTime = randomTimeInConstraint(parseFloat(constraints[group].start), parseFloat(constraints[group].end));
-
+    // Add the potential schedule for this group
+    schedule[group].forEach(function(potentialSlot, i) {
       events.push({
-        id: 'event' + group + guider.id + i,
-        resourceId: guider.id,
-        start: '2016-07-12T' + startTime,
-        title: name,
-        constraint: 'constraint_' + group + guider.id
+        id: 'potential_' + group + guider.id + i,
+        rendering: 'background',
+        start: potentialSlot,
+        resourceId: guider.id
       });
+
+      // Randomly add events to each of these slots to demo availability
+      var randomSkipper = Math.random() * 3;
+      if (randomSkipper < 2) {
+        var randomCustomer = customers[Math.floor(Math.random()*customers.length)];
+
+        events.push({
+          id: 'event' + group + guider.id + i,
+          resourceId: guider.id,
+          start: '2016-07-12T' + potentialSlot,
+          title: randomCustomer,
+          group: group,
+          guider: guider.id
+        });
+      }
     });
+
   });
 
   return events;
-}
-
-
-function randomTimeInConstraint(start, end) {
-  var hour = start + Math.random() * (end - start) | 0;
-  return hour + ':00:00';
 }
