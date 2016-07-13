@@ -17,6 +17,9 @@ Dir.chdir APP_ROOT do
   #   system "cp config/database.yml.sample config/database.yml"
   # end
 
+  puts "\n== Installing Node.js dependencies =="
+  system "npm install"
+
   puts "\n== Preparing database =="
   system "bin/rake db:setup"
 

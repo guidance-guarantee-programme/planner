@@ -2,7 +2,14 @@ sudo: false
 language: ruby
 cache:
   bundler: true
+  directories:
+  - node_modules
+  - tmp/cache/assets/test
+  - vendor/assets/bower_components
+node_js:
+  - "0.10"
 before_script:
+  - npm install
   - "bundle exec rake db:create db:migrate RAILS_ENV=test"
 notifications:
   slack:
