@@ -14,6 +14,7 @@ gem 'turbolinks'
 gem 'puma'
 gem 'foreman'
 gem 'sidekiq'
+gem 'bugsnag'
 
 group :development, :test do
   gem 'pry-byebug'

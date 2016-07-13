@@ -42,6 +42,7 @@ GEM
       debug_inspector (>= 0.0.1)
     booking_locations (0.2.1)
       activesupport (>= 4, < 5.1)
+    bugsnag (4.2.1)
     builder (3.2.2)
     byebug (8.2.4)
     coderay (1.1.1)
@@ -242,6 +243,7 @@ PLATFORMS
 
 DEPENDENCIES
   booking_locations
+  bugsnag
   coffee-rails (~> 4.1.0)
   factory_girl_rails
   foreman
