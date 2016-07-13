@@ -17,9 +17,11 @@ gem 'sidekiq'
 gem 'bugsnag'
 
 group :development, :test do
+  gem 'capybara'
   gem 'pry-byebug'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'site_prism'
 end
 
 group :development do

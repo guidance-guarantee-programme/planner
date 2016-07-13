@@ -18,5 +18,9 @@ FactoryGirl.define do
       booking_request.slots << build(:slot, priority: 2)
       booking_request.slots << build(:slot, priority: 3)
     end
+
+    factory :hackney_booking_request do
+      location_id 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef'
+    end
   end
 end
