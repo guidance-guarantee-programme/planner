@@ -13,6 +13,10 @@
 </div>
 
 <div class="row">
+  <div class="col-md-12">
+    <p class="lead">Choose an available slot on the calendar to create the appointment:</p>
+  </div>
+
   <div class="col-md-4">
     <div class="SlotPicker-choice is-chosen">
       <div class="SlotPicker-choiceInner">
@@ -25,7 +29,6 @@
       </div>
     </div>
   </div>
-
   <div class="col-md-4">
     <div class="SlotPicker-choice is-chosen">
       <div class="SlotPicker-choiceInner">
@@ -38,7 +41,6 @@
       </div>
     </div>
   </div>
-
   <div class="col-md-4">
     <div class="SlotPicker-choice is-chosen">
       <div class="SlotPicker-choiceInner">
@@ -51,10 +53,10 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="row">
   <div class="col-md-12">
-    <div id="calendar" class="scheduler"></div>
+    <br>
+    <p><a href="#" class="btn btn-primary btn-block">Confirm slot & continue</a></p>
+    <div id="calendar" class="scheduler" data-name="<%= @booking_request.name %>"></div>
   </div>
 </div>
