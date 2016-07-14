@@ -24,6 +24,7 @@ module Api
 
       def booking_request_params # rubocop:disable Metrics/MethodLength
         params.require(:booking_request).permit(
+          :booking_location_id,
           :location_id,
           :name,
           :email,

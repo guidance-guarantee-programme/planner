@@ -6,6 +6,7 @@ class BookingRequest < ActiveRecord::Base
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false
 
   validates :name, presence: true
+  validates :booking_location_id, presence: true
   validates :location_id, presence: true
   validates :email, presence: true
   validates :phone, presence: true
