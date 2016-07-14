@@ -24,6 +24,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   def when_a_valid_booking_request_is_made
     valid_payload = {
       'booking_request' => {
+        'booking_location_id' => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
         'location_id' => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
         'name' => 'Morty Sanchez',
         'email' => 'morty@example.com',
@@ -63,6 +64,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
     @booking = BookingRequest.last
 
     expect(@booking).to have_attributes(
+      booking_location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
       location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
       name: 'Morty Sanchez',
       email: 'morty@example.com',

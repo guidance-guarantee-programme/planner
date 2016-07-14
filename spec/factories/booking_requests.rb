@@ -2,6 +2,7 @@ require 'securerandom'
 
 FactoryGirl.define do
   factory :booking_request do
+    booking_location_id { SecureRandom.uuid }
     location_id { SecureRandom.uuid }
     name 'Morty Sanchez'
     email 'morty@example.com'
