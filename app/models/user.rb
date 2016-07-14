@@ -6,4 +6,9 @@ class User < ActiveRecord::Base
   include GDS::SSO::User
 
   serialize :permissions, Array
+
+  has_many :booking_requests,
+           -> { order(:created_at).includes(:slots) },
+           primary_key: :organisation_content_id,
+           foreign_key: :booking_location_id
 end

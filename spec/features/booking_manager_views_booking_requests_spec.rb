@@ -30,10 +30,9 @@ RSpec.feature 'Viewing Booking Requests' do
   end
 
   def then_they_are_shown_booking_requests_for_their_locations
-    pending 'bind booking requests'
-
     @page = Pages::BookingRequests.new
     expect(@page).to be_displayed
-    expect(@page).to have_booking_requests
+    expect(@page).to have_booking_requests(count: 1)
+    expect(@page).to have_content('Hackney')
   end
 end

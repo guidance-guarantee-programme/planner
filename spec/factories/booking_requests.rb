@@ -20,6 +20,7 @@ FactoryGirl.define do
     end
 
     factory :hackney_booking_request do
+      booking_location_id 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef'
       location_id 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef'
     end
   end
