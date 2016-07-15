@@ -9,6 +9,6 @@ class BookingRequestsController < ApplicationController
   private
 
   def booking_location
-    BookingLocations.find(current_user.organisation_content_id)
+    BookingLocations.find(current_user.booking_location_id)
   end
 end

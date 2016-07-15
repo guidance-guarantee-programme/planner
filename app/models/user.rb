@@ -11,4 +11,6 @@ class User < ActiveRecord::Base
            -> { order(:created_at).includes(:slots) },
            primary_key: :organisation_content_id,
            foreign_key: :booking_location_id
+
+  alias_attribute :booking_location_id, :organisation_content_id
 end
