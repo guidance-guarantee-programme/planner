@@ -21,6 +21,4 @@ Rails.application.config.assets.paths << Rails.root.join(
   'vendor'
 )
 
-Rails.application.config.assets.precompile << %w(moj.slot-picker/dist/stylesheets/**/*.png
-                                                 moj.slot-picker/dist/stylesheets/moj.slot-picker.ap
-                                                 moj.slot-picker/dist/stylesheets/moj.date-slider.ap)
+Rails.application.config.assets.precompile << 'moj.slot-picker/dist/stylesheets/**/*.png'
