@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'bookings@pensionwise.gov.uk'
+  default from: 'appointments@pensionwise.gov.uk'
   layout 'mailer'
 end
