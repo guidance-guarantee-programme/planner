@@ -31,8 +31,13 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page).to be_displayed
   end
 
-  def and_they_see_the_customer_details
-    skip
+  def and_they_see_the_customer_details # rubocop:disable Metrics/AbcSize
+    expect(@page.name.text).to eq(@booking_request.name)
+    expect(@page.reference.text).to eq(@booking_request.reference)
+    expect(@page.email.text).to eq(@booking_request.email)
+    expect(@page.location.text).to eq('Hackney')
+    expect(@page.memorable_word.text).to eq(@booking_request.memorable_word)
+    expect(@page.age_range.text).to eq(@booking_request.age_range)
   end
 
   def and_they_see_the_requested_slots
