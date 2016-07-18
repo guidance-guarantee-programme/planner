@@ -3,6 +3,8 @@ module Pages
     set_url '/booking_requests'
     set_url_matcher %r{/\z|/booking_requests\z}
 
-    elements :booking_requests, '.t-booking-request'
+    sections :booking_requests, '.t-booking-request' do
+      element :fulfil, '.t-fulfil'
+    end
   end
 end

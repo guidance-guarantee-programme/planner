@@ -44,7 +44,7 @@
                 <%= booking_request.reference %>
               </td>
               <td>
-                <%= link_to('Fulfil', root_path, class: 'btn btn-primary') %>
+                <%= link_to('Fulfil', new_booking_request_appointment_path(booking_request), class: 'btn btn-primary t-fulfil') %>
               </td>
             </tr>
           <% end %>
