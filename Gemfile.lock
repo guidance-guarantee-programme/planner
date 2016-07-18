@@ -43,7 +43,7 @@ GEM
       execjs
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    booking_locations (0.2.1)
+    booking_locations (0.3.0)
       activesupport (>= 4, < 5.1)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
