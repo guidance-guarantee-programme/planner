@@ -12,7 +12,7 @@ RSpec.describe BookingRequests do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment Request')
       expect(mail.to).to eq([booking_request.email])
-      expect(mail.from).to eq(['bookings@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
     end
 
     describe 'rendering the body' do
