@@ -5,10 +5,4 @@ class BookingRequestsController < ApplicationController
       booking_location
     ).all
   end
-
-  private
-
-  def booking_location
-    BookingLocations.find(current_user.booking_location_id)
-  end
 end
