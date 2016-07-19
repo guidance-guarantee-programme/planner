@@ -20,15 +20,15 @@ class BookingRequest < ActiveRecord::Base
   alias reference to_param
 
   def primary_slot
-    slots.first&.to_s
+    slots.first
   end
 
   def secondary_slot
-    slots.second&.to_s
+    slots.second
   end
 
   def tertiary_slot
-    slots.third&.to_s
+    slots.third
   end
 
   private
