@@ -54,8 +54,8 @@
         <div class="SlotPicker-choiceInner">
           <div class="SlotPicker-position"><span>1</span></div>
           <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date">TODO</p>
-            <p class="SlotPicker-time">TODO</p>
+            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
           </div>
         </div>
       </div>
@@ -64,8 +64,8 @@
         <div class="SlotPicker-choiceInner">
           <div class="SlotPicker-position"><span>2</span></div>
           <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date">TODO</p>
-            <p class="SlotPicker-time">TODO</p>
+            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
           </div>
         </div>
       </div>
@@ -74,8 +74,8 @@
         <div class="SlotPicker-choiceInner">
           <div class="SlotPicker-position"><span>3</span></div>
           <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date">TODO</p>
-            <p class="SlotPicker-time">TODO</p>
+            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
           </div>
         </div>
       </div>

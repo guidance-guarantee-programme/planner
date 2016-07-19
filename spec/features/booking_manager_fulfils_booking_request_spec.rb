@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/AbcSize
 require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
@@ -31,7 +32,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page).to be_displayed
   end
 
-  def and_they_see_the_customer_details # rubocop:disable Metrics/AbcSize
+  def and_they_see_the_customer_details
     expect(@page.name.text).to eq(@booking_request.name)
     expect(@page.reference.text).to eq(@booking_request.reference)
     expect(@page.email.text).to eq(@booking_request.email)
@@ -41,7 +42,14 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_they_see_the_requested_slots
-    skip
+    expect(@page.slot_one_date.text).to eq(@booking_request.primary_slot.formatted_date)
+    expect(@page.slot_one_period.text).to eq(@booking_request.primary_slot.period)
+
+    expect(@page.slot_two_date.text).to eq(@booking_request.secondary_slot.formatted_date)
+    expect(@page.slot_two_period.text).to eq(@booking_request.secondary_slot.period)
+
+    expect(@page.slot_three_date.text).to eq(@booking_request.tertiary_slot.formatted_date)
+    expect(@page.slot_three_period.text).to eq(@booking_request.tertiary_slot.period)
   end
 
   def when_they_choose_a_guider

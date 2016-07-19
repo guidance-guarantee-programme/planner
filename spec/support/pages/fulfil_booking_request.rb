@@ -9,5 +9,12 @@ module Pages
     element :memorable_word, '.t-memorable-word'
     element :age_range, '.t-age-range'
     element :accessibility_requirements, '.t-accessibility'
+
+    element :slot_one_date,     '.t-slot-1-date'
+    element :slot_one_period,   '.t-slot-1-period'
+    element :slot_two_date,     '.t-slot-2-date'
+    element :slot_two_period,   '.t-slot-2-period'
+    element :slot_three_date,   '.t-slot-3-date'
+    element :slot_three_period, '.t-slot-3-period'
   end
 end
