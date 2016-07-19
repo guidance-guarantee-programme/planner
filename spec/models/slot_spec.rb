@@ -49,7 +49,7 @@ RSpec.describe Slot do
         to: '1300'
       )
 
-      expect(slot.to_s).to eq('1 January 2016 - morning')
+      expect(slot.to_s).to eq('1 January 2016 - Morning')
     end
   end
 end
