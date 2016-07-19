@@ -30,9 +30,9 @@ RSpec.describe BookingRequests do
       end
 
       it 'includes the three selected slots' do
-        expect(body).to include(booking_request.primary_slot)
-        expect(body).to include(booking_request.secondary_slot)
-        expect(body).to include(booking_request.tertiary_slot)
+        expect(body).to include(booking_request.primary_slot.to_s)
+        expect(body).to include(booking_request.secondary_slot.to_s)
+        expect(body).to include(booking_request.tertiary_slot.to_s)
       end
     end
   end
