@@ -85,17 +85,18 @@
   <div class="col-md-4">
     <div class="well">
       <h3>Appointment details</h3>
-      <form>
+      <%= form_for @appointment_form,
+        url: new_booking_request_appointment_path(@appointment_form.location_aware_booking_request),
+        as: :appointment do |f|
+      %>
         <div class="form-group">
-          <label for="guider">Guider:</label>
-          <select name="guider" id="guider" class="form-control">
-            <option>Robin Arsenal</option>
-            <option>Ben Barnett</option>
-            <option>Smokey Robinson</option>
-            <option>John Cleese</option>
-            <option>Barry White</option>
-            <option>Stewie Griffin</option>
-          </select>
+          <label for="guider_id">Guider:</label>
+          <%= f.select(
+            :guider_id,
+            options_from_collection_for_select(@appointment_form.guiders, 'id', 'name'),
+            { include_blank: true },
+            { class: 'form-control t-guider' }
+          ) %>
         </div>
 
         <div class="form-group">
@@ -119,7 +120,7 @@
         <button type="submit" value="submit" class="btn btn-primary btn-block">
           Make appointment and notify<br><%= @appointment_form.name %>
         </button>
-      </form>
+      <% end %>
     </div>
   </div>
 </div>

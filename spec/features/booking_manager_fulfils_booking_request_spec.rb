@@ -53,7 +53,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def when_they_choose_a_guider
-    skip
+    @page.guider.select('Ben Lovell')
   end
 
   def and_the_time_and_date_of_the_appointment
