@@ -6,7 +6,7 @@ RSpec.describe AppointmentForm do
   end
   let(:booking_request) do
     LocationAwareBookingRequest.new(
-      booking_request: build_stubbed(:booking_request),
+      booking_request: create(:booking_request),
       booking_location: hackney
     )
   end
@@ -40,6 +40,18 @@ RSpec.describe AppointmentForm do
       expect(FlattenedLocationMapper).to receive(:map).with(hackney)
 
       subject.flattened_locations
+    end
+  end
+
+  describe '#date' do
+    it 'defaults to the primary slot date' do
+      expect(subject.date).to eq(booking_request.primary_slot.date)
+    end
+  end
+
+  describe '#time' do
+    it 'defaults to the primary slot start time' do
+      expect(subject.time).to eq(booking_request.primary_slot.delimited_from)
     end
   end
 end

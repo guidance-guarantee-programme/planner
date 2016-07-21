@@ -3,17 +3,19 @@ require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
   scenario 'Bookings Manager fulfils a Booking Request' do
-    given_the_user_identifies_as_hackneys_booking_manager do
-      and_there_is_an_unfulfilled_booking_request
-      when_the_booking_manager_attempts_to_fulfil
-      then_they_are_shown_the_fulfilment_page
-      and_they_see_the_customer_details
-      and_they_see_the_requested_slots
-      when_they_choose_a_guider
-      and_the_location
-      and_the_time_and_date_of_the_appointment
-      then_the_appointment_is_created
-      and_the_customer_is_notified
+    travel_to '2016-06-19' do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_an_unfulfilled_booking_request
+        when_the_booking_manager_attempts_to_fulfil
+        then_they_are_shown_the_fulfilment_page
+        and_they_see_the_customer_details
+        and_they_see_the_requested_slots
+        when_they_choose_a_guider
+        and_the_location
+        and_the_time_and_date_of_the_appointment
+        then_the_appointment_is_created
+        and_the_customer_is_notified
+      end
     end
   end
 
@@ -66,7 +68,11 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_the_time_and_date_of_the_appointment
-    skip
+    # refine to 2016-06-20
+    @page.advance_date!
+
+    # refine time
+    @page.set_time(hour: 15, minute: 30)
   end
 
   def then_the_appointment_is_created
