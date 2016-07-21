@@ -26,6 +26,10 @@ class Slot < ActiveRecord::Base
     morning? ? 'Morning' : 'Afternoon'
   end
 
+  def delimited_from
+    from.insert(2, ':')
+  end
+
   private
 
   def validate_from_before_to

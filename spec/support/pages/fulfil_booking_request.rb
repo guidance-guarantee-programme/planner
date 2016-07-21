@@ -20,5 +20,20 @@ module Pages
     element :guider, '.t-guider'
 
     element :location, '.t-location'
+
+    element :date,        '.t-date'
+    element :time_hour,   '#appointment_time_4i'
+    element :time_minute, '#appointment_time_5i'
+
+    def advance_date!
+      chosen_date = Date.parse(date.value)
+
+      date.set(chosen_date.advance(days: 1))
+    end
+
+    def set_time(hour:, minute:)
+      time_hour.set(hour)
+      time_minute.set(minute)
+    end
   end
 end

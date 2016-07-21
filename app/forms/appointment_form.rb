@@ -20,6 +20,7 @@ class AppointmentForm
   attr_reader :location_aware_booking_request
   attr_reader :guider_id
   attr_reader :location_id
+  attr_reader :time
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 
@@ -32,5 +33,13 @@ class AppointmentForm
 
   def flattened_locations
     FlattenedLocationMapper.map(booking_location)
+  end
+
+  def date
+    @date ||= location_aware_booking_request.primary_slot.date
+  end
+
+  def time
+    @time ||= location_aware_booking_request.primary_slot.delimited_from
   end
 end

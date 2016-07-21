@@ -19,4 +19,5 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 
   config.include UserHelpers
+  config.include ActiveSupport::Testing::TimeHelpers
 end
