@@ -34,4 +34,12 @@ RSpec.describe AppointmentForm do
       expect(subject.guiders).to eq(hackney.guiders)
     end
   end
+
+  describe '#flattened_locations' do
+    it 'flattens locations with a mapper' do
+      expect(FlattenedLocationMapper).to receive(:map).with(hackney)
+
+      subject.flattened_locations
+    end
+  end
 end

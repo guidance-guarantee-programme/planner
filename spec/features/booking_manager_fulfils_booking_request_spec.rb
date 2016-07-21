@@ -10,6 +10,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
       and_they_see_the_customer_details
       and_they_see_the_requested_slots
       when_they_choose_a_guider
+      and_the_location
       and_the_time_and_date_of_the_appointment
       then_the_appointment_is_created
       and_the_customer_is_notified
@@ -36,7 +37,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page.name.text).to eq(@booking_request.name)
     expect(@page.reference.text).to eq(@booking_request.reference)
     expect(@page.email.text).to eq(@booking_request.email)
-    expect(@page.location.text).to eq('Hackney')
+    expect(@page.location_name.text).to eq('Hackney')
     expect(@page.memorable_word.text).to eq(@booking_request.memorable_word)
     expect(@page.age_range.text).to eq(@booking_request.age_range)
   end
@@ -54,6 +55,14 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def when_they_choose_a_guider
     @page.guider.select('Ben Lovell')
+  end
+
+  def and_the_location
+    # ensure originally chosen location (Hackney) is selected
+    expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
+
+    # refine from Hackney
+    @page.location.select('Tower Hamlets')
   end
 
   def and_the_time_and_date_of_the_appointment

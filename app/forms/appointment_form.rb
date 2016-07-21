@@ -19,6 +19,7 @@ class AppointmentForm
 
   attr_reader :location_aware_booking_request
   attr_reader :guider_id
+  attr_reader :location_id
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 
@@ -27,5 +28,9 @@ class AppointmentForm
   def initialize(location_aware_booking_request, params)
     @location_aware_booking_request = location_aware_booking_request
     super(params)
+  end
+
+  def flattened_locations
+    FlattenedLocationMapper.map(booking_location)
   end
 end
