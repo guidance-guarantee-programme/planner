@@ -7,9 +7,11 @@
   }
 
   .fc-bgevent {
-    &:hover {
-      background: orange;
-      cursor: pointer;
+    #calendar & {
+      &:hover {
+        background: orange;
+        cursor: pointer;
+      }
     }
   }
 }

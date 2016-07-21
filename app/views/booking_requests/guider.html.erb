@@ -1,0 +1,26 @@
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag "fullcalendar/dist/fullcalendar" %>
+  <%= stylesheet_link_tag "fullcalendar-scheduler/dist/scheduler" %>
+
+  <script>
+  var guiders = <%= guiders_hash %>
+  </script>
+<% end %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li class="active">Your schedule</li>
+  </ol>
+</div>
+
+<div class="row">
+  <div class="col-md-9">
+    <div id="guider-calendar" class="scheduler"></div>
+  </div>
+
+  <div class="col-md-3">
+    <h2>Can't make an appointment?</h2>
+    <p class="lead">Please <a href="#">contact your booking manager</a> to let them know.</p>
+  </div>
+</div>

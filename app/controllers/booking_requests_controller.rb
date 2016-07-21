@@ -10,4 +10,7 @@ class BookingRequestsController < ApplicationController
   def scheduler
     @booking_request = BookingRequest.find(params[:id])
   end
+
+  def guider
+  end
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'booking_requests/index'
   get 'booking_requests/show'
   get 'booking_requests/scheduler'
+  get 'booking_requests/guider'
 
   namespace :api, constraints: { format: :json } do
     namespace :v1 do
