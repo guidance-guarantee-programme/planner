@@ -14,16 +14,18 @@ class AppointmentForm
     primary_slot
     secondary_slot
     tertiary_slot
+    booking_location
   ).freeze
 
-  delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :booking_request)
+  attr_reader :location_aware_booking_request
+  attr_reader :guider_id
 
-  def initialize(booking_request, params)
-    @booking_request = booking_request
+  delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
+
+  delegate :guiders, to: :booking_location
+
+  def initialize(location_aware_booking_request, params)
+    @location_aware_booking_request = location_aware_booking_request
     super(params)
   end
-
-  private
-
-  attr_reader :booking_request
 end
