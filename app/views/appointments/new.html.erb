@@ -29,7 +29,7 @@
     <h4>Requested location:</h4>
     <p class="lead">
       <strong>
-        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_id %>" class="t-location">
+        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_id %>" class="t-location-name">
           <%= @appointment_form.location_name %>
         </a>
       </strong>
@@ -101,8 +101,12 @@
 
         <div class="form-group">
           <label for="location_id">Location:</label>
-          <select name="location_id" id="location_id" class="form-control">
-          </select>
+          <%= f.select(
+            :location_id,
+            @appointment_form.flattened_locations,
+            options = {},
+            { class: 'form-control t-location' }
+          ) %>
         </div>
 
         <div class="form-group">

@@ -5,7 +5,7 @@ module Pages
     element :name, '.t-name'
     element :reference, '.t-reference'
     element :email, '.t-email'
-    element :location, '.t-location'
+    element :location_name, '.t-location-name'
     element :memorable_word, '.t-memorable-word'
     element :age_range, '.t-age-range'
     element :accessibility_requirements, '.t-accessibility'
@@ -18,5 +18,7 @@ module Pages
     element :slot_three_period, '.t-slot-3-period'
 
     element :guider, '.t-guider'
+
+    element :location, '.t-location'
   end
 end
