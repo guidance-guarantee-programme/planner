@@ -79,4 +79,12 @@ RSpec.describe AppointmentForm do
       end
     end
   end
+
+  describe '#appointment_params' do
+    it 'returns a hash of params to create an `Appointment` with a mapper' do
+      expect(AppointmentMapper).to receive(:map).with(subject)
+
+      subject.appointment_params
+    end
+  end
 end

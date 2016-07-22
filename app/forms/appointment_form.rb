@@ -32,6 +32,10 @@ class AppointmentForm
     super(params)
   end
 
+  def appointment_params
+    AppointmentMapper.map(self)
+  end
+
   def flattened_locations
     FlattenedLocationMapper.map(booking_location)
   end
