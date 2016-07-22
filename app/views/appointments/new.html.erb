@@ -86,14 +86,14 @@
     <div class="well">
       <h3>Appointment details</h3>
       <%= form_for @appointment_form,
-        url: new_booking_request_appointment_path(@appointment_form.location_aware_booking_request),
+        url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
         as: :appointment do |f|
       %>
         <div class="form-group">
           <label for="guider_id">Guider:</label>
           <%= f.select(
             :guider_id,
-            options_from_collection_for_select(@appointment_form.guiders, 'id', 'name'),
+            options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
             { include_blank: true },
             { class: 'form-control t-guider' }
           ) %>
@@ -111,8 +111,7 @@
 
         <div class="form-group">
           <label for="date">Date of appointment:</label>
-          <%= date_field(
-            :appointment,
+          <%= f.date_field(
             :date,
             min: @appointment_form.date,
             value: @appointment_form.date,
@@ -123,19 +122,17 @@
         <div class="form-group">
           <label for="time">Time of appointment:</label>
           <div class="form-control">
-            <%= time_select(
-              :appointment,
+            <%= f.time_select(
               :time,
               ignore_date: true,
-              minute_step: 15,
-              value: @appointment_form.time
+              minute_step: 15
             ) %>
           </div>
         </div>
 
-        <button type="submit" value="submit" class="btn btn-primary btn-block">
+        <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
           Make appointment and notify<br><%= @appointment_form.name %>
-        </button>
+        <% end %>
       <% end %>
     </div>
   </div>

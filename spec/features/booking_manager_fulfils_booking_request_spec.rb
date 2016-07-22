@@ -68,9 +68,13 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_the_time_and_date_of_the_appointment
+    # ensure date defaults to primary slot date
+    expect(@page.date.value).to eq(@booking_request.primary_slot.date.to_s(:db))
     # refine to 2016-06-20
     @page.advance_date!
 
+    # ensure time defaults to primary slot time
+    expect(@page.time).to eq('09:00')
     # refine time
     @page.set_time(hour: 15, minute: 30)
   end

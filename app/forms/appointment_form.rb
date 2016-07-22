@@ -7,7 +7,6 @@ class AppointmentForm
     phone
     age_range
     reference
-    location_id
     location_name
     memorable_word
     accessibility_requirements
@@ -18,9 +17,10 @@ class AppointmentForm
   ).freeze
 
   attr_reader :location_aware_booking_request
-  attr_reader :guider_id
-  attr_reader :location_id
-  attr_reader :time
+
+  attr_accessor :guider_id
+  attr_accessor :location_id
+  attr_accessor :date
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 
@@ -28,11 +28,16 @@ class AppointmentForm
 
   def initialize(location_aware_booking_request, params)
     @location_aware_booking_request = location_aware_booking_request
+    normalise_time(params)
     super(params)
   end
 
   def flattened_locations
     FlattenedLocationMapper.map(booking_location)
+  end
+
+  def location_id
+    @location_id ||= location_aware_booking_request.location_id
   end
 
   def date
@@ -41,5 +46,16 @@ class AppointmentForm
 
   def time
     @time ||= location_aware_booking_request.primary_slot.delimited_from
+
+    Time.zone.parse(@time)
+  end
+
+  private
+
+  def normalise_time(params)
+    hour   = params.delete('time(4i)')
+    minute = params.delete('time(5i)')
+
+    @time = "#{hour}:#{minute}" if hour && minute
   end
 end
