@@ -1,21 +1,23 @@
 class AppointmentsController < ApplicationController
+  before_action :populate_appointment_form
+
   def new
-    @appointment_form = AppointmentForm.new(
-      location_aware_booking_request,
-      appointment_params
-    )
   end
 
   def create
+    Appointment.create(@appointment_form.appointment_params)
+
+    redirect_to booking_requests_path
+  end
+
+  private
+
+  def populate_appointment_form
     @appointment_form = AppointmentForm.new(
       location_aware_booking_request,
       appointment_params
     )
-
-    render :new
   end
-
-  private
 
   def location_aware_booking_request
     LocationAwareBookingRequest.new(

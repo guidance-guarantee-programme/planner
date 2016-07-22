@@ -80,7 +80,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def then_the_appointment_is_created
-    skip
+    expect { @page.submit.click }.to change { Appointment.count }.by(1)
   end
 
   def and_the_customer_is_notified
