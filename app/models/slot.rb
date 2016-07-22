@@ -27,7 +27,7 @@ class Slot < ActiveRecord::Base
   end
 
   def delimited_from
-    from.insert(2, ':')
+    @delimited_from ||= from.insert(2, ':')
   end
 
   private

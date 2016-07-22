@@ -25,6 +25,8 @@ module Pages
     element :time_hour,   '#appointment_time_4i'
     element :time_minute, '#appointment_time_5i'
 
+    element :submit, '.t-submit'
+
     def advance_date!
       chosen_date = Date.parse(date.value)
 
@@ -34,6 +36,10 @@ module Pages
     def set_time(hour:, minute:)
       time_hour.set(hour)
       time_minute.set(minute)
+    end
+
+    def time
+      "#{time_hour.value}:#{time_minute.value}"
     end
   end
 end

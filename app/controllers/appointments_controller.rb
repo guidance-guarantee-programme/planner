@@ -6,6 +6,15 @@ class AppointmentsController < ApplicationController
     )
   end
 
+  def create
+    @appointment_form = AppointmentForm.new(
+      location_aware_booking_request,
+      appointment_params
+    )
+
+    render :new
+  end
+
   private
 
   def location_aware_booking_request
@@ -16,6 +25,13 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.fetch(:appointment, {})
+    params
+      .fetch(:appointment, {})
+      .permit(
+        :guider_id,
+        :location_id,
+        :date,
+        :time
+      )
   end
 end
