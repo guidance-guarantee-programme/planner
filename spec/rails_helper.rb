@@ -20,4 +20,6 @@ RSpec.configure do |config|
 
   config.include UserHelpers
   config.include ActiveSupport::Testing::TimeHelpers
+
+  config.before(:each) { ActionMailer::Base.deliveries.clear }
 end
