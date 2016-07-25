@@ -6,9 +6,9 @@ class LocationAwareBookingRequests
 
   def all
     @all ||= booking_requests.map do |booking_request|
-      LocationAwareBookingRequest.new(
+      LocationAwareEntity.new(
         booking_location: booking_location,
-        booking_request: booking_request
+        entity: booking_request
       )
     end
   end

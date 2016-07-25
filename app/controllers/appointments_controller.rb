@@ -5,7 +5,8 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    Appointment.create(@appointment_form.appointment_params)
+    @appointment = Appointment.create(@appointment_form.appointment_params)
+    Appointments.customer(@appointment, booking_location).deliver_later
 
     redirect_to booking_requests_path
   end
@@ -20,8 +21,8 @@ class AppointmentsController < ApplicationController
   end
 
   def location_aware_booking_request
-    LocationAwareBookingRequest.new(
-      booking_request: current_user.booking_requests.find(params[:booking_request_id]),
+    LocationAwareEntity.new(
+      entity: current_user.booking_requests.find(params[:booking_request_id]),
       booking_location: booking_location
     )
   end

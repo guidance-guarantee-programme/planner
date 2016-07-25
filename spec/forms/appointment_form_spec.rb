@@ -5,8 +5,8 @@ RSpec.describe AppointmentForm do
     BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
   end
   let(:booking_request) do
-    LocationAwareBookingRequest.new(
-      booking_request: create(:hackney_booking_request),
+    LocationAwareEntity.new(
+      entity: create(:hackney_booking_request),
       booking_location: hackney
     )
   end

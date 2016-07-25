@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def booking_location
-    BookingLocations.find(current_user.booking_location_id)
+    @booking_location ||= BookingLocations.find(current_user.booking_location_id)
   end
 end

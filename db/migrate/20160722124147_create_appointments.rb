@@ -6,7 +6,7 @@ class CreateAppointments < ActiveRecord::Migration
       t.string :name, null: false
       t.string :email, null: false
       t.string :phone, null: false
-      t.string :guider_id, null: false
+      t.integer :guider_id, null: false
       t.string :location_id, null: false, index: true
       t.datetime :proceeded_at, null: false
 

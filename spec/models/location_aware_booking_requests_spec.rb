@@ -8,7 +8,7 @@ RSpec.describe LocationAwareBookingRequests do
 
   describe '#all' do
     it 'returns decorated booking requests' do
-      expect(subject.all.map(&:class)).to match_array(LocationAwareBookingRequest)
+      expect(subject.all.map(&:class)).to match_array(LocationAwareEntity)
     end
   end
 end

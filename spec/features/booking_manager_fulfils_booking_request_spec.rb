@@ -84,6 +84,6 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_the_customer_is_notified
-    skip
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
   end
 end
