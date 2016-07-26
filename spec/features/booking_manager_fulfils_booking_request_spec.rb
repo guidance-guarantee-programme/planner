@@ -19,6 +19,18 @@ RSpec.feature 'Fulfiling Booking Requests' do
     end
   end
 
+  scenario 'Bookings Manager attempts to fulfil an invalid Appointment' do
+    travel_to '2016-06-19' do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_an_unfulfilled_booking_request
+        when_the_booking_manager_attempts_to_fulfil
+        then_they_are_shown_the_fulfilment_page
+        when_they_submit_the_invalid_appointment
+        then_they_see_the_validation_messages
+      end
+    end
+  end
+
   def and_there_is_an_unfulfilled_booking_request
     @booking_request = create(:hackney_booking_request)
   end
@@ -85,5 +97,14 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def and_the_customer_is_notified
     expect(ActionMailer::Base.deliveries.count).to eq(1)
+  end
+
+  def when_they_submit_the_invalid_appointment
+    @page.submit.click
+  end
+
+  def then_they_see_the_validation_messages
+    expect(@page).to have_error_summary
+    expect(@page).to have_errors
   end
 end

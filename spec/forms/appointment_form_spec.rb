@@ -14,6 +14,53 @@ RSpec.describe AppointmentForm do
 
   subject { described_class.new(booking_request, params) }
 
+  describe 'validation' do
+    let(:params) do
+      {
+        'guider_id'   => 1,
+        'location_id' => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
+        'date'        => '2016-06-21',
+        'time(4i)'    => '13',
+        'time(5i)'    => '00'
+      }
+    end
+
+    before { travel_to '2016-06-20' }
+    after  { travel_back }
+
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'requires a location ID' do
+      params[:location_id] = ''
+
+      expect(subject).to_not be_valid
+    end
+
+    it 'requires a guider ID' do
+      params[:guider_id] = ''
+
+      expect(subject).to_not be_valid
+    end
+
+    describe '#date' do
+      it 'is required' do
+        params[:date] = ''
+
+        expect(subject).to_not be_valid
+      end
+
+      it 'must be past the current date' do
+        %w(2016-06-19 2016-06-20).each do |date|
+          params[:date] = date
+
+          expect(subject).to_not be_valid
+        end
+      end
+    end
+  end
+
   it 'delegates booking specifics to the booking request' do
     expect(subject.name).to eq(booking_request.name)
     expect(subject.email).to eq(booking_request.email)

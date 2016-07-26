@@ -27,6 +27,9 @@ module Pages
 
     element :submit, '.t-submit'
 
+    elements :errors, '.field_with_errors'
+    element :error_summary, '.t-errors'
+
     def advance_date!
       chosen_date = Date.parse(date.value)
 

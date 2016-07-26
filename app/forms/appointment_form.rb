@@ -16,6 +16,12 @@ class AppointmentForm
     booking_location
   ).freeze
 
+  validates :location_id, presence: true
+  validates :guider_id, presence: true
+  validates :date, presence: true
+
+  validate :validate_date
+
   attr_reader :location_aware_booking_request
 
   attr_accessor :guider_id
@@ -55,6 +61,15 @@ class AppointmentForm
   end
 
   private
+
+  def validate_date
+    return unless date
+
+    parsed_date = Date.parse(date.to_s)
+    errors.add(:date, 'must be in the future') unless parsed_date > Date.current
+  rescue ArgumentError
+    errors.add(:date, 'must be formatted correctly')
+  end
 
   def normalise_time(params)
     hour   = params.delete('time(4i)')
