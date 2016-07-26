@@ -12,6 +12,7 @@ gem 'govuk_admin_template'
 gem 'puma'
 gem 'foreman'
 gem 'sidekiq'
+gem 'sinatra', require: false
 gem 'bugsnag'
 
 group :development, :test do
