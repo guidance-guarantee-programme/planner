@@ -1,0 +1,9 @@
+// Extend the govuk_admin_template styles to add a visual error state
+// to selects as well.
+
+// https://github.com/alphagov/govuk_admin_template/blob/master/app/assets/stylesheets/govuk_admin_template/_base.scss#L459-L467
+form {
+  .field_with_errors select {
+    border-color: $state-danger-text;
+  }
+}
