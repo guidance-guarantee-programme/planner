@@ -5,10 +5,14 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.create(@appointment_form.appointment_params)
-    Appointments.customer(@appointment, booking_location).deliver_later
+    if @appointment_form.valid?
+      @appointment = Appointment.create(@appointment_form.appointment_params)
+      Appointments.customer(@appointment, booking_location).deliver_later
 
-    redirect_to booking_requests_path
+      redirect_to booking_requests_path
+    else
+      render :new
+    end
   end
 
   private
