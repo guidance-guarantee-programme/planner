@@ -5,13 +5,14 @@
 .fc-unthemed {
   .fc-divider {
   }
+}
 
+
+#calendar {
   .fc-bgevent {
-    #calendar & {
-      &:hover {
-        background: orange;
-        cursor: pointer;
-      }
+    &:hover {
+      background: orange;
+      cursor: pointer;
     }
   }
 }
