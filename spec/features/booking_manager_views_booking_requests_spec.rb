@@ -12,8 +12,11 @@ RSpec.feature 'Viewing Booking Requests' do
   def and_there_are_booking_requests_for_their_location
     create(:hackney_booking_request)
 
-    # this shouldn't be listed
+    # this won't be listed as it's not under Hackney
     create(:booking_request)
+
+    # this won't be listed as it's fulfilled
+    create(:appointment)
   end
 
   def when_they_visit_the_site

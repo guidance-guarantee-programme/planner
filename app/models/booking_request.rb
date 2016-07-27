@@ -1,6 +1,8 @@
 class BookingRequest < ActiveRecord::Base
   PERMITTED_AGE_RANGES = %w(50-54 55-plus).freeze
 
+  has_one :appointment
+
   has_many :slots, -> { order(:priority) }
 
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false

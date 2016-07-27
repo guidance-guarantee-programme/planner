@@ -13,4 +13,10 @@ class User < ActiveRecord::Base
            foreign_key: :booking_location_id
 
   alias_attribute :booking_location_id, :organisation_content_id
+
+  def unfulfilled_booking_requests
+    booking_requests
+      .includes(:appointment)
+      .where(appointments: { booking_request_id: nil })
+  end
 end
