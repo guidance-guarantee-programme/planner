@@ -1,6 +1,8 @@
 class BookingRequest < ActiveRecord::Base
   PERMITTED_AGE_RANGES = %w(50-54 55-plus).freeze
 
+  has_one :appointment
+
   has_many :slots, -> { order(:priority) }
 
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false
@@ -20,15 +22,15 @@ class BookingRequest < ActiveRecord::Base
   alias reference to_param
 
   def primary_slot
-    slots.first&.to_s
+    slots.first
   end
 
   def secondary_slot
-    slots.second&.to_s
+    slots.second
   end
 
   def tertiary_slot
-    slots.third&.to_s
+    slots.third
   end
 
   private

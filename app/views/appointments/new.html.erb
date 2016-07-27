@@ -1,0 +1,151 @@
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li class="active t-name"><%= @appointment_form.name %></li>
+  </ol>
+
+  <h1>
+    Make appointment for <%= @appointment_form.name %><br>
+    <small>Booking reference: <span class="t-reference"><%= @appointment_form.reference %></span></small>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="lead">If no appointments are available within the customer's preferences, please contact the customer directly to find a suitable time slot, and return to this page to make the appointment.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3>Customer details</h3>
+    <p class="lead">
+      <%= @appointment_form.name %><br>
+      <a href="mailto:<%= @appointment_form.email %>" class="t-email"><%= @appointment_form.email %></a><br>
+      <%= @appointment_form.phone %>
+    </p>
+
+    <h4>Requested location:</h4>
+    <p class="lead">
+      <strong>
+        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_id %>" class="t-location-name">
+          <%= @appointment_form.location_name %>
+        </a>
+      </strong>
+    </p>
+
+    <h4>Memorable word:</h4>
+    <p class="lead"><strong class="t-memorable-word"><%= @appointment_form.memorable_word %></strong></p>
+
+    <h4>Age range:</h4>
+    <p class="lead"><strong class="t-age-range"><%= @appointment_form.age_range %></strong></p>
+
+    <h4>Accessibility requirements:</h4>
+    <p class="lead"><strong class="t-accessibility_requirements"><%= @appointment_form.accessibility_requirements %></strong></p>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Slots requested</h3>
+    <p>The customer has requested the following time slots, in order of preference.</p>
+
+    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>1</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>2</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>3</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="well">
+      <h3>Appointment details</h3>
+
+      <% if @appointment_form.errors.any? %>
+        <div class="alert alert-danger t-errors" role="alert">
+          <h2 class="alert__heading">There's a problem</h2>
+          <ul>
+            <% @appointment_form.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_for @appointment_form,
+        url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
+        as: :appointment do |f|
+      %>
+        <div class="form-group">
+          <%= f.label :guider_id %>
+          <%= f.select(
+            :guider_id,
+            options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
+            { include_blank: true },
+            { class: 'form-control t-guider' }
+          ) %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :location_id %>
+          <%= f.select(
+            :location_id,
+            @appointment_form.flattened_locations,
+            options = {},
+            { class: 'form-control t-location' }
+          ) %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :date %>
+          <%= f.date_field(
+            :date,
+            min: @appointment_form.date,
+            value: @appointment_form.date,
+            class: 't-date form-control'
+          ) %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :time %>
+          <div class="form-control">
+            <%= f.time_select(
+              :time,
+              ignore_date: true,
+              minute_step: 15
+            ) %>
+          </div>
+        </div>
+
+        <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
+          Make appointment and notify<br><%= @appointment_form.name %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

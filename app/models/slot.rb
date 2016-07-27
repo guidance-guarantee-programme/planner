@@ -15,11 +15,19 @@ class Slot < ActiveRecord::Base
   end
 
   def to_s
-    "#{date.to_s(:gov_uk)} - #{period}"
+    "#{formatted_date} - #{period}"
+  end
+
+  def formatted_date
+    date.to_s(:gov_uk)
   end
 
   def period
-    morning? ? 'morning' : 'afternoon'
+    morning? ? 'Morning' : 'Afternoon'
+  end
+
+  def delimited_from
+    @delimited_from ||= from.insert(2, ':')
   end
 
   private

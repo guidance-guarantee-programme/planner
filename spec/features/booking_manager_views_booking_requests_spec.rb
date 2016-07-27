@@ -9,20 +9,14 @@ RSpec.feature 'Viewing Booking Requests' do
     end
   end
 
-  def given_the_user_identifies_as_hackneys_booking_manager
-    @user = create(:hackney_booking_manager)
-    GDS::SSO.test_user = @user
-
-    yield
-  ensure
-    GDS::SSO.test_user = nil
-  end
-
   def and_there_are_booking_requests_for_their_location
     create(:hackney_booking_request)
 
-    # this shouldn't be listed
+    # this won't be listed as it's not under Hackney
     create(:booking_request)
+
+    # this won't be listed as it's fulfilled
+    create(:appointment)
   end
 
   def when_they_visit_the_site
