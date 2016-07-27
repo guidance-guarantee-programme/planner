@@ -6,6 +6,8 @@ RSpec.describe Appointments do
 
   subject(:mail) { described_class.customer(appointment, hackney) }
 
+  it_behaves_like 'mailgun identified email'
+
   describe 'Customer notification' do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment')

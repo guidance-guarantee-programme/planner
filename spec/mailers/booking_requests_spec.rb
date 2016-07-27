@@ -9,6 +9,8 @@ RSpec.describe BookingRequests do
 
     subject(:mail) { BookingRequests.customer(booking_request, booking_location) }
 
+    it_behaves_like 'mailgun identified email'
+
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment Request')
       expect(mail.to).to eq([booking_request.email])
@@ -41,6 +43,8 @@ RSpec.describe BookingRequests do
     let(:booking_manager) { build_stubbed(:hackney_booking_manager) }
 
     subject(:mail) { BookingRequests.booking_manager(booking_manager) }
+
+    it_behaves_like 'mailgun identified email'
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Pension Wise Booking Request')
