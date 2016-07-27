@@ -9,7 +9,7 @@ module Api
         booking_request = BookingRequest.new(booking_request_params)
 
         if booking_request.save
-          CustomerConfirmationJob.perform_later(booking_request)
+          send_notifications(booking_request)
           head :created
         else
           render_errors(booking_request)
@@ -17,6 +17,11 @@ module Api
       end
 
       private
+
+      def send_notifications(booking_request)
+        CustomerConfirmationJob.perform_later(booking_request)
+        BookingManagerConfirmationJob.perform_later(booking_request)
+      end
 
       def render_errors(booking_request)
         render json: { errors: booking_request.errors }, status: :unprocessable_entity

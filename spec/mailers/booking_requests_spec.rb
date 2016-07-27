@@ -36,4 +36,24 @@ RSpec.describe BookingRequests do
       end
     end
   end
+
+  describe 'Booking Manager Notification' do
+    let(:booking_manager) { build_stubbed(:hackney_booking_manager) }
+
+    subject(:mail) { BookingRequests.booking_manager(booking_manager) }
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Pension Wise Booking Request')
+      expect(mail.to).to eq([booking_manager.email])
+      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+    end
+
+    describe 'rendering the body' do
+      let(:body) { subject.body.encoded }
+
+      it 'includes a link to the service start page' do
+        expect(body).to include('http://localhost:3001')
+      end
+    end
+  end
 end
