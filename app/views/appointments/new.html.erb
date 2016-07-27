@@ -42,7 +42,11 @@
     <p class="lead"><strong class="t-age-range"><%= @appointment_form.age_range %></strong></p>
 
     <h4>Accessibility requirements:</h4>
-    <p class="lead"><strong class="t-accessibility_requirements"><%= @appointment_form.accessibility_requirements %></strong></p>
+    <p class="lead">
+      <strong class="t-accessibility_requirements">
+        <%= t("booking_request.accessibility_requirements.is_#{@appointment_form.accessibility_requirements}") %>
+      </strong>
+    </p>
   </div>
 
   <div class="col-md-4">
