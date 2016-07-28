@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe LocationAwareBookingRequests do
+RSpec.describe LocationAwareEntities do
   let(:booking_requests) { Array(build(:booking_request)) }
   let(:booking_location) { instance_double(BookingLocations::Location) }
 

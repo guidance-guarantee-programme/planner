@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
            primary_key: :organisation_content_id,
            foreign_key: :booking_location_id
 
+  has_many :appointments,
+           -> { order(:proceeded_at) },
+           through: :booking_requests
+
   alias_attribute :booking_location_id, :organisation_content_id
 
   def unfulfilled_booking_requests

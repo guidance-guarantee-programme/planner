@@ -1,5 +1,12 @@
 class AppointmentsController < ApplicationController
-  before_action :populate_appointment_form
+  before_action :populate_appointment_form, except: :index
+
+  def index
+    @appointments = LocationAwareEntities.new(
+      current_user.appointments,
+      booking_location
+    ).all
+  end
 
   def new
   end
