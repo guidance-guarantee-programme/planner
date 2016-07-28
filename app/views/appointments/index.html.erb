@@ -21,6 +21,7 @@
             <th>Guider</th>
             <th>Location</th>
             <th>Reference</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
@@ -44,6 +45,9 @@
               </td>
               <td>
                 <%= appointment.reference %>
+              </td>
+              <td>
+                <%= appointment.status.humanize %>
               </td>
               <td>
                 <%= link_to('Cancel/change', '/', class: 'btn btn-danger') %>
