@@ -32,6 +32,12 @@ RSpec.describe AppointmentForm do
       expect(subject).to be_valid
     end
 
+    it 'must not be associated with an existing appointment' do
+      booking_request.appointment = build(:appointment)
+
+      expect(subject).to_not be_valid
+    end
+
     it 'requires a location ID' do
       params[:location_id] = ''
 
