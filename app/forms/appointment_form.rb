@@ -21,6 +21,7 @@ class AppointmentForm
   validates :date, presence: true
 
   validate :validate_date
+  validate :validate_not_with_an_existing_booking_request
 
   attr_reader :location_aware_booking_request
 
@@ -61,6 +62,10 @@ class AppointmentForm
   end
 
   private
+
+  def validate_not_with_an_existing_booking_request
+    errors.add(:base, 'has already been fulfilled') if location_aware_booking_request.appointment
+  end
 
   def validate_date
     return unless date
