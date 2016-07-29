@@ -15,6 +15,7 @@ gem 'foreman'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'bugsnag'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'capybara'
