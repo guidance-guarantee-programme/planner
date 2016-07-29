@@ -1,4 +1,8 @@
-unless Rails.env.production? || Rails.env.staging?
+if Rails.env.production? || Rails.env.staging?
+  require_relative '../../lib/cached_booking_locations_api'
+
+  BookingLocations.api = CachedBookingLocationsApi.new
+else
   require 'booking_locations/stub_api'
 
   BookingLocations.api = BookingLocations::StubApi.new
