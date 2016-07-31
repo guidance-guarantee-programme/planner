@@ -1,0 +1,128 @@
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= appointments_path %>">Appointments</a></li>
+    <li class="active"><%= @appointment.name %></li>
+  </ol>
+
+  <h1>
+    Modify/cancel appointment for <%= @appointment.name %><br>
+    <small>Booking reference: <%= @appointment.reference %></small>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3>Change appointment details</h3>
+    <p class="lead">Use the form below to change the details of the appointment.</p>
+
+    <%= form_for @appointment, as: :appointment, url: appointment_path(@appointment.id), method: :patch do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control t-name' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: 'form-control t-email' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone %>
+        <%= f.text_field :phone, class: 'form-control t-phone' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :guider_id %>
+        <%= f.select(
+          :guider_id,
+          options_from_collection_for_select(@appointment.guiders, 'id', 'name', selected: @appointment.guider_id),
+          options = {},
+          class: 'form-control t-guider'
+        ) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :location_id %>
+        <%= f.select(:location_id, @appointment.flattened_locations, options = {}, { class: 'form-control t-location' }
+        ) %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :proceeded_at, 'Date of appointment' %>
+        <%= f.date_field(:proceeded_at, class: 't-date form-control') %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :proceeded_at, 'Time of appointment' %>
+        <div class="form-control">
+          <%= f.time_select(:proceeded_at, ignore_date: true, minute_step: 15) %>
+        </div>
+      </div>
+
+      <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
+        Update appointment and notify<br><%= @appointment.name %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <h3>After the appointment</h3>
+    <p class="lead">Appointment finished? Update the status below.</p>
+
+    <form>
+      <div class="form-group">
+        <label for="location_id">Appointment status:</label>
+        <select name="location_id" id="location_id" class="form-control">
+          <option selected>TODO</option>
+          <option>Completed</option>
+          <option>Ineligible</option>
+          <option>Cancelled – customer request</option>
+          <option>Cancelled – guider request</option>
+          <option>Cancelled – no show</option>
+        </select>
+      </div>
+
+      <button type="submit" value="submit" class="btn btn-success btn-block">
+        Update status
+      </button>
+    </form>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Original slots requested</h3>
+    <p class="lead">For reference, the slots originally requested by the customer are:</p>
+
+    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>1</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-1-date"><%= @appointment.primary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-1-period"><%= @appointment.primary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>2</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-2-date"><%= @appointment.secondary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-2-period"><%= @appointment.secondary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>3</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-3-date"><%= @appointment.tertiary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-3-period"><%= @appointment.tertiary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :populate_appointment_form, only: %i(new create)
+  before_action :populate_edit_appointment_form, only: %i(edit update)
 
   def index
     @appointments = LocationAwareEntities.new(
@@ -9,7 +10,10 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
-    head :ok
+  end
+
+  def update
+    render :edit
   end
 
   def new
@@ -28,6 +32,20 @@ class AppointmentsController < ApplicationController
 
   private
 
+  def location_aware_appointment
+    LocationAwareEntity.new(
+      entity: current_user.appointments.find(params[:id]),
+      booking_location: booking_location
+    )
+  end
+
+  def populate_edit_appointment_form
+    @appointment = EditAppointmentForm.new(
+      location_aware_appointment,
+      edit_appointment_params
+    )
+  end
+
   def populate_appointment_form
     @appointment_form = AppointmentForm.new(
       location_aware_booking_request,
@@ -40,6 +58,20 @@ class AppointmentsController < ApplicationController
       entity: current_user.booking_requests.find(params[:booking_request_id]),
       booking_location: booking_location
     )
+  end
+
+  def edit_appointment_params # rubocop:disable Metrics/MethodLength
+    params
+      .fetch(:appointment, {})
+      .permit(
+        :name,
+        :email,
+        :phone,
+        :guider_id,
+        :location_id,
+        :proceeded_at,
+        :status
+      )
   end
 
   def appointment_params
