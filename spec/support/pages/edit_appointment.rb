@@ -18,5 +18,7 @@ module Pages
     element :slot_two_period,   '.t-slot-2-period'
     element :slot_three_date,   '.t-slot-3-date'
     element :slot_three_period, '.t-slot-3-period'
+
+    element :submit, '.t-submit'
   end
 end

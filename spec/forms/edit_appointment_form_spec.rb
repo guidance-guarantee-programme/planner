@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe EditAppointmentForm do
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
+  let(:underlying_appointment) { build_stubbed(:appointment) }
   let(:appointment) do
     LocationAwareEntity.new(
-      entity: build_stubbed(:appointment),
+      entity: underlying_appointment,
       booking_location: hackney
     )
   end
@@ -69,6 +70,34 @@ RSpec.describe EditAppointmentForm do
       it 'is parsed correctly' do
         expect(subject.proceeded_at).to eq('2016-06-20 13:15')
       end
+    end
+  end
+
+  describe '#update' do
+    let(:params) do
+      {
+        'name'             => 'Ben Lovell',
+        'email'            => 'ben@example.com',
+        'phone'            => '07715 930 444',
+        'guider_id'        => '2',
+        'location_id'      => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
+        'proceeded_at'     => '2016-06-20',
+        'proceeded_at(4i)' => '13',
+        'proceeded_at(5i)' => '15'
+      }
+    end
+
+    it 'updates the underlying appointment' do
+      expect(underlying_appointment).to receive(:update).with(
+        name: 'Ben Lovell',
+        email: 'ben@example.com',
+        phone: '07715 930 444',
+        guider_id: '2',
+        location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
+        proceeded_at: Time.zone.parse('2016-06-20 13:15')
+      )
+
+      subject.update
     end
   end
 end

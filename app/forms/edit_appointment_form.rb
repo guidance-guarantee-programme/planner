@@ -41,6 +41,17 @@ class EditAppointmentForm
     FlattenedLocationMapper.map(booking_location)
   end
 
+  def update
+    location_aware_appointment.update(
+      name: name,
+      email: email,
+      phone: phone,
+      guider_id: guider_id,
+      location_id: location_id,
+      proceeded_at: proceeded_at
+    )
+  end
+
   # memoized readers to use `params` when present
   EDITABLE_ATTRIBUTES.each do |attribute|
     class_eval <<~EORUBY, __FILE__, __LINE__ + 1

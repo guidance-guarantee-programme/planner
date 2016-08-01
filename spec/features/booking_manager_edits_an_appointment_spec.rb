@@ -54,11 +54,25 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def when_they_modify_the_appointment_details
-    skip
+    @page.name.set('Bob Jones')
+    @page.date.set('2016-06-21')
+    @page.time_hour.set('15')
+    @page.time_minute.set('15')
+    @page.guider.select('Bob Johnson')
+
+    @page.submit.click
   end
 
   def then_the_appointment_is_updated
-    skip
+    @page = Pages::Appointments.new
+    expect(@page).to be_displayed
+
+    @page.appointments.first do |appointment|
+      expect(appointment).to include('Bob Jones')
+      expect(appointment).to include('Tues, 21 Jun')
+      expect(appointment).to include('15:15')
+      expect(appointment).to include('Bob Johnson')
+    end
   end
 
   def and_the_customer_is_notified

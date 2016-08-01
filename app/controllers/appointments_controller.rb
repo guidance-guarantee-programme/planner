@@ -13,7 +13,9 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    render :edit
+    @appointment.update
+
+    redirect_to appointments_path
   end
 
   def new
