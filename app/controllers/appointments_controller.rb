@@ -13,7 +13,7 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    @appointment.update
+    @appointment.update(edit_appointment_params)
 
     redirect_to appointments_path
   end
@@ -42,10 +42,7 @@ class AppointmentsController < ApplicationController
   end
 
   def populate_edit_appointment_form
-    @appointment = EditAppointmentForm.new(
-      location_aware_appointment,
-      edit_appointment_params
-    )
+    @appointment = EditAppointmentForm.new(location_aware_appointment)
   end
 
   def populate_appointment_form
@@ -63,8 +60,10 @@ class AppointmentsController < ApplicationController
   end
 
   def edit_appointment_params # rubocop:disable Metrics/MethodLength
+    munge_time_params!
+
     params
-      .fetch(:appointment, {})
+      .require(:appointment)
       .permit(
         :name,
         :email,
@@ -74,6 +73,15 @@ class AppointmentsController < ApplicationController
         :proceeded_at,
         :status
       )
+  end
+
+  def munge_time_params!
+    appointment_params = params[:appointment]
+
+    hour   = appointment_params.delete('proceeded_at(4i)')
+    minute = appointment_params.delete('proceeded_at(5i)')
+
+    appointment_params[:proceeded_at] += " #{hour}:#{minute}" if hour && minute
   end
 
   def appointment_params
