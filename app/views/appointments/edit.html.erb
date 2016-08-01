@@ -16,6 +16,17 @@
     <h3>Change appointment details</h3>
     <p class="lead">Use the form below to change the details of the appointment.</p>
 
+    <% if @appointment.errors.any? %>
+      <div class="alert alert-danger t-errors" role="alert">
+        <h4 class="alert__heading">There's a problem</h4>
+        <ul>
+          <% @appointment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= form_for @appointment, as: :appointment, url: appointment_path(@appointment.id), method: :patch do |f| %>
       <div class="form-group">
         <%= f.label :name %>

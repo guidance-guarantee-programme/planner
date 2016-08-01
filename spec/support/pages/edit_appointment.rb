@@ -23,5 +23,8 @@ module Pages
 
     element :status, '.t-status'
     element :submit_status, '.t-submit-status'
+
+    elements :errors, '.field_with_errors'
+    element :error_summary, '.t-errors'
   end
 end

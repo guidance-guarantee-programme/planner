@@ -13,9 +13,11 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    @appointment.update(edit_appointment_params)
-
-    redirect_to appointments_path
+    if @appointment.update(edit_appointment_params)
+      redirect_to appointments_path
+    else
+      render :edit
+    end
   end
 
   def new

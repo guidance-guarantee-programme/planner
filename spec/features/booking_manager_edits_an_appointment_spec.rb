@@ -14,6 +14,15 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Editing an Appointment causes validation failures' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      and_provides_invalid_information
+      then_they_see_the_validation_messages
+    end
+  end
+
   scenario 'Update the status of an Appointment' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment
@@ -108,5 +117,21 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.appointments.first do |appointment|
       expect(appointment).to include('Completed')
     end
+  end
+
+  def and_provides_invalid_information
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    @page.name.set('')
+    @page.email.set('')
+    @page.phone.set('')
+
+    @page.submit.click
+  end
+
+  def then_they_see_the_validation_messages
+    expect(@page).to have_error_summary
+    expect(@page).to have_errors
   end
 end

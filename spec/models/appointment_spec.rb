@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Appointment do
-  let(:appointment) { build_stubbed(:appointment) }
+  subject { build_stubbed(:appointment) }
 
   it 'defaults #status to `pending`' do
     expect(described_class.new).to be_pending
   end
 
   it 'delegates `#reference` to the `booking_request`' do
-    expect(appointment.reference).to eq(appointment.booking_request.reference)
+    expect(subject.reference).to eq(subject.booking_request.reference)
   end
 
   it 'audits changes upon update' do
@@ -23,5 +23,19 @@ RSpec.describe Appointment do
     )
 
     expect(original.audits).to be_present
+  end
+
+  describe 'validation' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    %i(name email phone guider_id location_id proceeded_at).each do |attribute|
+      it "requires the #{attribute}" do
+        subject[attribute] = ''
+
+        expect(subject).to be_invalid
+      end
+    end
   end
 end
