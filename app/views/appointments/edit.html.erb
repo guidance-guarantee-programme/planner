@@ -70,23 +70,16 @@
     <h3>After the appointment</h3>
     <p class="lead">Appointment finished? Update the status below.</p>
 
-    <form>
+    <%= form_for @appointment, as: :appointment, url: appointment_path(@appointment.id), method: :patch do |f| %>
       <div class="form-group">
-        <label for="location_id">Appointment status:</label>
-        <select name="location_id" id="location_id" class="form-control">
-          <option selected>TODO</option>
-          <option>Completed</option>
-          <option>Ineligible</option>
-          <option>Cancelled – customer request</option>
-          <option>Cancelled – guider request</option>
-          <option>Cancelled – no show</option>
-        </select>
+        <%= f.label :status, 'Appointment status' %>
+        <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
       </div>
 
-      <button type="submit" value="submit" class="btn btn-success btn-block">
+      <%= f.button class: 'btn btn-primary btn-block t-submit-status' do %>
         Update status
-      </button>
-    </form>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="col-md-4">

@@ -14,6 +14,16 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Update the status of an Appointment' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      then_they_see_the_original_status
+      when_they_modify_the_status
+      then_the_status_is_updated
+    end
+  end
+
   def and_there_is_an_appointment
     @appointment = create(:appointment)
   end
@@ -77,5 +87,26 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_customer_is_notified
     skip
+  end
+
+  def then_they_see_the_original_status
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    expect(@page.status.value).to eq('pending')
+  end
+
+  def when_they_modify_the_status
+    @page.status.select('Completed')
+    @page.submit_status.click
+  end
+
+  def then_the_status_is_updated
+    @page = Pages::Appointments.new
+    expect(@page).to be_displayed
+
+    @page.appointments.first do |appointment|
+      expect(appointment).to include('Completed')
+    end
   end
 end

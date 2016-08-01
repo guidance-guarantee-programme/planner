@@ -20,5 +20,8 @@ module Pages
     element :slot_three_period, '.t-slot-3-period'
 
     element :submit, '.t-submit'
+
+    element :status, '.t-status'
+    element :submit_status, '.t-submit-status'
   end
 end
