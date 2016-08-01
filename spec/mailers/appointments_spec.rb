@@ -13,6 +13,7 @@ RSpec.describe Appointments do
       expect(mail.subject).to eq('Your Pension Wise Appointment')
       expect(mail.to).to eq([appointment.email])
       expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"appointment_confirmation"')
     end
 
     describe 'rendering the body' do
