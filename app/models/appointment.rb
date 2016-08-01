@@ -1,4 +1,6 @@
 class Appointment < ActiveRecord::Base
+  audited on: [:update]
+
   enum status: %i(
     pending
     completed

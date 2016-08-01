@@ -39,6 +39,11 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     ast (2.2.0)
+    audited (4.2.1)
+      rails-observers (~> 0.1.2)
+    audited-activerecord (4.2.1)
+      activerecord (~> 4.0)
+      audited (= 4.2.1)
     autoprefixer-rails (6.3.6)
       execjs
     binding_of_caller (0.7.2)
@@ -169,6 +174,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -257,6 +264,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  audited-activerecord
   booking_locations
   bugsnag
   capybara
