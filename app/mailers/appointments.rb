@@ -5,6 +5,7 @@ class Appointments < ApplicationMailer
       booking_location: booking_location
     )
 
+    mailgun_headers('appointment_confirmation')
     mail to: appointment.email, subject: 'Your Pension Wise Appointment'
   end
 end

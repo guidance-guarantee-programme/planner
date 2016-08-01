@@ -15,6 +15,7 @@ RSpec.describe BookingRequests do
       expect(mail.subject).to eq('Your Pension Wise Appointment Request')
       expect(mail.to).to eq([booking_request.email])
       expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"customer_booking_request"')
     end
 
     describe 'rendering the body' do
@@ -50,6 +51,7 @@ RSpec.describe BookingRequests do
       expect(mail.subject).to eq('Pension Wise Booking Request')
       expect(mail.to).to eq([booking_manager.email])
       expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"booking_manager_booking_request"')
     end
 
     describe 'rendering the body' do
