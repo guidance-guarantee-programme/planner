@@ -7,10 +7,14 @@ cache:
   - tmp/cache/assets/test
   - vendor/assets/bower_components
 node_js:
-  - "0.10"
+- '0.10'
 before_script:
-  - npm install
-  - "bundle exec rake db:create db:migrate RAILS_ENV=test"
+- npm install
+- bundle exec rake db:create db:migrate RAILS_ENV=test
+deploy:
+  provider: heroku
+  api_key:
+    secure: fbE8NRqW/s774BPwuAMvziBhNMoPtB94xAbLv2Z6XVBljZccrqnWNqEZtTeZK9PkdK/9aLLgKreUQX53bMmj1gi/7RS3bU8OnyPVYzrrGlokPSxD89xRt7GQH8VHydJ8CsUfgFmY69+Nv+TbGj8NbYQN7K3DUpc6Z0mQSluF04aoYETy0Yi7xXERYbTbJK4zjmB16tA+SjhwPycX1/9HEIXZ2IIEplT+sjdrhro1JWak8t/8S+Jj7uyDHSlgUAv2XszDQ34GKqw9muTo7qSxC1Es4TQj4bFi+cxBfemBYjSv51K2WLAXRr8/qonHr0GMDI+JR++OWSZ0kINBda45i+qD8r5+l04SGLstI8UaMmy7O+8IEJjcpd+d+yCDpadqMiM5C6iSlYzeKa6Wki/dxflCyCyma5CXJaAZ61RXo9W2BBfzZVbt3pabhqMEzGIyhtXIwpFI60Dpg7iN2RFsdtUnM9xjEFlnW3aFh6LkvnK9+gvU4qBzCMxv//FdgRidCCRwKSH108Jg2CPgeqEjXyoqqpZKSfjdI3HQVyF6568IUbfaln0dHT4h7wRDdStk6Dx1rp+hCpEdGkYj8fPXCcSHYLkQt+KLWINiDZbpYUpPjrLkBMdMPRcAHQEmVt0VGybcAgZNdoEBo2X03TDS2m3Xdpj+4nwfdZtB6dcJDqs=
 notifications:
   slack:
     rooms:
