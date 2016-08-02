@@ -1,0 +1,39 @@
+Dear <%= @appointment.name %>,
+
+<% if @appointment.updated? %>
+Your appointment details were updated.
+<% end %>
+
+Thank you for booking an appointment with Pension Wise. We can confirm your
+appointment will be at <%= @appointment.proceeded_at.to_s(:govuk_date) %>. The
+appointment will take place at <%= @appointment.location_name %> and will be
+with <%= @appointment.guider_name %>.
+
+<% @appointment.address_lines.each do |line| %>
+  <%= line %>
+<% end %>
+
+Preparing for your appointment
+
+To make your appointment as useful as possible, it would be helpful to know the
+following information:
+
+* the value of your pension pot(s) - check your pension paperwork or ask your
+  provider
+* an estimate of your State Pension - call the Future Pension Centre on
+  0345 600 4274 for a State Pension statement
+* any special arrangements attached to your pension pot, eg a guaranteed
+  annuity rate or a guaranteed pot value at a certain time - ask your provider
+
+Think about your financial circumstances in general and plans for retirement,
+eg:
+
+* sources of income like salary, benefits, savings, investments
+* debts and repayments you might have
+* when you want to stop working
+* if you want a fixed or flexible income in retirement
+
+If you are unable to attend this appointment please call
+<%= @appointment.booking_location.online_booking_twilio_number %> and we'll be
+able to re-arrange for you. You may be asked for your booking reference number,
+<%= @appointment.reference %>.
