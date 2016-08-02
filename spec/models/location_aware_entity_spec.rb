@@ -9,6 +9,12 @@ RSpec.describe LocationAwareEntity do
       described_class.new(booking_location: booking_location, entity: booking_request)
     end
 
+    describe '#entity' do
+      it 'unwraps the delegated instance' do
+        expect(subject.entity).to eq(booking_request)
+      end
+    end
+
     describe '#location_name' do
       it 'delegates `location_name` to the entity' do
         expect(booking_location).to receive(:name_for)

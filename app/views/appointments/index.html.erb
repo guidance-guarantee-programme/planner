@@ -50,7 +50,7 @@
                 <%= appointment.status.titleize %>
               </td>
               <td>
-                <%= link_to('Cancel/change', '/', class: 'btn btn-danger') %>
+                <%= link_to('Cancel / change', edit_appointment_path(appointment), class: 'btn btn-danger t-edit') %>
               </td>
             </tr>
           <% end %>

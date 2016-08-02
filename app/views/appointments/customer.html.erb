@@ -1,6 +1,11 @@
 <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
 0;font-size: 16px;line-height: 1.315789474;">Dear <%= @appointment.name %>,</p>
 
+<% if @appointment.updated? %>
+  <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin:
+  15px 0;font-size: 16px;line-height: 1.315789474;">Your appointment details were updated.</p>
+<% end %>
+
 <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
 0;font-size: 16px;line-height: 1.315789474;">Thank you for booking an
 appointment with Pension Wise. We can confirm your appointment will be at <%=

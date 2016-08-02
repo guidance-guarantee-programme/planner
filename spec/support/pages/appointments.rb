@@ -2,6 +2,8 @@ module Pages
   class Appointments < SitePrism::Page
     set_url '/appointments'
 
-    elements :appointments, '.t-appointment'
+    sections :appointments, '.t-appointment' do
+      element :edit, '.t-edit'
+    end
   end
 end

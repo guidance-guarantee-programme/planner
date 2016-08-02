@@ -20,6 +20,8 @@ class LocationAwareEntity < SimpleDelegator
     actual_location.address.split(', ')
   end
 
+  alias entity __getobj__
+
   private
 
   def actual_location
