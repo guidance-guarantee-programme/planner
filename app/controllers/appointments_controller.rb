@@ -13,7 +13,7 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    if @appointment.update(edit_appointment_params)
+    if @appointment_form.update(edit_appointment_params)
       redirect_to appointments_path
     else
       render :edit
@@ -44,7 +44,7 @@ class AppointmentsController < ApplicationController
   end
 
   def populate_edit_appointment_form
-    @appointment = EditAppointmentForm.new(location_aware_appointment)
+    @appointment_form = EditAppointmentForm.new(location_aware_appointment)
   end
 
   def populate_appointment_form
