@@ -14,7 +14,7 @@ class AppointmentsController < ApplicationController
 
   def update
     if @appointment_form.update(edit_appointment_params)
-      Appointments.customer(@appointment_form.entity, booking_location).deliver_later
+      notify_customer(@appointment_form.entity)
 
       redirect_to appointments_path
     else
@@ -28,7 +28,7 @@ class AppointmentsController < ApplicationController
   def create
     if @appointment_form.valid?
       @appointment = Appointment.create(@appointment_form.appointment_params)
-      Appointments.customer(@appointment, booking_location).deliver_later
+      notify_customer(@appointment)
 
       redirect_to booking_requests_path
     else
@@ -37,6 +37,12 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  def notify_customer(appointment)
+    return unless appointment.notify?
+
+    Appointments.customer(appointment, booking_location).deliver_later
+  end
 
   def location_aware_appointment
     LocationAwareEntity.new(

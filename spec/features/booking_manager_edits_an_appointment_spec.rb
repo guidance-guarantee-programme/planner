@@ -26,12 +26,15 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   scenario 'Update the status of an Appointment' do
-    given_the_user_identifies_as_hackneys_booking_manager do
-      and_there_is_an_appointment
-      when_the_booking_manager_edits_the_appointment
-      then_they_see_the_original_status
-      when_they_modify_the_status
-      then_the_status_is_updated
+    perform_enqueued_jobs do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_an_appointment
+        when_the_booking_manager_edits_the_appointment
+        then_they_see_the_original_status
+        when_they_modify_the_status
+        then_the_status_is_updated
+        and_the_customer_is_not_notified
+      end
     end
   end
 
@@ -98,6 +101,10 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_customer_is_notified
     expect(ActionMailer::Base.deliveries.count).to eq(1)
+  end
+
+  def and_the_customer_is_not_notified
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 
   def then_they_see_the_original_status

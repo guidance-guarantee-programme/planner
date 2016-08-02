@@ -26,6 +26,10 @@ class Appointment < ActiveRecord::Base
     audits.present?
   end
 
+  def notify?
+    previous_changes.exclude?(:status)
+  end
+
   private
 
   def validate_proceeded_at

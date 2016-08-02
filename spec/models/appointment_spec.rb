@@ -11,19 +11,39 @@ RSpec.describe Appointment do
     expect(subject.reference).to eq(subject.booking_request.reference)
   end
 
-  it 'audits changes upon update' do
-    original = create(:appointment)
+  describe 'auditing' do
+    let(:original) { create(:appointment) }
 
-    original.update(
-      name: 'Dave',
-      email: 'dave@example.com',
-      phone: '0208 252 4729',
-      proceeded_at: '2016-06-21 14:15',
-      guider_id: '3'
-    )
+    it 'audits changes upon update' do
+      original.update(
+        name: 'Dave',
+        email: 'dave@example.com',
+        phone: '0208 252 4729',
+        proceeded_at: '2016-06-21 14:15',
+        guider_id: '3'
+      )
 
-    expect(original.audits).to be_present
-    expect(original).to be_updated
+      expect(original.audits).to be_present
+      expect(original).to be_updated
+    end
+
+    describe '#notify?' do
+      context 'when the status was changed' do
+        it 'returns false' do
+          original.update(status: 1)
+
+          expect(original).to_not be_notify
+        end
+      end
+
+      context 'when the status was not changed' do
+        it 'returns true' do
+          original.update(name: 'George')
+
+          expect(original).to be_notify
+        end
+      end
+    end
   end
 
   describe 'validation' do
