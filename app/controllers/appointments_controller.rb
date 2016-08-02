@@ -14,6 +14,8 @@ class AppointmentsController < ApplicationController
 
   def update
     if @appointment_form.update(edit_appointment_params)
+      Appointments.customer(@appointment_form.entity, booking_location).deliver_later
+
       redirect_to appointments_path
     else
       render :edit

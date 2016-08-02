@@ -38,6 +38,20 @@ RSpec.describe Appointments do
           'E8 1HE'
         )
       end
+
+      context 'when sending the initial appointment notification' do
+        it 'does not include the lead paragraph for updates' do
+          expect(body).to_not include('Your appointment details were updated')
+        end
+      end
+
+      context 'when sending the updated appointment notification' do
+        before { allow(appointment).to receive(:updated?).and_return(true) }
+
+        it 'includes the lead paragraph for updates' do
+          expect(body).to include('Your appointment details were updated')
+        end
+      end
     end
   end
 end

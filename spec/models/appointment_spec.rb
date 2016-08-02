@@ -23,6 +23,7 @@ RSpec.describe Appointment do
     )
 
     expect(original.audits).to be_present
+    expect(original).to be_updated
   end
 
   describe 'validation' do

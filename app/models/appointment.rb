@@ -22,6 +22,10 @@ class Appointment < ActiveRecord::Base
   validates :guider_id, presence: true
   validate  :validate_proceeded_at
 
+  def updated?
+    audits.present?
+  end
+
   private
 
   def validate_proceeded_at
