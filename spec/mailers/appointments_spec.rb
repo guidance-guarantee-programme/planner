@@ -13,7 +13,6 @@ RSpec.describe Appointments do
       expect(mail.subject).to eq('Your Pension Wise Appointment')
       expect(mail.to).to eq([appointment.email])
       expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
-      expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"appointment_confirmation"')
     end
 
     describe 'rendering the body' do
@@ -43,6 +42,10 @@ RSpec.describe Appointments do
         it 'does not include the lead paragraph for updates' do
           expect(body).to_not include('Your appointment details were updated')
         end
+
+        it 'identifies the message correctly' do
+          expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"appointment_confirmation"')
+        end
       end
 
       context 'when sending the updated appointment notification' do
@@ -50,6 +53,10 @@ RSpec.describe Appointments do
 
         it 'includes the lead paragraph for updates' do
           expect(body).to include('Your appointment details were updated')
+        end
+
+        it 'identifies the message correctly' do
+          expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"appointment_modified"')
         end
       end
     end
