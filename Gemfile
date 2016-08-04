@@ -31,6 +31,6 @@ group :development do
   gem 'web-console', '~> 2.0'
 end
 
-group :production do
+group :staging, :production do
   gem 'rails_12factor'
 end
