@@ -48,7 +48,7 @@ GEM
       execjs
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    booking_locations (0.5.0)
+    booking_locations (0.6.0)
       activesupport (>= 4, < 5.1)
       globalid
     bootstrap-sass (3.3.5.1)
@@ -89,7 +89,7 @@ GEM
       rails (>= 3.0.0)
       warden (~> 1.2)
       warden-oauth2 (~> 0.0.1)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     govuk_admin_template (4.1.1)
       bootstrap-sass (= 3.3.5.1)
