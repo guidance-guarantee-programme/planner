@@ -1,5 +1,5 @@
 if Rails.env.production? || Rails.env.staging?
-  require_relative '../../lib/cached_booking_locations_api'
+  require 'cached_booking_locations_api'
 
   BookingLocations.api = CachedBookingLocationsApi.new
 else
