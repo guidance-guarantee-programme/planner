@@ -1,4 +1,4 @@
-BookingManagersNotFoundError = StandardError
+class BookingManagersNotFoundError < StandardError; end
 
 class BookingManagerConfirmationJob < ActiveJob::Base
   queue_as :default
