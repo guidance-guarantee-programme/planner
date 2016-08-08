@@ -9,9 +9,11 @@
 
 <div class="row">
   <div class="col-md-12">
-    <% if @appointments.empty? %>
+    <% if @appointments.page.empty? %>
       <p class="no-content t-notice">No appointments.</p>
     <% else %>
+      <%= paginate @appointments.entities %>
+
       <table class="table table-bordered">
         <thead>
           <tr class="table-header">
@@ -26,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @appointments.each do |appointment| %>
+          <% @appointments.page.each do |appointment| %>
             <tr class="t-appointment">
               <td>
                 <%= appointment.proceeded_at.strftime('%A, %b %e') %>
@@ -56,6 +58,8 @@
           <% end %>
         </tbody>
       </table>
+
+      <%= paginate @appointments.entities %>
     <% end %>
   </div>
 </div>

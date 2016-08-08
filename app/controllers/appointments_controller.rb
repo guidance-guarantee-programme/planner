@@ -4,9 +4,9 @@ class AppointmentsController < ApplicationController
 
   def index
     @appointments = LocationAwareEntities.new(
-      current_user.appointments,
+      current_user.appointments.page(params[:page]),
       booking_location
-    ).all
+    )
   end
 
   def edit

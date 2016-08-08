@@ -6,8 +6,8 @@ class LocationAwareEntities
     @entities = entities
   end
 
-  def all
-    @all ||= entities.map do |entity|
+  def page
+    @page ||= entities.map do |entity|
       LocationAwareEntity.new(
         booking_location: booking_location,
         entity: entity

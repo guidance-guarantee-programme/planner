@@ -10,7 +10,7 @@ RSpec.feature 'Booking manager views appointments' do
   end
 
   def and_there_are_appointments_for_their_location
-    create(:appointment)
+    create_list(:appointment, 11)
 
     # this won't be listed as it's not in Hackney
     create(:appointment, booking_request: create(:booking_request))
@@ -23,7 +23,7 @@ RSpec.feature 'Booking manager views appointments' do
   def then_they_are_shown_appointments_for_their_location
     @page = Pages::Appointments.new
     expect(@page).to be_displayed
-    expect(@page).to have_appointments(count: 1)
+    expect(@page).to have_appointments(count: 10)
     expect(@page).to have_content('Hackney')
   end
 end
