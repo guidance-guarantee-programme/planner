@@ -6,9 +6,9 @@ RSpec.describe LocationAwareEntities do
 
   subject { described_class.new(booking_requests, booking_location) }
 
-  describe '#all' do
+  describe '#page' do
     it 'returns decorated booking requests' do
-      expect(subject.all.map(&:class)).to match_array(LocationAwareEntity)
+      expect(subject.page.map(&:class)).to match_array(LocationAwareEntity)
     end
   end
 end
