@@ -1,4 +1,6 @@
 class LocationAwareEntities
+  attr_reader :entities
+
   def initialize(entities, booking_location)
     @booking_location = booking_location
     @entities = entities
@@ -15,5 +17,5 @@ class LocationAwareEntities
 
   private
 
-  attr_reader :booking_location, :entities
+  attr_reader :booking_location
 end

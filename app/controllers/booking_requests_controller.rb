@@ -1,8 +1,14 @@
 class BookingRequestsController < ApplicationController
   def index
     @booking_requests = LocationAwareEntities.new(
-      current_user.unfulfilled_booking_requests,
+      unfulfilled_booking_requests,
       booking_location
-    ).all
+    )
+  end
+
+  private
+
+  def unfulfilled_booking_requests
+    current_user.unfulfilled_booking_requests.page(params[:page])
   end
 end

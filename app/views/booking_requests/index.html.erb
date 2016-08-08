@@ -9,9 +9,11 @@
 
 <div class="row">
   <div class="col-md-12">
-    <% if @booking_requests.empty? %>
+    <% if @booking_requests.all.empty? %>
       <p class="no-content t-notice">No booking requests requiring attention.</p>
     <% else %>
+      <%= paginate @booking_requests.entities %>
+
       <table class="table table-bordered">
         <thead>
           <tr class="table-header">
@@ -24,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @booking_requests.each do |booking_request| %>
+          <% @booking_requests.all.each do |booking_request| %>
             <tr class="t-booking-request">
               <td>
                 <%= time_ago_in_words(booking_request.updated_at) %> ago
@@ -50,6 +52,8 @@
           <% end %>
         </tbody>
       </table>
+
+      <%= paginate @booking_requests.entities %>
     <% end %>
   </div>
 </div>

@@ -51,6 +51,9 @@ GEM
     booking_locations (0.6.0)
       activesupport (>= 4, < 5.1)
       globalid
+    bootstrap-kaminari-views (0.0.5)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     bootstrap-sass (3.3.5.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.3.0)
@@ -102,6 +105,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     jwt (1.5.4)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -266,12 +272,14 @@ PLATFORMS
 DEPENDENCIES
   audited-activerecord
   booking_locations
+  bootstrap-kaminari-views
   bugsnag
   capybara
   factory_girl_rails
   foreman
   gds-sso
   govuk_admin_template
+  kaminari
   newrelic_rpm
   pg (~> 0.15)
   plek
