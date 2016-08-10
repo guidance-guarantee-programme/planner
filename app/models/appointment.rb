@@ -11,8 +11,7 @@ class Appointment < ActiveRecord::Base
     cancelled_by_pension_wise
   )
 
-  before_validation :calculate_fulfilment_time, if: :proceeded_at_changed?
-  before_validation :calculate_fulfilment_window, if: :proceeded_at_changed?
+  before_validation :calculate_statistics, if: :proceeded_at_changed?
 
   belongs_to :booking_request
 
@@ -31,6 +30,11 @@ class Appointment < ActiveRecord::Base
 
   def notify?
     previous_changes.exclude?(:status)
+  end
+
+  def calculate_statistics
+    calculate_fulfilment_time
+    calculate_fulfilment_window
   end
 
   private
