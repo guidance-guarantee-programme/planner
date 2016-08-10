@@ -36,14 +36,14 @@ class Appointment < ActiveRecord::Base
   private
 
   def calculate_fulfilment_time
-    self.fulfilment_time_seconds = proceeded_at.to_i - booking_request.created_at.to_i
+    self.fulfilment_time_seconds = (proceeded_at.to_i - booking_request.created_at.to_i).abs
   end
 
   def calculate_fulfilment_window
     return unless booking_request.primary_slot
 
     self.fulfilment_window_seconds =
-      proceeded_at.to_i - booking_request.primary_slot.mid_point.to_i
+      (proceeded_at.to_i - booking_request.primary_slot.mid_point.to_i).abs
   end
 
   def validate_proceeded_at

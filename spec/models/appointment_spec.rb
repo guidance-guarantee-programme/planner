@@ -23,7 +23,7 @@ RSpec.describe Appointment do
         subject.save!
 
         expect(subject.fulfilment_time_seconds).to eq(
-          subject.proceeded_at.to_i - subject.booking_request.created_at.to_i
+          (subject.proceeded_at.to_i - subject.booking_request.created_at.to_i).abs
         )
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe Appointment do
         subject.save!
 
         expect(subject.fulfilment_window_seconds).to eq(
-          subject.proceeded_at.to_i - subject.booking_request.primary_slot.mid_point.to_i
+          (subject.proceeded_at.to_i - subject.booking_request.primary_slot.mid_point.to_i).abs
         )
       end
     end
