@@ -11,6 +11,42 @@ RSpec.describe Appointment do
     expect(subject.reference).to eq(subject.booking_request.reference)
   end
 
+  describe '#fulfilment_time_seconds' do
+    subject { build(:appointment) }
+
+    it 'defaults to 0' do
+      expect(described_class.new.fulfilment_time_seconds).to be_zero
+    end
+
+    context 'when the appointment date / time changes' do
+      it 'is re-calculated' do
+        subject.save!
+
+        expect(subject.fulfilment_time_seconds).to eq(
+          (subject.proceeded_at.to_i - subject.booking_request.created_at.to_i).abs
+        )
+      end
+    end
+  end
+
+  describe '#fulfilment_window_seconds' do
+    subject { build(:appointment) }
+
+    it 'defaults to 0' do
+      expect(described_class.new.fulfilment_window_seconds).to be_zero
+    end
+
+    context 'when the appointment date / time changes' do
+      it 'is re-calculated' do
+        subject.save!
+
+        expect(subject.fulfilment_window_seconds).to eq(
+          (subject.proceeded_at.to_i - subject.booking_request.primary_slot.mid_point.to_i).abs
+        )
+      end
+    end
+  end
+
   describe 'auditing' do
     let(:original) { create(:appointment) }
 

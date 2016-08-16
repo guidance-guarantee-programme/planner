@@ -11,6 +11,8 @@ class Appointment < ActiveRecord::Base
     cancelled_by_pension_wise
   )
 
+  before_validation :calculate_statistics, if: :proceeded_at_changed?
+
   belongs_to :booking_request
 
   delegate :reference, to: :booking_request
@@ -30,7 +32,23 @@ class Appointment < ActiveRecord::Base
     previous_changes.exclude?(:status)
   end
 
+  def calculate_statistics
+    calculate_fulfilment_time
+    calculate_fulfilment_window
+  end
+
   private
+
+  def calculate_fulfilment_time
+    self.fulfilment_time_seconds = (proceeded_at.to_i - booking_request.created_at.to_i).abs
+  end
+
+  def calculate_fulfilment_window
+    return unless booking_request.primary_slot
+
+    self.fulfilment_window_seconds =
+      (proceeded_at.to_i - booking_request.primary_slot.mid_point.to_i).abs
+  end
 
   def validate_proceeded_at
     errors.add(:proceeded_at, 'must be present') unless proceeded_at.present?

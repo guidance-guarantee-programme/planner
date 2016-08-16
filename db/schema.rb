@@ -11,22 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801132404) do
+ActiveRecord::Schema.define(version: 20160810103222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.integer  "booking_request_id",             null: false
-    t.string   "name",                           null: false
-    t.string   "email",                          null: false
-    t.string   "phone",                          null: false
-    t.integer  "guider_id",                      null: false
-    t.string   "location_id",                    null: false
-    t.datetime "proceeded_at",                   null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "status",             default: 0, null: false
+    t.integer  "booking_request_id",                    null: false
+    t.string   "name",                                  null: false
+    t.string   "email",                                 null: false
+    t.string   "phone",                                 null: false
+    t.integer  "guider_id",                             null: false
+    t.string   "location_id",                           null: false
+    t.datetime "proceeded_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "status",                    default: 0, null: false
+    t.integer  "fulfilment_time_seconds",   default: 0, null: false
+    t.integer  "fulfilment_window_seconds", default: 0, null: false
   end
 
   add_index "appointments", ["booking_request_id"], name: "index_appointments_on_booking_request_id", using: :btree

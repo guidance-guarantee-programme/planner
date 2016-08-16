@@ -41,6 +41,26 @@ RSpec.describe Slot do
     end
   end
 
+  describe '#mid_point' do
+    subject { Slot.new(from: from, date: '2016-01-01').mid_point.to_s(:db) }
+
+    context 'for a morning slot' do
+      let(:from) { '0900' }
+
+      it 'returns the mid-morning' do
+        expect(subject).to eq('2016-01-01 11:00:00')
+      end
+    end
+
+    context 'for an afternoon slot' do
+      let(:from) { '1300' }
+
+      it 'returns the mid-afternoon' do
+        expect(subject).to eq('2016-01-01 15:00:00')
+      end
+    end
+  end
+
   describe '#to_s' do
     it 'describes the slot' do
       slot = Slot.new(

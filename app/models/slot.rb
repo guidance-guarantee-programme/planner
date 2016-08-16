@@ -30,6 +30,12 @@ class Slot < ActiveRecord::Base
     @delimited_from ||= from.insert(2, ':')
   end
 
+  def mid_point
+    mid_point_time = morning? ? '11:00' : '15:00'
+
+    Time.zone.parse("#{date} #{mid_point_time}")
+  end
+
   private
 
   def validate_from_before_to
