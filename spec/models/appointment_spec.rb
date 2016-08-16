@@ -11,6 +11,10 @@ RSpec.describe Appointment do
     expect(subject.reference).to eq(subject.booking_request.reference)
   end
 
+  it 'defaults `#created_at`' do
+    expect(described_class.new.created_at).to be_present
+  end
+
   describe '#fulfilment_time_seconds' do
     subject { build(:appointment) }
 
@@ -23,7 +27,7 @@ RSpec.describe Appointment do
         subject.save!
 
         expect(subject.fulfilment_time_seconds).to eq(
-          (subject.proceeded_at.to_i - subject.booking_request.created_at.to_i).abs
+          (subject.created_at.to_i - subject.booking_request.created_at.to_i).abs
         )
       end
     end

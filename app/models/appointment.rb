@@ -11,7 +11,7 @@ class Appointment < ActiveRecord::Base
     cancelled_by_pension_wise
   )
 
-  before_validation :calculate_statistics, if: :proceeded_at_changed?
+  before_save :calculate_statistics, if: :proceeded_at_changed?
 
   belongs_to :booking_request
 
@@ -37,10 +37,15 @@ class Appointment < ActiveRecord::Base
     calculate_fulfilment_window
   end
 
+  def created_at
+    super || Time.zone.now
+  end
+
   private
 
   def calculate_fulfilment_time
-    self.fulfilment_time_seconds = (proceeded_at.to_i - booking_request.created_at.to_i).abs
+    self.fulfilment_time_seconds =
+      (created_at.to_i - booking_request.created_at.to_i).abs
   end
 
   def calculate_fulfilment_window
