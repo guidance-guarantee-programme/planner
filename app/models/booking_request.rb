@@ -3,7 +3,7 @@ class BookingRequest < ActiveRecord::Base
 
   has_one :appointment
 
-  has_many :slots, -> { order(:priority) }
+  has_many :slots, -> { order(:priority) }, dependent: :destroy
 
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false
 

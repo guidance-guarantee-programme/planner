@@ -76,10 +76,14 @@ RSpec.describe BookingRequest do
   end
 
   describe '#slots' do
-    it 'is returned in order of #priority' do
-      request = create(:booking_request)
+    let(:request) { create(:booking_request) }
 
+    it 'is returned in order of #priority' do
       expect(request.slots.pluck(:priority)).to eq([1, 2, 3])
+    end
+
+    it 'cascades deletes to the associated slots' do
+      expect { request.destroy }.to change { request.slots.count }.by(-3)
     end
   end
 end
