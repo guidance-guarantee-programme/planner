@@ -36,6 +36,9 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def activity
+  end
+
   private
 
   def notify_customer(appointment)

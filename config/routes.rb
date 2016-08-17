@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :appointments, only: %i(new create)
   end
 
+  get 'appointments/activity', to: 'appointments#activity'
+
   root 'booking_requests#index'
 
   namespace :api, constraints: { format: :json } do
