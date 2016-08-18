@@ -19,6 +19,9 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'bugsnag'
 gem 'newrelic_rpm'
+gem 'faraday'
+gem 'faraday-conductivity'
+gem 'faraday_middleware'
 
 group :development, :test do
   gem 'capybara'
@@ -31,6 +34,10 @@ end
 group :development do
   gem 'rubocop'
   gem 'web-console', '~> 2.0'
+end
+
+group :test do
+  gem 'webmock'
 end
 
 group :staging, :production do
