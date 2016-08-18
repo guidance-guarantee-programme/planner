@@ -18,7 +18,6 @@ class StatisticsWebHook
     @connection ||= Faraday.new(connection_options) do |faraday|
       faraday.request  :json
       faraday.response :raise_error
-      faraday.response :json
       faraday.use      :instrumentation
       faraday.adapter  Faraday.default_adapter
     end
@@ -28,8 +27,8 @@ class StatisticsWebHook
     {
       url: hook_uri,
       request: {
-        timeout:      ENV.fetch('STATISTICS_WEB_HOOK_TIMEOUT', 2),
-        open_timeout: ENV.fetch('STATISTICS_WEB_HOOK_OPEN_TIMEOUT', 2)
+        timeout:      Integer(ENV.fetch('STATISTICS_WEB_HOOK_TIMEOUT', 2)),
+        open_timeout: Integer(ENV.fetch('STATISTICS_WEB_HOOK_OPEN_TIMEOUT', 2))
       }
     }
   end
