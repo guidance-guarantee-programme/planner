@@ -28,8 +28,8 @@ class StatisticsWebHook
     {
       url: hook_uri,
       request: {
-        timeout:      ENV.fetch('STATISTICS_WEB_HOOK_TIMEOUT', 2),
-        open_timeout: ENV.fetch('STATISTICS_WEB_HOOK_OPEN_TIMEOUT', 2)
+        timeout:      Integer(ENV.fetch('STATISTICS_WEB_HOOK_TIMEOUT', 2)),
+        open_timeout: Integer(ENV.fetch('STATISTICS_WEB_HOOK_OPEN_TIMEOUT', 2))
       }
     }
   end
