@@ -18,7 +18,6 @@ class StatisticsWebHook
     @connection ||= Faraday.new(connection_options) do |faraday|
       faraday.request  :json
       faraday.response :raise_error
-      faraday.response :json
       faraday.use      :instrumentation
       faraday.adapter  Faraday.default_adapter
     end

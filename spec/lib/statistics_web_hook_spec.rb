@@ -11,13 +11,17 @@ RSpec.describe StatisticsWebHook, '#call' do
 
   context 'when a hook URI is configured' do
     let(:json) { Hash[thing: true] }
+    let(:body) { '<html/>' }
 
     let!(:request) do
       stub_request(:post, 'https://example.com/')
         .with(
           body: json.to_json,
           headers: { 'Content-Type' => 'application/json' }
-        ).to_return(status: status_code)
+        ).to_return(
+          status: status_code,
+          body: body
+        )
     end
 
     subject { described_class.new('https://example.com') }
