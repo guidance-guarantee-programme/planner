@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/collectiveidea/audited.git
+  revision: 3b4b79ddebc34729dd3e5bb9aa5ee2a7605076c0
+  ref: 3b4b79d
+  specs:
+    audited (4.2.0)
+      activerecord (>= 4.0, < 5.1)
+      rails-observers (~> 0.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,11 +48,6 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     ast (2.2.0)
-    audited (4.2.1)
-      rails-observers (~> 0.1.2)
-    audited-activerecord (4.2.1)
-      activerecord (~> 4.0)
-      audited (= 4.2.1)
     autoprefixer-rails (6.3.6)
       execjs
     binding_of_caller (0.7.2)
@@ -282,7 +286,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  audited-activerecord
+  audited!
   booking_locations
   bootstrap-kaminari-views
   bugsnag
