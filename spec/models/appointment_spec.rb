@@ -11,6 +11,10 @@ RSpec.describe Appointment do
     expect(subject.reference).to eq(subject.booking_request.reference)
   end
 
+  it 'delegates `#activities` to the `booking_request`' do
+    expect(subject.activities).to eq(subject.booking_request.activities)
+  end
+
   it 'defaults `#created_at`' do
     expect(described_class.new.created_at).to be_present
   end
@@ -65,6 +69,10 @@ RSpec.describe Appointment do
 
       expect(original.audits).to be_present
       expect(original).to be_updated
+    end
+
+    it 'creates an activity linking to the audited entry' do
+      expect { original.update(name: 'Mr. Meseeks') }.to change { original.activities.count }.by(1)
     end
 
     it 'does not audit changes to statistics attributes' do

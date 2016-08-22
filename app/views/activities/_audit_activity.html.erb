@@ -1,0 +1,6 @@
+<tr>
+  <td class="t-activity">
+    <span class="glyphicon glyphicon-pencil"></span>
+    <b><%= audit_activity.owner_name %></b> changed the <%= audit_activity.message %> <em class="badge"><%= time_ago_in_words(audit_activity.created_at) %> ago</em>
+  </td>
+</tr>

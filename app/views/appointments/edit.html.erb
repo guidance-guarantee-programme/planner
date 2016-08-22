@@ -12,6 +12,22 @@
 </div>
 
 <div class="row">
+  <div class="col-md-12 border-bottom">
+    <h3>Recent activity</h3>
+
+    <% if @activities.present? %>
+      <div class="activity-feed t-activity-feed">
+        <table class="activity-feed__table table">
+          <%= render @activities.first %>
+        </table>
+      </div>
+    <% else %>
+      <p>No activities.</p>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-4">
     <h3>Change appointment details</h3>
     <p class="lead">Use the form below to change the details of the appointment.</p>
