@@ -67,6 +67,15 @@ RSpec.describe Appointment do
       expect(original).to be_updated
     end
 
+    it 'does not audit changes to statistics attributes' do
+      original.update(
+        fulfilment_time_seconds: 1,
+        fulfilment_window_seconds: 1
+      )
+
+      expect(original.audits).to be_empty
+    end
+
     describe '#notify?' do
       context 'when the status was changed' do
         it 'returns false' do
