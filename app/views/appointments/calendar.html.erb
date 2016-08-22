@@ -1,0 +1,68 @@
+<% content_for(:head) do %>
+  <%= stylesheet_link_tag "fullcalendar/dist/fullcalendar" %>
+  <%= stylesheet_link_tag "fullcalendar-scheduler/dist/scheduler" %>
+<% end %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= appointments_url %>">Appointments</a></li>
+    <li class="active">Calendar</li>
+  </ol>
+  <h1>Appointments calendar</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-10" id="calendar-canvas"></div>
+  <div class="col-md-2 calendar-filters" id="calendar-filters">
+    <h3 class="calendar-filters__header">Options</h3>
+
+    <h4>Guiders</h4>
+    <% @booking_location.guiders.each_with_index do |guider, index| %>
+      <p>
+        <label for="resource_<%= guider.id %>"><input type="checkbox" id="resource_<%= guider.id %>" name="resource_<%= guider.id %>" value="1" checked> <span class="calendar-filters__key calendar-filters__key--<%= index+1 %>"></span><%= guider.name %></label>
+      </p>
+    <% end %>
+    <hr>
+    <h4>Locations</h4>
+    <% @locations_all.each do |location| %>
+      <p>
+        <label for="location_<%= location[1] %>"><input type="checkbox" id="location_<%= location[1] %>" name="location_<%= location[1] %>" value="1" checked> <%= location[0] %></label>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<script>
+window.PWPLAN = window.PWPLAN || {};
+
+$(function() {
+  new PWPLAN.Calendar({
+    selector: '#calendar-canvas',
+    type: 'guider-schedule',
+    resources: [
+      <% @booking_location.guiders.each do |guider| %>
+      {
+        id: '<%= guider.id %>',
+        title: '<%= guider.name %>'
+      }<%= "," unless guider == @booking_location.guiders.last %>
+      <% end %>
+    ],
+    events: [
+      <% @appointments_all.page.each do |appointment| %>
+      {
+        id: '<%= appointment.id %>',
+        guiderId: '<%= appointment.guider_id %>',
+        guiderName: '<%= appointment.guider_name %>',
+        start: '<%= appointment.proceeded_at.strftime('%FT%R') %>',
+        name: '<%= appointment.name %>',
+        locationId: '<%= appointment.location_id %>',
+        locationName: '<%= appointment.location_name %>',
+        status: '<%= appointment.status %>',
+        url: '<%= edit_appointment_path(appointment) %>'
+      }<%= "," unless appointment == @appointments_all.page.last %>
+      <% end %>
+    ]
+  });
+});
+</script>

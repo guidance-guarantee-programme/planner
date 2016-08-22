@@ -1,7 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :appointments, only: %i(index edit update)
+  resources :appointments, only: %i(index edit update calendar)
+
+  get 'appointments/calendar', to: 'appointments#calendar'
 
   resources :booking_requests, only: :index do
     resources :activities, only: %i(index create)

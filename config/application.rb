@@ -34,5 +34,7 @@ module Planner
     config.action_mailer.default_url_options = { host: ENV['APPLICATION_HOST'] }
 
     config.mount_javascript_test_routes = false
+
+    config.browserify_rails.commandline_options = '-t [ babelify --presets [ es2015 ] ]'
   end
 end

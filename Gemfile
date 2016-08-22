@@ -27,6 +27,7 @@ gem 'sprockets-es6'
 
 group :development, :test do
   gem 'capybara'
+  gem 'browserify-rails'
   gem 'pry-byebug'
   gem 'factory_girl_rails'
   gem 'jasmine-jquery-rails'
