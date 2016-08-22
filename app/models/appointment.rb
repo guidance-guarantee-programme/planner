@@ -1,5 +1,5 @@
 class Appointment < ActiveRecord::Base
-  audited on: [:update]
+  audited on: [:update], except: %i(fulfilment_time_seconds fulfilment_window_seconds)
 
   enum status: %i(
     pending
