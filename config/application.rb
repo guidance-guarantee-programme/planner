@@ -9,6 +9,7 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie'
 require 'sprockets/railtie'
+require 'sprockets/es6'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -35,5 +36,7 @@ module Planner
 
     # default options for booking manager confirmation
     config.action_mailer.default_url_options = { host: ENV['APPLICATION_HOST'] }
+
+    config.mount_javascript_test_routes = false
   end
 end

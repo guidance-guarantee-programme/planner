@@ -22,11 +22,15 @@ gem 'newrelic_rpm'
 gem 'faraday'
 gem 'faraday-conductivity'
 gem 'faraday_middleware'
+gem 'sprockets-es6'
 
 group :development, :test do
   gem 'capybara'
   gem 'pry-byebug'
   gem 'factory_girl_rails'
+  gem 'jasmine-jquery-rails'
+  gem 'jasmine-rails'
+  gem 'phantomjs', '1.9.8.0'
   gem 'rspec-rails'
   gem 'site_prism'
 end
