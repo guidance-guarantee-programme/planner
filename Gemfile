@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem 'audited', github: 'collectiveidea/audited', ref: '3b4b79d'
+gem 'audited', github: 'collectiveidea/audited'
 gem 'booking_locations'
 gem 'gds-sso'
 gem 'kaminari'
