@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'administrators/index'
+
   resources :appointments, only: %i(index edit update)
 
   resources :booking_requests, only: :index do
