@@ -45,4 +45,6 @@ Rails.application.configure do
 
   # Process jobs inline
   config.active_job.queue_adapter = :inline
+
+  config.mount_javascript_test_routes = true
 end
