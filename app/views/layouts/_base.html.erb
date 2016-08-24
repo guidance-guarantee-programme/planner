@@ -1,0 +1,29 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+<% end %>
+
+<%= content_for :app_title do %>
+  Appointment Planner
+<% end %>
+
+<%= content_for :navbar_items do %>
+  <li>
+    <%= link_to 'Booking Requests', root_path %>
+  </li>
+  <li>
+    <%= link_to 'Appointments', appointments_path %>
+  </li>
+  <li>
+    <%= link_to 'Admin', administrators_index_path %>
+  </li>
+<% end %>
+
+<% content_for :body_end do %>
+  <%= javascript_include_tag 'application' %>
+<% end %>
+
+<% content_for :content do %>
+  <%= yield %>
+<% end %>
+
+<%= render template: 'layouts/govuk_admin_template' %>

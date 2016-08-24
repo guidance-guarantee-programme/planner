@@ -1,0 +1,27 @@
+<%= render layout: 'layouts/base' do %>
+  <% content_for(:content) do %>
+
+    <div class="page-header">
+      <ol class="breadcrumb">
+        <li><a href="<%= root_path %>">Appointment planner</a></li>
+        <li class="active">Administration</li>
+      </ol>
+
+      <h1>Administration</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li role="presentation" class="<%= 'active' if current_page?('slots') %>"><a href="<%= administrators_slots_path %>">Manage appointment slots</a></li>
+          <li role="presentation"><a href="#">Manage guiders</a></li>
+          <li role="presentation"><a href="#">Manage administrators</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-9 l-admin">
+        <%= yield %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

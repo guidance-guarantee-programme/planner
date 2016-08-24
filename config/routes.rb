@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   get 'administrators/index'
+  get 'administrators/slots'
 
   resources :appointments, only: %i(index edit update)
 
