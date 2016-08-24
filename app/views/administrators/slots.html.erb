@@ -5,39 +5,47 @@
 <% periods.each_with_index do |period, period_index| %>
   <%
   startDate = period[0].strftime('%A, %b %e')
-  endDate = period[1] ? period[1].strftime('%A, %b %e') : 'forever'
+  endDate = period[1] ? period[1].strftime('%A, %b %e') : 'onwards'
 
   slots = slots_by_group(period_index)
   %>
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title"><%= startDate %> until <%= endDate %></h3>
-    </div>
+      <h3 class="panel-title">
+        <a class="collapsable__trigger collapsed" role="button" data-toggle="collapse" href="#period<%= period_index %>" aria-expanded="false">
+          <%= startDate %> → <%= endDate %>
+        </a>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <% slots.each do |group, slots| %>
-          <th><%= group %></th>
+        <span class="glyphicon glyphicon-plus collapsable__trigger-icon"></span>
+        <span class="glyphicon glyphicon-minus collapsable__trigger-icon--collapsed"></span>
+      </h3>
+    </div>
+    <div id="period<%= period_index %>" class="panel-collapse collapse">
+      <table class="table">
+        <thead>
+          <tr>
+            <% slots.each do |group, slots| %>
+            <th><%= group %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <% slots.each do |group, group_slots| %>
+            <td>
+              <ul class="list-group">
+                <% group_slots.each do |slot| %>
+                <li class="list-group-item lead">
+                  <span class="label label-primary"><%= slot %></span>
+                </li>
+                <% end %>
+              </ul>
+            </td>
           <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-        <% slots.each do |group, group_slots| %>
-          <td>
-            <ul class="list-group">
-              <% group_slots.each do |slot| %>
-              <li class="list-group-item lead">
-                <span class="label label-default"><%= slot %></span>
-              </li>
-              <% end %>
-            </ul>
-          </td>
-        <% end %>
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 <% end %>

@@ -1,0 +1,23 @@
+.collapsable__trigger {
+  display: block;
+
+  & ~ .collapsable__trigger-icon {
+    display: none;
+  }
+
+  &.collapsed {
+    & ~ .collapsable__trigger-icon {
+      display: inline-block;
+    }
+
+    & ~ .collapsable__trigger-icon--collapsed {
+      display: none;
+    }
+  }
+}
+
+.collapsable__trigger-icon,
+.collapsable__trigger-icon--collapsed {
+  float: right;
+  margin-top: -18px;
+}
