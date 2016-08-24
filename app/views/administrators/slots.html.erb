@@ -1,1 +1,43 @@
 <h2>Manage appointment slots</h2>
+<p class="lead">Use the panels below to manage or create new availability periods for Guider Groups.</p>
+
+
+<% periods.each_with_index do |period, period_index| %>
+  <%
+  startDate = period[0].strftime('%A, %b %e')
+  endDate = period[1] ? period[1].strftime('%A, %b %e') : 'forever'
+
+  slots = slots_by_group(period_index)
+  %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= startDate %> until <%= endDate %></h3>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <% slots.each do |group, slots| %>
+          <th><%= group %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <% slots.each do |group, group_slots| %>
+          <td>
+            <ul class="list-group">
+              <% group_slots.each do |slot| %>
+              <li class="list-group-item lead">
+                <span class="label label-default"><%= slot %></span>
+              </li>
+              <% end %>
+            </ul>
+          </td>
+        <% end %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
