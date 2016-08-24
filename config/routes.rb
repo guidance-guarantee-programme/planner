@@ -3,9 +3,11 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   resources :appointments, only: %i(index edit update)
 
-  resources :booking_requests, only: :index do
+  resources :booking_requests, only: %i(index) do
     resources :appointments, only: %i(new create)
   end
+
+  get 'appointments/scheduler', to: 'appointments#scheduler'
 
   root 'booking_requests#index'
 

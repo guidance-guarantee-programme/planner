@@ -10,8 +10,8 @@
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Appointment planner</a></li>
-    <li><a href="<%= booking_requests_index_path %>">Booking requests</a></li>
-    <li><%= link_to(@booking_request.name, booking_requests_show_path(:id => @booking_request.id)) %></li>
+    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li><a href="<%= new_booking_request_appointment_path(@appointment_form.location_aware_booking_request) %>"><%= @appointment_form.location_aware_booking_request.name %></a></li>
     <li class="active">Find a slot</li>
   </ol>
 </div>
@@ -26,9 +26,9 @@
       <div class="SlotPicker-choiceInner">
         <div class="SlotPicker-position"><span>1</span></div>
         <div class="SlotPicker-choiceContent">
-          <p class="SlotPicker-date"><%= @booking_request.slots[0].date.strftime('%A, %b %e') %></p>
+          <p class="SlotPicker-date"><%= @appointment_form.primary_slot.formatted_date %></p>
           <p class="SlotPicker-time">
-          <%= @booking_request.slots[0].period.capitalize %></p>
+          <%= @appointment_form.primary_slot.period %></p>
         </div>
       </div>
     </div>
@@ -38,9 +38,9 @@
       <div class="SlotPicker-choiceInner">
         <div class="SlotPicker-position"><span>2</span></div>
         <div class="SlotPicker-choiceContent">
-          <p class="SlotPicker-date"><%= @booking_request.slots[1].date.strftime('%A, %b %e') %></p>
+          <p class="SlotPicker-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
           <p class="SlotPicker-time">
-          <%= @booking_request.slots[1].period.capitalize %></p>
+          <%= @appointment_form.secondary_slot.period %></p>
         </div>
       </div>
     </div>
@@ -50,9 +50,9 @@
       <div class="SlotPicker-choiceInner">
         <div class="SlotPicker-position"><span>3</span></div>
         <div class="SlotPicker-choiceContent">
-          <p class="SlotPicker-date"><%= @booking_request.slots[2].date.strftime('%A, %b %e') %></p>
+          <p class="SlotPicker-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
           <p class="SlotPicker-time">
-          <%= @booking_request.slots[2].period.capitalize %></p>
+          <%= @appointment_form.tertiary_slot.period %></p>
         </div>
       </div>
     </div>
@@ -61,14 +61,13 @@
   <div class="col-md-12">
     <br>
     <p>
-      <%= form_tag(url_for(booking_requests_show_path(:id => @booking_request.id)), method: 'get') do -%>
-        <%= hidden_field_tag 'id', @booking_request.id %>
+      <%= form_tag(new_booking_request_appointment_path(@appointment_form.location_aware_booking_request), method: 'get') do -%>
         <%= hidden_field_tag 'guider_id' %>
         <%= hidden_field_tag 'datetime' %>
 
         <%= submit_tag 'Confirm slot and continue', class: 'btn btn-primary btn-block' %>
       <% end -%>
     </p>
-    <div id="calendar" class="scheduler" data-name="<%= @booking_request.name %>"></div>
+    <div id="calendar" class="scheduler" data-name="<%= @appointment_form.location_aware_booking_request.name %>"></div>
   </div>
 </div>
