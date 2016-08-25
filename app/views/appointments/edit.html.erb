@@ -19,6 +19,21 @@
       <div class="activity-feed t-activity-feed">
         <table class="activity-feed__table table">
           <%= render @activities.first %>
+
+          <% if @activities.count > 1 %>
+            <tbody class="collapse t-hidden-activities" id="collapse">
+              <%= render(@activities - Array(@activities.first)) %>
+            </tbody>
+
+            <tr>
+              <td>
+                <a class="t-further-activities" role="button" data-toggle="collapse" href="#collapse" aria-expanded="false" aria-controls="collapseExample">
+                  <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                  All activity
+                </a>
+              </td>
+            </tr>
+          <% end %>
         </table>
       </div>
     <% else %>

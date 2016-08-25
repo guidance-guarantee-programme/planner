@@ -41,7 +41,9 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'webmock'
+  gem 'poltergeist'
 end
 
 group :staging, :production do
