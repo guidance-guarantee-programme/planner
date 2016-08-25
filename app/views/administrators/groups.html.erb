@@ -1,0 +1,52 @@
+<h2>Guiders & Group Management</h2>
+<p class="lead">Move guiders into their relevant groups below.</p>
+
+<div class="row">
+  <div class="col-md-4">
+    <h4>Group 1</h4>
+
+    <ol class="draggable-group list-group">
+      <li class="list-group-item">Barry Scott</li>
+      <li class="list-group-item">Nigel Mansel</li>
+      <li class="list-group-item">Humpfrey Bogart</li>
+      <li class="list-group-item">Linda Mcartney</li>
+      <li class="list-group-item">Melinda Jones</li>
+    </ol>
+  </div>
+
+  <div class="col-md-4">
+    <h4>Group 2</h4>
+
+    <ol class="draggable-group list-group">
+      <li class="list-group-item">Winflebert Humperdink</li>
+      <li class="list-group-item">Clarice Beaumont</li>
+      <li class="list-group-item">Marie Claire</li>
+      <li class="list-group-item">Chloe Misguided</li>
+      <li class="list-group-item">George Bindleflimp</li>
+      <li class="list-group-item">Belinda Carlisle</li>
+    </ol>
+  </div>
+
+  <div class="col-md-4">
+    <h4>Group 3</h4>
+
+    <ol class="draggable-group list-group">
+      <li class="list-group-item">Melissa Joan Hart</li>
+      <li class="list-group-item">Bamboo Missleflert</li>
+      <li class="list-group-item">Nora Habumple</li>
+      <li class="list-group-item">Clarissa Sear</li>
+    </ol>
+  </div>
+</div>
+
+<% content_for :body_end do %>
+  <%= javascript_include_tag 'jquery-sortable' %>
+  <script>
+    var adjustment;
+
+    $("ol.draggable-group").sortable({
+      group: 'draggable-group',
+      pullPlaceholder: true
+    });
+  </script>
+<% end %>

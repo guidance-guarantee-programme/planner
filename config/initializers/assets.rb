@@ -28,4 +28,5 @@ Rails.application.config.assets.precompile += %w( moj.slot-picker/dist/styleshee
                                                   moment/moment.js
                                                   fullcalendar/dist/fullcalendar.js
                                                   fullcalendar-scheduler/dist/scheduler.js
-                                                  scheduler.js)
+                                                  scheduler.js
+                                                  jquery-sortable.js)

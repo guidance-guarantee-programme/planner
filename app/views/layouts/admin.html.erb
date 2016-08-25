@@ -14,7 +14,7 @@
       <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
           <li role="presentation" class="<%= 'active' if current_page?('slots') %>"><a href="<%= administrators_slots_path %>">Appointment slots</a></li>
-          <li role="presentation"><a href="#">Guiders & groups</a></li>
+          <li role="presentation" class="<%= 'active' if current_page?('groups') %>"><a href="<%= administrators_groups_path %>">Guiders & groups</a></li>
         </ul>
       </div>
 

@@ -11,6 +11,10 @@ class AdministratorsController < ApplicationController
     @current_page = 'slots'
   end
 
+  def groups
+    @current_page = 'groups'
+  end
+
   private
 
   def current_page?(page)
