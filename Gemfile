@@ -36,7 +36,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rubocop'
+  gem 'rubocop', require: false
   gem 'web-console', '~> 2.0'
 end
 
