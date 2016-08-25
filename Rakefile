@@ -5,7 +5,13 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
+default_tasks = %i(analyse_javascript spec:javascript)
 
-task default: %i(rubocop analyse_javascript spec:javascript)
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+  default_tasks.unshift(:rubocop)
+rescue LoadError
+end
+
+task default: default_tasks
