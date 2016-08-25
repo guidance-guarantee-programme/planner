@@ -1,0 +1,28 @@
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li><a href="#">Barry Scott</a></li>
+    <li class="active">Activity</li>
+  </ol>
+
+  <h1>
+    All activity for Barry Scott's booking<br>
+    <small>Booking reference: <span class="t-reference">1231</span></small>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-10">
+    <p class="lead"><a href="#">
+      <span class="glyphicon glyphicon-chevron-left"></span> Back to fulfilment page
+    </a></p>
+
+    <%= render 'appointments/activity', items: 50, preview: false %>
+
+    <p class="lead"><a href="#">
+      <span class="glyphicon glyphicon-chevron-left"></span> Back to fulfilment page
+    </a></p>
+  </div>
+</div>
+

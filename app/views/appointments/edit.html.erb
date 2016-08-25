@@ -12,6 +12,13 @@
 </div>
 
 <div class="row">
+  <div class="col-md-12 border-bottom">
+    <h3>Recent activity</h3>
+    <%= render 'appointments/activity', items: 1, preview: true %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-4">
     <h3>Change appointment details</h3>
     <p class="lead">Use the form below to change the details of the appointment.</p>
@@ -94,6 +101,7 @@
   </div>
 
   <div class="col-md-4">
+
     <h3>Original slots requested</h3>
     <p class="lead">For reference, the slots originally requested by the customer are:</p>
 
