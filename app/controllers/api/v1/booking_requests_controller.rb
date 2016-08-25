@@ -21,6 +21,7 @@ module Api
       def send_notifications(booking_request)
         CustomerConfirmationJob.perform_later(booking_request)
         BookingManagerConfirmationJob.perform_later(booking_request)
+        SlackPingerJob.perform_later(booking_request)
       end
 
       def render_errors(booking_request)
