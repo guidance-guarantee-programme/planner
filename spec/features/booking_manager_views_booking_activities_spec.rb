@@ -3,12 +3,16 @@ require 'rails_helper'
 RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true do
   scenario 'Viewing activities from an Appointment' do
     given_the_user_identifies_as_hackneys_booking_manager do
-      and_there_is_an_appointment_for_their_location
-      and_the_appointment_was_updated_multiple_times
-      when_they_view_the_appointment
-      then_they_see_the_last_activity
-      when_they_request_further_activities
-      then_they_see_all_the_activities
+      with_configured_polling(milliseconds: 2000) do
+        and_there_is_an_appointment_for_their_location
+        and_the_appointment_was_updated_multiple_times
+        when_they_view_the_appointment
+        then_they_see_the_last_activity
+        when_they_request_further_activities
+        then_they_see_all_the_activities
+        when_somebody_else_adds_an_activity
+        then_it_appears_dynamically
+      end
     end
   end
 
@@ -17,11 +21,8 @@ RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true
   end
 
   def and_the_appointment_was_updated_multiple_times
-    @appointment.name = 'Mortimer Birdperson'
-    @appointment.save!
-
-    @appointment.email = 'mortimer@example.com'
-    @appointment.save!
+    @appointment.update(name: 'Mortimer Birdperson')
+    @appointment.update(email: 'mortimer@example.com')
   end
 
   def when_they_view_the_appointment
@@ -47,5 +48,23 @@ RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true
       expect(feed).to have_activities(count: 2)
       expect(feed.activities.last).to have_text('name')
     end
+  end
+
+  def when_somebody_else_adds_an_activity
+    @activity = create(:activity, booking_request: @appointment.booking_request)
+  end
+
+  def then_it_appears_dynamically
+    expect(@page).to have_text(@activity.owner_name)
+    expect(@page).to have_text(@activity.message)
+  end
+
+  def with_configured_polling(milliseconds:)
+    previous = ENV[Activity::POLLING_KEY]
+    ENV[Activity::POLLING_KEY] = milliseconds.to_s
+
+    yield
+  ensure
+    ENV[Activity::POLLING_KEY] = previous
   end
 end

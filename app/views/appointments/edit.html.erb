@@ -17,7 +17,10 @@
 
     <% if @activities.present? %>
       <div class="activity-feed t-activity-feed">
-        <table class="activity-feed__table table">
+        <table class="activity-feed__table table js-poller"
+           data-interval="<%= poll_interval_milliseconds %>"
+           data-url="<%= booking_request_activities_path(@appointment_form.booking_request) %>">
+
           <%= render @activities.first %>
 
           <% if @activities.count > 1 %>
