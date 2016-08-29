@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true do
+  scenario 'Creating a message activity from a Booking Request' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      with_configured_polling(milliseconds: 2000) do
+        and_there_is_a_booking_request_for_their_location
+        when_they_view_the_booking_request
+        and_they_leave_a_message
+        then_they_see_their_new_message
+        and_the_message_field_is_cleared
+      end
+    end
+  end
+
   scenario 'Viewing activities from an Appointment' do
     given_the_user_identifies_as_hackneys_booking_manager do
       with_configured_polling(milliseconds: 2000) do
@@ -14,6 +26,30 @@ RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true
         then_it_appears_dynamically
       end
     end
+  end
+
+  def and_there_is_a_booking_request_for_their_location
+    @booking_request = create(:hackney_booking_request)
+  end
+
+  def when_they_view_the_booking_request
+    @page = Pages::FulfilBookingRequest.new
+    @page.load(booking_request_id: @booking_request.id)
+  end
+
+  def and_they_leave_a_message
+    @page.activity_feed.tap do |feed|
+      feed.message.set('Fulfilling this booking now')
+      feed.submit.click
+    end
+  end
+
+  def then_they_see_their_new_message
+    expect(@page.activity_feed).to have_text('Fulfilling this booking now')
+  end
+
+  def and_the_message_field_is_cleared
+    expect(@page.activity_feed.message.value).to eq('')
   end
 
   def and_there_is_an_appointment_for_their_location

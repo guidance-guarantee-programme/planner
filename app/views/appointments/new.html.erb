@@ -11,6 +11,11 @@
   </h1>
 </div>
 
+<%= render partial: 'activities/activity_feed', locals: {
+  activities: @activities,
+  booking_request: @appointment_form.location_aware_booking_request
+} %>
+
 <div class="row">
   <div class="col-md-12">
     <p class="lead">If no appointments are available within the customer's preferences, please contact the customer directly to find a suitable time slot, and return to this page to make the appointment.</p>

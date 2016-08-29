@@ -9,7 +9,25 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def create
+    @activity = MessageActivity.create(message_params)
+
+    respond_to do |format|
+      format.js { render @activity }
+    end
+  end
+
   private
+
+  def message_params
+    params
+      .require(:activity)
+      .permit(:message)
+      .merge(
+        user: current_user,
+        booking_request: booking_request
+      )
+  end
 
   def since
     timestamp = params[:timestamp].to_i / 1000
