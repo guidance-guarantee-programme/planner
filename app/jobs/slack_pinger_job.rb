@@ -5,8 +5,10 @@ class SlackPingerJob < ActiveJob::Base
     return unless hook_uri
 
     booking_location = BookingLocations.find(booking_request.location_id)
+    actual_location  = booking_location.name_for(booking_request.location_id)
+
     hook = StatisticsWebHook.new(hook_uri)
-    hook.call(payload(booking_location))
+    hook.call(payload(actual_location))
   end
 
   private
@@ -15,11 +17,11 @@ class SlackPingerJob < ActiveJob::Base
     ENV['BOOKING_REQUESTS_SLACK_PINGER_URI']
   end
 
-  def payload(booking_location)
+  def payload(actual_location)
     {
       username: 'philbot',
       channel: '#centralised-bookings',
-      text: "Alright guv' :rotating_light: #{booking_location.name} :rotating_light:",
+      text: ":rotating_light: #{actual_location} :rotating_light:",
       icon_emoji: ':phil:'
     }
   end
