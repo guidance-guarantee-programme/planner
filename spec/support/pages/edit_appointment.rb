@@ -1,3 +1,6 @@
+require_relative '../sections/activity'
+require_relative '../sections/activity_feed'
+
 module Pages
   class EditAppointment < SitePrism::Page
     set_url '/appointments/{id}/edit'
@@ -26,5 +29,7 @@ module Pages
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
+
+    section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
   end
 end

@@ -1,0 +1,29 @@
+.activity-feed {
+
+}
+
+.activity-feed__list {
+  border: 1px solid #ebebeb;
+  border-width: 1px 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  & + & {
+    border-width: 0;
+  }
+}
+
+.activity-feed__item {
+    border: 1px solid #ebebeb;
+    border-width: 0 1px;
+    padding: 6px;
+
+    & + & {
+      border-width: 1px;
+    }
+}
+
+.activity-feed__btn {
+  margin-top: 5px;
+}

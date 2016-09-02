@@ -5,6 +5,8 @@ class BookingRequest < ActiveRecord::Base
 
   has_many :slots, -> { order(:priority) }, dependent: :destroy
 
+  has_many :activities, -> { order('created_at DESC') }
+
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false
 
   validates :name, presence: true

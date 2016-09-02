@@ -1,5 +1,5 @@
 class Appointment < ActiveRecord::Base
-  audited on: [:update], except: %i(fulfilment_time_seconds fulfilment_window_seconds)
+  audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
 
   enum status: %i(
     pending
@@ -15,7 +15,7 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :booking_request
 
-  delegate :reference, to: :booking_request
+  delegate :reference, :activities, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true
@@ -42,6 +42,10 @@ class Appointment < ActiveRecord::Base
   end
 
   private
+
+  def after_audit
+    AuditActivity.from(audits.last, booking_request)
+  end
 
   def calculate_fulfilment_time
     self.fulfilment_time_seconds =

@@ -10,6 +10,7 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
+    @activities = location_aware_appointment.activities
   end
 
   def update
