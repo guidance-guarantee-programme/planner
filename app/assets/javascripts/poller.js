@@ -40,7 +40,7 @@
       var element = $(text);
 
       if (!document.getElementById(element.attr('id'))) {
-        element.hide().insertAfter(this.$messageForm).fadeIn();
+        element.hide().prependTo(this.$poller).fadeIn();
       }
     },
 
