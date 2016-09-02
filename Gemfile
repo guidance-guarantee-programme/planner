@@ -3,11 +3,12 @@ source 'https://rubygems.org'
 ruby IO.read('.ruby-version').strip
 
 gem 'audited', github: 'collectiveidea/audited'
+gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
 gem 'booking_locations'
-gem 'gds-sso'
+gem 'gds-sso', github: 'guidance-guarantee-programme/gds-sso', branch: 'rails-5'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'rails', '4.2.7.1'
+gem 'rails', '5.0.0.1'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -16,7 +17,7 @@ gem 'plek'
 gem 'puma'
 gem 'foreman'
 gem 'sidekiq'
-gem 'sinatra', require: false
+gem 'sinatra', '2.0.0.beta2', require: false
 gem 'bugsnag'
 gem 'newrelic_rpm'
 gem 'faraday'
@@ -37,7 +38,6 @@ end
 
 group :development do
   gem 'rubocop', require: false
-  gem 'web-console', '~> 2.0'
 end
 
 group :test do
