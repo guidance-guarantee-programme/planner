@@ -1,2 +1,3 @@
 $("<%= j(render partial: @activity, formats: :html) %>").hide().prependTo($('.activity-feed__list:first-of-type')).fadeIn();
 $('.js-message').val('');
+$('.js-no-activities').remove();

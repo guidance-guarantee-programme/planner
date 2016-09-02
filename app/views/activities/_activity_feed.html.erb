@@ -22,7 +22,7 @@
         <% if activities.present? %>
           <%= render activities.first if activities.present? %>
         <% else %>
-          <li>No activities.</li>
+          <li class="activity-feed__item js-no-activities">No activities.</li>
         <% end %>
       </ul>
 
