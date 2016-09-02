@@ -41,6 +41,8 @@
 
       if (!document.getElementById(element.attr('id'))) {
         element.hide().prependTo(this.$poller).fadeIn();
+
+        $('.js-no-activities').remove();
       }
     },
 
