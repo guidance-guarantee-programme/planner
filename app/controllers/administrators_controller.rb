@@ -15,6 +15,10 @@ class AdministratorsController < ApplicationController
     @current_page = 'groups'
   end
 
+  def guiders
+    @current_page = 'guiders'
+  end
+
   private
 
   def current_page?(page)

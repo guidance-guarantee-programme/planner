@@ -21,6 +21,12 @@ Rails.application.config.assets.paths << Rails.root.join(
   'vendor'
 )
 
+Rails.application.config.assets.paths << Rails.root.join(
+  'vendor',
+  'assets',
+  'bower_components'
+)
+
 Rails.application.config.assets.precompile += %w( moj.slot-picker/dist/stylesheets/**/*.png
                                                   fullcalendar/dist/fullcalendar.css
                                                   fullcalendar/dist/fullcalendar.print.css
@@ -29,4 +35,5 @@ Rails.application.config.assets.precompile += %w( moj.slot-picker/dist/styleshee
                                                   fullcalendar/dist/fullcalendar.js
                                                   fullcalendar-scheduler/dist/scheduler.js
                                                   scheduler.js
-                                                  jquery-sortable.js)
+                                                  jquery-sortable.js
+                                                  list.js/dist/list.js)

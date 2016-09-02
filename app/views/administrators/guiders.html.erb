@@ -1,0 +1,89 @@
+<h1>Manage guiders</h1>
+<p class="lead">Find and select guiders and then select the action you wish to perform.</p>
+
+<table class="table table-hover" id="guiders">
+  <thead>
+    <tr>
+      <th width="5%">#</th>
+      <th width="20%">Name</th>
+      <th width="25%">Groups</th>
+      <th width="50%">Bookable times</th>
+    </tr>
+  </thead>
+
+  <tr class="well">
+    <td colspan="4">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="input-group">
+            <input type="text" class="form-control search" placeholder="Search by anything to find a guider">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+
+  <tbody class="list">
+    <% 45.times do %>
+      <tr class="guider">
+        <td>
+          <input type="checkbox" class="guider__checkbox">
+        </td>
+        <td class="name">
+          <%= ['Harry', 'Mary', 'Ben', 'Jo', 'Quentin', 'Jacqui', 'Matt', 'Lucinda'].sample %>
+          <%= ['Wilson', 'Beith', 'Barnett', 'Lovell', 'Lucht', 'Guntrip', 'Singh', 'Craig'].sample %>
+        </td>
+        <td class="groups">
+          <%
+          groups = ['Southern Rail', 'Trainee', '', '', '', '', '', '', ''].sample(2)
+          groups.each do |group|
+          %>
+            <span class="label label-info"><%= group %></span>
+          <%
+          end
+          %>
+        </td>
+        <td class="slots">
+          <%
+          slot_group = slots_by_group([0, 1, 2].sample)
+          puts slot_group
+          slots = slot_group[['Group 1', 'Group 2', 'Group 3'].sample.to_sym]
+          %>
+
+          <% slots.each do |slot| %>
+            <span class="label label-primary"><%= slot %></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :body_end do %>
+  <%= javascript_include_tag "list.js/dist/list" %>
+  <script>
+    $('.guider').on('click', function(e) {
+      if ($(e.target).is('.guider__checkbox')) {
+        return;
+      }
+
+      $(this).find('.guider__checkbox').click();
+    });
+
+    $('.guider__checkbox').change(function() {
+      var func = $(this).is(':checked') ? 'addClass' : 'removeClass';
+      $(this).parents('.guider')[func]('guider--selected')
+    });
+
+    var options = {
+      valueNames: ['name', 'groups', 'slots']
+    };
+
+    var guiderList = new List('guiders', options);
+  </script>
+<% end %>

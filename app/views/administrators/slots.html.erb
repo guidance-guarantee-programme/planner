@@ -1,5 +1,5 @@
-<h2>Manage appointment slots</h2>
-<p class="lead">Use the panels below to manage or create new availability periods for Guider Groups.</p>
+<h2>Default appointment times</h2>
+<p class="lead">Use the panels below to manage or create the bookable appointment times. These times will be applied automatically to newly created guiders.</p>
 
 
 <% periods.each_with_index do |period, period_index| %>
@@ -25,9 +25,7 @@
       <table class="table">
         <thead>
           <tr>
-            <% slots.each do |group, slots| %>
-            <th><%= group %></th>
-            <% end %>
+            <th>Default slots <small>(can be overidden on the <%= link_to("guiders management page", administrators_guiders_path) %>)</small></th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +40,7 @@
                 <% end %>
               </ul>
             </td>
+          <% break %>
           <% end %>
           </tr>
         </tbody>

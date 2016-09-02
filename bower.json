@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "moj.slot-picker": "~0.22.2",
-    "fullcalendar-scheduler": "~1.3.2"
+    "fullcalendar-scheduler": "~1.3.2",
+    "list.js": "~1.2.0"
   }
 }
