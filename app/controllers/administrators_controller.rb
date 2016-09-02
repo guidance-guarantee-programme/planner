@@ -19,6 +19,10 @@ class AdministratorsController < ApplicationController
     @current_page = 'guiders'
   end
 
+  def guider_slots
+    @current_page = 'guiders'
+  end
+
   private
 
   def current_page?(page)

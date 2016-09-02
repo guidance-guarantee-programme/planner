@@ -13,16 +13,16 @@
     <div class="row">
       <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
-          <li role="presentation" class="<%= 'active' if current_page?('slots') %>">
-            <a href="<%= administrators_slots_path %>">
-              Appointment times<br>
-              <small>The default bookable appointments for guiders</small>
-            </a>
-          </li>
           <li role="presentation" class="<%= 'active' if current_page?('guiders') %>">
             <a href="<%= administrators_guiders_path %>">
               Manage guiders<br>
               <small>Add staff, manage schedules, groups</small>
+            </a>
+          </li>
+          <li role="presentation" class="<%= 'active' if current_page?('slots') %>">
+            <a href="<%= administrators_slots_path %>">
+              Appointment times<br>
+              <small>The default bookable appointments for guiders</small>
             </a>
           </li>
         </ul>

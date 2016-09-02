@@ -28,6 +28,13 @@
     </td>
   </tr>
 
+  <tr>
+    <td colspan="4">
+      <input type="checkbox" class="guider__select-all" id="selectall">
+      <label for="selectall">select all</label>
+    </td>
+  </tr>
+
   <tbody class="list">
     <% 45.times do %>
       <tr class="guider">
@@ -64,6 +71,19 @@
   </tbody>
 </table>
 
+<div class="guider__action-panel">
+  With the <span class="guider__number-selected">0</span> guiders selected
+
+  <select name="action">
+    <option>Manage groups</option>
+    <option>Manage bookable times</option>
+    <option>Transfer appointments to another guider</option>
+    <option>Remove from system</option>
+  </select>
+
+  <a class="btn btn-primary" href="<%= url_for(administrators_guider_slots_path) %>">Go</a>
+</div>
+
 <% content_for :body_end do %>
   <%= javascript_include_tag "list.js/dist/list" %>
   <script>
@@ -77,7 +97,18 @@
 
     $('.guider__checkbox').change(function() {
       var func = $(this).is(':checked') ? 'addClass' : 'removeClass';
-      $(this).parents('.guider')[func]('guider--selected')
+      $(this).parents('.guider')[func]('guider--selected');
+
+      $('.guider__number-selected').text($('.guider__checkbox:checked').length);
+    });
+
+    $('.guider__select-all').on('change', function() {
+      if ($(this).is(':checked')) {
+        $('.guider__checkbox').attr('checked', 'checked').change();
+      }
+      else {
+        $('.guider__checkbox').removeAttr('checked').change();
+      }
     });
 
     var options = {

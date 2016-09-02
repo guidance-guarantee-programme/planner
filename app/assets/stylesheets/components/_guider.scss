@@ -1,5 +1,7 @@
-.guider__checkbox {
+.guider__checkbox,
+.guider__select-all {
   font-size: 300%;
+  padding-right: 10px;
 }
 
 .guider--selected {
@@ -7,4 +9,20 @@
     background: #f2f2f2;
     font-weight: bold;
   }
+}
+
+.guider__action-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #ccc;
+  background: rgba(200, 200, 200, 0.9);
+  padding: 15px 5px;
+  font-size: 150%;
+  text-align: center;
+}
+
+.guider__number-selected {
+  font-weight: bold;
 }
