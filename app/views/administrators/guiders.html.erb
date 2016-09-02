@@ -5,9 +5,18 @@
   <thead>
     <tr>
       <th width="5%">#</th>
-      <th width="20%">Name</th>
-      <th width="25%">Groups</th>
-      <th width="50%">Bookable times</th>
+      <th width="20%">
+        Name<br>
+        <small><a href="#" class="sort" data-sort="name">Sort by name</a></small>
+      </th>
+      <th width="25%">
+        Groups<br>
+        <small><a href="#" class="sort" data-sort="groups">Sort by groups</a></small>
+      </th>
+      <th width="50%">
+        Bookable times<br>
+        <small><a href="#" class="sort" data-sort="slots">Sort by times</a></small>
+      </th>
     </tr>
   </thead>
 
@@ -29,9 +38,11 @@
   </tr>
 
   <tr>
-    <td colspan="4">
+    <td>
       <input type="checkbox" class="guider__select-all" id="selectall">
-      <label for="selectall">select all</label>
+    </td>
+    <td>
+      <label for="selectall">Select all</label>
     </td>
   </tr>
 
@@ -109,6 +120,10 @@
       else {
         $('.guider__checkbox').removeAttr('checked').change();
       }
+    });
+
+    $('.sort').on('click', function(e) {
+      e.preventDefault();
     });
 
     var options = {
