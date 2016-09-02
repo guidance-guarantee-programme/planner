@@ -1,0 +1,2 @@
+class MessageActivity < Activity
+end

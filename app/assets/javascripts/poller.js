@@ -4,8 +4,9 @@
   var poller = {
     init: function() {
       this.$poller = $('.js-poller');
+      this.$messageForm = $('.js-message-form');
 
-      if (this.$poller.length) {
+      if (this.$poller.length && this.$messageForm.length) {
         this.setLast(this.timestamp());
         this.start();
       }
@@ -36,7 +37,11 @@
     },
 
     insertActivity: function(text) {
-      $(text).hide().prependTo(this.$poller).fadeIn();
+      var element = $(text);
+
+      if (!document.getElementById(element.attr('id'))) {
+        element.hide().prependTo(this.$poller).fadeIn();
+      }
     },
 
     timestamp: function() {

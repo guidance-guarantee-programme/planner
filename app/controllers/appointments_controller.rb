@@ -10,7 +10,6 @@ class AppointmentsController < ApplicationController
   end
 
   def edit
-    @activities = location_aware_appointment.activities
   end
 
   def update
@@ -53,10 +52,14 @@ class AppointmentsController < ApplicationController
   end
 
   def populate_edit_appointment_form
+    @activities = location_aware_appointment.activities
+
     @appointment_form = EditAppointmentForm.new(location_aware_appointment)
   end
 
   def populate_appointment_form
+    @activities = location_aware_booking_request.activities
+
     @appointment_form = AppointmentForm.new(
       location_aware_booking_request,
       appointment_params

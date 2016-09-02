@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :appointments, only: %i(index edit update)
 
   resources :booking_requests, only: :index do
-    resources :activities, only: :index
+    resources :activities, only: %i(index create)
 
     resources :appointments, only: %i(new create)
   end

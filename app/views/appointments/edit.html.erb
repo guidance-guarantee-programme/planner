@@ -11,32 +11,10 @@
   </h1>
 </div>
 
-<div class="row">
-  <div class="col-md-12 border-bottom">
-    <h3>Recent activity</h3>
-
-    <% if @activities.present? %>
-      <div class="activity-feed t-activity-feed">
-        <ul class="activity-feed__list js-poller"
-           data-interval="<%= poll_interval_milliseconds %>"
-           data-url="<%= booking_request_activities_path(@appointment_form.booking_request) %>">
-          <%= render @activities.first %>
-        </ul>
-        <% if @activities.count > 1 %>
-          <ul class="activity-feed__list t-hidden-activities" id="collapse">
-            <%= render(@activities - Array(@activities.first)) %>
-          </ul>
-          <button class="activity-feed__btn btn btn-default t-further-activities hidden" data-target="#collapse" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">
-            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-            All activity
-          </button>
-        <% end %>
-      </div>
-    <% else %>
-      <p>No activities.</p>
-    <% end %>
-  </div>
-</div>
+<%= render partial: 'activities/activity_feed', locals: {
+  activities: @activities,
+  booking_request: @appointment_form.booking_request
+} %>
 
 <div class="row">
   <div class="col-md-4">

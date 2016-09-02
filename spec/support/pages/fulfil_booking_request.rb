@@ -1,3 +1,6 @@
+require_relative '../sections/activity'
+require_relative '../sections/activity_feed'
+
 module Pages
   class FulfilBookingRequest < SitePrism::Page
     set_url '/booking_requests/{booking_request_id}/appointments/new'
@@ -29,6 +32,8 @@ module Pages
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
+
+    section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
 
     def advance_date!
       chosen_date = Date.parse(date.value)
