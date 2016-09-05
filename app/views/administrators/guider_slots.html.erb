@@ -5,7 +5,14 @@
 <h2>Bookable appointment times</h2>
 <p class="lead">Use the panels below to manage or create the bookable appointment times for the guiders you have selected.</p>
 
-<p class="lead">The guiders affected will be: <strong>Ben Barnett, Ben Lovell, Matt Lucht, Peter Guntrip and Lucinda Craig.</strong></p>
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h4>Guiders affected by this change:</h4>
+  </div>
+  <div class="panel-body">
+    The guiders affected will be: <strong>Ben Barnett, Ben Lovell, Matt Lucht, Peter Guntrip </strong>and<strong> Lucinda Craig.</strong>
+  </div>
+</div>
 
 <% periods.each_with_index do |period, period_index| %>
   <%
@@ -19,7 +26,7 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         <a class="collapsable__trigger collapsed" role="button" data-toggle="collapse" href="#period<%= period_index %>" aria-expanded="false">
-          <%= startDate %> → <%= endDate %>
+          <%= startDate %> → onwards
         </a>
 
         <span class="glyphicon glyphicon-plus collapsable__trigger-icon"></span>
@@ -47,4 +54,8 @@
       </table>
     </div>
   </div>
+
+  <% break %>
 <% end %>
+
+<a href="<%= url_for(administrators_guiders_path) %>" class="btn btn-primary">Save changes</a>

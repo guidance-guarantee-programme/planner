@@ -12,7 +12,7 @@ class AdministratorsController < ApplicationController
   end
 
   def groups
-    @current_page = 'groups'
+    @current_page = 'guiders'
   end
 
   def guiders

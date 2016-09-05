@@ -1,58 +1,98 @@
-<h2>Guiders & Group Management</h2>
-<p class="lead">Move guiders into their relevant groups below.</p>
+<p class="lead"><a href="<%= url_for(administrators_guiders_path) %>">
+  <span class="glyphicon glyphicon-chevron-left"></span> Cancel, back to guiders
+</a></p>
+
+<h2>Add/remove guider groups</h2>
+<p class="lead">Add or remove from the list below to set the group memberships for these guiders.</p>
+
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h4>Guiders affected by this change:</h4>
+  </div>
+  <div class="panel-body">
+    The guiders affected will be: <strong>Ben Barnett, Ben Lovell, Matt Lucht, Peter Guntrip </strong>and<strong> Lucinda Craig.</strong>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-md-4">
-    <h4>Group 1</h4>
-
-    <ol class="draggable-group list-group">
-      <li class="list-group-item">Barry Scott</li>
-      <li class="list-group-item">Nigel Mansel</li>
-      <li class="list-group-item">Humpfrey Bogart</li>
-      <li class="list-group-item">Linda Mcartney</li>
-      <li class="list-group-item">Melinda Jones</li>
-    </ol>
-  </div>
-
-  <div class="col-md-4">
-    <h4>Group 2</h4>
-
-    <ol class="draggable-group list-group">
-      <li class="list-group-item">Winflebert Humperdink</li>
-      <li class="list-group-item">Clarice Beaumont</li>
-      <li class="list-group-item">Marie Claire</li>
-      <li class="list-group-item">Chloe Misguided</li>
-      <li class="list-group-item">George Bindleflimp</li>
-      <li class="list-group-item">Belinda Carlisle</li>
-    </ol>
-  </div>
-
-  <div class="col-md-4">
-    <h4>Group 3</h4>
-
-    <ol class="draggable-group list-group">
-      <li class="list-group-item">Melissa Joan Hart</li>
-      <li class="list-group-item">Bamboo Missleflert</li>
-      <li class="list-group-item">Nora Habumple</li>
-      <li class="list-group-item">Clarissa Sear</li>
-    </ol>
+  <div class="col-md-6 border-bottom">
+    <table class="table activity-feed__table">
+      <tr class="well">
+        <td colspan="2">
+          <div class="row">
+            <div class="col-lg-12">
+              <form action="#" class="js-form">
+                <div class="input-group">
+                  <input type="text" class="form-control js-group-input" placeholder="Add a new group">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary js-button" type="submit">
+                      <span class="glyphicon glyphicon-plus"></span>
+                      Add group
+                    </button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="lead">
+          <span class="label label-info">Southern Rail</span>
+        </td>
+        <td class="lead">
+          <a href="#" class="js-remove pull-right">
+            <span class="glyphicon glyphicon-remove"></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="lead">
+          <span class="label label-info">Trainee</span>
+        </td>
+        <td class="lead">
+          <a href="#" class="js-remove pull-right">
+            <span class="glyphicon glyphicon-remove"></span>
+          </a>
+        </td>
+      </tr>
+      <tbody class="js-group-target" style="border-top: 0;"></tbody>
+    </table>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-primary" href="<%= url_for(administrators_guiders_path) %>">Save changes</a>
   </div>
 </div>
 
-<% content_for :body_end do %>
-  <%= javascript_include_tag 'jquery-sortable' %>
-  <script>
-    var adjustment;
+<style>
+  .js-remove {
+    color: #c00 !important;
+  }
+</style>
 
-    $("ol.draggable-group").sortable({
-      group: 'draggable-group',
-      pullPlaceholder: true
+
+<% content_for :body_end do %>
+  <script>
+    var $form = $('.js-form');
+    var $input = $('.js-group-input');
+    var $target = $('.js-group-target');
+
+    $form.on('submit', function(e) {
+      var group = $input.val();
+      e.preventDefault();
+
+      $target.append('<tr><td class="lead"><span class="label label-info">' + group + '</span></td><td class="lead"><a href="#" class="js-remove pull-right"><span class="glyphicon glyphicon-remove"></span></a></td></tr>');
+
+      $input.val('');
+    });
+
+    $(document).on('click', '.js-remove', function(e) {
+      e.preventDefault();
+
+      $(this).parents('tr').remove();
     });
   </script>
 <% end %>

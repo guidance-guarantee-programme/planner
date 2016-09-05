@@ -4,7 +4,10 @@
 <table class="table table-hover" id="guiders">
   <thead>
     <tr>
-      <th width="5%">#</th>
+      <th width="5%">
+        #<br>
+        <input type="checkbox" class="guider__select-all" id="selectall">
+      </th>
       <th width="20%">
         Name<br>
         <small><a href="#" class="sort" data-sort="name">Sort by name</a></small>
@@ -34,15 +37,6 @@
           </div>
         </div>
       </div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <input type="checkbox" class="guider__select-all" id="selectall">
-    </td>
-    <td>
-      <label for="selectall">Select all</label>
     </td>
   </tr>
 
@@ -85,19 +79,23 @@
 <div class="guider__action-panel">
   With the <span class="guider__number-selected">0</span> guiders selected
 
-  <select name="action">
-    <option>Manage groups</option>
-    <option>Manage bookable times</option>
+  <select name="action" class="js-action-list">
+    <option value="<%= url_for(administrators_groups_path) %>">Add/remove to groups</option>
+    <option value="<%= url_for(administrators_guider_slots_path) %>">Manage bookable times</option>
     <option>Transfer appointments to another guider</option>
     <option>Remove from system</option>
   </select>
 
-  <a class="btn btn-primary" href="<%= url_for(administrators_guider_slots_path) %>">Go</a>
+  <a class="btn btn-primary js-go-link" href="<%= url_for(administrators_groups_path) %>">Go</a>
 </div>
 
 <% content_for :body_end do %>
   <%= javascript_include_tag "list.js/dist/list" %>
   <script>
+    $('.js-action-list').on('change', function() {
+      $('.js-go-link').attr('href', $(this).val());
+    });
+
     $('.guider').on('click', function(e) {
       if ($(e.target).is('.guider__checkbox')) {
         return;
