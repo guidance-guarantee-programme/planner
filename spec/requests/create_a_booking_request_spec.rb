@@ -61,7 +61,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       }
     }
 
-    post api_v1_booking_requests_path(format: :json), valid_payload.as_json
+    post api_v1_booking_requests_path, params: valid_payload, as: :json
   end
 
   def then_the_booking_request_is_created
@@ -123,7 +123,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       }
     }
 
-    post api_v1_booking_requests_path(format: :json), invalid_payload.as_json
+    post api_v1_booking_requests_path, params: invalid_payload, as: :json
   end
 
   def then_the_service_responds_with_a_422
