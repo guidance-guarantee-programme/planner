@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'administrators/groups'
   get 'administrators/guiders'
   get 'administrators/guider_slots'
+  get 'administrators/transfer'
 
   resources :appointments, only: %i(index edit update)
 

@@ -80,9 +80,9 @@
   With the <span class="guider__number-selected">0</span> guiders selected
 
   <select name="action" class="js-action-list">
-    <option value="<%= url_for(administrators_groups_path) %>">Add/remove to groups</option>
+    <option value="<%= url_for(administrators_groups_path) %>">Add/remove groups</option>
     <option value="<%= url_for(administrators_guider_slots_path) %>">Manage bookable times</option>
-    <option>Transfer appointments to another guider</option>
+    <option value="<%= url_for(administrators_transfer_path) %>">Transfer appointments to another guider</option>
     <option>Remove from system</option>
   </select>
 

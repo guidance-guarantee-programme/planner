@@ -23,6 +23,10 @@ class AdministratorsController < ApplicationController
     @current_page = 'guiders'
   end
 
+  def transfer
+    @current_page = 'guiders'
+  end
+
   private
 
   def current_page?(page)
