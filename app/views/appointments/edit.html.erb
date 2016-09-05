@@ -18,12 +18,12 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h3>Change appointment details</h3>
+    <h2 class="h3">Change appointment details</h2>
     <p class="lead">Use the form below to change the details of the appointment.</p>
 
     <% if @appointment_form.errors.any? %>
       <div class="alert alert-danger t-errors" role="alert">
-        <h4 class="alert__heading">There's a problem</h4>
+        <h3 class="alert__heading h4">There's a problem</h3>
         <ul>
           <% @appointment_form.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
@@ -83,7 +83,7 @@
   </div>
 
   <div class="col-md-4">
-    <h3>After the appointment</h3>
+    <h2 class="h3">After the appointment</h2>
     <p class="lead">Appointment finished? Update the status below.</p>
 
     <%= form_for @appointment_form do |f| %>
@@ -99,7 +99,7 @@
   </div>
 
   <div class="col-md-4">
-    <h3>Original slots requested</h3>
+    <h2 class="h3">Original slots requested</h2>
     <p class="lead">For reference, the slots originally requested by the customer are:</p>
 
     <div class="SlotPicker-choices is-chosen SlotPicker--selected">

@@ -24,14 +24,14 @@
 
 <div class="row">
   <div class="col-md-4 dont-break-out">
-    <h3>Customer details</h3>
+    <h2 class="h3">Customer details</h2>
     <p class="lead">
       <%= @appointment_form.name %><br>
       <a href="mailto:<%= @appointment_form.email %>" class="t-email"><%= @appointment_form.email %></a><br>
       <%= @appointment_form.phone %>
     </p>
 
-    <h4>Requested location:</h4>
+    <h3 class="h4">Requested location:</h3>
     <p class="lead">
       <strong>
         <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_id %>" class="t-location-name">
@@ -40,13 +40,13 @@
       </strong>
     </p>
 
-    <h4>Memorable word:</h4>
+    <h3 class="h4">Memorable word:</h3>
     <p class="lead"><strong class="t-memorable-word"><%= @appointment_form.memorable_word %></strong></p>
 
-    <h4>Age range:</h4>
+    <h3 class="h4">Age range:</h3>
     <p class="lead"><strong class="t-age-range"><%= @appointment_form.age_range %></strong></p>
 
-    <h4>Accessibility requirements:</h4>
+    <h3 class="h4">Accessibility requirements:</h3>
     <p class="lead">
       <strong class="t-accessibility_requirements">
         <%= t("booking_request.accessibility_requirements.is_#{@appointment_form.accessibility_requirements}") %>
@@ -55,7 +55,7 @@
   </div>
 
   <div class="col-md-4">
-    <h3>Slots requested</h3>
+    <h2 class="h3">Slots requested</h2>
     <p>The customer has requested the following time slots, in order of preference.</p>
 
     <div class="SlotPicker-choices is-chosen SlotPicker--selected">
@@ -93,11 +93,11 @@
 
   <div class="col-md-4">
     <div class="well">
-      <h3>Appointment details</h3>
+      <h2 class="h3">Appointment details</h2>
 
       <% if @appointment_form.errors.any? %>
         <div class="alert alert-danger t-errors" role="alert">
-          <h4 class="alert__heading">There's a problem</h4>
+          <h3 class="alert__heading h4">There's a problem</h3>
           <ul>
             <% @appointment_form.errors.full_messages.each do |msg| %>
               <li><%= msg %></li>
