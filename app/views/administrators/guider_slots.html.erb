@@ -26,11 +26,11 @@
     <div class="panel-heading">
       <h3 class="panel-title">
         <a class="collapsable__trigger collapsed" role="button" data-toggle="collapse" href="#period<%= period_index %>" aria-expanded="false">
-          <%= startDate %> → onwards
+          <span class="glyphicon glyphicon-time"></span> <%= startDate %> → onwards
         </a>
 
-        <span class="glyphicon glyphicon-plus collapsable__trigger-icon"></span>
-        <span class="glyphicon glyphicon-minus collapsable__trigger-icon--collapsed"></span>
+        <span class="glyphicon glyphicon glyphicon-chevron-down collapsable__trigger-icon"></span>
+        <span class="glyphicon glyphicon glyphicon-chevron-up collapsable__trigger-icon--collapsed"></span>
       </h3>
     </div>
     <div id="period<%= period_index %>" class="panel-collapse collapse">
@@ -67,11 +67,11 @@
   <div class="panel-heading">
     <h3 class="panel-title">
       <a class="collapsable__trigger" role="button" data-toggle="collapse" href="#add" aria-expanded="false">
-        Add new availability period
+        <span class="glyphicon glyphicon-plus"></span> Add new availability period
       </a>
 
-      <span class="glyphicon glyphicon-plus collapsable__trigger-icon"></span>
-      <span class="glyphicon glyphicon-minus collapsable__trigger-icon--collapsed"></span>
+      <span class="glyphicon glyphicon-chevron-down collapsable__trigger-icon"></span>
+      <span class="glyphicon glyphicon-chevron-up collapsable__trigger-icon--collapsed"></span>
     </h3>
   </div>
   <div id="add" class="panel-collapse">
