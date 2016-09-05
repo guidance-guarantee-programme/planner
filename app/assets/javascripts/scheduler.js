@@ -2,7 +2,7 @@ $(function() {
   $('#calendar').fullCalendar({
     schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
     aspectRatio: 2,
-    editable: false,
+    editable: true,
     scrollTime: '07:00',
     header: {
       left: 'today prev,next',
@@ -34,26 +34,6 @@ $(function() {
     now: '2016-07-12',
     allDaySlot: false,
     selectable: true,
-    selectOverlap: function(event) {
-      if (event.rendering === 'background') {
-        var guider = $('#calendar').fullCalendar('getResourceById', event.resourceId);
-        var chosenTime = event.start.format();
-
-        console.log('Chosen time with ' + guider.title + ' at ' + chosenTime);
-        $('#calendar').fullCalendar('removeEvents', 'selectedEvent');
-        $('#calendar').fullCalendar('renderEvent', {
-          id: 'selectedEvent',
-          resourceId: event.resourceId,
-          title: $('#calendar').data('name'),
-          start: chosenTime,
-          color: '#c00',
-          editable: true
-        });
-
-        $('#guider_id').val(guider.id);
-        $('#datetime').val(chosenTime);
-      }
-    },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
     resources: (function() {
       var resources = [];

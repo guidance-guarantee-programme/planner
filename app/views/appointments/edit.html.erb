@@ -54,12 +54,6 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :location_id %>
-        <%= f.select(:location_id, @appointment_form.flattened_locations, options = {}, { class: 'form-control t-location' }
-        ) %>
-      </div>
-
-      <div class="form-group">
         <%= f.label :proceeded_at, 'Date of appointment' %>
         <%= f.date_field(:proceeded_at, class: 't-date form-control') %>
       </div>
@@ -91,42 +85,5 @@
         Update status
       <% end %>
     <% end %>
-  </div>
-
-  <div class="col-md-4">
-    <h3>Original slots requested</h3>
-    <p class="lead">For reference, the slots originally requested by the customer are:</p>
-
-    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>1</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>2</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>3</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
