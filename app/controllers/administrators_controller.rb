@@ -31,6 +31,10 @@ class AdministratorsController < ApplicationController
     @current_page = 'guiders'
   end
 
+  def message_customers
+    @current_page = 'guiders'
+  end
+
   private
 
   def current_page?(page)
