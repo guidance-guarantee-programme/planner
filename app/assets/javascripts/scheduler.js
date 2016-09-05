@@ -115,7 +115,8 @@ function eventsFor(group) {
           start: '2016-07-12T' + potentialSlot,
           title: randomCustomer,
           group: group,
-          guider: guider.id
+          guider: guider.id,
+          url: '/appointments/1/edit'
         });
       }
     });
