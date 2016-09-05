@@ -35,6 +35,11 @@
     </div>
     <div id="period<%= period_index %>" class="panel-collapse collapse">
       <table class="table">
+        <thead>
+          <tr>
+            <th>These slots can't be edited as they are currently live. Please add a new availability period to change.</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
           <% slots.each do |group, group_slots| %>
@@ -58,4 +63,137 @@
   <% break %>
 <% end %>
 
-<a href="<%= url_for(administrators_guiders_path) %>" class="btn btn-primary">Save changes</a>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <a class="collapsable__trigger" role="button" data-toggle="collapse" href="#add" aria-expanded="false">
+        Add new availability period
+      </a>
+
+      <span class="glyphicon glyphicon-plus collapsable__trigger-icon"></span>
+      <span class="glyphicon glyphicon-minus collapsable__trigger-icon--collapsed"></span>
+    </h3>
+  </div>
+  <div id="add" class="panel-collapse">
+    <div class="panel-body">
+      <form action="#" class="js-add-form">
+        <div class="form-group">
+          <label for="daterange">Start date</label>
+          <p class="help-block">From this date onwards (which is until the start of the next period, or just forever), the guiders will have these bookable slots.</p>
+          <input type="text" class="form-control" id="daterange">
+        </div>
+
+
+        <div class="form-group">
+          <label for="daterange">Bookable slots</label>
+          <p class="help-block">Choose whether to use the <a href="<%= administrators_slots_path %>" target="_blank">default bookable slots</a>, or specify your own.</p>
+
+          <div class="radio">
+            <label>
+              <input type="radio" class="js-slots-option" name="optionsRadios" id="optionsRadios1" value="default" checked>
+              Use the default bookable slots
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" class="js-slots-option" name="optionsRadios" id="optionsRadios2" value="custom">
+              Provide a custom set of bookable slots
+            </label>
+          </div>
+        </div>
+
+        <div class="panel panel-default js-custom-slots hidden">
+          <div class="panel-heading">
+            <select name="hour" id="hour" class="js-slot-hour">
+              <% (8..19).each do |hour| %>
+              <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
+              <% end %>
+            </select>:
+            <select name="minute" id="minute" class="js-slot-minute">
+              <% [0, 10, 20, 30, 40, 50].each do |minute| %>
+              <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
+              <% end %>
+            </select>
+            <button class="btn btn-sm btn-default js-button">
+              <span class="glyphicon glyphicon-plus"></span>
+              Add slot
+            </button>
+          </div>
+
+          <div class="panel-body">
+            <ul class="list-group js-slot-target">
+
+            </ul>
+          </div>
+        </div>
+
+          <div class="form-group">
+            <button class="btn btn-success">Add availability period</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .js-remove {
+    color: #c00 !important;
+  }
+</style>
+
+<% content_for :body_end do %>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+  <!-- Include Date Range Picker -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+  <script>
+    $('#daterange').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    });
+  </script>
+
+  <script>
+    var $button = $('.js-button');
+    var $hour = $('.js-slot-hour');
+    var $minute = $('.js-slot-minute');
+    var $target = $('.js-slot-target');
+
+    var slots = [];
+
+    $button.on('click', function(e) {
+      e.preventDefault();
+
+      var slot = $hour.val() + ':' + $minute.val();
+
+      if (slots.indexOf(slot) !== -1) {
+        return;
+      }
+
+      slots.push(slot);
+      $target.append('<li class="list-group-item lead"><span class="label label-primary">' + slot + '</span></li>');
+    });
+
+    $(document).on('click', '.js-remove', function(e) {
+      e.preventDefault();
+
+      $(this).parents('tr').remove();
+    });
+  </script>
+
+  <script>
+    var $customSlots = $('.js-custom-slots');
+
+    $('.js-slots-option').on('change', function() {
+      if ($(this).val() == 'custom') {
+        $customSlots.removeClass('hidden');
+      }
+      else {
+        $customSlots.addClass('hidden');
+      }
+    });
+  </script>
+<% end %>
+
