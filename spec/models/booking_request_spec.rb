@@ -86,4 +86,10 @@ RSpec.describe BookingRequest do
       expect { request.destroy }.to change { request.slots.count }.by(-3)
     end
   end
+
+  describe '#name' do
+    it 'titleizes the name' do
+      expect(build(:booking_request, name: 'ben lovell').name).to eq('Ben Lovell')
+    end
+  end
 end

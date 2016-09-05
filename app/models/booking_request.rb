@@ -35,6 +35,10 @@ class BookingRequest < ActiveRecord::Base
     slots.third
   end
 
+  def name
+    super.to_s.titleize
+  end
+
   private
 
   def validate_slots
