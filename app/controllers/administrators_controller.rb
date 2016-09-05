@@ -27,6 +27,10 @@ class AdministratorsController < ApplicationController
     @current_page = 'guiders'
   end
 
+  def remove
+    @current_page = 'guiders'
+  end
+
   private
 
   def current_page?(page)
