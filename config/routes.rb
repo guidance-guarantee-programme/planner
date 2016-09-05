@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get 'appointments/scheduler', to: 'appointments#scheduler'
 
-  root 'booking_requests#index'
+  root 'appointments#index'
 
   namespace :api, constraints: { format: :json } do
     namespace :v1 do
