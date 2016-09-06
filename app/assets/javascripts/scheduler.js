@@ -91,7 +91,7 @@ function guidersFor(group) {
  * @return {[type]}                 [description]
  */
 function eventsFor(group) {
-  var customers = ['Ann Robinson', 'Geoffrey Cooper', 'Amanda Hart', 'Betty Swooble', 'Nigel Mansel', 'Barry White'];
+  var customers = ['Ben Barnett', 'Geoffrey Cooper', 'Amanda Hart', 'Mary Jackson', 'Nigel Mansel', 'Matt Lucht'];
   var events = [];
 
   guidersFor(group).forEach(function(guider) {
