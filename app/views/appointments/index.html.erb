@@ -18,7 +18,7 @@
       <%= paginate @appointments.entities, :pagination_class => "remove-top-margin" %>
     </div>
     <div class="col-md-2">
-      <%= link_to(appointments_calendar_url, class: 'btn btn-default calendar-view-button') do %>
+      <%= link_to(calendar_appointments_path, class: 'btn btn-default calendar-view-button') do %>
         <span class="glyphicon glyphicon-calendar"></span> Calendar view
       <% end %>
     </div>

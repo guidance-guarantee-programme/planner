@@ -40,14 +40,10 @@ $(function() {
   new PWPLAN.Calendar({
     selector: '#calendar-canvas',
     type: 'guider-schedule',
-    resources: [
-      <% @booking_location.guiders.each do |guider| %>
-      {
-        id: '<%= guider.id %>',
-        title: '<%= guider.name %>'
-      }<%= "," unless guider == @booking_location.guiders.last %>
-      <% end %>
-    ],
+    fullCalendar: {
+      defaultDate: '<%= Date.today.iso8601 %>',
+      resources: '<%= calendar_resources_path(format: :json) %>'
+    },
     events: [
       <% @appointments_all.page.each do |appointment| %>
       {

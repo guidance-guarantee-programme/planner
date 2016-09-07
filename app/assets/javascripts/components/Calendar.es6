@@ -42,7 +42,6 @@
 
       this.$el = $(this.config.selector);
 
-      this.setupResources();
       this.setupEvents();
       this.setupFilters();
       this.init();
@@ -50,22 +49,6 @@
 
     init() {
       this.$el.fullCalendar(this.config.fullCalendar);
-    }
-
-    setupResources() {
-      this.resources = [];
-
-      var i = 1;
-      for (var resource of this.config.resources) {
-        this.resources.push(new CalendarResource(i, resource));
-        i++;
-      }
-
-      this.config.fullCalendar.resources = (callback) => {
-        callback(this.resources.filter(resource => {
-          return resource.enabled === true;
-        }));
-      };
     }
 
     setupEvents() {

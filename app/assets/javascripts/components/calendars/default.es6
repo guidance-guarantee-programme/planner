@@ -1,7 +1,6 @@
 module.exports = {
   fullCalendar: {
     schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-    defaultDate: moment().format(),
     aspectRatio: 2.5,
     allDaySlot: false,
     businessHours: {
