@@ -8,7 +8,7 @@
           <div class="input-group">
             <%= f.text_field :message, placeholder: 'Add an action to keep others in the loop', class: 'form-control js-message t-message' %>
             <span class="input-group-btn">
-              <%= f.button class: 'btn btn-primary btn-block t-submit-message' do %>
+              <%= f.button class: 'btn btn-primary btn-block t-submit-message', data: { disable_with: 'Adding message...' } do %>
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Add message
               <% end %>
