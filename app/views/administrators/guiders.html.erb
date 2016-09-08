@@ -1,18 +1,36 @@
-<h1>Manage guiders</h1>
+<h2>Manage guiders</h2>
 <p class="lead">Find and select guiders and then select the action you wish to perform.</p>
 
 <table class="table table-hover" id="guiders">
   <thead>
-    <tr>
+    <tr class="well guiders__filters">
+      <td colspan="4">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="col-md-6">
+              <label for="search">Name, group, schedule:</label>
+              <input type="text" id="search" class="form-control search" placeholder="Search by anything to find a guider">
+            </div>
+
+            <div class="col-md-6">
+              <label for="search">Who have appointments during these dates:</label>
+              <input type="text" class="form-control" id="daterange" placeholder="Select a date range">
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="well">
       <th width="5%">
         #<br>
         <input type="checkbox" class="guider__select-all" id="selectall">
       </th>
-      <th width="20%">
+      <th width="25%">
         Name<br>
         <small><a href="#" class="sort" data-sort="name">Sort by name</a></small>
       </th>
-      <th width="25%">
+      <th width="20%">
         Groups<br>
         <small><a href="#" class="sort" data-sort="groups">Sort by groups</a></small>
       </th>
@@ -22,29 +40,6 @@
       </th>
     </tr>
   </thead>
-
-  <tr class="well">
-    <td colspan="4">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="col-md-12">
-            <p><b>Filter by...</b></p>
-          </div>
-
-          <div class="col-md-3">
-            <label for="search">Name, group, schedule:</label>
-            <input type="text" id="search" class="form-control search" placeholder="Search by anything to find a guider">
-          </div>
-
-          <div class="col-md-9">
-            <label for="search">Who have appointments within:</label>
-            <input type="text" class="form-control" id="daterange">
-          </div>
-        </div>
-      </div>
-    </td>
-  </tr>
-
   <tbody class="list">
     <% 45.times do %>
       <tr class="guider">
