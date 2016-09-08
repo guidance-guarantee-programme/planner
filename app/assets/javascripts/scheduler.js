@@ -35,7 +35,7 @@ $(function() {
     allDaySlot: false,
     selectable: true,
     eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
-      $('.js-event-updated-alert').show().delay(2000).fadeOut('slow');
+      $('.js-event-updated-alert').html(event.title + "'s appointment updated").show().stop().delay(2000).fadeOut('slow');
     },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
     resources: (function() {
