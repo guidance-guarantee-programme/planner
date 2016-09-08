@@ -8,6 +8,27 @@
   background: #ebebeb;
 }
 
+.guiders__filters--icon,
+.guiders__filters--input {
+  float: left;
+}
+
+.guiders__filters--icon {
+  width: 5%;
+  padding: 0 20px;
+
+  .glyphicon {
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 30px;
+  }
+}
+
+.guiders__filters--input {
+  width: 43%;
+  padding: 0 10px;
+}
+
 .guider--selected {
   td {
     background: #f2f2f2;

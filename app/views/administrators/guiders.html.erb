@@ -6,16 +6,20 @@
     <tr class="well guiders__filters">
       <td colspan="4">
         <div class="row">
-          <div class="col-lg-12">
-            <div class="col-md-6">
-              <label for="search">Name, group, schedule:</label>
-              <input type="text" id="search" class="form-control search" placeholder="Search by anything to find a guider">
-            </div>
+          <div class="guiders__filters--icon">
+            <span class="glyphicon glyphicon-search"></span>
+          </div>
+          <div class="guiders__filters--input">
+            <label for="search"> Name, group, schedule:</label>
+            <input type="text" id="search" class="form-control search" placeholder="Search by anything to find a guider">
+          </div>
 
-            <div class="col-md-6">
-              <label for="search">Who have appointments during these dates:</label>
-              <input type="text" class="form-control" id="daterange" placeholder="Select a date range">
-            </div>
+          <div class="guiders__filters--icon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </div>
+          <div class="guiders__filters--input">
+            <label for="search">With appointments during these dates:</label>
+            <input type="text" class="form-control" id="daterange" placeholder="Select a date range">
           </div>
         </div>
       </td>
