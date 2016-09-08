@@ -11,6 +11,63 @@
   </h1>
 </div>
 
+<div class="row t-activity-feed">
+  <div class="col-md-12 border-bottom">
+    <h2 class="h3">Recent activity</h2>
+
+    <div class="activity-feed">
+      <div class="well js-message-form">
+        <form class="new_activity" id="new_activity" action="/booking_requests/7/activities" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+          <div class="input-group">
+            <input placeholder="Add an action to keep others in the loop" class="form-control js-message t-message" type="text" name="activity[message]" id="activity_message" />
+            <span class="input-group-btn">
+              <button name="button" type="submit" class="btn btn-primary btn-block t-submit-message" data-disable-with="Adding message...">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add message
+</button>            </span>
+          </div>
+</form>      </div>
+      <ul class="activity-feed__list js-poller"
+         data-interval="5000"
+         data-url="/booking_requests/7/activities">
+          <li class="activity-feed__item t-activity" id="activity-24">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+  <b>Matt Lucht</b> said <em>on the phone to the customer now</em> <em class="badge">2 days ago</em>
+</li>
+
+      </ul>
+
+        <ul class="activity-feed__list t-hidden-activities" id="collapse">
+          <li class="activity-feed__item t-activity" id="activity-22">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+  <b>Matt Lucht</b> said <em>this is an update</em> <em class="badge">2 days ago</em>
+</li>
+<li class="activity-feed__item t-activity" id="activity-21">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+  <b>Matt Lucht</b> said <em>Left the customer another voicemail</em> <em class="badge">2 days ago</em>
+</li>
+<li class="activity-feed__item t-activity" id="activity-18">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+  <b>Ben Lovell</b> said <em>The customer just called back. I will update.</em> <em class="badge">4 days ago</em>
+</li>
+<li class="activity-feed__item t-activity" id="activity-4">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+  <b>Ben Barnett</b> said <em>left a voicemail</em> <em class="badge">9 days ago</em>
+</li>
+<li class="activity-feed__item t-activity" id="activity-3">
+  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+  <b>Matt Lucht</b> said <em>Contacted the customer</em> <em class="badge">9 days ago</em>
+</li>
+
+        </ul>
+        <button class="activity-feed__btn btn btn-default t-further-activities hidden" data-target="#collapse" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+          All activity
+        </button>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-4">
     <h3>Change appointment details</h3>
