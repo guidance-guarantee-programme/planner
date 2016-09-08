@@ -26,7 +26,7 @@
             <span class="glyphicon glyphicon-calendar"></span>
           </div>
           <div class="guiders__filters--input">
-            <label for="search">With appointments during these dates:</label>
+            <label for="search">With appointments during:</label>
             <input type="text" class="form-control" id="daterange" placeholder="Select a date range">
           </div>
         </div>
@@ -112,13 +112,15 @@
   <script>
   $('#daterange').daterangepicker({
       autoUpdateInput: false,
+      timePicker: true,
+      timePickerIncrement: 10,
       locale: {
           cancelLabel: 'Clear'
       }
   });
 
   $('#daterange').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      $(this).val(picker.startDate.format('MM/DD/YYYY h:mm A') + ' - ' + picker.endDate.format('MM/DD/YYYY h:mm A'));
   });
 
   $('#daterange').on('cancel.daterangepicker', function(ev, picker) {

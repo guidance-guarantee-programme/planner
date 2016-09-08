@@ -61,6 +61,12 @@
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
   <script>
-  $('#daterange').daterangepicker();
+  $('#daterange').daterangepicker({
+    timePicker: true,
+    timePickerIncrement: 10,
+    locale: {
+        format: 'MM/DD/YYYY h:mm A'
+    }
+  });
   </script>
 <% end %>
