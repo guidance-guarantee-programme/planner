@@ -148,6 +148,13 @@
       $(this).parents('.guider')[func]('guider--selected');
 
       $('.guider__number-selected').text($('.guider__checkbox:checked').length);
+
+      if ($('.guider__checkbox:checked').length <= 0) {
+        $('.guider__action-panel').fadeOut();
+      }
+      else {
+        $('.guider__action-panel').fadeIn();
+      }
     });
 
     $('.guider__select-all').on('change', function() {
