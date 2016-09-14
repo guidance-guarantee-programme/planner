@@ -1,156 +1,122 @@
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Appointment planner</a></li>
-    <li><a href="<%= root_path %>">Booking requests</a></li>
-    <li class="active t-name"><%= @appointment_form.name %></li>
+    <li class="active t-name">Book new appointment</li>
   </ol>
 
   <h1>
-    Make appointment for <%= @appointment_form.name %><br>
-    <small>Booking reference: <span class="t-reference"><%= @appointment_form.reference %></span></small>
+    Book new appointment
   </h1>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <p class="lead">If no appointments are available within the customer's preferences, please contact the customer directly to find a suitable time slot, and return to this page to make the appointment.</p>
-  </div>
-</div>
 
 <div class="row">
-  <div class="col-md-4 dont-break-out">
+  <div class="col-md-4">
     <h3>Customer details</h3>
-    <p class="lead">
-      <%= @appointment_form.name %><br>
-      <a href="mailto:<%= @appointment_form.email %>" class="t-email"><%= @appointment_form.email %></a><br>
-      <%= @appointment_form.phone %>
-    </p>
 
-    <h4>Requested location:</h4>
-    <p class="lead">
-      <strong>
-        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_id %>" class="t-location-name">
-          <%= @appointment_form.location_name %>
-        </a>
-      </strong>
-    </p>
+    <div class="form-group ">
+        <label class="form-label" for="booking_request_first_name">First name</label>
+        <input class="t-first-name form-control" type="text" name="booking_request[first_name]" id="booking_request_first_name" />
+      </div>
 
-    <h4>Memorable word:</h4>
-    <p class="lead"><strong class="t-memorable-word"><%= @appointment_form.memorable_word %></strong></p>
+      <div class="form-group ">
+        <label class="form-label" for="booking_request_last_name">Last name</label>
+        <input class="t-last-name form-control" type="text" name="booking_request[last_name]" id="booking_request_last_name" />
+      </div>
 
-    <h4>Age range:</h4>
-    <p class="lead"><strong class="t-age-range"><%= @appointment_form.age_range %></strong></p>
+      <div class="form-group ">
+        <label class="form-label" for="booking_request_email">
+          Email
+</label>
+  <p class="help-block">We will send you a reminder of your appointment details.</p>
 
-    <h4>Accessibility requirements:</h4>
-    <p class="lead">
-      <strong class="t-accessibility_requirements">
-        <%= t("booking_request.accessibility_requirements.is_#{@appointment_form.accessibility_requirements}") %>
-      </strong>
-    </p>
+        <input class="t-email form-control" type="text" name="booking_request[email]" id="booking_request_email" />
+      </div>
+
+      <div class="form-group ">
+        <label class="form-label" for="booking_request_telephone_number">Telephone number</label>
+        <input class="t-telephone-number form-control" type="text" name="booking_request[telephone_number]" id="booking_request_telephone_number" />
+      </div>
+
+      <div class="form-group ">
+        <label class="form-label" for="booking_request_memorable_word">
+          Your memorable word
+        </label>
+        <p class="help-block">Our guidance specialist will repeat this word when they call so you know it’s us.</p>
+        <input class="t-memorable-word form-control" type="text" name="booking_request[memorable_word]" id="booking_request_memorable_word" />
+      </div>
+
+      <div class="form-group ">
+        <fieldset>
+          <label>Your age</label>
+          <br>
+
+          <label class="checkbox" for="booking_request_appointment_type_under-50">
+              <input class="t-appointment-type-1" type="radio" value="under-50" name="booking_request[appointment_type]" id="booking_request_appointment_type_under-50" />
+              Under 50
+</label>
+          <label class="checkbox" for="booking_request_appointment_type_50-54">
+              <input class="t-appointment-type-2" type="radio" value="50-54" name="booking_request[appointment_type]" id="booking_request_appointment_type_50-54" />
+              50 to 54
+</label>
+          <label class="checkbox" for="booking_request_appointment_type_55-plus">
+            <input class="t-appointment-type-3" type="radio" value="55-plus" name="booking_request[appointment_type]" id="booking_request_appointment_type_55-plus" />
+            55 or over
+</label>        </fieldset>
+      </div>
+
+      <div class="form-group ">
+        <fieldset>
+          <label>I have a defined contribution pension pot (not a final salary or career average pension)</label>
+
+
+          <label class="block-label checkbox" for="booking_request_dc_pot_yes">
+              <input class="t-dc-pot-1" type="radio" value="yes" name="booking_request[dc_pot]" id="booking_request_dc_pot_yes" />
+              Yes
+</label>
+          <label class="block-label checkbox" for="booking_request_dc_pot_no">
+              <input class="t-dc-pot-2" type="radio" value="no" name="booking_request[dc_pot]" id="booking_request_dc_pot_no" />
+              No
+</label>
+          <label class="block-label checkbox" for="booking_request_dc_pot_not-sure">
+            <input class="t-dc-pot-3" type="radio" value="not-sure" name="booking_request[dc_pot]" id="booking_request_dc_pot_not-sure" />
+            Not sure
+</label>        </fieldset>
+      </div>
+
+      <div class="form-group ">
+        <label for="booking_request_notes">
+          <label class="form-label" for="booking_request_notes">Any other information</label>
+          <textarea class="form-control t-notes" rows="5" name="booking_request[notes]" id="booking_request_notes">
+</textarea>
+</label>      </div>
+
+      <div class="form-group ">
+        <label for="booking_request_accessibility_requirements">
+          <input name="booking_request[accessibility_requirements]" type="hidden" value="0" /><input class="t-accessibility-requirements" type="checkbox" value="1" name="booking_request[accessibility_requirements]" id="booking_request_accessibility_requirements" /> I have accessibility requirements
+</label>      </div>
+
+      <div class="form-group ">
+        <label for="booking_request_opt_in">
+          <input name="booking_request[opt_in]" type="hidden" value="0" /><input class="t-opt-in" type="checkbox" value="1" name="booking_request[opt_in]" id="booking_request_opt_in" /> I accept the <a href="/privacy" target="_blank">terms and conditions</a>
+</label>      </div>
+
   </div>
 
-  <div class="col-md-4">
-    <h3>Slots requested</h3>
-    <p>The customer has requested the following time slots, in order of preference.</p>
+  <div class="col-md-8">
+    <h3>Appointment time</h3>
 
-    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>1</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>2</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>3</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <%= link_to("Find a slot", appointments_scheduler_path(booking_request_id: @appointment_form.location_aware_booking_request), class: 'btn btn-success') %>
-  </div>
-
-  <div class="col-md-4">
-    <div class="well">
-      <h3>Appointment details</h3>
-
-      <% if @appointment_form.errors.any? %>
-        <div class="alert alert-danger t-errors" role="alert">
-          <h4 class="alert__heading">There's a problem</h4>
-          <ul>
-            <% @appointment_form.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <%= form_for @appointment_form,
-        url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
-        as: :appointment do |f|
-      %>
-        <div class="form-group">
-          <%= f.label :guider_id %>
-          <%= f.select(
-            :guider_id,
-            options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
-            { include_blank: true },
-            { class: 'form-control t-guider' }
-          ) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :location_id %>
-          <%= f.select(
-            :location_id,
-            @appointment_form.flattened_locations,
-            options = {},
-            { class: 'form-control t-location' }
-          ) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :date %>
-          <%= f.date_field(
-            :date,
-            value: @appointment_form.date,
-            class: 't-date form-control'
-          ) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :time %>
-          <div class="form-control">
-            <%= f.time_select(
-              :time,
-              ignore_date: true,
-              minute_step: 15
-            ) %>
-          </div>
-        </div>
-
-        <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
-          Make appointment and notify<br><%= @appointment_form.name %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= image_tag "slots.png", style: "max-width:100%;" %>
   </div>
 </div>
+
+<% content_for :body_end do %>
+  <%= javascript_include_tag "moj.slot-picker/vendor/modernizr.custom.44058.js" %>
+  <%= javascript_include_tag "moj.slot-picker/vendor/handlebars-v1.3.0.js" %>
+
+  <script>var moj = moj || { Modules: {}, Helpers: {} };</script>
+  <%= javascript_include_tag "moj.slot-picker/dist/javascripts/moj.slot-picker.js" %>
+  <%= javascript_include_tag "moj.slot-picker/dist/javascripts/moj.date-slider.js" %>
+  <script>moj.Modules.SlotPicker.init();</script>
+  <script>moj.Modules.DateSlider.init();</script>
+<% end %>

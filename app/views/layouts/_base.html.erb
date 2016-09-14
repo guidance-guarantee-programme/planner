@@ -8,7 +8,10 @@
 
 <%= content_for :navbar_items do %>
   <li>
-    <%= link_to 'Appointments', appointments_path %>
+    <%= link_to 'Book new appointment', new_appointment_path %>
+  </li>
+  <li>
+    <%= link_to 'Manage appointments', appointments_path %>
   </li>
 <% end %>
 

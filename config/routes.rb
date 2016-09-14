@@ -10,11 +10,7 @@ Rails.application.routes.draw do
   get 'administrators/remove'
   get 'administrators/message_customers'
 
-  resources :appointments, only: %i(index edit update)
-
-  resources :booking_requests, only: :index do
-    resources :appointments, only: %i(new create)
-  end
+  resources :appointments, only: %i(index edit update new)
 
   get 'appointments/scheduler', to: 'appointments#scheduler'
 
