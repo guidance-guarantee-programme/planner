@@ -101,16 +101,6 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :guider_id %>
-        <%= f.select(
-          :guider_id,
-          options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
-          options = {},
-          class: 'form-control t-guider'
-        ) %>
-      </div>
-
-      <div class="form-group">
         <%= f.label :proceeded_at, 'Date of appointment' %>
         <%= f.date_field(:proceeded_at, class: 't-date form-control') %>
       </div>
@@ -129,18 +119,11 @@
   </div>
 
   <div class="col-md-4">
-    <h3>After the appointment</h3>
-    <p class="lead">Appointment finished? Update the status below.</p>
+    <h3>Cancel appointment</h3>
+    <p class="lead">The customer will be sent an email confirming the canellation.</p>
 
-    <%= form_for @appointment_form do |f| %>
-      <div class="form-group">
-        <%= f.label :status, 'Appointment status' %>
-        <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
-      </div>
-
-      <%= f.button class: 'btn btn-primary btn-block t-submit-status' do %>
-        Update status
-      <% end %>
-    <% end %>
+    <p>
+      <a href="#" class="btn btn-large btn-block btn-danger">Cancel appointment</a>
+    </p>
   </div>
 </div>

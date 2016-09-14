@@ -1,26 +1,65 @@
-<% content_for(:head) do %>
-  <%= stylesheet_link_tag "fullcalendar/dist/fullcalendar" %>
-  <%= stylesheet_link_tag "fullcalendar-scheduler/dist/scheduler" %>
-
-  <script>
-  var guiders = <%= guiders_hash %>
-  </script>
-<% end %>
-
-
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Appointment planner</a></li>
     <li class="active">Appointments</li>
   </ol>
+
+  <h1>Appointments</h1>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <div id="calendar" class="scheduler" data-name="Telephone"></div>
-  </div>
-</div>
+    <% if @appointments.page.empty? %>
+      <p class="no-content t-notice">No appointments.</p>
+    <% else %>
+      <%= paginate @appointments.entities %>
 
-<div class="js-event-updated-alert alert alert--updated">
-  Appointment updated
+      <table class="table table-bordered">
+        <thead>
+          <tr class="table-header">
+            <th>Date of appointment</th>
+            <th>Time of appointment</th>
+            <th>Customer name</th>
+            <th>Guider</th>
+            <th>Location</th>
+            <th>Reference</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @appointments.page.each do |appointment| %>
+            <tr class="t-appointment">
+              <td>
+                <%= appointment.proceeded_at.strftime('%A, %b %e') %>
+              </td>
+              <td>
+                <%= appointment.proceeded_at.strftime('%H:%M') %>
+              </td>
+              <td>
+                <%= appointment.name %>
+              </td>
+              <td>
+                <%= appointment.guider_name %>
+              </td>
+              <td>
+                <%= appointment.location_name %>
+              </td>
+              <td>
+                <%= appointment.reference %>
+              </td>
+              <td>
+                <%= appointment.status.titleize %>
+              </td>
+              <td>
+                <%= link_to('Cancel / change', edit_appointment_path(appointment), class: 'btn btn-danger t-edit') %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @appointments.entities %>
+    <% end %>
+  </div>
 </div>
