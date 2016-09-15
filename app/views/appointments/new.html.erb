@@ -11,6 +11,57 @@
 
 
 <div class="row">
+  <div class="col-md-12">
+    <h3>Customer eligibility</h3>
+
+    <div class="row">
+    <div class="col-md-4">
+    <div class="form-group ">
+        <fieldset>
+          <label>Your age</label>
+          <br>
+
+          <label class="checkbox" for="booking_request_appointment_type_under-50">
+              <input class="t-appointment-type-1" type="radio" value="under-50" name="booking_request[appointment_type]" id="booking_request_appointment_type_under-50" />
+              Under 50
+</label>
+          <label class="checkbox" for="booking_request_appointment_type_50-54">
+              <input class="t-appointment-type-2" type="radio" value="50-54" name="booking_request[appointment_type]" id="booking_request_appointment_type_50-54" />
+              50 to 54
+</label>
+          <label class="checkbox" for="booking_request_appointment_type_55-plus">
+            <input class="t-appointment-type-3" type="radio" value="55-plus" name="booking_request[appointment_type]" id="booking_request_appointment_type_55-plus" />
+            55 or over
+</label>        </fieldset>
+      </div>
+      </div>
+
+
+<div class="col-md-4">
+      <div class="form-group ">
+        <fieldset>
+          <label>I have a defined contribution pension pot (not a final salary or career average pension)</label>
+
+
+          <label class="block-label checkbox" for="booking_request_dc_pot_yes">
+              <input class="t-dc-pot-1" type="radio" value="yes" name="booking_request[dc_pot]" id="booking_request_dc_pot_yes" />
+              Yes
+</label>
+          <label class="block-label checkbox" for="booking_request_dc_pot_no">
+              <input class="t-dc-pot-2" type="radio" value="no" name="booking_request[dc_pot]" id="booking_request_dc_pot_no" />
+              No
+</label>
+          <label class="block-label checkbox" for="booking_request_dc_pot_not-sure">
+            <input class="t-dc-pot-3" type="radio" value="not-sure" name="booking_request[dc_pot]" id="booking_request_dc_pot_not-sure" />
+            Not sure
+</label>        </fieldset>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="row js-show-if-eligible">
   <div class="col-md-4">
     <h3>Customer details</h3>
 
@@ -44,44 +95,6 @@
         </label>
         <p class="help-block">Our guidance specialist will repeat this word when they call so you know it’s us.</p>
         <input class="t-memorable-word form-control" type="text" name="booking_request[memorable_word]" id="booking_request_memorable_word" />
-      </div>
-
-      <div class="form-group ">
-        <fieldset>
-          <label>Your age</label>
-          <br>
-
-          <label class="checkbox" for="booking_request_appointment_type_under-50">
-              <input class="t-appointment-type-1" type="radio" value="under-50" name="booking_request[appointment_type]" id="booking_request_appointment_type_under-50" />
-              Under 50
-</label>
-          <label class="checkbox" for="booking_request_appointment_type_50-54">
-              <input class="t-appointment-type-2" type="radio" value="50-54" name="booking_request[appointment_type]" id="booking_request_appointment_type_50-54" />
-              50 to 54
-</label>
-          <label class="checkbox" for="booking_request_appointment_type_55-plus">
-            <input class="t-appointment-type-3" type="radio" value="55-plus" name="booking_request[appointment_type]" id="booking_request_appointment_type_55-plus" />
-            55 or over
-</label>        </fieldset>
-      </div>
-
-      <div class="form-group ">
-        <fieldset>
-          <label>I have a defined contribution pension pot (not a final salary or career average pension)</label>
-
-
-          <label class="block-label checkbox" for="booking_request_dc_pot_yes">
-              <input class="t-dc-pot-1" type="radio" value="yes" name="booking_request[dc_pot]" id="booking_request_dc_pot_yes" />
-              Yes
-</label>
-          <label class="block-label checkbox" for="booking_request_dc_pot_no">
-              <input class="t-dc-pot-2" type="radio" value="no" name="booking_request[dc_pot]" id="booking_request_dc_pot_no" />
-              No
-</label>
-          <label class="block-label checkbox" for="booking_request_dc_pot_not-sure">
-            <input class="t-dc-pot-3" type="radio" value="not-sure" name="booking_request[dc_pot]" id="booking_request_dc_pot_not-sure" />
-            Not sure
-</label>        </fieldset>
       </div>
 
       <div class="form-group ">
@@ -119,4 +132,41 @@
   <%= javascript_include_tag "moj.slot-picker/dist/javascripts/moj.date-slider.js" %>
   <script>moj.Modules.SlotPicker.init();</script>
   <script>moj.Modules.DateSlider.init();</script>
+
+  <script>
+    var ageEligible = false;
+    var potEligible = false;
+    refresh();
+
+    $('input[name="booking_request[appointment_type]"]').change(function() {
+      if ($(this).val() == '50-54' || $(this).val() == '55-plus') {
+        ageEligible = true;
+      }
+      else {
+        ageEligible = false;
+      }
+
+      refresh();
+    });
+
+    $('input[name="booking_request[dc_pot]"]').change(function() {
+      if ($(this).val() == 'yes' || $(this).val() == 'not-sure') {
+        potEligible = true;
+      }
+      else {
+        potEligible = false;
+      }
+
+      refresh();
+    });
+
+    function refresh() {
+      if (potEligible && ageEligible) {
+        $('.js-show-if-eligible').fadeIn('fast');
+      }
+      else {
+        $('.js-show-if-eligible').hide();
+      }
+    }
+  </script>
 <% end %>
