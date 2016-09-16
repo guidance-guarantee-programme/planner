@@ -110,22 +110,29 @@
         ) %>
       </div>
 
-      <div class="form-group">
-        <%= f.label :proceeded_at, 'Date of appointment' %>
-        <%= f.date_field(:proceeded_at, class: 't-date form-control') %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :proceeded_at, 'Time of appointment' %>
-        <div class="form-control">
-          <%= f.time_select(:proceeded_at, ignore_date: true, minute_step: 15) %>
-        </div>
-      </div>
-
       <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
         Update appointment and notify<br><%= @appointment_form.name %>
       <% end %>
     <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <h3>Reschedule appointment</h3>
+    <div class="form-group">
+      <label>Date of appointment</label>
+      <p class="lead"><%= @appointment_form.proceeded_at.strftime('%F') %></p>
+    </div>
+
+    <div class="form-group">
+      <label>Time of appointment</label>
+      <p class="lead">
+        <%= @appointment_form.proceeded_at.to_s(:time) %>
+      </p>
+    </div>
+
+    <div class="form-group">
+      <a href="#" class="btn btn-block btn-info">Find another time</a>
+    </div>
   </div>
 
   <div class="col-md-4">
@@ -138,7 +145,7 @@
         <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
       </div>
 
-      <%= f.button class: 'btn btn-primary btn-block t-submit-status' do %>
+      <%= f.button class: 'btn btn-success btn-block t-submit-status' do %>
         Update status
       <% end %>
     <% end %>
