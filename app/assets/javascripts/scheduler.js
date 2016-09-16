@@ -32,7 +32,7 @@ $(function() {
     snapDuration: '00:10',
     defaultView: 'agendaDay',
     now: '2016-07-12',
-    allDaySlot: false,
+    allDaySlot: true,
     selectable: true,
     select: function(start, end, event, calendar, resource) {
       var title = prompt('Reason for blocking out time:');
