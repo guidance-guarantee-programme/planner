@@ -34,8 +34,37 @@ $(function() {
     now: '2016-07-12',
     allDaySlot: false,
     selectable: true,
+    select: function(start, end, event, calendar, resource) {
+      var title = prompt('Reason for blocking out time:');
+      var eventData;
+
+      if (title) {
+        eventData = {
+          id: 'blocker' + Math.random() * 10000,
+          title: 'Blocked: ' + title,
+          start: start,
+          end: end,
+          backgroundColor: '#c00',
+          borderColor: '#c00',
+          textColor: '#fff',
+          resourceId: resource.id,
+          blocked: true
+        };
+        $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+      }
+      $('#calendar').fullCalendar('unselect');
+    },
     eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
-      $('.js-event-updated-alert').html(event.title + "'s appointment updated").show().stop().delay(2000).fadeOut('slow');
+      if (!event.blocked) {
+        $('.js-event-updated-alert').html(event.title + "'s appointment updated").show().stop().delay(2000).fadeOut('slow');
+      }
+    },
+    eventClick: function(event, jsEvent, view) {
+      if (event.blocked === true) {
+        if (confirm('Would you like to delete this time block?')) {
+          $('#calendar').fullCalendar('removeEvents', [event.id]);
+        }
+      }
     },
     // eventOverlap: false, // replace with a function to determine if the event was cancelled, in which case allow the overlap
     resources: (function() {
