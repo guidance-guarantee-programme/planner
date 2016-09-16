@@ -10,64 +10,26 @@
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Appointment planner</a></li>
-    <li><a href="<%= root_path %>">Booking requests</a></li>
-    <li><a href="<%= new_booking_request_appointment_path(@appointment_form.location_aware_booking_request) %>"><%= @appointment_form.location_aware_booking_request.name %></a></li>
+    <li><a href="<%= root_path %>">Appointments</a></li>
+    <li><a href="<%= root_path %>">Customer name</a></li>
     <li class="active">Find a slot</li>
   </ol>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <p class="lead">Choose an available slot on the calendar to create the appointment:</p>
-  </div>
+    <p class="lead"><a href="<%= edit_appointment_path(params[:id]) %>">
+      <span class="glyphicon glyphicon-chevron-left"></span> Cancel, back to guiders
+    </a></p>
 
-  <div class="col-md-4">
-    <div class="SlotPicker-choice is-chosen">
-      <div class="SlotPicker-choiceInner">
-        <div class="SlotPicker-position"><span>1</span></div>
-        <div class="SlotPicker-choiceContent">
-          <p class="SlotPicker-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-          <p class="SlotPicker-time">
-          <%= @appointment_form.primary_slot.period %></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="SlotPicker-choice is-chosen">
-      <div class="SlotPicker-choiceInner">
-        <div class="SlotPicker-position"><span>2</span></div>
-        <div class="SlotPicker-choiceContent">
-          <p class="SlotPicker-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-          <p class="SlotPicker-time">
-          <%= @appointment_form.secondary_slot.period %></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="SlotPicker-choice is-chosen">
-      <div class="SlotPicker-choiceInner">
-        <div class="SlotPicker-position"><span>3</span></div>
-        <div class="SlotPicker-choiceContent">
-          <p class="SlotPicker-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-          <p class="SlotPicker-time">
-          <%= @appointment_form.tertiary_slot.period %></p>
-        </div>
-      </div>
-    </div>
+    <p class="lead">Choose an available slot for the appointment:</p>
   </div>
 
   <div class="col-md-12">
     <br>
     <p>
-      <%= form_tag(new_booking_request_appointment_path(@appointment_form.location_aware_booking_request), method: 'get') do -%>
-        <%= hidden_field_tag 'guider_id' %>
-        <%= hidden_field_tag 'datetime' %>
-
-        <%= submit_tag 'Confirm slot and continue', class: 'btn btn-primary btn-block' %>
-      <% end -%>
+      <a href="<%= edit_appointment_path(params[:id]) %>" class="btn btn-primary btn-block">Confirm slot and continue</a>
     </p>
-    <div id="calendar" class="scheduler" data-name="<%= @appointment_form.location_aware_booking_request.name %>"></div>
+    <div id="calendar-slot-finder" class="scheduler" data-name="Customer name"></div>
   </div>
 </div>

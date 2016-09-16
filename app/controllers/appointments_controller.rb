@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :populate_appointment_form, only: %i(create scheduler)
+  before_action :populate_appointment_form, only: %i(create)
   before_action :populate_edit_appointment_form, only: %i(edit update)
 
   def index
