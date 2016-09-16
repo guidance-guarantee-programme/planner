@@ -110,29 +110,17 @@
         ) %>
       </div>
 
+      <div class="form-group">
+        <label>Date of appointment</label>
+        <p class="lead"><%= @appointment_form.proceeded_at.strftime('%F') %> <%= @appointment_form.proceeded_at.to_s(:time) %> <a href="<%= appointments_scheduler_path %>?id=<%= @appointment_form.id %>" class="btn btn-small btn-info pull-right">Find another time</a></p>
+
+        <p></p>
+      </div>
+
       <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
         Update appointment and notify<br><%= @appointment_form.name %>
       <% end %>
     <% end %>
-  </div>
-
-  <div class="col-md-4">
-    <h3>Reschedule appointment</h3>
-    <div class="form-group">
-      <label>Date of appointment</label>
-      <p class="lead"><%= @appointment_form.proceeded_at.strftime('%F') %></p>
-    </div>
-
-    <div class="form-group">
-      <label>Time of appointment</label>
-      <p class="lead">
-        <%= @appointment_form.proceeded_at.to_s(:time) %>
-      </p>
-    </div>
-
-    <div class="form-group">
-      <a href="<%= appointments_scheduler_path %>?id=<%= @appointment_form.id %>" class="btn btn-block btn-info">Find another time</a>
-    </div>
   </div>
 
   <div class="col-md-4">
