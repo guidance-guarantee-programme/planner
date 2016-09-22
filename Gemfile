@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem 'audited', github: 'collectiveidea/audited'
+gem 'audited'
 gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
 gem 'booking_locations'
 gem 'gds-sso'
