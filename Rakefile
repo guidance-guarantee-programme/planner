@@ -5,7 +5,7 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 
-default_tasks = %i(analyse_javascript spec:javascript)
+default_tasks = %i(analyse_javascript)
 
 begin
   require 'rubocop/rake_task'

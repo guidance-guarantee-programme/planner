@@ -18,9 +18,4 @@ Rails.application.routes.draw do
   end
 
   mount Sidekiq::Web, at: '/sidekiq', constraint: AuthenticatedUser.new
-
-  if Rails.application.config.mount_javascript_test_routes
-    mount JasmineRails::Engine => '/specs'
-    mount JasmineFixtures => '/spec/javascripts/fixtures'
-  end
 end
