@@ -32,13 +32,67 @@
           <tr>
           <% slots.each do |group, group_slots| %>
             <td>
-              <ul class="list-group">
-                <% group_slots.each do |slot| %>
-                <li class="list-group-item lead">
-                  <span class="label label-primary"><%= slot %></span>
-                </li>
-                <% end %>
-              </ul>
+              <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Monday</th>
+                                  <th>Tuesday</th>
+                                  <th>Wednesday</th>
+                                  <th>Thursday</th>
+                                  <th>Friday</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <ul class="list-group">
+                                      <% group_slots.each do |slot| %>
+                                      <li class="list-group-item lead">
+                                        <span class="label label-primary"><%= slot %></span>
+                                      </li>
+                                      <% end %>
+                                    </ul>
+                                  </td>
+                                  <td>
+                                    <ul class="list-group">
+                                      <% group_slots.each do |slot| %>
+                                      <li class="list-group-item lead">
+                                        <span class="label label-primary"><%= slot %></span>
+                                      </li>
+                                      <% end %>
+                                    </ul>
+                                  </td>
+                                  <td>
+                                    <ul class="list-group">
+                                      <% group_slots.each do |slot| %>
+                                      <li class="list-group-item lead">
+                                        <span class="label label-primary"><%= slot %></span>
+                                      </li>
+                                      <% end %>
+                                    </ul>
+                                  </td>
+                                  <td>
+                                    <ul class="list-group">
+                                      <% group_slots.each do |slot| %>
+                                      <li class="list-group-item lead">
+                                        <span class="label label-primary"><%= slot %></span>
+                                      </li>
+                                      <% end %>
+                                    </ul>
+                                  </td>
+                                  <td>
+                                    <ul class="list-group">
+                                      <% group_slots.each do |slot| %>
+                                      <li class="list-group-item lead">
+                                        <span class="label label-primary"><%= slot %></span>
+                                      </li>
+                                      <% end %>
+                                    </ul>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
             </td>
           <% break %>
           <% end %>

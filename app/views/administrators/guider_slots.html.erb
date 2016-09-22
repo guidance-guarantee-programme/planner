@@ -44,13 +44,68 @@
           <tr>
           <% slots.each do |group, group_slots| %>
             <td>
-              <ul class="list-group">
-                <% group_slots.each do |slot| %>
-                <li class="list-group-item lead">
-                  <span class="label label-primary"><%= slot %></span>
-                </li>
-                <% end %>
-              </ul>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <ul class="list-group">
+                        <% group_slots.each do |slot| %>
+                        <li class="list-group-item lead">
+                          <span class="label label-primary"><%= slot %></span>
+                        </li>
+                        <% end %>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul class="list-group">
+                        <% group_slots.each do |slot| %>
+                        <li class="list-group-item lead">
+                          <span class="label label-primary"><%= slot %></span>
+                        </li>
+                        <% end %>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul class="list-group">
+                        <% group_slots.each do |slot| %>
+                        <li class="list-group-item lead">
+                          <span class="label label-primary"><%= slot %></span>
+                        </li>
+                        <% end %>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul class="list-group">
+                        <% group_slots.each do |slot| %>
+                        <li class="list-group-item lead">
+                          <span class="label label-primary"><%= slot %></span>
+                        </li>
+                        <% end %>
+                      </ul>
+                    </td>
+                    <td>
+                      <ul class="list-group">
+                        <% group_slots.each do |slot| %>
+                        <li class="list-group-item lead">
+                          <span class="label label-primary"><%= slot %></span>
+                        </li>
+                        <% end %>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
             </td>
           <% break %>
           <% end %>
@@ -102,34 +157,151 @@
           </div>
         </div>
 
-        <div class="panel panel-default js-custom-slots hidden">
-          <div class="panel-heading">
-            <select name="hour" id="hour" class="js-slot-hour">
-              <% (8..19).each do |hour| %>
-              <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
-              <% end %>
-            </select>:
-            <select name="minute" id="minute" class="js-slot-minute">
-              <% [0, 10, 20, 30, 40, 50].each do |minute| %>
-              <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
-              <% end %>
-            </select>
-            <button class="btn btn-sm btn-default js-button">
-              <span class="glyphicon glyphicon-plus"></span>
-              Add slot
-            </button>
-          </div>
+        <table class="table js-custom-slots hidden">
+          <thead>
+            <tr>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+            </tr>
+          </thead>
 
-          <div class="panel-body">
-            <ul class="list-group js-slot-target">
+          <tbody>
+            <tr>
+              <td>
+                <div class="panel panel-default js-custom-slots hidden">
+                  <div class="panel-heading">
+                    <select name="hour" id="hour" class="js-slot-hour" data-target="monday">
+                      <% (8..19).each do |hour| %>
+                      <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>:
+                    <select name="minute" id="minute" class="js-slot-minute" data-target="monday">
+                      <% [0, 10, 20, 30, 40, 50].each do |minute| %>
+                      <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>
+                    <button class="btn btn-sm btn-default js-button" data-target="monday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </div>
 
-            </ul>
-          </div>
+                  <div class="panel-body">
+                    <ul class="list-group js-slot-target" data-target="monday">
+
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="panel panel-default js-custom-slots hidden">
+                  <div class="panel-heading">
+                    <select name="hour" id="hour" class="js-slot-hour" data-target="tuesday">
+                      <% (8..19).each do |hour| %>
+                      <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>:
+                    <select name="minute" id="minute" class="js-slot-minute" data-target="tuesday">
+                      <% [0, 10, 20, 30, 40, 50].each do |minute| %>
+                      <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>
+                    <button class="btn btn-sm btn-default js-button" data-target="tuesday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </div>
+
+                  <div class="panel-body">
+                    <ul class="list-group js-slot-target" data-target="tuesday">
+
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="panel panel-default js-custom-slots hidden">
+                  <div class="panel-heading">
+                    <select name="hour" id="hour" class="js-slot-hour" data-target="wednesday">
+                      <% (8..19).each do |hour| %>
+                      <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>:
+                    <select name="minute" id="minute" class="js-slot-minute" data-target="wednesday">
+                      <% [0, 10, 20, 30, 40, 50].each do |minute| %>
+                      <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>
+                    <button class="btn btn-sm btn-default js-button" data-target="wednesday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </div>
+
+                  <div class="panel-body">
+                    <ul class="list-group js-slot-target" data-target="wednesday">
+
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="panel panel-default js-custom-slots hidden">
+                  <div class="panel-heading">
+                    <select name="hour" id="hour" class="js-slot-hour" data-target="thursday">
+                      <% (8..19).each do |hour| %>
+                      <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>:
+                    <select name="minute" id="minute" class="js-slot-minute" data-target="thursday">
+                      <% [0, 10, 20, 30, 40, 50].each do |minute| %>
+                      <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>
+                    <button class="btn btn-sm btn-default js-button" data-target="thursday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </div>
+
+                  <div class="panel-body">
+                    <ul class="list-group js-slot-target" data-target="thursday">
+
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="panel panel-default js-custom-slots hidden">
+                  <div class="panel-heading">
+                    <select name="hour" id="hour" class="js-slot-hour" data-target="friday">
+                      <% (8..19).each do |hour| %>
+                      <option value="<%= hour.to_s.rjust(2, '0') %>"><%= hour.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>:
+                    <select name="minute" id="minute" class="js-slot-minute" data-target="friday">
+                      <% [0, 10, 20, 30, 40, 50].each do |minute| %>
+                      <option value="<%= minute.to_s.rjust(2, '0') %>"><%= minute.to_s.rjust(2, '0') %></option>
+                      <% end %>
+                    </select>
+                    <button class="btn btn-sm btn-default js-button" data-target="friday">
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </div>
+
+                  <div class="panel-body">
+                    <ul class="list-group js-slot-target" data-target="friday">
+
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="form-group">
+          <button class="btn btn-success">Add availability period</button>
         </div>
-
-          <div class="form-group">
-            <button class="btn btn-success">Add availability period</button>
-          </div>
       </form>
     </div>
   </div>
@@ -157,23 +329,27 @@
 
   <script>
     var $button = $('.js-button');
-    var $hour = $('.js-slot-hour');
-    var $minute = $('.js-slot-minute');
-    var $target = $('.js-slot-target');
 
-    var slots = [];
+    var slots = {
+      'monday': [],
+      'tuesday': [],
+      'wednesday': [],
+      'thursday': [],
+      'friday': []
+    };
 
     $button.on('click', function(e) {
       e.preventDefault();
 
-      var slot = $hour.val() + ':' + $minute.val();
+      var dayOfWeek = $(this).data('target');
+      var slot = $('.js-slot-hour[data-target="' + dayOfWeek + '"]').val() + ':' + $('.js-slot-minute[data-target="' + dayOfWeek + '"]').val();
 
-      if (slots.indexOf(slot) !== -1) {
+      if (slots[dayOfWeek].indexOf(slot) !== -1) {
         return;
       }
 
-      slots.push(slot);
-      $target.append('<li class="list-group-item lead"><span class="label label-primary">' + slot + '</span></li>');
+      slots[dayOfWeek].push(slot);
+      $('.js-slot-target[data-target="' + dayOfWeek + '"]').append('<li class="list-group-item lead"><span class="label label-primary">' + slot + '</span></li>');
     });
 
     $(document).on('click', '.js-remove', function(e) {

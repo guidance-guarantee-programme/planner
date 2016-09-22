@@ -38,17 +38,13 @@
         #<br>
         <input type="checkbox" class="guider__select-all" id="selectall">
       </th>
-      <th width="25%">
+      <th width="45%">
         Name<br>
         <small><a href="#" class="sort" data-sort="name">Sort by name</a></small>
       </th>
-      <th width="20%">
+      <th width="50%">
         Groups<br>
         <small><a href="#" class="sort" data-sort="groups">Sort by groups</a></small>
-      </th>
-      <th width="50%">
-        Bookable times<br>
-        <small><a href="#" class="sort" data-sort="slots">Sort by times</a></small>
       </th>
     </tr>
   </thead>
@@ -71,17 +67,6 @@
           <%
           end
           %>
-        </td>
-        <td class="slots">
-          <%
-          slot_group = slots_by_group([0, 1, 2].sample)
-          puts slot_group
-          slots = slot_group[['Group 1', 'Group 2', 'Group 3'].sample.to_sym]
-          %>
-
-          <% slots.each do |slot| %>
-            <span class="label label-primary"><%= slot %></span>
-          <% end %>
         </td>
       </tr>
     <% end %>
