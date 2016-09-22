@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 
 ruby IO.read('.ruby-version').strip
 
-gem 'audited', github: 'collectiveidea/audited'
+gem 'audited'
 gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
 gem 'booking_locations'
-gem 'gds-sso', github: 'guidance-guarantee-programme/gds-sso', branch: 'rails-5'
+gem 'gds-sso'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'rails', '5.0.0.1'
-gem 'pg', '~> 0.15'
+gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'govuk_admin_template'
