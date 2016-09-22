@@ -29,8 +29,6 @@ group :development, :test do
   gem 'capybara'
   gem 'pry-byebug'
   gem 'factory_girl_rails'
-  gem 'jasmine-jquery-rails'
-  gem 'jasmine-rails'
   gem 'phantomjs', '1.9.8.0'
   gem 'rspec-rails'
   gem 'site_prism'
