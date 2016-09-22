@@ -5,7 +5,7 @@ ruby IO.read('.ruby-version').strip
 gem 'audited', github: 'collectiveidea/audited'
 gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
 gem 'booking_locations'
-gem 'gds-sso', github: 'guidance-guarantee-programme/gds-sso', branch: 'rails-5'
+gem 'gds-sso'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'rails', '5.0.0.1'
