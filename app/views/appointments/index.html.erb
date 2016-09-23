@@ -3,17 +3,28 @@
     <li><a href="<%= root_path %>">Appointment planner</a></li>
     <li class="active">Appointments</li>
   </ol>
-
   <h1>Appointments</h1>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <% if @appointments.page.empty? %>
+<% if @appointments.page.empty? %>
+  <div class="row">
+    <div class="col-md-12">
       <p class="no-content t-notice">No appointments.</p>
-    <% else %>
-      <%= paginate @appointments.entities %>
-
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-md-10">
+      <%= paginate @appointments.entities, :pagination_class => "remove-top-margin" %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to(calendar_appointments_path, class: 'btn btn-default calendar-view-button') do %>
+        <span class="glyphicon glyphicon-calendar"></span> Calendar view
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
       <table class="table table-bordered">
         <thead>
           <tr class="table-header">
@@ -58,8 +69,11 @@
           <% end %>
         </tbody>
       </table>
-
-      <%= paginate @appointments.entities %>
-    <% end %>
+    </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= paginate @appointments.entities %>
+    </div>
+  </div>
+<% end %>

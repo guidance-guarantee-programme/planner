@@ -2,6 +2,8 @@
   "name": "planner",
   "private": true,
   "dependencies": {
-    "moj.slot-picker": "~0.22.2"
+    "moj.slot-picker": "~0.22.2",
+    "fullcalendar": "^2.9.1",
+    "fullcalendar-scheduler": "^1.3.3"
   }
 }

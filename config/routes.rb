@@ -1,7 +1,11 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  resources :appointments, only: %i(index edit update)
+  resources :appointments, only: %i(index edit update) do
+    get :calendar, on: :collection
+  end
+
+  resources :calendar_resources, only: :index, constraints: { format: :json }
 
   resources :booking_requests, only: :index do
     resources :activities, only: %i(index create)

@@ -1,0 +1,73 @@
+$calendar-resource-colours: (#f83a22, #9a9cff, #f691b2, #fad165, #9fe1e7, #4986e7);
+
+.calendar-view-button {
+  display: none;
+
+  .js & {
+      display: inline;
+  }
+}
+
+.calendar-filters__header {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.calendar-filters__key {
+  border: 1px solid #666;
+  display: inline-block;
+  height: 12px;
+  margin-right: 5px;
+  width: 12px;
+  vertical-align: middle;
+}
+
+@for $i from 1 through length($calendar-resource-colours) {
+  .calendar-filters__key--#{$i} {
+    $background: nth($calendar-resource-colours, $i);
+    background: $background;
+
+    @if (lightness($background) > 55) {
+      color: #000;
+    } @else {
+      color: #fff;
+    }
+
+    .fc-widget-header & {
+      background: none;
+      color: #000;
+
+      &:before {
+        background: $background;
+        content: '';
+        display: inline-block;
+        height: 12px;
+        margin-right: 5px;
+        width: 12px;
+      }
+    }
+  }
+
+  a.calendar-filters__key--#{$i} {
+    $background: nth($calendar-resource-colours, $i);
+    &:link,
+    &:visited {
+      @if (lightness($background) > 55) {
+        color: #000;
+      } @else {
+        color: #fff;
+      }
+    }
+
+    &:hover {
+      $darker-background: darken($background, 10%);
+      background: $darker-background;
+
+      @if (lightness($darker-background) > 50) {
+        color: #000;
+      } @else {
+        color: #fff;
+      }
+    }
+  }
+}

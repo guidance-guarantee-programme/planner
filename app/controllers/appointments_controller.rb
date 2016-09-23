@@ -9,6 +9,17 @@ class AppointmentsController < ApplicationController
     )
   end
 
+  def calendar
+    @appointments_all = LocationAwareEntities.new(
+      current_user.appointments,
+      booking_location
+    )
+
+    @booking_location = booking_location
+
+    @locations_all = FlattenedLocationMapper.map(booking_location)
+  end
+
   def edit
   end
 

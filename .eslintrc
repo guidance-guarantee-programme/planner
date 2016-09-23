@@ -6,7 +6,7 @@
     "jquery": true
   },
   "globals": {
-    PWPG: true
+    PWPLAN: true
   },
   "rules": {
     "strict": 1
