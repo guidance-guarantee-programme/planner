@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  namespace :mail_gun do
+    resources :drops, only: :create
+  end
+
   resources :appointments, only: %i(index edit update)
 
   resources :booking_requests, only: :index do

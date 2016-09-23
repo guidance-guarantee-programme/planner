@@ -1,0 +1,2 @@
+class DropActivity < Activity
+end
