@@ -25,6 +25,10 @@ class BookingRequest < ActiveRecord::Base
 
   scope :active, -> { where(active: true) }
 
+  def deactivate!
+    update!(active: false)
+  end
+
   def primary_slot
     slots.first
   end

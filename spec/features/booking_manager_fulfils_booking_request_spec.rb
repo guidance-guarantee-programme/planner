@@ -2,6 +2,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
+  scenario 'Bookings Manager deactivates a Booking Request' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_unfulfilled_booking_request
+      when_the_booking_manager_attempts_to_fulfil
+      then_they_are_shown_the_fulfilment_page
+      when_they_choose_to_deactivate_the_booking_request
+      then_the_booking_request_is_no_longer_active
+    end
+  end
+
   scenario 'Bookings Manager fulfils a Booking Request' do
     perform_enqueued_jobs do
       travel_to '2016-06-19' do
@@ -108,5 +118,15 @@ RSpec.feature 'Fulfiling Booking Requests' do
   def then_they_see_the_validation_messages
     expect(@page).to have_error_summary
     expect(@page).to have_errors
+  end
+
+  def when_they_choose_to_deactivate_the_booking_request
+    @page.deactivate.click
+  end
+
+  def then_the_booking_request_is_no_longer_active
+    @page = Pages::BookingRequests.new
+    expect(@page).to be_displayed
+    expect(@page).to_not have_booking_requests
   end
 end
