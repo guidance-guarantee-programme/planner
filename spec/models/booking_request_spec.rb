@@ -92,4 +92,8 @@ RSpec.describe BookingRequest do
       expect(build(:booking_request, name: 'ben lovell').name).to eq('Ben Lovell')
     end
   end
+
+  it 'defaults `active`' do
+    expect(described_class.new).to be_active
+  end
 end

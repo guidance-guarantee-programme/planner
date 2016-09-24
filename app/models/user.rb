@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   def unfulfilled_booking_requests
     booking_requests
+      .active
       .includes(:appointment)
       .where(appointments: { booking_request_id: nil })
   end

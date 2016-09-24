@@ -23,6 +23,8 @@ class BookingRequest < ActiveRecord::Base
 
   alias reference to_param
 
+  scope :active, -> { where(active: true) }
+
   def primary_slot
     slots.first
   end
