@@ -17,13 +17,9 @@
         <% end %>
       </div>
       <ul class="activity-feed__list js-poller"
-         data-interval="<%= poll_interval_milliseconds %>"
-         data-url="<%= booking_request_activities_path(booking_request) %>">
-        <% if activities.present? %>
-          <%= render activities.first if activities.present? %>
-        <% else %>
-          <li class="activity-feed__item js-no-activities">No activities.</li>
-        <% end %>
+        data-interval="<%= poll_interval_milliseconds %>"
+        data-url="<%= booking_request_activities_path(booking_request) %>">
+        <%= render activities.first if activities.present? %>
       </ul>
 
       <% if activities.count > 1 %>
