@@ -12,6 +12,9 @@ RSpec.feature 'Viewing Booking Requests' do
   def and_there_are_booking_requests_for_their_location
     create_list(:hackney_booking_request, 11)
 
+    # this won't be listed as it's not `active`
+    create(:hackney_booking_request, active: false)
+
     # this won't be listed as it's not under Hackney
     create(:booking_request)
 

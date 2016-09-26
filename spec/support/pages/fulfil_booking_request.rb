@@ -29,6 +29,7 @@ module Pages
     element :time_minute, '#appointment_time_5i'
 
     element :submit, '.t-submit'
+    element :deactivate, '.t-deactivate'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
