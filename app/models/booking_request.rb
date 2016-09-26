@@ -21,6 +21,8 @@ class BookingRequest < ActiveRecord::Base
   validates :defined_contribution_pot, inclusion: { in: [true, false] }
   validate :validate_slots
 
+  scope :latest, ->(email) { where(email: email).order(:created_at).last }
+
   alias reference to_param
 
   scope :active, -> { where(active: true) }

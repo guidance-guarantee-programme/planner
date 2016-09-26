@@ -1,0 +1,4 @@
+<li class="activity-feed__item t-activity" id="activity-<%= drop_activity.id %>">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <b>Delivery failure</b> <em><%= drop_activity.message %></em> <em class="badge"><%= time_ago_in_words(drop_activity.created_at) %> ago</em>
+</li>
