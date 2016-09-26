@@ -8,6 +8,7 @@ class DropForm
   attr_accessor :event
   attr_accessor :recipient
   attr_accessor :description
+  attr_accessor :message_type
   attr_accessor :timestamp
   attr_accessor :token
   attr_accessor :signature
@@ -19,9 +20,10 @@ class DropForm
   def create_activity
     verify_token!
 
-    DropActivity.create(
-      booking_request: booking_request,
-      message: description
+    DropActivity.from(
+      message_type,
+      description,
+      booking_request
     )
   end
 

@@ -7,6 +7,7 @@ RSpec.describe DropForm, '#create_activity' do
       'event' => 'dropped',
       'recipient' => 'morty@example.com',
       'description' => 'the reasoning',
+      'message_type' => 'customer_booking_request',
       'timestamp' => '1474638633',
       'token' => 'secret',
       'signature' => 'abf02bef01e803bea52213cb092a31dc2174f63bcc2382ba25732f4c84e084c1'
@@ -37,10 +38,13 @@ RSpec.describe DropForm, '#create_activity' do
 
   context 'when the signature is verified' do
     it 'creates the drop activity' do
-      expect(subject.create_activity).to have_attributes(
-        booking_request_id: booking_request.id,
-        message: params['description']
+      expect(DropActivity).to receive(:from).with(
+        params['message_type'],
+        params['description'],
+        booking_request
       )
+
+      subject.create_activity
     end
   end
 end

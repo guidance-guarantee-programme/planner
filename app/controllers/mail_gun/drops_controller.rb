@@ -14,6 +14,7 @@ module MailGun
         :event,
         :recipient,
         :description,
+        :message_type,
         :timestamp,
         :token,
         :signature
