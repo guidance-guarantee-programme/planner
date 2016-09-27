@@ -9,6 +9,8 @@ class DropForm
   attr_accessor :recipient
   attr_accessor :description
   attr_accessor :message_type
+  attr_accessor :environment
+  attr_accessor :online_booking
   attr_accessor :timestamp
   attr_accessor :token
   attr_accessor :signature
@@ -16,8 +18,13 @@ class DropForm
   validates :timestamp, presence: true
   validates :token, presence: true
   validates :signature, presence: true
+  validates :booking_request, presence: true
+  validates :environment, inclusion: { in: %w(production) }
+  validates :online_booking, inclusion: { in: %w(True) }
 
   def create_activity
+    return unless valid?
+
     verify_token!
 
     DropActivity.from(
@@ -38,7 +45,7 @@ class DropForm
     digest = OpenSSL::Digest::SHA256.new
     data   = timestamp + token
 
-    unless valid? && signature == OpenSSL::HMAC.hexdigest(digest, api_token, data)
+    unless signature == OpenSSL::HMAC.hexdigest(digest, api_token, data)
       raise TokenVerificationFailure
     end
   end
