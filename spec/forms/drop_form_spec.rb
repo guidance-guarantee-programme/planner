@@ -8,6 +8,8 @@ RSpec.describe DropForm, '#create_activity' do
       'recipient' => 'morty@example.com',
       'description' => 'the reasoning',
       'message_type' => 'customer_booking_request',
+      'environment' => 'production',
+      'online_booking' => 'True',
       'timestamp' => '1474638633',
       'token' => 'secret',
       'signature' => 'abf02bef01e803bea52213cb092a31dc2174f63bcc2382ba25732f4c84e084c1'
@@ -37,14 +39,34 @@ RSpec.describe DropForm, '#create_activity' do
   end
 
   context 'when the signature is verified' do
-    it 'creates the drop activity' do
-      expect(DropActivity).to receive(:from).with(
-        params['message_type'],
-        params['description'],
-        booking_request
-      )
+    it 'requires a booking request' do
+      params['recipient'] = 'meh@example.com'
 
-      subject.create_activity
+      expect(subject).not_to be_valid
+    end
+
+    it 'requires the production environment' do
+      params['environment'] = 'staging'
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'must originate from online booking' do
+      params.delete('online_booking')
+
+      expect(subject).not_to be_valid
+    end
+
+    context 'when everything is validated' do
+      it 'creates the drop activity' do
+        expect(DropActivity).to receive(:from).with(
+          params['message_type'],
+          params['description'],
+          booking_request
+        )
+
+        subject.create_activity
+      end
     end
   end
 end
