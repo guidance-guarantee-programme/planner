@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :drops, only: :create
   end
 
+  resources :users, only: :update
+
   resources :appointments, only: %i(index edit update)
 
   resources :booking_requests, only: %i(index destroy) do
