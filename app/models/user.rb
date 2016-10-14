@@ -2,6 +2,7 @@
 class User < ActiveRecord::Base
   PENSION_WISE_API_PERMISSION = 'pension_wise_api_user'
   BOOKING_MANAGER_PERMISSION  = 'booking_manager'
+  ADMINISTRATOR_PERMISSION    = 'administrator'
 
   include GDS::SSO::User
 
@@ -23,5 +24,9 @@ class User < ActiveRecord::Base
       .active
       .includes(:appointment)
       .where(appointments: { booking_request_id: nil })
+  end
+
+  def administrator?
+    permissions.include?(ADMINISTRATOR_PERMISSION)
   end
 end

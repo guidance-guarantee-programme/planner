@@ -6,5 +6,7 @@ module Pages
     sections :booking_requests, '.t-booking-request' do
       element :fulfil, '.t-fulfil'
     end
+
+    element :location, '.t-location'
   end
 end
