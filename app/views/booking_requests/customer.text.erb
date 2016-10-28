@@ -1,7 +1,7 @@
 Dear <%= @booking_request.name %>,
 
-Thank you for requesting a guidance appointment with Pension Wise, we'll confirm
-the appointment slot within the next two working days.
+Thank you for requesting a guidance appointment with Pension Wise.
+We’ll confirm your appointment in the next 2 working days.
 
 Your first choice is
 <%= @booking_request.primary_slot %>
@@ -11,6 +11,9 @@ Your second choice is
 
 Your third choice is
 <%= @booking_request.tertiary_slot %>
+
+Your appointment location is
+<%= @booking_location.name_for(@booking_request.location_id) %>
 
 Your contact number
 <%= @booking_request.phone %>

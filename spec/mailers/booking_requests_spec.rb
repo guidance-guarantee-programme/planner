@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe BookingRequests do
   describe 'Customer notification' do
-    let(:booking_location) do
-      instance_double(BookingLocations::Location, online_booking_twilio_number: '+441234567890')
+    let(:location_id) { '183080c6-642b-4b8f-96fd-891f5cd9f9c7' }
+    let(:booking_location_id) { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }
+    let(:booking_location) { BookingLocations.find(booking_location_id) }
+    let(:booking_request) do
+      create(:booking_request, location_id: location_id, booking_location_id: booking_location_id)
     end
-    let(:booking_request) { create(:booking_request) }
 
     subject(:mail) { BookingRequests.customer(booking_request, booking_location) }
 
@@ -29,6 +31,7 @@ RSpec.describe BookingRequests do
       end
 
       it 'includes the booking location particulars' do
+        expect(body).to include(booking_location.name_for(location_id))
         expect(body).to include(booking_location.online_booking_twilio_number)
       end
 
