@@ -9,6 +9,7 @@ FactoryGirl.define do
     phone '0208 252 4723'
     memorable_word 'spaceship'
     age_range '50-54'
+    date_of_birth '1950-01-01'
     accessibility_requirements false
     marketing_opt_in false
     defined_contribution_pot true

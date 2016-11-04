@@ -35,6 +35,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         'phone' => '0208 252 4729',
         'memorable_word' => 'science',
         'age_range' => '50-54',
+        'date_of_birth' => '1950-01-01',
         'accessibility_requirements' => false,
         'marketing_opt_in' => true,
         'defined_contribution_pot' => true,
@@ -75,6 +76,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       phone: '0208 252 4729',
       memorable_word: 'science',
       age_range: '50-54',
+      date_of_birth: Date.parse('1950-01-01'),
       accessibility_requirements: false,
       marketing_opt_in: true,
       defined_contribution_pot: true

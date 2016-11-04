@@ -6,6 +6,7 @@ class AppointmentForm
     email
     phone
     age_range
+    date_of_birth
     reference
     location_name
     memorable_word

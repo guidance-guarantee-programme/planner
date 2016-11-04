@@ -11,6 +11,7 @@ module Pages
     element :location_name, '.t-location-name'
     element :memorable_word, '.t-memorable-word'
     element :age_range, '.t-age-range'
+    element :date_of_birth, '.t-date-of-birth'
     element :accessibility_requirements, '.t-accessibility'
 
     element :slot_one_date,     '.t-slot-1-date'
