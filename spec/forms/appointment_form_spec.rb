@@ -72,6 +72,7 @@ RSpec.describe AppointmentForm do
     expect(subject.email).to eq(booking_request.email)
     expect(subject.phone).to eq(booking_request.phone)
     expect(subject.age_range).to eq(booking_request.age_range)
+    expect(subject.date_of_birth).to eq(booking_request.date_of_birth)
     expect(subject.reference).to eq(booking_request.reference)
     expect(subject.memorable_word).to eq(booking_request.memorable_word)
     expect(subject.accessibility_requirements).to eq(booking_request.accessibility_requirements)

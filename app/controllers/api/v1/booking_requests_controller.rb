@@ -37,6 +37,7 @@ module Api
           :phone,
           :memorable_word,
           :age_range,
+          :date_of_birth,
           :accessibility_requirements,
           :marketing_opt_in,
           :defined_contribution_pot,

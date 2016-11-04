@@ -46,6 +46,9 @@
     <h3 class="h4">Age range:</h3>
     <p class="lead"><strong class="t-age-range"><%= @appointment_form.age_range %></strong></p>
 
+    <h3 class="h4">Date of birth:</h3>
+    <p class="lead"><strong class="t-date-of-birth"><%= @appointment_form.date_of_birth.to_s(:gov_uk) %></strong></p>
+
     <h3 class="h4">Accessibility requirements:</h3>
     <p class="lead">
       <strong class="t-accessibility_requirements">
