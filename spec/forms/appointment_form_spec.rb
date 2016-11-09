@@ -67,6 +67,13 @@ RSpec.describe AppointmentForm do
     end
   end
 
+  context 'when the date of birth is not present' do
+    it 'returns an empty string' do
+      booking_request.date_of_birth = nil
+      expect(subject.date_of_birth).to eq('')
+    end
+  end
+
   it 'delegates booking specifics to the booking request' do
     expect(subject.name).to eq(booking_request.name)
     expect(subject.email).to eq(booking_request.email)
