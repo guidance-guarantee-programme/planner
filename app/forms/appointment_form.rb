@@ -40,10 +40,6 @@ class AppointmentForm
     super(params)
   end
 
-  def date_of_birth
-    location_aware_booking_request.date_of_birth || ''
-  end
-
   def appointment_params
     AppointmentMapper.map(self)
   end
