@@ -29,7 +29,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def notify?
-    previous_changes.exclude?(:status)
+    previous_changes.any? && previous_changes.exclude?(:status)
   end
 
   def calculate_statistics
