@@ -29,6 +29,12 @@ class BookingRequest < ActiveRecord::Base
     where(email: email).order(:created_at).last
   end
 
+  def memorable_word(obscure: false)
+    return super() unless obscure
+
+    super().to_s.gsub(/(?!\A).(?!\Z)/, '*')
+  end
+
   def deactivate!
     update!(active: false)
   end

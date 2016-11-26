@@ -27,7 +27,7 @@ RSpec.describe BookingRequests do
         expect(body).to include(booking_request.name)
         expect(body).to include(booking_request.phone)
         expect(body).to include(booking_request.reference)
-        expect(body).to include(booking_request.memorable_word)
+        expect(body).to include('s*******p')
       end
 
       it 'includes the booking location particulars' do
