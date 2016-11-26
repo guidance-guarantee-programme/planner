@@ -96,4 +96,12 @@ RSpec.describe BookingRequest do
   it 'defaults `active`' do
     expect(described_class.new).to be_active
   end
+
+  describe '#memorable_word' do
+    it 'can be obscured' do
+      expect(build_stubbed(:booking_request).memorable_word).to eq('spaceship')
+      expect(build_stubbed(:booking_request).memorable_word(obscure: true)).to eq('s*******p')
+      expect(build_stubbed(:booking_request, memorable_word: nil).memorable_word(obscure: true)).to eq('')
+    end
+  end
 end
