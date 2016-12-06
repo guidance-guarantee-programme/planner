@@ -1,6 +1,21 @@
 <% content_for :head do %>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
+
+  <% if ENV['BUGMUNCHER_KEY'] %>
+    <script type="text/javascript">
+      var bugmuncher_options = {
+        api_key: "<%= ENV['BUGMUNCHER_KEY'] %>"
+      };
+      (function(){
+        var e = document.createElement("script");
+        e.setAttribute("type", "text/javascript");
+        var d = new Date(); var n = '?'+d.getFullYear()+(d.getMonth()+1)+d.getDate()+d.getHours();
+        e.setAttribute("src", "//cdn.bugmuncher.com/bugmuncher.js"+n);
+        document.getElementsByTagName("head")[0].appendChild(e);
+      })();
+    </script>
+  <% end %>
 <% end %>
 
 <%= content_for :app_title do %>
