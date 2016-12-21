@@ -24,6 +24,10 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   # Configure static file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, s-maxage=31536000, maxage=15552000',
+    'Expires' => 1.year.from_now.to_formatted_s(:rfc822)
+  }
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
