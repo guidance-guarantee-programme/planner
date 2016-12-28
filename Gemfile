@@ -42,7 +42,6 @@ group :test do
   gem 'database_cleaner'
   gem 'webmock'
   gem 'poltergeist'
-  gem 'phantomjs-binaries'
 end
 
 group :staging, :production do
