@@ -24,3 +24,6 @@ Style/FrozenStringLiteralComment:
 Metrics/MethodLength:
   Exclude:
     - 'spec/requests/*'
+
+Style/EmptyMethod:
+  Enabled: false
