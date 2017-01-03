@@ -49,6 +49,16 @@
       </div>
 
       <div class="form-group">
+        <%= f.label :memorable_word %>
+        <%= f.text_field :memorable_word, class: 'form-control t-memorable-word', readonly: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date_of_birth %>
+        <%= f.date_field :date_of_birth, class: 't-date-of-birth form-control', readonly: true %>
+      </div>
+
+      <div class="form-group">
         <%= f.label :guider_id %>
         <%= f.select(
           :guider_id,

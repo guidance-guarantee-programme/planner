@@ -48,13 +48,15 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.appointments.first.edit.click
   end
 
-  def then_the_appointment_details_are_presented
+  def then_the_appointment_details_are_presented # rubocop:disable Metrics/MethodLength
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
     expect(@page.name.value).to eq(@appointment.name)
     expect(@page.email.value).to eq(@appointment.email)
     expect(@page.phone.value).to eq(@appointment.phone)
+    expect(@page.memorable_word.value).to eq(@appointment.memorable_word)
+    expect(@page.date_of_birth.value).to eq(@appointment.date_of_birth.iso8601)
 
     # ensure Hackney is pre-selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')

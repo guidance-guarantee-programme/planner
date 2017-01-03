@@ -15,7 +15,7 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :booking_request
 
-  delegate :reference, :activities, to: :booking_request
+  delegate :reference, :activities, :memorable_word, :date_of_birth, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true
