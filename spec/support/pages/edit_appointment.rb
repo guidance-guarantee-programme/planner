@@ -8,6 +8,8 @@ module Pages
     element :name, '.t-name'
     element :email, '.t-email'
     element :phone, '.t-phone'
+    element :memorable_word, '.t-memorable-word'
+    element :date_of_birth, '.t-date-of-birth'
     element :location, '.t-location'
     element :guider, '.t-guider'
 
