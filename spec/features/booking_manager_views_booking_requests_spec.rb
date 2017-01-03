@@ -17,7 +17,23 @@ RSpec.feature 'Viewing Booking Requests' do
       when_they_visit_the_site
       then_they_are_shown_booking_requests_for_their_locations
       and_they_do_not_see_the_administrative_location_choices
+      when_they_choose_to_show_hidden_booking_requests
+      then_they_are_shown_hidden_booking_requests
+      when_they_choose_to_hide_hidden_booking_requests
+      then_they_are_shown_booking_requests_for_their_locations
     end
+  end
+
+  def when_they_choose_to_show_hidden_booking_requests
+    @page.show_hidden_bookings.click
+  end
+
+  def then_they_are_shown_hidden_booking_requests
+    expect(@page).to have_booking_requests(count: 1)
+  end
+
+  def when_they_choose_to_hide_hidden_booking_requests
+    @page.hide_hidden_bookings.click
   end
 
   def and_they_do_not_see_the_administrative_location_choices

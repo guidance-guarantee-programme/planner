@@ -5,6 +5,12 @@
   </ol>
 
   <h1>Booking requests</h1>
+
+  <% if show_hidden_booking_requests? %>
+    <%= link_to 'Hide hidden booking requests', booking_requests_path(hidden: false), class: 't-hide-hidden-bookings' %>
+  <% else %>
+    <%= link_to 'Show hidden booking requests', booking_requests_path(hidden: true), class: 't-show-hidden-bookings' %>
+  <% end %>
 </div>
 
 <div class="row">
