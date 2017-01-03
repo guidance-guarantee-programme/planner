@@ -4,7 +4,7 @@ class Activity < ActiveRecord::Base
   belongs_to :booking_request
   belongs_to :user
 
-  scope :since, -> (since) { where('created_at > ?', since) }
+  scope :since, ->(since) { where('created_at > ?', since) }
 
   def owner_name
     user ? user.name : 'Someone'
