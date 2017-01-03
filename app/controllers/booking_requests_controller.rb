@@ -14,11 +14,18 @@ class BookingRequestsController < ApplicationController
 
   private
 
+  def show_hidden_booking_requests?
+    params.fetch(:hidden, 'false') == 'true'
+  end
+  helper_method :show_hidden_booking_requests?
+
   def booking_request
     current_user.booking_requests.find(params[:id])
   end
 
   def unfulfilled_booking_requests
-    current_user.unfulfilled_booking_requests.page(params[:page])
+    current_user
+      .unfulfilled_booking_requests(hidden: show_hidden_booking_requests?)
+      .page(params[:page])
   end
 end

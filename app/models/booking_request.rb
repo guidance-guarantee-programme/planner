@@ -24,6 +24,7 @@ class BookingRequest < ActiveRecord::Base
   alias reference to_param
 
   scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
 
   def self.latest(email)
     where(email: email).order(:created_at).last

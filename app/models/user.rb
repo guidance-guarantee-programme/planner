@@ -19,11 +19,12 @@ class User < ActiveRecord::Base
 
   alias_attribute :booking_location_id, :organisation_content_id
 
-  def unfulfilled_booking_requests
-    booking_requests
-      .active
-      .includes(:appointment)
-      .where(appointments: { booking_request_id: nil })
+  def unfulfilled_booking_requests(hidden: false)
+    scope = booking_requests
+            .includes(:appointment)
+            .where(appointments: { booking_request_id: nil })
+
+    hidden ? scope.inactive : scope.active
   end
 
   def administrator?
