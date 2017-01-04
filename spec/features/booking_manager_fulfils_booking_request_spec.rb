@@ -2,13 +2,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
-  scenario 'Bookings Manager deactivates a Booking Request' do
+  scenario 'Bookings Manager deactivates and activates a Booking Request' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
       when_the_booking_manager_attempts_to_fulfil
       then_they_are_shown_the_fulfilment_page
       when_they_choose_to_deactivate_the_booking_request
       then_the_booking_request_is_no_longer_active
+      when_they_choose_to_activate_the_booking_request
+      then_the_booking_request_is_now_active
     end
   end
 
@@ -122,12 +124,26 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def when_they_choose_to_deactivate_the_booking_request
-    @page.deactivate.click
+    @page.toggle_activation.click
   end
 
   def then_the_booking_request_is_no_longer_active
     @page = Pages::BookingRequests.new
     expect(@page).to be_displayed
     expect(@page).to_not have_booking_requests
+  end
+
+  def when_they_choose_to_activate_the_booking_request
+    @page.show_hidden_bookings.click
+    @page.booking_requests.first.fulfil.click
+
+    @page = Pages::FulfilBookingRequest.new
+    @page.toggle_activation.click
+  end
+
+  def then_the_booking_request_is_now_active
+    @page = Pages::BookingRequests.new
+    expect(@page).to be_displayed
+    expect(@page).to have_booking_requests
   end
 end

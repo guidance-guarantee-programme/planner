@@ -6,8 +6,8 @@ class BookingRequestsController < ApplicationController
     )
   end
 
-  def destroy
-    booking_request.deactivate!
+  def update
+    booking_request.toggle_activation!
 
     redirect_to booking_requests_path
   end
