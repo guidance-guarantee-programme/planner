@@ -6,8 +6,9 @@ class BookingRequestsController < ApplicationController
     )
   end
 
-  def destroy
-    booking_request.deactivate!
+  def update
+    booking_request.toggle_activation!
+    ActivationActivity.from(booking_request, current_user)
 
     redirect_to booking_requests_path
   end
@@ -20,7 +21,7 @@ class BookingRequestsController < ApplicationController
   helper_method :show_hidden_booking_requests?
 
   def booking_request
-    current_user.booking_requests.find(params[:id])
+    @booking_request ||= current_user.booking_requests.find(params[:id])
   end
 
   def unfulfilled_booking_requests

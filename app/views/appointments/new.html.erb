@@ -156,12 +156,8 @@
         <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
           Make appointment and notify<br><%= @appointment_form.name %>
         <% end %>
-        <%= link_to 'Hide this Booking Request',
-          @appointment_form.location_aware_booking_request,
-          method: :delete,
-          class: 'btn btn-danger btn-block t-deactivate',
-          data: { confirm: "Are you sure you want to hide #{@appointment_form.name}'s booking request?" }
-        %>
+
+        <%= toggle_activation_link(@appointment_form.location_aware_booking_request) %>
       <% end %>
     </div>
   </div>
