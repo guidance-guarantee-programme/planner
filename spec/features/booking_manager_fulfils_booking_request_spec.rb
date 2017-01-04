@@ -11,6 +11,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
       then_the_booking_request_is_no_longer_active
       when_they_choose_to_activate_the_booking_request
       then_the_booking_request_is_now_active
+      and_the_booking_request_has_associated_activation_activities
     end
   end
 
@@ -145,5 +146,9 @@ RSpec.feature 'Fulfiling Booking Requests' do
     @page = Pages::BookingRequests.new
     expect(@page).to be_displayed
     expect(@page).to have_booking_requests
+  end
+
+  def and_the_booking_request_has_associated_activation_activities
+    expect(@booking_request.activities.count).to eq(2)
   end
 end
