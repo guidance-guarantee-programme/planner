@@ -34,7 +34,7 @@
           <% @booking_requests.page.each do |booking_request| %>
             <tr class="t-booking-request">
               <td>
-                <%= time_ago_in_words(booking_request.updated_at) %> ago
+                <%= time_ago_in_words(booking_request.created_at) %> ago
               </td>
               <td>
                 <%= booking_request.name %>
