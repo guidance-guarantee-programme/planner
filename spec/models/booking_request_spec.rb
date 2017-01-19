@@ -18,8 +18,14 @@ RSpec.describe BookingRequest do
       expect(build(:booking_request, name: '')).to_not be_valid
     end
 
-    it 'requires an email' do
-      expect(build(:booking_request, email: '')).to_not be_valid
+    describe '#email' do
+      it 'is required' do
+        expect(build(:booking_request, email: '')).to_not be_valid
+      end
+
+      it 'validates against autocomplete madness' do
+        expect(build(:booking_request, email: 'arthur@hotmail.co.uk01636677350')).to_not be_valid
+      end
     end
 
     it 'requires a phone' do
