@@ -12,7 +12,7 @@ class BookingRequest < ActiveRecord::Base
   validates :name, presence: true
   validates :booking_location_id, presence: true
   validates :location_id, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, email: true
   validates :phone, presence: true
   validates :memorable_word, presence: true
   validates :age_range, inclusion: { in: PERMITTED_AGE_RANGES }

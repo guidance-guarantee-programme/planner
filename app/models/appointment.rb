@@ -18,7 +18,7 @@ class Appointment < ActiveRecord::Base
   delegate :reference, :activities, :memorable_word, :date_of_birth, to: :booking_request
 
   validates :name, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, email: true
   validates :phone, presence: true
   validates :location_id, presence: true
   validates :guider_id, presence: true
