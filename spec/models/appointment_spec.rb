@@ -115,5 +115,11 @@ RSpec.describe Appointment do
         expect(subject).to be_invalid
       end
     end
+
+    it 'requires a reasonably valid email' do
+      subject.email = 'meh@meh'
+
+      expect(subject).to_not be_valid
+    end
   end
 end
