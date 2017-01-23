@@ -23,5 +23,5 @@ Rails.application.routes.draw do
     end
   end
 
-  mount Sidekiq::Web, at: '/sidekiq', constraint: AuthenticatedUser.new
+  mount Sidekiq::Web, at: '/sidekiq', constraints: AuthenticatedUser.new
 end
