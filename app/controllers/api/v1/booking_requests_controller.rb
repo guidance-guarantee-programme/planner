@@ -40,7 +40,7 @@ module Api
           :date_of_birth,
           :accessibility_requirements,
           :marketing_opt_in,
-          :defined_contribution_pot,
+          :defined_contribution_pot_confirmed,
           slots: %i(date from to priority)
         ).tap { |p| p[:slots_attributes] = p.delete(:slots) }
       end

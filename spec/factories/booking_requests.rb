@@ -12,7 +12,7 @@ FactoryGirl.define do
     date_of_birth '1950-01-01'
     accessibility_requirements false
     marketing_opt_in false
-    defined_contribution_pot true
+    defined_contribution_pot_confirmed true
 
     after(:build) do |booking_request|
       booking_request.slots << build(:slot, priority: 1)

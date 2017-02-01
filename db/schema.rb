@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104144629) do
+ActiveRecord::Schema.define(version: 20170201135525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,19 +65,19 @@ ActiveRecord::Schema.define(version: 20161104144629) do
   end
 
   create_table "booking_requests", force: :cascade do |t|
-    t.string   "location_id",                               null: false
-    t.string   "name",                                      null: false
-    t.string   "email",                                     null: false
-    t.string   "phone",                                     null: false
-    t.string   "memorable_word",                            null: false
-    t.string   "age_range",                                 null: false
-    t.boolean  "accessibility_requirements",                null: false
-    t.boolean  "marketing_opt_in",                          null: false
-    t.boolean  "defined_contribution_pot",                  null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "booking_location_id",                       null: false
-    t.boolean  "active",                     default: true, null: false
+    t.string   "location_id",                                       null: false
+    t.string   "name",                                              null: false
+    t.string   "email",                                             null: false
+    t.string   "phone",                                             null: false
+    t.string   "memorable_word",                                    null: false
+    t.string   "age_range",                                         null: false
+    t.boolean  "accessibility_requirements",                        null: false
+    t.boolean  "marketing_opt_in",                                  null: false
+    t.boolean  "defined_contribution_pot_confirmed",                null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "booking_location_id",                               null: false
+    t.boolean  "active",                             default: true, null: false
     t.date     "date_of_birth"
   end
 
