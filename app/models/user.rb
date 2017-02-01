@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
            foreign_key: :booking_location_id
 
   has_many :appointments,
-           -> { order(:proceeded_at).includes(:booking_request) },
+           -> { order(proceeded_at: :desc).includes(:booking_request) },
            through: :booking_requests
 
   alias_attribute :booking_location_id, :organisation_content_id
