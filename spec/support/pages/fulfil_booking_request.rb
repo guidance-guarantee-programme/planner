@@ -13,6 +13,7 @@ module Pages
     element :age_range, '.t-age-range'
     element :date_of_birth, '.t-date-of-birth'
     element :accessibility_requirements, '.t-accessibility'
+    element :defined_contribution_pot_confirmed, '.t-defined-contribution-pot-confirmed'
 
     element :slot_one_date,     '.t-slot-1-date'
     element :slot_one_period,   '.t-slot-1-period'

@@ -52,8 +52,8 @@ RSpec.describe BookingRequest do
       expect(build(:booking_request, marketing_opt_in: '')).to_not be_valid
     end
 
-    it 'requires defined_contribution_pot' do
-      expect(build(:booking_request, defined_contribution_pot: '')).to_not be_valid
+    it 'requires defined_contribution_pot_confirmed' do
+      expect(build(:booking_request, defined_contribution_pot_confirmed: '')).to_not be_valid
     end
 
     it 'requires 3 slots' do

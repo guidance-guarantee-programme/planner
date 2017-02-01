@@ -70,6 +70,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page.memorable_word.text).to eq(@booking_request.memorable_word)
     expect(@page.age_range.text).to eq(@booking_request.age_range)
     expect(@page.date_of_birth.text).to eq(@booking_request.date_of_birth.to_s(:gov_uk))
+    expect(@page.defined_contribution_pot_confirmed.text).to eq('Yes')
   end
 
   def and_they_see_the_requested_slots

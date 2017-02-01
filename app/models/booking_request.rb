@@ -18,7 +18,7 @@ class BookingRequest < ActiveRecord::Base
   validates :age_range, inclusion: { in: PERMITTED_AGE_RANGES }
   validates :accessibility_requirements, inclusion: { in: [true, false] }
   validates :marketing_opt_in, inclusion: { in: [true, false] }
-  validates :defined_contribution_pot, inclusion: { in: [true, false] }
+  validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false] }
   validate :validate_slots
 
   alias reference to_param
