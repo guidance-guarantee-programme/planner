@@ -57,6 +57,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.phone.value).to eq(@appointment.phone)
     expect(@page.memorable_word.value).to eq(@appointment.memorable_word)
     expect(@page.date_of_birth.value).to eq(@appointment.date_of_birth.iso8601)
+    expect(@page.defined_contribution_pot_confirmed.value).to eq('Yes')
 
     # ensure Hackney is pre-selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')

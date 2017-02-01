@@ -10,4 +10,8 @@ class EditAppointmentForm < SimpleDelegator
   def flattened_locations
     FlattenedLocationMapper.map(booking_location)
   end
+
+  def defined_contribution_pot_confirmed
+    booking_request.defined_contribution_pot_confirmed ? 'Yes' : 'Not sure'
+  end
 end

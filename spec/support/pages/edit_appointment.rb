@@ -12,6 +12,7 @@ module Pages
     element :date_of_birth, '.t-date-of-birth'
     element :location, '.t-location'
     element :guider, '.t-guider'
+    element :defined_contribution_pot_confirmed, '.t-defined-contribution-pot-confirmed'
 
     element :date, '.t-date'
     element :time_hour, '#appointment_proceeded_at_4i'

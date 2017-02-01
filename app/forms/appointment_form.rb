@@ -62,6 +62,10 @@ class AppointmentForm
     Time.zone.parse(@time)
   end
 
+  def defined_contribution_pot_confirmed
+    location_aware_booking_request.defined_contribution_pot_confirmed ? 'Yes' : 'Not sure'
+  end
+
   private
 
   def validate_not_with_an_existing_booking_request
