@@ -3,8 +3,10 @@ class AppointmentsController < ApplicationController
   before_action :populate_edit_appointment_form, only: %i(edit update)
 
   def index
+    @search = AppointmentsSearchForm.new(search_params)
+
     @appointments = LocationAwareEntities.new(
-      current_user.appointments.page(params[:page]),
+      @search.results,
       booking_location
     )
   end
@@ -37,6 +39,14 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  def search_params
+    {
+      search_term: params.dig(:search, :search_term),
+      current_user: current_user,
+      page: params[:page]
+    }
+  end
 
   def notify_customer(appointment)
     return unless appointment.notify?
