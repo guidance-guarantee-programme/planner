@@ -1,8 +1,8 @@
 require 'faraday'
 require 'faraday/conductivity'
 
-class StatisticsWebHook
-  def initialize(hook_uri = ENV.fetch('STATISTICS_WEB_HOOK_URI'))
+class WebHook
+  def initialize(hook_uri = ENV.fetch('WEB_HOOK_URI'))
     @hook_uri = hook_uri
   end
 
@@ -27,8 +27,8 @@ class StatisticsWebHook
     {
       url: hook_uri,
       request: {
-        timeout:      Integer(ENV.fetch('STATISTICS_WEB_HOOK_TIMEOUT', 2)),
-        open_timeout: Integer(ENV.fetch('STATISTICS_WEB_HOOK_OPEN_TIMEOUT', 2))
+        timeout:      Integer(ENV.fetch('WEB_HOOK_TIMEOUT', 2)),
+        open_timeout: Integer(ENV.fetch('WEB_HOOK_OPEN_TIMEOUT', 2))
       }
     }
   end

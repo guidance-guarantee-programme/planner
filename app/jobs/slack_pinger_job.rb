@@ -7,7 +7,7 @@ class SlackPingerJob < ActiveJob::Base
     booking_location = BookingLocations.find(booking_request.location_id)
     actual_location  = booking_location.name_for(booking_request.location_id)
 
-    hook = StatisticsWebHook.new(hook_uri)
+    hook = WebHook.new(hook_uri)
     hook.call(payload(actual_location))
   end
 

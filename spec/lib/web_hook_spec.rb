@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe StatisticsWebHook, '#call' do
+RSpec.describe WebHook, '#call' do
   subject { described_class.new }
 
   context 'when a hook URI is unconfigured' do
