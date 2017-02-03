@@ -37,7 +37,7 @@ class BookingRequest < ActiveRecord::Base
   end
 
   def toggle_activation!
-    toggle!(:active)
+    toggle!(:active) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def primary_slot

@@ -27,3 +27,7 @@ Metrics/MethodLength:
 
 Style/EmptyMethod:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
