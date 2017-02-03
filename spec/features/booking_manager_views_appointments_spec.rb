@@ -9,6 +9,44 @@ RSpec.feature 'Booking manager views appointments' do
     end
   end
 
+  scenario 'Searching appointments' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_are_matching_appointments_for_their_location
+      when_they_search_by_booking_reference
+      then_they_are_shown_the_appointment_matching_the_reference
+      when_they_search_by_customer_name
+      then_they_are_shown_the_appointment_matching_the_customer_name
+    end
+  end
+
+  def and_there_are_matching_appointments_for_their_location
+    @found_by_booking_reference = create(:appointment, name: 'Mr Reference')
+    @found_by_customer_name     = create(:appointment, name: 'Bob Bobson')
+  end
+
+  def when_they_search_by_booking_reference
+    @page = Pages::Appointments.new.tap(&:load)
+    expect(@page).to have_appointments(count: 2)
+
+    @page.search.search_term.set(@found_by_booking_reference.booking_request_id)
+    @page.search.submit.click
+  end
+
+  def then_they_are_shown_the_appointment_matching_the_reference
+    expect(@page).to have_appointments(count: 1)
+    expect(@page).to have_content('Mr Reference')
+  end
+
+  def when_they_search_by_customer_name
+    @page.search.search_term.set('Bobson')
+    @page.search.submit.click
+  end
+
+  def then_they_are_shown_the_appointment_matching_the_customer_name
+    expect(@page).to have_appointments(count: 1)
+    expect(@page).to have_content('Bob Bobson')
+  end
+
   def and_there_are_appointments_for_their_location
     create_list(:appointment, 11)
 

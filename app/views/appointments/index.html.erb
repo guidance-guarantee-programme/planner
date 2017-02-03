@@ -7,6 +7,24 @@
   <h1>Appointments</h1>
 </div>
 
+<nav class="t-search">
+  <div class="panel panel-default">
+    <header class="panel-heading">
+      <ul class="nav nav-compact nav-pills">
+        <li>
+          <%= form_for @search, url: appointments_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
+            <div class="form-group">
+              <%= f.label :search_term, 'Customer / Booking Reference', class: 'add-right-margin' %>
+              <%= f.text_field :search_term, class: 't-search-term form-control' %>
+            </div>
+            <%= f.submit 'Search', class: 't-submit btn btn-default' %>
+          <% end %>
+        </li>
+      </ul>
+    </header>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
     <% if @appointments.page.empty? %>

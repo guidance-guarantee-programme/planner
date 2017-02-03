@@ -1,3 +1,7 @@
 .appointments tbody tr td { // scss-lint:disable SelectorDepth
   vertical-align: middle;
 }
+
+.panel-default .panel-heading {
+  background-color: transparent;
+}
