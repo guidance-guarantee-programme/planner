@@ -10,7 +10,7 @@
 0;font-size: 16px;line-height: 1.315789474;">Thank you for booking an
 appointment with Pension Wise. We can confirm your appointment will be at <%=
 @appointment.proceeded_at.to_s(:govuk_date) %>. The appointment will take place
-at <%= @appointment.location_name %> and will be with <%= @appointment.guider_name %>.</p>
+at <%= @appointment.location_name %> and will be with <%= @appointment.guider_name.split.first %>.</p>
 
 <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
 0;font-size: 16px;line-height: 1.315789474;">
