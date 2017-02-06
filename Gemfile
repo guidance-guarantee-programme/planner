@@ -1,8 +1,10 @@
-source 'https://rubygems.org'
-
 ruby IO.read('.ruby-version').strip
 
-source 'https://rubygems.org' do
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap-daterangepicker'
+end
+
+source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'audited'
   gem 'booking_locations'
   gem 'bootstrap-kaminari-views'
