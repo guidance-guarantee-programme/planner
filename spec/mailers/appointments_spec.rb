@@ -25,8 +25,8 @@ RSpec.describe Appointments do
         expect(body).to include("reference number, #{appointment.reference}")
       end
 
-      it 'includes the guider' do
-        expect(body).to include('Ben Lovell')
+      it 'includes the guider first name' do
+        expect(body).to include('Ben')
       end
 
       it 'includes the address' do
