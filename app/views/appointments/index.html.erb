@@ -14,6 +14,11 @@
         <li>
           <%= form_for @search, url: appointments_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
             <div class="form-group">
+              <%= f.label :appointment_date, 'Appointment Date', class: 'add-left-margin add-right-margin' %>
+              <%= f.text_field :appointment_date, class: 'js-picker t-appointment-date form-control add-right-margin' %>
+            </div>
+
+            <div class="form-group">
               <%= f.label :search_term, 'Customer / Booking Reference', class: 'add-right-margin' %>
               <%= f.text_field :search_term, class: 't-search-term form-control' %>
             </div>

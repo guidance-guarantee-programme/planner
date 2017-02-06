@@ -43,6 +43,7 @@ class AppointmentsController < ApplicationController
   def search_params
     {
       search_term: params.dig(:search, :search_term),
+      appointment_date: params.dig(:search, :appointment_date),
       current_user: current_user,
       page: params[:page]
     }
