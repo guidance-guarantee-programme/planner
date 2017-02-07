@@ -7,28 +7,33 @@
   <h1>Appointments</h1>
 </div>
 
-<nav class="t-search">
+<nav class="t-search filters">
   <div class="panel panel-default">
     <header class="panel-heading">
-      <ul class="nav nav-compact nav-pills">
-        <li>
-          <%= form_for @search, url: appointments_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
-            <div class="form-group">
-              <%= f.label :appointment_date, 'Appointment Date', class: 'add-left-margin add-right-margin' %>
-              <%= f.text_field :appointment_date, class: 'js-picker t-appointment-date form-control add-right-margin' %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :search_term, 'Customer / Booking Reference', class: 'add-right-margin' %>
-              <%= f.text_field :search_term, class: 't-search-term form-control' %>
-            </div>
-            <%= f.submit 'Search', class: 't-submit btn btn-default' %>
-          <% end %>
-        </li>
-      </ul>
+      <%= form_for @search, url: appointments_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
+        <ul class="nav nav-compact nav-pills">
+          <li>
+            <%= f.label :search_term, 'Customer / Reference' %>
+            <%= f.text_field :search_term, class: 't-search-term form-control filters__search-term' %>
+          </li>
+          <li>
+            <%= f.label :appointment_date, 'Date', class: 'add-left-margin' %>
+            <%= f.text_field :appointment_date, class: 'js-picker t-appointment-date form-control filters__date' %>
+          </li>
+          <li>
+            <%= f.label :status, class: 'sr-only' %>
+            <%= f.select :status, friendly_options(Appointment.statuses), { include_blank: 'All Statuses' }, { class: 'form-control t-status add-left-margin filters__filter' } %>
+          </li>
+          <li class="add-left-margin">
+           <%= f.button class: 't-submit btn btn-default' do %>
+             <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
+           <% end %>
+          </li>
+        </ul>
+      <% end %>
     </header>
   </div>
-</div>
+</nav>
 
 <div class="row">
   <div class="col-md-12">
