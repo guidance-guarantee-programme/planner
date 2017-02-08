@@ -17,4 +17,5 @@ class ApplicationController < ActionController::Base
   def booking_location
     @booking_location ||= BookingLocations.find(current_user.booking_location_id)
   end
+  helper_method :booking_location
 end
