@@ -4,14 +4,18 @@ class AppointmentsSearchForm
   attr_accessor :page
   attr_accessor :search_term
   attr_accessor :status
+  attr_accessor :location
+  attr_accessor :guider
   attr_accessor :current_user
   attr_accessor :appointment_date
 
-  def results
+  def results # rubocop:disable Metrics/AbcSize
     scope = current_user.appointments
     scope = search_term_scope(scope)
     scope = scope.where(proceeded_at: date_range) if date_range
     scope = scope.where(status: status) if status.present?
+    scope = scope.where(location_id: location) if location.present?
+    scope = scope.where(guider_id: guider) if guider.present?
 
     scope.page(page)
   end

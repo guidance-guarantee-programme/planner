@@ -1,11 +1,63 @@
-.filters__search-term {
-  max-width: 155px;
+.filters__nav {
+  @media (min-width: $screen-md-min) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    display: block;
+  }
 }
 
-.filters__date {
-  min-width: 190px;
+.filters__form-control {
+  .form-inline & {
+    width: 190px;
+  }
+
+  &[readonly] {
+    background: $color-white;
+  }
 }
 
-.filters__filter {
-  max-width: 140px;
+.filters__item {
+  margin-top: 8px;
+  clear: both;
+
+  @media (min-width: $screen-md-min) {
+    flex-basis: 33%;
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    clear: none;
+    margin-right: 5px;
+  }
+}
+
+.filters__label {
+  @media (min-width: $screen-sm-min) {
+    width: 180px;
+  }
+
+  @media (min-width: $screen-md-min) {
+    width: auto;
+    margin-right: 5px;
+    display: block;
+  }
+}
+
+.filters__button {
+  @media (min-width: $screen-sm-min) {
+    margin-left: 180px;
+  }
+
+  @media (min-width: $screen-md-min) {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    margin-top: 24px;
+  }
 }

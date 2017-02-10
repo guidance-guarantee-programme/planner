@@ -11,21 +11,24 @@
   <div class="panel panel-default">
     <header class="panel-heading">
       <%= form_for @search, url: appointments_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
-        <ul class="nav nav-compact nav-pills">
-          <li>
-            <%= f.label :search_term, 'Customer / Reference' %>
-            <%= f.text_field :search_term, class: 't-search-term form-control filters__search-term' %>
+        <ul class="nav nav-compact nav-pills filters__nav">
+          <li class="filters__item">
+            <%= f.label :search_term, 'Customer / Reference', class: 'filters__label' %><%= f.text_field :search_term, class: 't-search-term form-control filters__form-control' %>
           </li>
-          <li>
-            <%= f.label :appointment_date, 'Date', class: 'add-left-margin' %>
-            <%= f.text_field :appointment_date, class: 'js-picker t-appointment-date form-control filters__date' %>
+          <li class="filters__item">
+            <%= f.label :appointment_date, 'Date', class: 'filters__label' %><%= f.text_field :appointment_date, class: 'js-picker t-appointment-date form-control filters__form-control', readonly: true %>
           </li>
-          <li>
-            <%= f.label :status, class: 'sr-only' %>
-            <%= f.select :status, friendly_options(Appointment.statuses), { include_blank: 'All Statuses' }, { class: 'form-control t-status add-left-margin filters__filter' } %>
+          <li class="filters__item">
+            <%= f.label :status, class: 'filters__label' %><%= f.select :status, friendly_options(Appointment.statuses), { include_blank: 'All Statuses' }, { class: 'form-control filters__form-control t-status' } %>
           </li>
-          <li class="add-left-margin">
-           <%= f.button class: 't-submit btn btn-default' do %>
+          <li class="filters__item">
+            <%= f.label :location, class: 'filters__label' %><%= f.select :location, location_options(booking_location), { include_blank: 'All Locations' }, { class: 'form-control filters__form-control t-location' } %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :guider, class: 'filters__label' %><%= f.select :guider, guider_options(booking_location), { include_blank: 'All Guiders' }, { class: 'form-control filters__form-control t-guider' } %>
+          </li>
+          <li class="filters__item">
+           <%= f.button class: 't-submit btn btn-default filters__button' do %>
              <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
            <% end %>
           </li>

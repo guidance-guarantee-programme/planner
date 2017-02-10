@@ -9,6 +9,8 @@ module Pages
     section :search, '.t-search' do
       element :search_term, '.t-search-term'
       element :status, '.t-status'
+      element :location, '.t-location'
+      element :guider, '.t-guider'
 
       element :submit, '.t-submit'
     end

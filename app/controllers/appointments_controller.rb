@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class AppointmentsController < ApplicationController
   before_action :populate_appointment_form, only: %i(new create)
   before_action :populate_edit_appointment_form, only: %i(edit update)
@@ -40,13 +41,15 @@ class AppointmentsController < ApplicationController
 
   private
 
-  def search_params
+  def search_params # rubocop:disable Metrics/MethodLength
     params
       .fetch(:search, {})
       .permit(
         :search_term,
         :appointment_date,
-        :status
+        :status,
+        :location,
+        :guider
       ).merge(
         current_user: current_user,
         page: params[:page]
