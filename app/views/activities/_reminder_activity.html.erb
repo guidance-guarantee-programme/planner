@@ -1,0 +1,5 @@
+<li class="activity-feed__item t-activity" id="activity-<%= reminder_activity.id %>">
+  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+  <strong>The system</strong> sent an appointment reminder email to the customer
+  <em class="badge"><%= time_ago_in_words(reminder_activity.created_at) %> ago</em>
+</li>

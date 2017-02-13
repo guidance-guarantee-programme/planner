@@ -41,6 +41,14 @@ class Appointment < ActiveRecord::Base
     super || Time.zone.now
   end
 
+  def self.needing_reminder
+    pending
+      .where(proceeded_at: Time.zone.now..24.hours.from_now)
+      .where.not(
+        booking_request_id: ReminderActivity.pluck(:booking_request_id)
+      )
+  end
+
   private
 
   def after_audit
