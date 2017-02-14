@@ -32,6 +32,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   group :development, :test do
     gem 'capybara'
     gem 'factory_girl_rails'
+    gem 'phantomjs-binaries'
     gem 'pry-byebug'
     gem 'rspec-rails'
     gem 'site_prism'
