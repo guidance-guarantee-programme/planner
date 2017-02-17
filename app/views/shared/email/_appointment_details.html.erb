@@ -1,0 +1,50 @@
+<%= p do %>
+  Date:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Time:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.proceeded_at.to_s(:govuk_time) %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Appointment lasts:
+  <br>
+  <strong class="emphasize">
+    45 to 60 minutes
+  </strong>
+<% end %>
+
+<%= p do %>
+  Appointment location:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.location_name %><br>
+    <% @appointment.address_lines.each do |line| %>
+      <%= line %><br>
+    <% end %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Guidance specialist:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.guider_name.split.first %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Reference number:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.reference %>
+  </strong>
+<% end %>

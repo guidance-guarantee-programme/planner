@@ -56,10 +56,11 @@ RSpec.describe Appointments do
       let(:body) { subject.body.encoded }
 
       it 'includes the appointment particulars' do
-        expect(body).to include('2:00pm, 20 June 2016')
+        expect(body).to include('2:00pm')
+        expect(body).to include('20 June 2016')
         expect(body).to include('Hackney')
         expect(body).to include('+443344556677')
-        expect(body).to include("reference number, #{appointment.reference}")
+        expect(body).to include(appointment.reference)
       end
 
       it 'includes the guider first name' do
@@ -89,7 +90,7 @@ RSpec.describe Appointments do
         before { allow(appointment).to receive(:updated?).and_return(true) }
 
         it 'includes the lead paragraph for updates' do
-          expect(body).to include('Your appointment details were updated')
+          expect(body).to include('We=E2=80=99ve updated your appointment')
         end
 
         it 'identifies the message correctly' do

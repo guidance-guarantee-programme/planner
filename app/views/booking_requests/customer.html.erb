@@ -1,44 +1,67 @@
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Dear <%= @booking_request.name %>,</p>
+<%= p do %>
+  Dear <%= @booking_request.name %>,
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Thank you for requesting a
-guidance appointment with Pension Wise. We’ll confirm your appointment in the
-next 2 working days.</p>
+<%= p do %>
+  Thank you for requesting a Pension Wise appointment. We’ll confirm the date in the next 2 working days.
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your first choice is<br><strong
-   class="emphasize" style="font-size: 24px;"><%= @booking_request.primary_slot %></strong></p>
+<%= p do %>
+  Your requested dates:
+  <br><br>
+  <strong class="emphasize">
+    <%= @booking_request.primary_slot %>
+  </strong>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your second choice is<br><strong
-  class="emphasize" style="font-size: 24px;"><%= @booking_request.secondary_slot %></strong></p>
+<%= p do %>
+  or
+  <br><br>
+  <strong class="emphasize">
+    <%= @booking_request.secondary_slot %>
+  </strong>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your third choice is<br><strong
-  class="emphasize" style="font-size: 24px;"><%= @booking_request.tertiary_slot
-  %></strong></p>
+<%= p do %>
+  or
+  <br><br>
+  <strong class="emphasize">
+    <%= @booking_request.tertiary_slot %>
+  </strong>
+<% end %>
 
-  <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your appointment location is<br><strong
-  class="emphasize" style="font-size: 24px;">
-  <%= @booking_location.name_for(@booking_request.location_id) %></strong></p>
+<%= p do %>
+  Appointment location:
+  <br>
+  <strong class="emphasize">
+    <%= @booking_location.name_for(@booking_request.location_id) %>
+  </strong>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your contact number<br> <strong
-class="emphasize" style="font-size: 24px;"><%= @booking_request.phone %></strong></p>
+<%= p do %>
+  Your phone number:
+  <br>
+  <strong class="emphasize">
+    <%= @booking_request.phone %>
+  </strong>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your memorable word<br> <strong
-class="emphasize" style="font-size: 24px;"><%= @booking_request.memorable_word(obscure: true)
-%></strong></p>
+<%= p do %>
+  Memorable word:
+  <br>
+  <strong class="emphasize">
+    <%= @booking_request.memorable_word(obscure: true) %>
+  </strong>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Your reference number<br> <strong
-class="emphasize" style="font-size: 24px;"><%=
-  @booking_request.reference %></strong></p>
+<%= p do %>
+  Reference number:
+  <br>
+  <strong class="emphasize">
+    <%= @booking_request.reference %>
+  </strong>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">To cancel or change your
-appointment, or if any of the information above isn't correct, call
- <%= @booking_location.online_booking_twilio_number %> or reply to this email.</p>
+<%= p do %>
+  Call <%= @booking_location.online_booking_twilio_number %> or email us to change or cancel your booking request. You may be asked for your booking reference number.
+<% end %>

@@ -4,42 +4,8 @@ Dear <%= @appointment.name %>,
 
 This is a reminder that you have a Pension Wise appointment booked for:
 
-Date:
-<%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
+<%= render 'shared/email/appointment_details' %>
 
-Time:
-<%= @appointment.proceeded_at.to_s(:govuk_time) %>
+Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
 
-Appointment location:
-<%= @appointment.location_name %>
-<% @appointment.address_lines.each do |line| %>
-<%= line %>
-<% end %>
-
-Guidance specialist:
-<%= @appointment.guider_name.split.first %>
-
-Reference number:
-<%= @appointment.reference %>
-
-Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to change or cancel 
-your booking. You may be asked for your booking reference number.
-
-Preparing for your appointment
-
-To make the most of your appointment it would be helpful if you know:
-
-* the value of your pension pot(s) - check your pension paperwork or ask your
-  provider
-* an estimate of your State Pension - call the Future Pension Centre on
-  0345 3000 168 for a State Pension statement
-* any special arrangements attached to your pension pot, eg a guaranteed
-  annuity rate or a guaranteed pot value at a certain time - ask your provider
-
-Think about your financial circumstances in general and plans for retirement,
-eg:
-
-* sources of income like salary, benefits, savings, investments
-* debts and repayments you might have
-* when you want to stop working
-* if you want a fixed or flexible income in retirement
+<%= render '/shared/email/preparing_for_appointment' %>
