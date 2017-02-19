@@ -25,4 +25,14 @@ RSpec.describe BookingManagerConfirmationJob, '#perform' do
       assert_enqueued_jobs(1) { subject }
     end
   end
+
+  context 'with only inactive booking managers' do
+    before { create(:hackney_booking_manager, disabled: true) }
+
+    let(:booking_location) { double(id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
+
+    it 'raises an error' do
+      expect { subject }.to raise_error(BookingManagersNotFoundError)
+    end
+  end
 end

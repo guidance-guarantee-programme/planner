@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   alias_attribute :booking_location_id, :organisation_content_id
 
+  scope :active, -> { where(disabled: false) }
+
   def unfulfilled_booking_requests(hidden: false)
     scope = booking_requests
             .includes(:appointment)
