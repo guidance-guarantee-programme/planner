@@ -20,7 +20,7 @@ class SlackPingerJob < ActiveJob::Base
   def payload(actual_location)
     {
       username: 'frank',
-      channel: '#centralised-bookings',
+      channel: '#online-bookings',
       text: ":rotating_light: #{actual_location} :rotating_light:",
       icon_emoji: ':frank:'
     }
