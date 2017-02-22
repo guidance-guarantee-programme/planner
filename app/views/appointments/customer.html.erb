@@ -1,51 +1,27 @@
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Dear <%= @appointment.name %>,</p>
+<h1 style="color: #0B0C0C !important;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-weight: 700;font-size: 20px;line-height: 1.111111111;padding: 15px 0;">
+  <% if @appointment.updated? %>
+    We’ve updated your appointment
+  <% else %>
+    We’ve booked your appointment
+  <% end %>
+</h1>
 
-<% if @appointment.updated? %>
-  <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin:
-  15px 0;font-size: 16px;line-height: 1.315789474;">Your appointment details were updated.</p>
+<%= p do %>
+  Dear <%= @appointment.name %>,
 <% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">Thank you for booking an
-appointment with Pension Wise. We can confirm your appointment will be at <%=
-@appointment.proceeded_at.to_s(:govuk_date) %>. The appointment will take place
-at <%= @appointment.location_name %> and will be with <%= @appointment.guider_name.split.first %>.</p>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">
-  <% @appointment.address_lines.each do |line| %>
-    <%= line %><br>
+<%= p do %>
+  <% if @appointment.updated? %>
+    Your appointment details have been updated.
+  <% else %>
+    Thank you for booking a Pension Wise appointment.
   <% end %>
-</p>
+<% end %>
 
-<h3 style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif">Preparing for your appointment</h3>
+<%= render 'shared/email/appointment_details' %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">To make your appointment as useful
-as possible, it would be helpful to know the following information:</p>
+<%= p do %>
+  Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
+<% end %>
 
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px">
-  <li>the value of your pension pot(s) - check your pension paperwork or ask your provider</li>
-  <li>an estimate of your State Pension - call the Future Pension Centre on 0345 3000 168 for a State Pension statement</li>
-  <li>any special arrangements attached to your pension pot, eg a guaranteed annuity rate or a guaranteed pot value at a certain time - ask your provider</li>
-</ul>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;"> Think about your financial
-circumstances in general and plans for retirement, eg: </p>
-
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px">
-  <li>sources of income like salary, benefits, savings, investments</li>
-  <li>debts and repayments you might have</li>
-  <li>when you want to stop working</li>
-  <li>if you want a fixed or flexible income in retirement</li>
-</ul>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px
-0;font-size: 16px;line-height: 1.315789474;">If you are unable to attend this
-appointment please call <%= @appointment.booking_location.online_booking_twilio_number %> 
-and we'll be able to re-arrange for you. You may be asked for your booking 
-reference number, <%= @appointment.reference %>.</p>
+<%= render 'shared/email/preparing_for_appointment' %>

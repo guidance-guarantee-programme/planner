@@ -2,111 +2,18 @@
   Appointment reminder
 </h1>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
+<%= p do %>
   Dear <%= @appointment.name %>,
-</p>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
+<%= p do %>
   This is a reminder that you have a Pension Wise appointment booked for:
-</p>
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Date:
-  <br>
-  <strong class="emphasize" style="font-size: 24px;">
-    <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
-  </strong>
-</p>
+<%= render 'shared/email/appointment_details' %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Time:
-  <br>
-  <strong class="emphasize" style="font-size: 24px;">
-    <%= @appointment.proceeded_at.to_s(:govuk_time) %>
-  </strong>
-</p>
+<%= p do %>
+  Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
+<% end %>
 
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Appointment location:
-  <br>
-  <strong class="emphasize" style="font-size: 24px;">
-    <%= @appointment.location_name %><br>
-    <% @appointment.address_lines.each do |line| %>
-      <%= line %><br>
-    <% end %>
-  </strong>
-</p>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Guidance specialist:
-  <br>
-  <strong class="emphasize" style="font-size: 24px;">
-    <%= @appointment.guider_name.split.first %>
-  </strong>
-</p>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Reference number:
-  <br>
-  <strong class="emphasize" style="font-size: 24px;">
-    <%= @appointment.reference %>
-  </strong>
-</p>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to
-  change or cancel your booking. You may be asked for your booking reference number.
-</p>
-
-<h1 style="color: #0B0C0C !important;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-weight: 700;font-size: 20px;line-height: 1.111111111;padding: 15px 0;">
-  Preparing for your appointment
-</h1>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  To make the most of your appointment it would be helpful if you know:
-</p>
-
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin-top: 15px;margin-bottom: 15px;font-size: 16px;line-height: 1.315789474;">
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-      the value of your pension pot(s) - check your pension paperwork or ask your provider
-    </p>
-  </li>
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-      an estimate of your State Pension - call the Future Pension Centre on 0345 3000 168 for a State Pension statement
-    </p>
-  </li>
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-      any special arrangements attached to your pension pot, eg a guaranteed annuity rate or a guaranteed pot value at a certain time - ask your provider
-    </p>
-  </li>
-</ul>
-
-<p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-  Think about your financial circumstances in general and plans for retirement, eg:
-</p>
-
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin-top: 15px;margin-bottom: 15px;font-size: 16px;line-height: 1.315789474;">
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-    sources of income like salary, benefits, savings, investments
-    </p>
-  </li>
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-      debts and repayments you might have
-    </p>
-  </li>
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-      when you want to stop working
-    </p>
-  </li>
-  <li>
-    <p style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-size: 16px;line-height: 1.315789474;">
-      if you want a fixed or flexible income in retirement
-    </p>
-  </li>
-</ul>
+<%= render 'shared/email/preparing_for_appointment' %>
