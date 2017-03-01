@@ -21,7 +21,14 @@ RSpec.describe AppointmentForm do
         'location_id' => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
         'date'        => '2016-06-21',
         'time(4i)'    => '13',
-        'time(5i)'    => '00'
+        'time(5i)'    => '00',
+        'name'        => 'Mick Smith',
+        'email'       => 'mick@example.com',
+        'phone'       => '01189 889 889',
+        'memorable_word' => 'snoopy',
+        'date_of_birth'  => '1950-01-01',
+        'accessibility_requirements' => '1',
+        'defined_contribution_pot_confirmed' => '1'
       }
     end
 
@@ -34,6 +41,30 @@ RSpec.describe AppointmentForm do
 
     it 'must not be associated with an existing appointment' do
       booking_request.appointment = build(:appointment)
+
+      expect(subject).to_not be_valid
+    end
+
+    it 'requires a name' do
+      params[:name] = ''
+
+      expect(subject).to_not be_valid
+    end
+
+    it 'requires an email' do
+      params[:email] = ''
+
+      expect(subject).to_not be_valid
+    end
+
+    it 'requires a phone' do
+      params[:phone] = ''
+
+      expect(subject).to_not be_valid
+    end
+
+    it 'requires a memorable word' do
+      params[:memorable_word] = ''
 
       expect(subject).to_not be_valid
     end
@@ -71,7 +102,6 @@ RSpec.describe AppointmentForm do
     expect(subject.name).to eq(booking_request.name)
     expect(subject.email).to eq(booking_request.email)
     expect(subject.phone).to eq(booking_request.phone)
-    expect(subject.age_range).to eq(booking_request.age_range)
     expect(subject.date_of_birth).to eq(booking_request.date_of_birth)
     expect(subject.reference).to eq(booking_request.reference)
     expect(subject.memorable_word).to eq(booking_request.memorable_word)

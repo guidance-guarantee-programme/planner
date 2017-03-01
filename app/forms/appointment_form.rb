@@ -2,23 +2,23 @@ class AppointmentForm
   include ActiveModel::Model
 
   BOOKING_REQUEST_ATTRIBUTES = %i(
-    name
-    email
-    phone
-    age_range
-    date_of_birth
     reference
     location_name
-    memorable_word
-    accessibility_requirements
     primary_slot
     secondary_slot
     tertiary_slot
     booking_location
   ).freeze
 
-  validates :location_id, presence: true
+  validates :name, presence: true
+  validates :email, presence: true, email: true
+  validates :phone, presence: true
+  validates :memorable_word, presence: true
+  validates :accessibility_requirements, inclusion: { in: [true, false, '1', '0'] }
+  validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false, '1', '0'] }
+
   validates :guider_id, presence: true
+  validates :location_id, presence: true
   validates :date, presence: true
 
   validate :validate_date
@@ -26,6 +26,13 @@ class AppointmentForm
 
   attr_reader :location_aware_booking_request
 
+  attr_accessor :name
+  attr_accessor :email
+  attr_accessor :phone
+  attr_accessor :defined_contribution_pot_confirmed
+  attr_accessor :accessibility_requirements
+  attr_accessor :memorable_word
+  attr_accessor :date_of_birth
   attr_accessor :guider_id
   attr_accessor :location_id
   attr_accessor :date
@@ -37,6 +44,7 @@ class AppointmentForm
   def initialize(location_aware_booking_request, params)
     @location_aware_booking_request = location_aware_booking_request
     normalise_time(params)
+    normalise_date_of_birth(params)
     super(params)
   end
 
@@ -46,6 +54,22 @@ class AppointmentForm
 
   def flattened_locations
     FlattenedLocationMapper.map(booking_location)
+  end
+
+  def name
+    @name ||= location_aware_booking_request.name
+  end
+
+  def email
+    @email ||= location_aware_booking_request.email
+  end
+
+  def phone
+    @phone ||= location_aware_booking_request.phone
+  end
+
+  def memorable_word
+    @memorable_word ||= location_aware_booking_request.memorable_word
   end
 
   def location_id
@@ -63,7 +87,11 @@ class AppointmentForm
   end
 
   def defined_contribution_pot_confirmed
-    location_aware_booking_request.defined_contribution_pot_confirmed ? 'Yes' : 'Not sure'
+    @defined_contribution_pot_confirmed ||= location_aware_booking_request.defined_contribution_pot_confirmed
+  end
+
+  def accessibility_requirements
+    @accessibility_requirements ||= location_aware_booking_request.accessibility_requirements
   end
 
   private
@@ -79,6 +107,14 @@ class AppointmentForm
     errors.add(:date, 'must be in the future') unless parsed_date > Date.current
   rescue ArgumentError
     errors.add(:date, 'must be formatted correctly')
+  end
+
+  def normalise_date_of_birth(params)
+    day   = params.delete('date_of_birth(3i)') || location_aware_booking_request.date_of_birth.day
+    month = params.delete('date_of_birth(2i)') || location_aware_booking_request.date_of_birth.month
+    year  = params.delete('date_of_birth(1i)') || location_aware_booking_request.date_of_birth.year
+
+    @date_of_birth = Date.parse("#{year}-#{month}-#{day}")
   end
 
   def normalise_time(params)

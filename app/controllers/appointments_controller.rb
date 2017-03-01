@@ -33,7 +33,7 @@ class AppointmentsController < ApplicationController
       @appointment = Appointment.create(@appointment_form.appointment_params)
       notify_customer(@appointment)
 
-      redirect_to booking_requests_path
+      redirect_to booking_requests_path, success: 'Appointment was created'
     else
       render :new
     end
@@ -116,10 +116,17 @@ class AppointmentsController < ApplicationController
     appointment_params[:proceeded_at] += " #{hour}:#{minute}" if hour && minute
   end
 
-  def appointment_params
+  def appointment_params # rubocop:disable Metrics/MethodLength
     params
       .fetch(:appointment, {})
       .permit(
+        :name,
+        :email,
+        :phone,
+        :defined_contribution_pot_confirmed,
+        :accessibility_requirements,
+        :memorable_word,
+        :date_of_birth,
         :guider_id,
         :location_id,
         :date,

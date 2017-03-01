@@ -12,6 +12,10 @@
   & + & {
     border-width: 0;
   }
+
+  &:empty {
+    border: 0;
+  }
 }
 
 .activity-feed__item {
