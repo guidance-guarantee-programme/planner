@@ -1,5 +1,5 @@
 module BookingRequestHelper
-  def toggle_activation_link(booking_request, &block)
+  def toggle_activation_link(booking_request) # rubocop:disable Metrics/MethodLength
     action = booking_request.active? ? 'hide' : 'show'
 
     link_to(
