@@ -70,15 +70,15 @@
         </a>
       </strong>
     </p>
-
-    <hr style="margin-bottom: 24px;">
-    <br><br>
-    <%= toggle_activation_link(@appointment_form.location_aware_booking_request) %>
+    <hr>
+    <%= toggle_activation_link(@appointment_form.location_aware_booking_request) do |action| %>
+      <span aria-hidden="true" class="glyphicon glyphicon-eye-<%= action == 'hide' ? 'close' : 'open' %>"></span>
+      <%= action.capitalize %> this Booking Request
+    <% end %>
   </div>
 
   <div class="col-md-8">
-    <div class="well" style="overflow: hidden;">
-
+    <div class="well booking-request-details">
       <% if @appointment_form.errors.any? %>
         <div class="alert alert-danger t-errors" role="alert">
           <h3 class="alert__heading h4">There's a problem</h3>
@@ -90,78 +90,79 @@
         </div>
       <% end %>
 
-      <div class="col-md-6">
-        <h2 class="h3" style="margin-top: 0;">Customer details</h2>
-        <div class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, class: 'form-control t-name' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.text_field :email, class: 'form-control t-email' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :phone %>
-          <%= f.text_field :phone, class: 'form-control t-phone' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :memorable_word %>
-          <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
-        </div>
-        <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
-        <div class="form-group">
-          <%= f.label :defined_contribution_pot_confirmed, class: 'checkbox-inline' do %>
-            <%= f.check_box :defined_contribution_pot_confirmed, class: 't-defined-contribution-pot-confirmed' %> Defined contribution pot confirmed?
-          <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
-            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
-          <% end %>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <h2 class="h3" style="margin-top: 0;">Appointment details</h2>
-
-        <div class="form-group">
-          <%= f.label :guider_id %>
-          <%= f.select(
-            :guider_id,
-            options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
-            { include_blank: true },
-            { class: 'form-control t-guider' }
-          ) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :location_id %>
-          <%= f.select(
-            :location_id,
-            @appointment_form.flattened_locations,
-            options = {},
-            { class: 'form-control t-location' }
-          ) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :date %>
-          <%= f.text_field :date, class: 'js-date-time-picker t-date form-control', value: @appointment_form.date.to_date.to_s(:govuk_date) %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :time %>
-          <div class="form-control">
-            <%= f.time_select(
-              :time,
-              ignore_date: true,
-              minute_step: 15
-            ) %>
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class="h3">Customer details</h2>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'form-control t-name' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.text_field :email, class: 'form-control t-email' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :phone %>
+            <%= f.text_field :phone, class: 'form-control t-phone' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :memorable_word %>
+            <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
+          </div>
+          <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
+          <div class="form-group">
+            <%= f.label :defined_contribution_pot_confirmed, class: 'checkbox-inline' do %>
+              <%= f.check_box :defined_contribution_pot_confirmed, class: 't-defined-contribution-pot-confirmed' %> Defined contribution pot confirmed?
+            <% end %>
+          </div>
+          <div class="form-group">
+            <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
+              <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
+            <% end %>
           </div>
         </div>
+        <div class="col-md-6">
+          <h2 class="h3">Appointment details</h2>
+
+          <div class="form-group">
+            <%= f.label :guider_id %>
+            <%= f.select(
+              :guider_id,
+              options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
+              { include_blank: true },
+              { class: 'form-control t-guider' }
+            ) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :location_id %>
+            <%= f.select(
+              :location_id,
+              @appointment_form.flattened_locations,
+              options = {},
+              { class: 'form-control t-location' }
+            ) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :date %>
+            <%= f.text_field :date, class: 'js-date-time-picker t-date form-control', value: @appointment_form.date.to_date.to_s(:govuk_date) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :time %>
+            <div class="form-control">
+              <%= f.time_select(
+                :time,
+                ignore_date: true,
+                minute_step: 15
+              ) %>
+            </div>
+          </div>
       </div>
     </div>
-
+  </div>
+  <div class="row">
     <div class="col-md-12">
       <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
         Make appointment and notify <%= @appointment_form.name %>
