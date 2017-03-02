@@ -4,4 +4,5 @@
 //= require_tree .
 
 PWPlanner.poller.init();
-PWPlanner.picker.init();
+PWPlanner.dateRangePicker.init();
+PWPlanner.dateTimePicker.init();

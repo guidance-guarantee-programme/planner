@@ -25,6 +25,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
           and_they_see_the_customer_details
           and_they_see_the_requested_slots
           when_they_choose_a_guider
+          and_they_modify_the_customer_details
           and_the_location
           and_the_time_and_date_of_the_appointment
           then_the_appointment_is_created
@@ -62,15 +63,18 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page).to be_displayed
   end
 
-  def and_they_see_the_customer_details
-    expect(@page.name.text).to eq(@booking_request.name)
+  def and_they_see_the_customer_details # rubocop:disable Metrics/MethodLength
+    expect(@page.name.value).to eq(@booking_request.name)
     expect(@page.reference.text).to eq(@booking_request.reference)
-    expect(@page.email.text).to eq(@booking_request.email)
+    expect(@page.email.value).to eq(@booking_request.email)
+    expect(@page.phone.value).to eq(@booking_request.phone)
     expect(@page.location_name.text).to eq('Hackney')
-    expect(@page.memorable_word.text).to eq(@booking_request.memorable_word)
-    expect(@page.age_range.text).to eq(@booking_request.age_range)
-    expect(@page.date_of_birth.text).to eq(@booking_request.date_of_birth.to_s(:gov_uk))
-    expect(@page.defined_contribution_pot_confirmed.text).to eq('Yes')
+    expect(@page.memorable_word.value).to eq(@booking_request.memorable_word)
+    expect(@page.day_of_birth.value).to eq(@booking_request.date_of_birth.day.to_s)
+    expect(@page.month_of_birth.value).to eq(@booking_request.date_of_birth.month.to_s)
+    expect(@page.year_of_birth.value).to eq(@booking_request.date_of_birth.year.to_s)
+    expect(@page.defined_contribution_pot_confirmed.value).to eq('1')
+    expect(@page.accessibility_requirements.value).to eq('1')
   end
 
   def and_they_see_the_requested_slots
@@ -88,6 +92,18 @@ RSpec.feature 'Fulfiling Booking Requests' do
     @page.guider.select('Ben Lovell')
   end
 
+  def and_they_modify_the_customer_details
+    @page.name.set 'Mortimer Sanchez'
+    @page.email.set 'msanchez@example.com'
+    @page.phone.set '01189 909 1234'
+    @page.memorable_word.set 'stanky'
+    @page.day_of_birth.set '02'
+    @page.month_of_birth.set '02'
+    @page.year_of_birth.set '1945'
+    @page.defined_contribution_pot_confirmed.set false
+    @page.accessibility_requirements.set false
+  end
+
   def and_the_location
     # ensure originally chosen location (Hackney) is selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
@@ -98,7 +114,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def and_the_time_and_date_of_the_appointment
     # ensure date defaults to primary slot date
-    expect(@page.date.value).to eq(@booking_request.primary_slot.date.to_s(:db))
+    expect(@page.date.value).to eq(@booking_request.primary_slot.date.strftime('%d %B %Y'))
     # refine to 2016-06-20
     @page.advance_date!
 
@@ -110,6 +126,16 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def then_the_appointment_is_created
     expect { @page.submit.click }.to change { Appointment.count }.by(1)
+
+    expect(Appointment.first).to have_attributes(
+      name: 'Mortimer Sanchez',
+      email: 'msanchez@example.com',
+      phone: '01189 909 1234',
+      memorable_word: 'stanky',
+      defined_contribution_pot_confirmed: false,
+      accessibility_requirements: false,
+      date_of_birth: Date.parse('1945-02-02')
+    )
   end
 
   def and_the_customer_is_notified

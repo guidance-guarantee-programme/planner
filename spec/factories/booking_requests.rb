@@ -10,7 +10,7 @@ FactoryGirl.define do
     memorable_word 'spaceship'
     age_range '50-54'
     date_of_birth '1950-01-01'
-    accessibility_requirements false
+    accessibility_requirements true
     marketing_opt_in false
     defined_contribution_pot_confirmed true
 

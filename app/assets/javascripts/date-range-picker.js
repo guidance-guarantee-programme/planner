@@ -3,9 +3,9 @@
 (function($) {
   'use strict';
 
-  var picker = {
+  var dateRangePicker = {
     init: function() {
-      this.$picker = $('.js-picker');
+      this.$picker = $('.js-date-range-picker');
 
       this.$picker.daterangepicker({
         ranges: {
@@ -34,6 +34,6 @@
   };
 
   window.PWPlanner = window.PWPlanner || {};
-  window.PWPlanner.picker = picker;
+  window.PWPlanner.dateRangePicker = dateRangePicker;
 
 })(jQuery);

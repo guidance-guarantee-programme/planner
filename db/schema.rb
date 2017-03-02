@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201135525) do
+ActiveRecord::Schema.define(version: 20170301180007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,18 +26,22 @@ ActiveRecord::Schema.define(version: 20170201135525) do
   end
 
   create_table "appointments", force: :cascade do |t|
-    t.integer  "booking_request_id",                    null: false
-    t.string   "name",                                  null: false
-    t.string   "email",                                 null: false
-    t.string   "phone",                                 null: false
-    t.integer  "guider_id",                             null: false
-    t.string   "location_id",                           null: false
-    t.datetime "proceeded_at",                          null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "status",                    default: 0, null: false
-    t.integer  "fulfilment_time_seconds",   default: 0, null: false
-    t.integer  "fulfilment_window_seconds", default: 0, null: false
+    t.integer  "booking_request_id",                                 null: false
+    t.string   "name",                                               null: false
+    t.string   "email",                                              null: false
+    t.string   "phone",                                              null: false
+    t.integer  "guider_id",                                          null: false
+    t.string   "location_id",                                        null: false
+    t.datetime "proceeded_at",                                       null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "status",                             default: 0,     null: false
+    t.integer  "fulfilment_time_seconds",            default: 0,     null: false
+    t.integer  "fulfilment_window_seconds",          default: 0,     null: false
+    t.string   "memorable_word",                     default: "",    null: false
+    t.date     "date_of_birth"
+    t.boolean  "defined_contribution_pot_confirmed", default: true,  null: false
+    t.boolean  "accessibility_requirements",         default: false, null: false
     t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id", using: :btree
     t.index ["location_id"], name: "index_appointments_on_location_id", using: :btree
   end

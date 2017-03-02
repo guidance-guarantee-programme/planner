@@ -17,6 +17,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'gds-sso'
   gem 'govuk_admin_template'
   gem 'kaminari'
+  gem 'momentjs-rails'
   gem 'newrelic_rpm'
   gem 'pg'
   gem 'plek'

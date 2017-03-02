@@ -7,12 +7,15 @@ module Pages
 
     element :name, '.t-name'
     element :reference, '.t-reference'
+    element :phone, '.t-phone'
     element :email, '.t-email'
     element :location_name, '.t-location-name'
     element :memorable_word, '.t-memorable-word'
     element :age_range, '.t-age-range'
-    element :date_of_birth, '.t-date-of-birth'
-    element :accessibility_requirements, '.t-accessibility'
+    element :day_of_birth, '.t-date-of-birth-day'
+    element :month_of_birth, '.t-date-of-birth-month'
+    element :year_of_birth, '.t-date-of-birth-year'
+    element :accessibility_requirements, '.t-accessibility-requirements'
     element :defined_contribution_pot_confirmed, '.t-defined-contribution-pot-confirmed'
 
     element :slot_one_date,     '.t-slot-1-date'

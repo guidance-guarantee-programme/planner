@@ -15,11 +15,14 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :booking_request
 
-  delegate :reference, :activities, :memorable_word, :date_of_birth, to: :booking_request
+  delegate :reference, :activities, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true
   validates :phone, presence: true
+  validates :memorable_word, presence: true
+  validates :accessibility_requirements, inclusion: { in: [true, false] }
+  validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false] }
   validates :location_id, presence: true
   validates :guider_id, presence: true
   validate  :validate_proceeded_at
