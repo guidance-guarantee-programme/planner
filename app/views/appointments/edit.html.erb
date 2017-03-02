@@ -6,7 +6,7 @@
   </ol>
 
   <h1>
-    Modify/cancel appointment for <%= @appointment_form.name %><br>
+    Manage appointment for <%= @appointment_form.name %><br>
     <small>Booking reference: <%= @appointment_form.reference %></small>
   </h1>
 </div>
@@ -16,137 +16,128 @@
   booking_request: @appointment_form.booking_request
 } %>
 
-<div class="row">
-  <div class="col-md-4">
-    <h2 class="h3">Change appointment details</h2>
-    <p class="lead">Use the form below to change the details of the appointment.</p>
+<%= form_for @appointment_form do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <h2 class="h3">Requested appointment</h2>
+      <p>The customer has requested the following time slots, in order of preference.</p>
 
-    <% if @appointment_form.errors.any? %>
-      <div class="alert alert-danger t-errors" role="alert">
-        <h3 class="alert__heading h4">There's a problem</h3>
-        <ul>
-          <% @appointment_form.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <%= form_for @appointment_form do |f| %>
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control t-name' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control t-email' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :phone %>
-        <%= f.text_field :phone, class: 'form-control t-phone' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :defined_contribution_pot_confirmed, 'Defined contribution pot confirmed?' %>
-        <%= f.text_field :defined_contribution_pot_confirmed, class: 'form-control t-defined-contribution-pot-confirmed', readonly: true %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :memorable_word %>
-        <%= f.text_field :memorable_word, class: 'form-control t-memorable-word', readonly: true %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :date_of_birth %>
-        <%= f.date_field :date_of_birth, class: 't-date-of-birth form-control', readonly: true %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :guider_id %>
-        <%= f.select(
-          :guider_id,
-          options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
-          options = {},
-          class: 'form-control t-guider'
-        ) %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :location_id %>
-        <%= f.select(:location_id, @appointment_form.flattened_locations, options = {}, { class: 'form-control t-location' }
-        ) %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :proceeded_at, 'Date of appointment' %>
-        <%= f.date_field(:proceeded_at, class: 't-date form-control') %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :proceeded_at, 'Time of appointment' %>
-        <div class="form-control">
-          <%= f.time_select(:proceeded_at, ignore_date: true, minute_step: 15) %>
-        </div>
-      </div>
-
-      <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
-        Update appointment and notify<br><%= @appointment_form.name %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="col-md-4">
-    <h2 class="h3">After the appointment</h2>
-    <p class="lead">Appointment finished? Update the status below.</p>
-
-    <%= form_for @appointment_form do |f| %>
-      <div class="form-group">
-        <%= f.label :status, 'Appointment status' %>
-        <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
-      </div>
-
-      <%= f.button class: 'btn btn-primary btn-block t-submit-status' do %>
-        Update status
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="col-md-4">
-    <h2 class="h3">Original slots requested</h2>
-    <p class="lead">For reference, the slots originally requested by the customer are:</p>
-
-    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>1</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
+      <div class="SlotPicker-choices is-chosen SlotPicker--selected">
+        <div class="SlotPicker-choice is-chosen">
+          <div class="SlotPicker-choiceInner">
+            <div class="SlotPicker-position"><span>1</span></div>
+            <div class="SlotPicker-choiceContent">
+              <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
+              <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>2</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
+        <div class="SlotPicker-choice is-chosen">
+          <div class="SlotPicker-choiceInner">
+            <div class="SlotPicker-position"><span>2</span></div>
+            <div class="SlotPicker-choiceContent">
+              <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
+              <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>3</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
+        <div class="SlotPicker-choice is-chosen">
+          <div class="SlotPicker-choiceInner">
+            <div class="SlotPicker-position"><span>3</span></div>
+            <div class="SlotPicker-choiceContent">
+              <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
+              <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-md-8">
+      <div class="well" style="overflow: hidden;">
+        <% if @appointment_form.errors.any? %>
+          <div class="alert alert-danger t-errors" role="alert">
+            <h3 class="alert__heading h4">There's a problem</h3>
+            <ul>
+              <% @appointment_form.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="h3" style="margin-top: 0;">Customer details</h2>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control t-name' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.text_field :email, class: 'form-control t-email' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, class: 'form-control t-phone' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :memorable_word %>
+              <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
+            </div>
+            <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
+            <div class="form-group">
+              <%= f.label :defined_contribution_pot_confirmed, class: 'checkbox-inline' do %>
+                <%= f.check_box :defined_contribution_pot_confirmed, class: 't-defined-contribution-pot-confirmed' %> Defined contribution pot confirmed?
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
+                <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h2 class="h3" style="margin-top: 0;">Appointment details</h2>
+            <div class="form-group">
+              <%= f.label :guider_id %>
+              <%= f.select(
+                :guider_id,
+                options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
+                options = {},
+                class: 'form-control t-guider'
+              ) %>
+            </div>
+            <div class="form-group">
+              <%= f.label :location_id %>
+              <%= f.select(:location_id, @appointment_form.flattened_locations, options = {}, { class: 'form-control t-location' }
+              ) %>
+            </div>
+            <div class="form-group">
+              <%= f.label :proceeded_at, 'Date of appointment' %>
+              <%= f.text_field(:proceeded_at, class: 'js-date-time-picker t-date form-control', value: @appointment_form.proceeded_at.to_date.to_s(:govuk_date)) %>
+            </div>
+            <div class="form-group">
+              <%= f.label :proceeded_at, 'Time of appointment' %>
+              <div class="form-control">
+                <%= f.time_select(:proceeded_at, ignore_date: true, minute_step: 15) %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="well" style="background: #CCC">
+                <%= f.label :status, 'Appointment status' %>
+                <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
+            Update appointment details for <%= @appointment_form.name %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>

@@ -19,7 +19,7 @@ class AppointmentsController < ApplicationController
     if @appointment_form.update(edit_appointment_params)
       notify_customer(@appointment_form.entity)
 
-      redirect_to appointments_path
+      redirect_to appointments_path, success: 'Appointment was updated'
     else
       render :edit
     end
@@ -100,6 +100,10 @@ class AppointmentsController < ApplicationController
         :name,
         :email,
         :phone,
+        :defined_contribution_pot_confirmed,
+        :accessibility_requirements,
+        :memorable_word,
+        :date_of_birth,
         :guider_id,
         :location_id,
         :proceeded_at,

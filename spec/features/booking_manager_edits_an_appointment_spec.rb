@@ -56,13 +56,16 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.email.value).to eq(@appointment.email)
     expect(@page.phone.value).to eq(@appointment.phone)
     expect(@page.memorable_word.value).to eq(@appointment.memorable_word)
-    expect(@page.date_of_birth.value).to eq(@appointment.date_of_birth.iso8601)
-    expect(@page.defined_contribution_pot_confirmed.value).to eq('Yes')
+    expect(@page.day_of_birth.value).to eq(@appointment.date_of_birth.day.to_s)
+    expect(@page.month_of_birth.value).to eq(@appointment.date_of_birth.month.to_s)
+    expect(@page.year_of_birth.value).to eq(@appointment.date_of_birth.year.to_s)
+    expect(@page.defined_contribution_pot_confirmed.value).to eq('1')
+    expect(@page.accessibility_requirements.value).to eq('1')
 
     # ensure Hackney is pre-selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
 
-    expect(@page.date.value).to eq('2016-06-20')
+    expect(@page.date.value).to eq('20 June 2016')
     expect(@page.time_hour.value).to eq('14')
     expect(@page.time_minute.value).to eq('00')
   end
@@ -80,8 +83,16 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.slot_three_period.text).to eq(@booking_request.tertiary_slot.period)
   end
 
-  def when_they_modify_the_appointment_details
+  def when_they_modify_the_appointment_details # rubocop:disable Metrics/MethodLength
     @page.name.set('Bob Jones')
+    @page.email.set('bob@example.com')
+    @page.phone.set('01189 888 888')
+    @page.memorable_word.set('snarf')
+    @page.day_of_birth.set('02')
+    @page.month_of_birth.set('02')
+    @page.year_of_birth.set('1945')
+    @page.defined_contribution_pot_confirmed.set(false)
+    @page.accessibility_requirements.set(false)
     @page.date.set('2016-06-21')
     @page.time_hour.set('15')
     @page.time_minute.set('15')
@@ -119,7 +130,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def when_they_modify_the_status
     @page.status.select('Completed')
-    @page.submit_status.click
+    @page.submit.click
   end
 
   def then_the_status_is_updated

@@ -9,9 +9,12 @@ module Pages
     element :email, '.t-email'
     element :phone, '.t-phone'
     element :memorable_word, '.t-memorable-word'
-    element :date_of_birth, '.t-date-of-birth'
     element :location, '.t-location'
     element :guider, '.t-guider'
+    element :day_of_birth, '.t-date-of-birth-day'
+    element :month_of_birth, '.t-date-of-birth-month'
+    element :year_of_birth, '.t-date-of-birth-year'
+    element :accessibility_requirements, '.t-accessibility-requirements'
     element :defined_contribution_pot_confirmed, '.t-defined-contribution-pot-confirmed'
 
     element :date, '.t-date'
@@ -28,7 +31,6 @@ module Pages
     element :submit, '.t-submit'
 
     element :status, '.t-status'
-    element :submit_status, '.t-submit-status'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
