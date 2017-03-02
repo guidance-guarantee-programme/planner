@@ -1,3 +1,5 @@
+require 'redis-rails'
+
 Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -60,7 +62,7 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :memory_store
+  config.cache_store = :redis_store
 
   # Log cache hits / misses
   ActiveSupport::Cache::Store.logger = Rails.logger
