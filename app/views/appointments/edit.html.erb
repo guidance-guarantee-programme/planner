@@ -54,8 +54,8 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8">
-      <div class="well" style="overflow: hidden;">
+    <div class="col-md-8 l-appointment-details">
+      <div class="well">
         <% if @appointment_form.errors.any? %>
           <div class="alert alert-danger t-errors" role="alert">
             <h3 class="alert__heading h4">There's a problem</h3>
@@ -66,10 +66,9 @@
             </ul>
           </div>
         <% end %>
-
         <div class="row">
           <div class="col-md-6">
-            <h2 class="h3" style="margin-top: 0;">Customer details</h2>
+            <h2 class="h3">Customer details</h2>
             <div class="form-group">
               <%= f.label :name %>
               <%= f.text_field :name, class: 'form-control t-name' %>
@@ -99,7 +98,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h2 class="h3" style="margin-top: 0;">Appointment details</h2>
+            <h2 class="h3">Appointment details</h2>
             <div class="form-group">
               <%= f.label :guider_id %>
               <%= f.select(
@@ -125,17 +124,19 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="well" style="background: #CCC">
+              <div class="well appointment-status-well">
                 <%= f.label :status, 'Appointment status' %>
                 <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-12">
-          <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
-            Update appointment details for <%= @appointment_form.name %>
-          <% end %>
+        <div class="row">
+          <div class="col-md-12">
+            <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
+              Update appointment details for <%= @appointment_form.name %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
