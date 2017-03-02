@@ -93,24 +93,23 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.year_of_birth.set('1945')
     @page.defined_contribution_pot_confirmed.set(false)
     @page.accessibility_requirements.set(false)
-    @page.date.set('2016-06-21')
-    @page.time_hour.set('15')
-    @page.time_minute.set('15')
+    @page.date.set('21 June 2016')
+    @page.time_hour.select('15')
+    @page.time_minute.select('15')
     @page.guider.select('Bob Johnson')
 
     @page.submit.click
   end
 
   def then_the_appointment_is_updated
-    @page = Pages::Appointments.new
+    @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
-    @page.appointments.first do |appointment|
-      expect(appointment).to include('Bob Jones')
-      expect(appointment).to include('Tues, 21 Jun')
-      expect(appointment).to include('15:15')
-      expect(appointment).to include('Bob Johnson')
-    end
+    expect(@page.name.value).to eq 'Bob Jones'
+    expect(@page.date.value).to eq '21 June 2016'
+    expect(@page.time_hour.value).to eq '15'
+    expect(@page.time_minute.value).to eq '15'
+    expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
   end
 
   def and_the_customer_is_notified
@@ -125,7 +124,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
-    expect(@page.status.value).to eq('pending')
+    expect(@page.status.value).to eq 'pending'
   end
 
   def when_they_modify_the_status
@@ -134,12 +133,10 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def then_the_status_is_updated
-    @page = Pages::Appointments.new
+    @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
-    @page.appointments.first do |appointment|
-      expect(appointment).to include('Completed')
-    end
+    expect(@page.status.value).to eq 'completed'
   end
 
   def and_provides_invalid_information
