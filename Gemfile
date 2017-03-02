@@ -52,5 +52,6 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
 
   group :staging, :production do
     gem 'rails_12factor'
+    gem 'redis-rails', require: false
   end
 end
