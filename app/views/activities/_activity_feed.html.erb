@@ -18,14 +18,10 @@
       </div>
       <ul class="activity-feed__list js-poller"
         data-interval="<%= poll_interval_milliseconds %>"
-        data-url="<%= booking_request_activities_path(booking_request) %>">
-        <%= render activities.first if activities.present? %>
-      </ul>
+        data-url="<%= booking_request_activities_path(booking_request) %>"><%= render activities.first if activities.present? %></ul>
 
       <% if activities.count > 1 %>
-        <ul class="activity-feed__list t-hidden-activities" id="collapse">
-          <%= render(activities - Array(activities.first)) %>
-        </ul>
+        <ul class="activity-feed__list t-hidden-activities" id="collapse"><%= render(activities - Array(activities.first)) %></ul>
         <button class="activity-feed__btn btn btn-default t-further-activities hidden" data-target="#collapse" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">
           <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
           All activity
