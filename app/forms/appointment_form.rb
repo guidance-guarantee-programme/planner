@@ -15,7 +15,7 @@ class AppointmentForm
   validates :phone, presence: true
   validates :memorable_word, presence: true
   validates :accessibility_requirements, inclusion: { in: [true, false, '1', '0'] }
-  validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false, '1', '0'] }
+  validates :defined_contribution_pot_confirmed, inclusion: { in: %w(true false) }
 
   validates :guider_id, presence: true
   validates :location_id, presence: true

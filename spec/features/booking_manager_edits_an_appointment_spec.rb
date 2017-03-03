@@ -59,7 +59,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.day_of_birth.value).to eq(@appointment.date_of_birth.day.to_s)
     expect(@page.month_of_birth.value).to eq(@appointment.date_of_birth.month.to_s)
     expect(@page.year_of_birth.value).to eq(@appointment.date_of_birth.year.to_s)
-    expect(@page.defined_contribution_pot_confirmed.value).to eq('1')
+    expect(@page.defined_contribution_pot_confirmed_yes).to be_checked
     expect(@page.accessibility_requirements.value).to eq('1')
 
     # ensure Hackney is pre-selected
@@ -91,7 +91,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.day_of_birth.set('02')
     @page.month_of_birth.set('02')
     @page.year_of_birth.set('1945')
-    @page.defined_contribution_pot_confirmed.set(false)
+    @page.defined_contribution_pot_confirmed_dont_know.set true
     @page.accessibility_requirements.set(false)
     @page.date.set('21 June 2016')
     @page.time_hour.select('15')

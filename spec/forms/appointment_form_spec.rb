@@ -28,7 +28,7 @@ RSpec.describe AppointmentForm do
         'memorable_word' => 'snoopy',
         'date_of_birth'  => '1950-01-01',
         'accessibility_requirements' => '1',
-        'defined_contribution_pot_confirmed' => '1'
+        'defined_contribution_pot_confirmed' => 'true'
       }
     end
 
