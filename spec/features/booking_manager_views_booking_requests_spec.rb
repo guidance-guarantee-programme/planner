@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature 'Viewing Booking Requests' do
-  scenario 'Administrator changes their location', js: true do
+  scenario 'Administrators can change their location' do
     given_the_user_identifies_as_hackneys_administrator do
       and_there_are_booking_requests_for_their_location
       when_they_visit_the_site
       then_they_are_shown_booking_requests_for_their_locations
-      when_they_change_their_location
-      then_they_are_shown_booking_requests_for_their_new_location
+      then_they_see_the_administrative_location_choices
     end
   end
 
@@ -40,15 +39,8 @@ RSpec.feature 'Viewing Booking Requests' do
     expect(@page).to have_no_location
   end
 
-  def when_they_change_their_location
-    @page.location.select 'Taunton'
-  end
-
-  def then_they_are_shown_booking_requests_for_their_new_location
-    # this will wait for the JS triggered reload
-    expect(@page.booking_requests.first).to have_content('Taunton')
-
-    expect(@page).to have_booking_requests(count: 1)
+  def then_they_see_the_administrative_location_choices
+    expect(@page.location).to be_visible
   end
 
   def and_there_are_booking_requests_for_their_location
@@ -56,9 +48,6 @@ RSpec.feature 'Viewing Booking Requests' do
 
     # this won't be listed as it's not `active`
     create(:hackney_booking_request, active: false)
-
-    # this won't be listed as it's not under Hackney
-    create(:taunton_booking_request)
 
     # this won't be listed as it's fulfilled
     create(:appointment)

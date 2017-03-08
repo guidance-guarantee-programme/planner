@@ -12,7 +12,8 @@ RSpec.describe FlattenedLocationMapper, '.map' do
         ['Dalston', '183080c6-642b-4b8f-96fd-891f5cd9f9c7'],
         ['Tower Hamlets', '1a1ad00f-d967-448a-a4a6-772369fa5087'],
         ['Haringey', 'c165d25e-f27b-4ce9-b3d3-e7415ebaa93c'],
-        ['Waltham Forest', 'a77a031a-8037-4510-b1f7-63d4aab7b103']
+        ['Enfield', '1cc67bbb-b879-4def-8713-99255a0bce03'],
+        ['Newham', '89821b79-b132-4893-bc9f-c247dd9009fd']
       ]
     )
   end
