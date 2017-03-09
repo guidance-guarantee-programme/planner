@@ -22,7 +22,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'pg'
   gem 'plek'
   gem 'puma'
-  gem 'rails', '5.0.1'
+  gem 'rails', '5.0.2'
   gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
   gem 'sassc-rails'
   gem 'sidekiq'
