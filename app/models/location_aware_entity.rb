@@ -7,7 +7,7 @@ class LocationAwareEntity < SimpleDelegator
   end
 
   def location_name
-    booking_location.name_for(location_id)
+    actual_location.name
   end
 
   def guider_name
@@ -25,6 +25,8 @@ class LocationAwareEntity < SimpleDelegator
   private
 
   def actual_location
-    booking_location.location_for(location_id)
+    @actual_location ||= BookingLocationDecorator.new(
+      booking_location.location_for(location_id)
+    )
   end
 end

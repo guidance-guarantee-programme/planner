@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe LocationAwareEntity do
   context 'when decorating a BookingRequest' do
-    let(:booking_location) { instance_double(BookingLocations::Location) }
+    let(:booking_location) do
+      instance_double(BookingLocations::Location, name: 'Hackney', hidden?: false)
+    end
+
     let(:booking_request) { instance_double(BookingRequest, location_id: 'deadbeef') }
 
     subject do
@@ -16,10 +19,10 @@ RSpec.describe LocationAwareEntity do
     end
 
     describe '#location_name' do
-      it 'delegates `location_name` to the entity' do
-        expect(booking_location).to receive(:name_for)
+      it 'delegates to the entity' do
+        expect(booking_location).to receive(:location_for)
           .with(booking_request.location_id)
-          .and_return('Hackney')
+          .and_return(booking_location)
 
         expect(subject.location_name).to eq('Hackney')
       end
