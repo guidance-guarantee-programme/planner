@@ -2,6 +2,17 @@
 require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
+  scenario 'Bookings manager attempts to fulfil with a hidden location' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_unfulfilled_booking_request
+      when_the_booking_manager_attempts_to_fulfil
+      then_they_are_shown_the_fulfilment_page
+      when_they_change_the_chosen_location_to_a_hidden_one
+      and_they_submit_the_invalid_appointment
+      then_they_see_the_validation_messages
+    end
+  end
+
   scenario 'Bookings Manager deactivates and activates a Booking Request' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
@@ -45,6 +56,10 @@ RSpec.feature 'Fulfiling Booking Requests' do
         then_they_see_the_validation_messages
       end
     end
+  end
+
+  def when_they_change_the_chosen_location_to_a_hidden_one
+    @page.location.select('[HIDDEN] Enfield')
   end
 
   def and_there_is_an_unfulfilled_booking_request
@@ -145,6 +160,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   def when_they_submit_the_invalid_appointment
     @page.submit.click
   end
+  alias_method :and_they_submit_the_invalid_appointment, :when_they_submit_the_invalid_appointment
 
   def then_they_see_the_validation_messages
     expect(@page).to have_error_summary

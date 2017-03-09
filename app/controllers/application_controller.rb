@@ -17,7 +17,9 @@ class ApplicationController < ActionController::Base
   helper_method :poll_interval_milliseconds
 
   def booking_location
-    @booking_location ||= BookingLocations.find(current_user.booking_location_id)
+    @booking_location ||= BookingLocationDecorator.new(
+      BookingLocations.find(current_user.booking_location_id)
+    )
   end
   helper_method :booking_location
 end
