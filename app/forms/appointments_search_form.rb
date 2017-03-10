@@ -25,7 +25,7 @@ class AppointmentsSearchForm
   def search_term_scope(scope)
     return scope unless search_term.present?
 
-    if /\A\d+\Z/ === search_term # rubocop:disable Style/CaseEquality
+    if /\A\d+\Z/.match?(search_term)
       scope.where(booking_request_id: search_term)
     else
       scope.where('appointments.name ILIKE ?', "%#{search_term}%")
