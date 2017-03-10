@@ -41,6 +41,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
           and_the_time_and_date_of_the_appointment
           then_the_appointment_is_created
           and_the_customer_is_notified
+          and_the_booking_request_has_associated_audit_activity
         end
       end
     end
@@ -157,6 +158,11 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(ActionMailer::Base.deliveries.count).to eq(1)
   end
 
+  def and_the_booking_request_has_associated_audit_activity
+    expect(@booking_request.activities.count).to eq(1)
+    expect(@booking_request.activities.first).to be_a(AppointmentMailActivity)
+  end
+
   def when_they_submit_the_invalid_appointment
     @page.submit.click
   end
@@ -193,5 +199,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def and_the_booking_request_has_associated_activation_activities
     expect(@booking_request.activities.count).to eq(2)
+    expect(@booking_request.activities[0]).to be_a(ActivationActivity)
+    expect(@booking_request.activities[1]).to be_a(ActivationActivity)
   end
 end
