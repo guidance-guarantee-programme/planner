@@ -59,7 +59,7 @@ class AppointmentsController < ApplicationController
   def notify_customer(appointment)
     return unless appointment.notify?
 
-    Appointments.customer(appointment, booking_location.object).deliver_later
+    AppointmentChangeNotificationJob.perform_later(appointment)
   end
 
   def location_aware_appointment
