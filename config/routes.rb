@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: { format: :json } do
     namespace :v1 do
-      resources :booking_requests, only: :create
+      resources :booking_requests, only: :create do
+        patch :batch_reassign, on: :collection
+      end
     end
   end
 
