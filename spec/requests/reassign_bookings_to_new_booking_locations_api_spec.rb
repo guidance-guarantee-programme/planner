@@ -30,7 +30,11 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
       @newham_booking_request.location_id,
       @north_somerset_booking_request.booking_location_id,
       @north_somerset_booking_request.location_id
-    ].each do |cache_key|
+    ].map do |cache_key|
+      BookingLocations::DEFAULT_PREFIX.concat(cache_key)
+    end
+
+    @cache_keys.each do |cache_key|
       Rails.cache.write(cache_key, 'stuff')
     end
   end
