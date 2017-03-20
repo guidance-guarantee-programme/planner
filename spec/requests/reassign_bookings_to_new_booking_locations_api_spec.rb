@@ -2,14 +2,16 @@ require 'rails_helper'
 
 RSpec.describe 'PATCH /api/v1/booking_requests' do
   scenario 'reassign child bookings to the specified booking location' do
-    given_the_client_identifies_as_pension_wise
-    and_a_booking_request_belonging_to_a_child_of_hackney_exists
-    and_a_booking_request_belonging_to_a_child_of_taunton_exists
-    and_the_locations_are_cached
-    when_the_client_makes_a_valid_reassignment_request
-    then_the_booking_requests_are_correctly_reassigned
-    and_the_required_cache_entries_are_expired
-    and_the_service_responds_with_a_204
+    with_real_cache do
+      given_the_client_identifies_as_pension_wise
+      and_a_booking_request_belonging_to_a_child_of_hackney_exists
+      and_a_booking_request_belonging_to_a_child_of_taunton_exists
+      and_the_locations_are_cached
+      when_the_client_makes_a_valid_reassignment_request
+      then_the_booking_requests_are_correctly_reassigned
+      and_the_required_cache_entries_are_expired
+      and_the_service_responds_with_a_204
+    end
   end
 
   def given_the_client_identifies_as_pension_wise
@@ -31,11 +33,11 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
       @north_somerset_booking_request.booking_location_id,
       @north_somerset_booking_request.location_id
     ].map do |cache_key|
-      BookingLocations::DEFAULT_PREFIX.concat(cache_key)
+      BookingLocations.cache_prefix(cache_key)
     end
 
     @cache_keys.each do |cache_key|
-      Rails.cache.write(cache_key, 'stuff')
+      BookingLocations.cache.write(cache_key, 'stuff')
     end
   end
 
@@ -56,11 +58,20 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
 
   def and_the_required_cache_entries_are_expired
     @cache_keys.each do |cache_key|
-      expect(Rails.cache.fetch(cache_key)).to be_nil
+      expect(BookingLocations.cache.fetch(cache_key)).to be_nil
     end
   end
 
   def and_the_service_responds_with_a_204
     expect(response).to be_no_content
+  end
+
+  def with_real_cache
+    cache = BookingLocations.cache
+    BookingLocations.cache = ActiveSupport::Cache::MemoryStore.new
+
+    yield
+  ensure
+    BookingLocations.cache = cache
   end
 end
