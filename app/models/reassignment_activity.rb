@@ -1,0 +1,2 @@
+class ReassignmentActivity < Activity
+end
