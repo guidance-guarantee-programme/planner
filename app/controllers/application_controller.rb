@@ -4,12 +4,11 @@ class ApplicationController < ActionController::Base
   add_flash_types :success
 
   include GDS::SSO::ControllerMethods
+  include LogrageFilterer
 
   before_action do
     authorise_user!(User::BOOKING_MANAGER_PERMISSION)
   end
-
-  protected
 
   def poll_interval_milliseconds
     Integer(ENV.fetch(Activity::POLLING_KEY, 5000))

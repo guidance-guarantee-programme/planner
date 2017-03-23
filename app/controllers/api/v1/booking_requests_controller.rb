@@ -2,6 +2,7 @@ module Api
   module V1
     class BookingRequestsController < ActionController::Base
       include GDS::SSO::ControllerMethods
+      include LogrageFilterer
 
       before_action :authorise_api_user!
 
