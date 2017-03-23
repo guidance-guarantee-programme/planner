@@ -1,7 +1,17 @@
 require 'redis-rails'
 
+EXCEPTIONS = %w(controller action format id).freeze
+
 Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # use lograge and log in single-line heroku router style
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    {
+      params: event.payload[:params].except(*EXCEPTIONS)
+    }
+  end
 
   # Code is not reloaded between requests.
   config.cache_classes = true
