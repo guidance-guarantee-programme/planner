@@ -3,14 +3,17 @@ require 'rails_helper'
 RSpec.describe 'PATCH /api/v1/booking_requests' do
   scenario 'reassign child bookings to the specified booking location' do
     with_real_cache do
-      given_the_client_identifies_as_pension_wise
-      and_a_booking_request_belonging_to_a_child_of_hackney_exists
-      and_a_booking_request_belonging_to_a_child_of_taunton_exists
-      and_the_locations_are_cached
-      when_the_client_makes_a_valid_reassignment_request
-      then_the_booking_requests_are_correctly_reassigned
-      and_the_required_cache_entries_are_expired
-      and_the_service_responds_with_a_204
+      perform_enqueued_jobs do
+        given_the_client_identifies_as_pension_wise
+        and_a_booking_request_belonging_to_a_child_of_hackney_exists
+        and_a_booking_request_belonging_to_a_child_of_taunton_exists
+        and_the_locations_are_cached
+        when_the_client_makes_a_valid_reassignment_request
+        then_the_booking_requests_are_correctly_reassigned
+        and_they_have_an_associated_reassignment_activity
+        and_the_required_cache_entries_are_expired
+        and_the_service_responds_with_a_204
+      end
     end
   end
 
@@ -54,6 +57,10 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
     expect(@newham_booking_request.reload.booking_location_id).to eq(
       @north_somerset_booking_request.booking_location_id
     )
+  end
+
+  def and_they_have_an_associated_reassignment_activity
+    expect(@newham_booking_request.activities.last).to be_a(ReassignmentActivity)
   end
 
   def and_the_required_cache_entries_are_expired
