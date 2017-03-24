@@ -35,8 +35,8 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
 
   def when_the_client_reassigns_the_booking_to_a_different_booking_location
     valid_payload = {
-      'location_id' => @newham_booking_request.booking_location_id,
-      'booking_location_id' => @north_somerset_booking_request.booking_location_id
+      location_id: @newham_booking_request.booking_location_id,
+      booking_location_id: @north_somerset_booking_request.booking_location_id
     }
 
     patch batch_reassign_api_v1_booking_requests_path, params: valid_payload, as: :json
@@ -63,8 +63,8 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
 
   def when_the_client_makes_a_valid_reassignment_request
     valid_payload = {
-      'location_id' => @newham_booking_request.location_id,
-      'booking_location_id' => @north_somerset_booking_request.booking_location_id
+      location_id: @newham_booking_request.location_id,
+      booking_location_id: @north_somerset_booking_request.booking_location_id
     }
 
     patch batch_reassign_api_v1_booking_requests_path, params: valid_payload, as: :json
