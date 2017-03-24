@@ -72,10 +72,10 @@
                 <%= appointment.name %>
               </td>
               <td>
-                <%= appointment.guider_name %>
+                <%= guard_missing_location(appointment, :guider_name) %>
               </td>
               <td>
-                <%= appointment.location_name %>
+                <%= guard_missing_location(appointment, :location_name) %>
               </td>
               <td>
                 <%= appointment.reference %>

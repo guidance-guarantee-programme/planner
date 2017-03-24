@@ -67,7 +67,7 @@
     <p class="lead">
       <strong>
         <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_aware_booking_request.location_id %>" class="t-location-name">
-          <%= @appointment_form.location_aware_booking_request.location_name %>
+          <%= guard_missing_location(@appointment_form.location_aware_booking_request, :location_name) %>
         </a>
       </strong>
     </p>
