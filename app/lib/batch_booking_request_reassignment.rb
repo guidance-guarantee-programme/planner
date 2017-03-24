@@ -22,6 +22,14 @@ class BatchBookingRequestReassignment
   end
 
   def affected_bookings
-    @affected_bookings ||= BookingRequest.where(location_id: location_id)
+    @affected_bookings ||= begin
+      key = if BookingRequest.exists?(booking_location_id: location_id)
+              :booking_location_id
+            else
+              :location_id
+            end
+
+      BookingRequest.where(key => location_id)
+    end
   end
 end

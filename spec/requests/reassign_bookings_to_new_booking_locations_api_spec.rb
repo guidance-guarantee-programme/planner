@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'PATCH /api/v1/booking_requests' do
+  scenario 'reassign a booking location to another booking location' do
+    given_the_client_identifies_as_pension_wise
+    and_a_booking_request_belonging_to_a_child_of_hackney_exists
+    and_a_booking_request_belonging_to_a_child_of_taunton_exists
+    when_the_client_reassigns_the_booking_to_a_different_booking_location
+    then_the_booking_requests_are_correctly_reassigned
+  end
+
   scenario 'reassign child bookings to the specified booking location' do
     with_real_cache do
       perform_enqueued_jobs do
@@ -25,6 +33,15 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
     @newham_booking_request = create(:hackney_child_booking_request)
   end
 
+  def when_the_client_reassigns_the_booking_to_a_different_booking_location
+    valid_payload = {
+      location_id: @newham_booking_request.booking_location_id,
+      booking_location_id: @north_somerset_booking_request.booking_location_id
+    }
+
+    patch batch_reassign_api_v1_booking_requests_path, params: valid_payload, as: :json
+  end
+
   def and_a_booking_request_belonging_to_a_child_of_taunton_exists
     @north_somerset_booking_request = create(:taunton_child_booking_request)
   end
@@ -46,8 +63,8 @@ RSpec.describe 'PATCH /api/v1/booking_requests' do
 
   def when_the_client_makes_a_valid_reassignment_request
     valid_payload = {
-      'location_id' => @newham_booking_request.location_id,
-      'booking_location_id' => @north_somerset_booking_request.booking_location_id
+      location_id: @newham_booking_request.location_id,
+      booking_location_id: @north_somerset_booking_request.booking_location_id
     }
 
     patch batch_reassign_api_v1_booking_requests_path, params: valid_payload, as: :json
