@@ -16,12 +16,12 @@ module AppointmentHelper
   end
 
   def location_options(booking_location)
-    FlattenedLocationMapper.map(booking_location)
+    FlattenedLocationMapper.map(booking_location).sort_by(&:first)
   end
 
   def guider_options(booking_location)
     booking_location.guiders.map do |guider|
       [guider['name'], guider['id']]
-    end
+    end.sort_by(&:first)
   end
 end

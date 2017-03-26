@@ -16,6 +16,6 @@ module ApplicationHelper
     location_ids.map do |id|
       location = BookingLocations.find(id)
       [location.name, location.id]
-    end
+    end.sort_by(&:first)
   end
 end

@@ -39,8 +39,6 @@ class AppointmentForm
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 
-  delegate :guiders, to: :booking_location
-
   def initialize(location_aware_booking_request, params)
     @location_aware_booking_request = location_aware_booking_request
     normalise_time(params)
@@ -50,10 +48,6 @@ class AppointmentForm
 
   def appointment_params
     AppointmentMapper.map(self)
-  end
-
-  def flattened_locations
-    FlattenedLocationMapper.map(booking_location)
   end
 
   def name

@@ -136,7 +136,7 @@
             <%= f.label :guider_id %>
             <%= f.select(
               :guider_id,
-              options_from_collection_for_select(@appointment_form.guiders, 'id', 'name', selected: @appointment_form.guider_id),
+              guider_options(@appointment_form.booking_location),
               { include_blank: true },
               { class: 'form-control t-guider' }
             ) %>
@@ -146,7 +146,7 @@
             <%= f.label :location_id %>
             <%= f.select(
               :location_id,
-              @appointment_form.flattened_locations,
+              location_options(@appointment_form.booking_location),
               options = {},
               { class: 'form-control t-location' }
             ) %>
