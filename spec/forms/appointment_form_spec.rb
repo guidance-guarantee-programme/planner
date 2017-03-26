@@ -112,20 +112,6 @@ RSpec.describe AppointmentForm do
     expect(subject.tertiary_slot).to eq(booking_request.tertiary_slot)
   end
 
-  describe '#guiders' do
-    it 'returns the guiders from the booking location' do
-      expect(subject.guiders).to eq(hackney.guiders)
-    end
-  end
-
-  describe '#flattened_locations' do
-    it 'flattens locations with a mapper' do
-      expect(FlattenedLocationMapper).to receive(:map).with(hackney)
-
-      subject.flattened_locations
-    end
-  end
-
   describe '#date' do
     it 'defaults to the primary slot date' do
       expect(subject.date).to eq(booking_request.primary_slot.date)
