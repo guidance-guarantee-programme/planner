@@ -98,7 +98,7 @@ class AppointmentForm
     return unless date
 
     parsed_date = Date.parse(date.to_s)
-    errors.add(:date, 'must be in the future') unless parsed_date > Date.current
+    errors.add(:date, 'must be in the future') unless parsed_date >= Date.current
   rescue ArgumentError
     errors.add(:date, 'must be formatted correctly')
   end

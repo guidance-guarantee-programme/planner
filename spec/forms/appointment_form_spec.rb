@@ -32,7 +32,7 @@ RSpec.describe AppointmentForm do
       }
     end
 
-    before { travel_to '2016-06-20' }
+    before { travel_to '2016-06-20 13:00' }
     after  { travel_back }
 
     it 'is valid with valid attributes' do
@@ -88,12 +88,16 @@ RSpec.describe AppointmentForm do
         expect(subject).to_not be_valid
       end
 
-      it 'must be past the current date' do
-        %w(2016-06-19 2016-06-20).each do |date|
-          params[:date] = date
+      it 'can fall on the same day' do
+        params[:date] = '2016-06-20'
 
-          expect(subject).to_not be_valid
-        end
+        expect(subject).to be_valid
+      end
+
+      it 'must be no sooner than the current date' do
+        params[:date] = '2016-06-19'
+
+        expect(subject).to_not be_valid
       end
     end
   end
