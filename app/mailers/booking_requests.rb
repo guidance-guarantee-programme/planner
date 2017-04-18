@@ -4,7 +4,11 @@ class BookingRequests < ApplicationMailer
     @booking_location = booking_location
 
     mailgun_headers('customer_booking_request')
-    mail to: booking_request.email, subject: 'Your Pension Wise Appointment Request'
+    mail(
+      to: booking_request.email,
+      subject: 'Your Pension Wise Appointment Request',
+      reply_to: booking_location.online_booking_reply_to
+    )
   end
 
   def booking_manager(booking_manager)

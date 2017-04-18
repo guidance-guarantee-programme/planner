@@ -7,7 +7,11 @@ class Appointments < ApplicationMailer
 
     identification_headers_for(appointment)
 
-    mail to: appointment.email, subject: 'Your Pension Wise Appointment'
+    mail(
+      to: appointment.email,
+      subject: 'Your Pension Wise Appointment',
+      reply_to: booking_location.online_booking_reply_to
+    )
   end
 
   def reminder(appointment, booking_location)
@@ -18,7 +22,11 @@ class Appointments < ApplicationMailer
 
     mailgun_headers :appointment_reminder
 
-    mail to: appointment.email, subject: 'Your Pension Wise Appointment Reminder'
+    mail(
+      to: appointment.email,
+      subject: 'Your Pension Wise Appointment Reminder',
+      reply_to: booking_location.online_booking_reply_to
+    )
   end
 
   private
