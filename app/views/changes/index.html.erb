@@ -1,0 +1,39 @@
+<% content_for(:page_title, t('service.title', page_title: "Changes for appointment #{@appointment.name}")) %>
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= appointments_path %>">Appointments</a></li>
+    <li><%= link_to @appointment.name, edit_appointment_path(@appointment) %></li>
+    <li class="active">Changes</li>
+  </ol>
+
+  <h1>
+    Changes for <%= @appointment.name %><br>
+    <small>Booking reference: <%= @appointment.reference %></small>
+  </h1>
+</div>
+
+<% @audits.each do |audit| %>
+  <table class="table table-striped table-bordered t-changes-table">
+  <col width="20%" />
+  <col width="40%" />
+  <col width="40%" />
+  <caption><%= audit.username %> changed the <%= audit.changed_fields %> on <%= audit.timestamp %></caption>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Before</th>
+      <th>After</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% audit.changes.each do |field, change| %>
+    <tr class="t-change-row">
+      <td class="t-label"><%= field %></td>
+      <td class="t-before"><%= change[:before] %></td>
+      <td class="t-after"><%= change[:after] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+  </table>
+<% end %>

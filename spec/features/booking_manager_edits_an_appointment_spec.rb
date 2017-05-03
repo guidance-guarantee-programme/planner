@@ -2,6 +2,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking Manager edits an Appointment' do
+  scenario 'Viewing the full changes' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment_with_changes
+      when_the_booking_manager_views_the_changes
+      then_the_full_changes_are_presented
+    end
+  end
+
   scenario 'Successfully editing an Appointment' do
     perform_enqueued_jobs do
       given_the_user_identifies_as_hackneys_booking_manager do
@@ -36,6 +44,44 @@ RSpec.feature 'Booking Manager edits an Appointment' do
         then_the_status_is_updated
         and_the_customer_is_not_notified
       end
+    end
+  end
+
+  def and_there_is_an_appointment_with_changes
+    @appointment = create(:appointment)
+
+    @appointment.update(
+      name: 'Morty Smith',
+      memorable_word: 'hamburgers',
+      location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7',
+      guider_id: 2,
+      status: :completed
+    )
+  end
+
+  def when_the_booking_manager_views_the_changes
+    @page = Pages::EditAppointment.new
+    @page.load(id: @appointment.id)
+
+    @page.activity_feed.activities.first.changes.click
+  end
+
+  def then_the_full_changes_are_presented
+    @page = Pages::Changes.new
+    expect(@page).to be_displayed
+
+    verify_row(0, 'Name', 'Mortimer Smith', 'Morty Smith')
+    verify_row(1, 'Guider', 'Ben Lovell', 'Jenny Smith')
+    verify_row(2, 'Location', 'Hackney', 'Dalston')
+    verify_row(3, 'Status', 'Pending', 'Completed')
+    verify_row(4, 'Memorable word', 'spaceships', 'hamburgers')
+  end
+
+  def verify_row(index, label, before, after)
+    @page.rows[index].tap do |row|
+      expect(row.label.text).to  eq(label)
+      expect(row.before.text).to eq(before)
+      expect(row.after.text).to  eq(after)
     end
   end
 
