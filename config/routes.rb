@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :users, only: :update
 
-  resources :appointments, only: %i(index edit update)
+  resources :appointments, only: %i(index edit update) do
+    resources :changes, only: :index
+  end
 
   resources :booking_requests, only: %i(index update) do
     resources :activities, only: %i(index create)
