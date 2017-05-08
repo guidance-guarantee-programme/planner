@@ -26,7 +26,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
   gem 'sassc-rails'
   gem 'sidekiq'
-  gem 'sinatra', '2.0.0.beta2', require: false
+  gem 'sinatra', require: false
   gem 'sprockets-es6'
   gem 'uglifier', '>= 1.3.0'
 
