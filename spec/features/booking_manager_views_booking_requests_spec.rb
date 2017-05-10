@@ -47,7 +47,7 @@ RSpec.feature 'Viewing Booking Requests' do
     create_list(:hackney_booking_request, 11)
 
     # this won't be listed as it's not `active`
-    create(:hackney_booking_request, active: false)
+    create(:hackney_booking_request, status: :hidden)
 
     # this won't be listed as it's fulfilled
     create(:appointment)

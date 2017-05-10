@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
             .includes(:appointment)
             .where(appointments: { booking_request_id: nil })
 
-    hidden ? scope.inactive : scope.active
+    hidden ? scope.hidden : scope.active
   end
 
   def administrator?

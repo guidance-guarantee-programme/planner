@@ -13,8 +13,8 @@ RSpec.describe ActivationActivity, '.from' do
     end
   end
 
-  context 'with an inactive booking' do
-    let(:booking_request) { create(:booking_request, active: false) }
+  context 'with a hidden booking' do
+    let(:booking_request) { create(:booking_request, status: :hidden) }
 
     it 'sets the message correctly' do
       expect(subject.message).to eq('inactive')
