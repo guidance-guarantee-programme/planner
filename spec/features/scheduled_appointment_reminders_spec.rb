@@ -36,12 +36,12 @@ RSpec.feature 'Scheduled appointment reminders' do
 
   def given_an_unreminded_appointment_exists
     @proceeded_at = Time.zone.parse('2016-06-20 12:00')
-    @reminder = create(:appointment, proceeded_at: @proceeded_at)
+    @appointment = create(:appointment, proceeded_at: @proceeded_at)
   end
 
   def given_an_already_reminded_appointment_exists
     @proceeded_at = Time.zone.parse('2016-06-20 12:00')
-    @reminder = create(:appointment, proceeded_at: @proceeded_at) do |a|
+    @appointment = create(:appointment, proceeded_at: @proceeded_at) do |a|
       create(:reminder_activity, booking_request: a.booking_request)
     end
   end
@@ -55,11 +55,11 @@ RSpec.feature 'Scheduled appointment reminders' do
   end
 
   def and_no_reminder_activity_is_logged
-    expect(@reminder.activities).to be_empty
+    expect(@appointment.activities).to be_empty
   end
 
   def and_no_additional_reminder_activity_is_logged
-    expect(@reminder.activities.count).to eq(1)
+    expect(@appointment.activities.count).to eq(1)
   end
 
   def then_an_email_reminder_is_delivered
@@ -70,6 +70,6 @@ RSpec.feature 'Scheduled appointment reminders' do
   end
 
   def and_a_reminder_activity_is_logged
-    expect(@reminder.activities.first).to be_a(ReminderActivity)
+    expect(@appointment.activities.first).to be_a(ReminderActivity)
   end
 end
