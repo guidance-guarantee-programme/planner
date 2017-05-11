@@ -34,8 +34,9 @@ module Pages
     element :time_hour,   '#appointment_time_4i'
     element :time_minute, '#appointment_time_5i'
 
-    element :submit, '.t-submit'
-    element :toggle_activation, '.t-toggle-activation'
+    element :booking_request_status, '.t-booking-request-status'
+    element :submit_booking_request, '.t-submit-booking-request'
+    element :submit_appointment, '.t-submit-appointment'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'

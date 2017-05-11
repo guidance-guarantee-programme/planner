@@ -22,10 +22,6 @@
   </div>
 </div>
 
-<%= form_for @appointment_form,
-    url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
-    as: :appointment do |f|
-%>
 <div class="row">
   <div class="col-md-4">
     <h2 class="h3">Requested appointment</h2>
@@ -72,12 +68,20 @@
       </strong>
     </p>
     <hr>
-    <%= toggle_activation_link(@appointment_form.location_aware_booking_request) do |action| %>
-      <span aria-hidden="true" class="glyphicon glyphicon-eye-<%= action == 'hide' ? 'close' : 'open' %>"></span>
-      <%= action.capitalize %> this Booking Request
+    <%= form_for @appointment_form.location_aware_booking_request do |f| %>
+      <div class="form-group">
+        <%= f.select :status, BookingRequest.statuses.keys, {}, class: 'form-control filters__form-control t-booking-request-status' %>
+      </div>
+      <%= f.button class: 'btn btn-danger btn-block booking-request-status-btn t-submit-booking-request' do %>
+        Update Booking Request status
+      <% end %>
     <% end %>
   </div>
 
+  <%= form_for @appointment_form,
+      url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
+      as: :appointment do |f|
+  %>
   <div class="col-md-8 l-appointment-details">
     <div class="well">
       <% if @appointment_form.errors.any? %>
@@ -172,10 +176,10 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
+      <%= f.button class: 'btn btn-primary btn-block t-submit-appointment' do %>
         Make appointment and notify <%= @appointment_form.name %>
       <% end %>
     </div>
   </div>
+  <% end %>
 </div>
-<% end %>

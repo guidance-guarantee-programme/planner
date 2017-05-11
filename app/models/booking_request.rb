@@ -38,10 +38,6 @@ class BookingRequest < ActiveRecord::Base
     super().to_s.gsub(/(?!\A).(?!\Z)/, '*')
   end
 
-  def toggle_activation!
-    active? ? hidden! : active!
-  end
-
   def primary_slot
     slots.first
   end

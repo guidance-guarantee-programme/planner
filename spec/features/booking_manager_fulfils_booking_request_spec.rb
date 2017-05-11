@@ -141,7 +141,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def then_the_appointment_is_created
-    expect { @page.submit.click }.to change { Appointment.count }.by(1)
+    expect { @page.submit_appointment.click }.to change { Appointment.count }.by(1)
 
     expect(Appointment.first).to have_attributes(
       name: 'Mortimer Sanchez',
@@ -164,7 +164,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def when_they_submit_the_invalid_appointment
-    @page.submit.click
+    @page.submit_appointment.click
   end
   alias_method :and_they_submit_the_invalid_appointment, :when_they_submit_the_invalid_appointment
 
@@ -174,7 +174,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def when_they_choose_to_deactivate_the_booking_request
-    @page.toggle_activation.click
+    @page.booking_request_status.select 'hidden'
+    @page.submit_booking_request.click
   end
 
   def then_the_booking_request_is_no_longer_active
@@ -188,7 +189,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
     @page.booking_requests.first.fulfil.click
 
     @page = Pages::FulfilBookingRequest.new
-    @page.toggle_activation.click
+    @page.booking_request_status.select 'active'
+    @page.submit_booking_request.click
   end
 
   def then_the_booking_request_is_now_active
