@@ -7,8 +7,12 @@ class BookingRequestsController < ApplicationController
   end
 
   def update
-    booking_request.update_attributes!(booking_request_params)
-    ActivationActivity.from(booking_request, current_user)
+    booking_request.attributes = booking_request_params
+
+    if booking_request.changed?
+      booking_request.save!
+      ActivationActivity.from(booking_request, current_user, params[:status_message])
+    end
 
     redirect_to booking_requests_path
   end

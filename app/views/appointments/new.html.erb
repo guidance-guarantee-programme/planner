@@ -23,6 +23,10 @@
                 </div>
               <% end %>
             </div>
+            <div class="form-group">
+              <%= label_tag :status_message, 'Reason for change' %>
+              <%= text_area_tag :status_message, nil, class: 'form-control', placeholder: 'Please provide some context for future reference' %>
+            </div>
             <%= f.button class: 'btn btn-primary btn-block t-submit-booking-request' do %>
               Update booking request status
             <% end %>
