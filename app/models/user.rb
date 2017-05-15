@@ -21,12 +21,10 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where(disabled: false) }
 
-  def unfulfilled_booking_requests(hidden: false)
-    scope = booking_requests
-            .includes(:appointment)
-            .where(appointments: { booking_request_id: nil })
-
-    hidden ? scope.hidden : scope.active
+  def unfulfilled_booking_requests
+    booking_requests
+      .includes(:appointment)
+      .where(appointments: { booking_request_id: nil })
   end
 
   def administrator?

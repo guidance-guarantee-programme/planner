@@ -12,12 +12,19 @@
   <div class="col-md-12">
     <nav aria-label="Active/hidden bookings" class="booking-request-tabs">
       <ul class="nav nav-tabs">
-        <li role="presentation" <% unless show_hidden_booking_requests? %>class="active"<% end %>><%= link_to 'Active requests', booking_requests_path(hidden: false), class: 't-hide-hidden-bookings' %></li>
-        <li role="presentation" <% if show_hidden_booking_requests? %>class="active"<% end %>><%= link_to 'Hidden requests', booking_requests_path(hidden: true), class: 't-show-hidden-bookings' %></li>
+        <% BookingRequest.statuses.keys.each do |status| %>
+          <li role="presentation" class="<%= 'active' if state == status %>"><%= link_to "#{status.humanize}", booking_requests_path(state: status), class: "t-show-#{status.dasherize}-bookings" %></li>
+        <% end %>
       </ul>
     </nav>
     <% if @booking_requests.page.empty? %>
-      <p class="no-content t-notice">No <% if show_hidden_booking_requests? %>hidden<% else %>active<% end %> booking requests.</p>
+      <p class="no-content t-notice">
+        <% if state == 'awaiting_customer_feedback' %>
+          No booking requests <%= state.humanize.downcase %>
+        <% else %>
+          No <%= state.humanize.downcase %> booking requests
+        <% end %>
+      </p>
     <% else %>
       <%= paginate @booking_requests.entities %>
       <table class="table table-bordered">

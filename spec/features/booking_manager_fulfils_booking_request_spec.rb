@@ -13,15 +13,17 @@ RSpec.feature 'Fulfiling Booking Requests' do
     end
   end
 
-  scenario 'Bookings Manager deactivates and activates a Booking Request', js: true do
+  scenario 'Bookings Manager changes the state of a Booking Request', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
       when_the_booking_manager_attempts_to_fulfil
       then_they_are_shown_the_fulfilment_page
-      when_they_choose_to_deactivate_the_booking_request
+      when_they_choose_to_hide_the_booking_request
       then_the_booking_request_is_no_longer_active
       when_they_choose_to_activate_the_booking_request
       then_the_booking_request_is_now_active
+      when_they_choose_to_mark_the_booking_awaiting_customer_feedback
+      then_the_booking_request_is_now_awaiting_customer_feedback
       and_the_booking_request_has_associated_activation_activities
     end
   end
@@ -173,7 +175,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page).to have_errors
   end
 
-  def when_they_choose_to_deactivate_the_booking_request
+  def when_they_choose_to_hide_the_booking_request
     @page.change_booking_state.click
     @page.booking_request_hidden_status.click
     @page.submit_booking_request.click
@@ -183,10 +185,12 @@ RSpec.feature 'Fulfiling Booking Requests' do
     @page = Pages::BookingRequests.new
     expect(@page).to be_displayed
     expect(@page).to_not have_booking_requests
+
+    @page.show_hidden_bookings.click
+    expect(@page).to have_booking_requests
   end
 
   def when_they_choose_to_activate_the_booking_request
-    @page.show_hidden_bookings.click
     @page.booking_requests.first.fulfil.click
 
     @page = Pages::FulfilBookingRequest.new
@@ -201,9 +205,29 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page).to have_booking_requests
   end
 
+  def when_they_choose_to_mark_the_booking_awaiting_customer_feedback
+    @page.booking_requests.first.fulfil.click
+
+    @page = Pages::FulfilBookingRequest.new
+    @page.change_booking_state.click
+    @page.wait_until_booking_request_awaiting_customer_status_visible
+    @page.booking_request_awaiting_customer_status.click
+    @page.submit_booking_request.click
+  end
+
+  def then_the_booking_request_is_now_awaiting_customer_feedback
+    @page = Pages::BookingRequests.new
+    expect(@page).to be_displayed
+    expect(@page).to_not have_booking_requests
+
+    @page.show_awaiting_customer_bookings.click
+    expect(@page).to have_booking_requests
+  end
+
   def and_the_booking_request_has_associated_activation_activities
-    expect(@booking_request.activities.count).to eq(2)
+    expect(@booking_request.activities.count).to eq(3)
     expect(@booking_request.activities[0]).to be_a(ActivationActivity)
     expect(@booking_request.activities[1]).to be_a(ActivationActivity)
+    expect(@booking_request.activities[2]).to be_a(ActivationActivity)
   end
 end

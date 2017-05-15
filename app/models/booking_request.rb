@@ -3,6 +3,7 @@ class BookingRequest < ActiveRecord::Base
 
   enum status: %i(
     active
+    awaiting_customer_feedback
     hidden
   )
 

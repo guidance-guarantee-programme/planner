@@ -14,7 +14,7 @@
               <% BookingRequest.statuses.keys.each do |status| %>
                 <div class="radio">
                   <label>
-                    <%= f.radio_button :status, status, class: "t-booking-request-status" %>
+                    <%= f.radio_button :status, status, class: "t-booking-request-#{status.dasherize}-status" %>
                     <%= t("booking_request.status_descriptions.#{status}") %>
                     <% if status == f.object.status %>
                       <strong>(current status)</strong>

@@ -19,18 +19,25 @@ class BookingRequestsController < ApplicationController
     params.require(:booking_request).permit(:status)
   end
 
-  def show_hidden_booking_requests?
-    params.fetch(:hidden, 'false') == 'true'
-  end
-  helper_method :show_hidden_booking_requests?
-
   def booking_request
     @booking_request ||= current_user.booking_requests.find(params[:id])
   end
 
+  def state
+    possible_states = BookingRequest.statuses.keys
+
+    if !params[:state] || possible_states.exclude?(params[:state])
+      possible_states.first
+    else
+      params[:state]
+    end
+  end
+  helper_method :state
+
   def unfulfilled_booking_requests
     current_user
-      .unfulfilled_booking_requests(hidden: show_hidden_booking_requests?)
+      .unfulfilled_booking_requests
+      .send(state)
       .page(params[:page])
   end
 end

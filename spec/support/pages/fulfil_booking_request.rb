@@ -37,6 +37,7 @@ module Pages
     element :change_booking_state, '.t-booking-request-change-state-button'
 
     element :booking_request_active_status, '.t-booking-request-active-status'
+    element :booking_request_awaiting_customer_status, '.t-booking-request-awaiting-customer-feedback-status'
     element :booking_request_hidden_status, '.t-booking-request-hidden-status'
     element :submit_booking_request, '.t-submit-booking-request'
     element :submit_appointment, '.t-submit-appointment'

@@ -30,4 +30,5 @@ en:
   booking_request:
     status_descriptions:
       active: Active - booking request ready to be fulfilled
+      awaiting_customer_feedback: Awaiting customer feedback - attempted to contact customer
       hidden: Hidden - no longer needed

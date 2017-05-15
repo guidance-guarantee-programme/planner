@@ -8,7 +8,8 @@ module Pages
     end
 
     element :show_hidden_bookings, '.t-show-hidden-bookings'
-    element :hide_hidden_bookings, '.t-hide-hidden-bookings'
+    element :show_awaiting_customer_bookings, '.t-show-awaiting-customer-feedback-bookings'
+    element :show_active_bookings, '.t-show-active-bookings'
 
     element :location, '.t-location'
   end
