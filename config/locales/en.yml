@@ -26,3 +26,8 @@ en:
       is_false: "Not requested"
   service:
     title: '%{page_title} - Appointment Planner'
+
+  booking_request:
+    status_descriptions:
+      active: Active - booking request ready to be fulfilled
+      hidden: Hidden - no longer needed

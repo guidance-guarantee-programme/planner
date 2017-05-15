@@ -34,7 +34,10 @@ module Pages
     element :time_hour,   '#appointment_time_4i'
     element :time_minute, '#appointment_time_5i'
 
-    element :booking_request_status, '.t-booking-request-status'
+    element :change_booking_state, '.t-booking-request-change-state-button'
+
+    element :booking_request_active_status, '.t-booking-request-active-status'
+    element :booking_request_hidden_status, '.t-booking-request-hidden-status'
     element :submit_booking_request, '.t-submit-booking-request'
     element :submit_appointment, '.t-submit-appointment'
 

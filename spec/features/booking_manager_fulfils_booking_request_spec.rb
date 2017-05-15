@@ -13,7 +13,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     end
   end
 
-  scenario 'Bookings Manager deactivates and activates a Booking Request' do
+  scenario 'Bookings Manager deactivates and activates a Booking Request', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
       when_the_booking_manager_attempts_to_fulfil
@@ -174,7 +174,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def when_they_choose_to_deactivate_the_booking_request
-    @page.booking_request_status.select 'hidden'
+    @page.change_booking_state.click
+    @page.booking_request_hidden_status.click
     @page.submit_booking_request.click
   end
 
@@ -189,7 +190,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
     @page.booking_requests.first.fulfil.click
 
     @page = Pages::FulfilBookingRequest.new
-    @page.booking_request_status.select 'active'
+    @page.change_booking_state.click
+    @page.booking_request_active_status.click
     @page.submit_booking_request.click
   end
 
