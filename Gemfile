@@ -15,14 +15,16 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'faraday_middleware'
   gem 'foreman'
   gem 'gds-sso'
-  gem 'govuk_admin_template'
+  gem 'govuk_admin_template',
+      github: 'guidance-guarantee-programme/govuk_admin_template',
+      branch: 'rails-deprecations'
   gem 'kaminari'
   gem 'momentjs-rails'
   gem 'newrelic_rpm'
   gem 'pg'
   gem 'plek'
   gem 'puma'
-  gem 'rails', '5.0.2'
+  gem 'rails', '5.1.1'
   gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
   gem 'sassc-rails'
   gem 'sidekiq'
@@ -40,7 +42,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   end
 
   group :development do
-    gem 'rubocop', require: false
+    gem 'rubocop', '~> 0.47.1', require: false
   end
 
   group :test do

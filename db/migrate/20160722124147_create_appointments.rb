@@ -1,4 +1,4 @@
-class CreateAppointments < ActiveRecord::Migration
+class CreateAppointments < ActiveRecord::Migration[4.2]
   def change
     create_table :appointments do |t|
       t.belongs_to :booking_request, null: false, index: true
