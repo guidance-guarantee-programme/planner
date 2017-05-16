@@ -15,98 +15,98 @@ ActiveRecord::Schema.define(version: 20170301180007) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", force: :cascade do |t|
-    t.string   "message",            null: false
-    t.integer  "user_id"
-    t.integer  "booking_request_id", null: false
-    t.string   "type",               null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["booking_request_id", "type"], name: "index_activities_on_booking_request_id_and_type", using: :btree
+  create_table "activities", id: :serial, force: :cascade do |t|
+    t.string "message", null: false
+    t.integer "user_id"
+    t.integer "booking_request_id", null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_request_id", "type"], name: "index_activities_on_booking_request_id_and_type"
   end
 
-  create_table "appointments", force: :cascade do |t|
-    t.integer  "booking_request_id",                                 null: false
-    t.string   "name",                                               null: false
-    t.string   "email",                                              null: false
-    t.string   "phone",                                              null: false
-    t.integer  "guider_id",                                          null: false
-    t.string   "location_id",                                        null: false
-    t.datetime "proceeded_at",                                       null: false
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.integer  "status",                             default: 0,     null: false
-    t.integer  "fulfilment_time_seconds",            default: 0,     null: false
-    t.integer  "fulfilment_window_seconds",          default: 0,     null: false
-    t.string   "memorable_word",                     default: "",    null: false
-    t.date     "date_of_birth"
-    t.boolean  "defined_contribution_pot_confirmed", default: true,  null: false
-    t.boolean  "accessibility_requirements",         default: false, null: false
-    t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id", using: :btree
-    t.index ["location_id"], name: "index_appointments_on_location_id", using: :btree
+  create_table "appointments", id: :serial, force: :cascade do |t|
+    t.integer "booking_request_id", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "phone", null: false
+    t.integer "guider_id", null: false
+    t.string "location_id", null: false
+    t.datetime "proceeded_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "fulfilment_time_seconds", default: 0, null: false
+    t.integer "fulfilment_window_seconds", default: 0, null: false
+    t.string "memorable_word", default: "", null: false
+    t.date "date_of_birth"
+    t.boolean "defined_contribution_pot_confirmed", default: true, null: false
+    t.boolean "accessibility_requirements", default: false, null: false
+    t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id"
+    t.index ["location_id"], name: "index_appointments_on_location_id"
   end
 
-  create_table "audits", force: :cascade do |t|
-    t.integer  "auditable_id"
-    t.string   "auditable_type"
-    t.integer  "associated_id"
-    t.string   "associated_type"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "username"
-    t.string   "action"
-    t.text     "audited_changes"
-    t.integer  "version",         default: 0
-    t.string   "comment"
-    t.string   "remote_address"
-    t.string   "request_uuid"
+  create_table "audits", id: :serial, force: :cascade do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.text "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
     t.datetime "created_at"
-    t.index ["associated_id", "associated_type"], name: "associated_index", using: :btree
-    t.index ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
-    t.index ["created_at"], name: "index_audits_on_created_at", using: :btree
-    t.index ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
-    t.index ["user_id", "user_type"], name: "user_index", using: :btree
+    t.index ["associated_id", "associated_type"], name: "associated_index"
+    t.index ["auditable_id", "auditable_type"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid"
+    t.index ["user_id", "user_type"], name: "user_index"
   end
 
-  create_table "booking_requests", force: :cascade do |t|
-    t.string   "location_id",                                       null: false
-    t.string   "name",                                              null: false
-    t.string   "email",                                             null: false
-    t.string   "phone",                                             null: false
-    t.string   "memorable_word",                                    null: false
-    t.string   "age_range",                                         null: false
-    t.boolean  "accessibility_requirements",                        null: false
-    t.boolean  "marketing_opt_in",                                  null: false
-    t.boolean  "defined_contribution_pot_confirmed",                null: false
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
-    t.string   "booking_location_id",                               null: false
-    t.boolean  "active",                             default: true, null: false
-    t.date     "date_of_birth"
+  create_table "booking_requests", id: :serial, force: :cascade do |t|
+    t.string "location_id", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "phone", null: false
+    t.string "memorable_word", null: false
+    t.string "age_range", null: false
+    t.boolean "accessibility_requirements", null: false
+    t.boolean "marketing_opt_in", null: false
+    t.boolean "defined_contribution_pot_confirmed", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "booking_location_id", null: false
+    t.boolean "active", default: true, null: false
+    t.date "date_of_birth"
   end
 
-  create_table "slots", force: :cascade do |t|
-    t.integer  "booking_request_id"
-    t.date     "date",               null: false
-    t.string   "from",               null: false
-    t.string   "to",                 null: false
-    t.integer  "priority",           null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["booking_request_id"], name: "index_slots_on_booking_request_id", using: :btree
+  create_table "slots", id: :serial, force: :cascade do |t|
+    t.integer "booking_request_id"
+    t.date "date", null: false
+    t.string "from", null: false
+    t.string "to", null: false
+    t.integer "priority", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_request_id"], name: "index_slots_on_booking_request_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "uid"
-    t.string   "organisation_slug"
-    t.string   "organisation_content_id"
-    t.string   "permissions"
-    t.boolean  "remotely_signed_out",     default: false
-    t.boolean  "disabled",                default: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "uid"
+    t.string "organisation_slug"
+    t.string "organisation_content_id"
+    t.string "permissions"
+    t.boolean "remotely_signed_out", default: false
+    t.boolean "disabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "slots", "booking_requests"

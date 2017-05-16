@@ -1,4 +1,4 @@
-class CreateSlots < ActiveRecord::Migration
+class CreateSlots < ActiveRecord::Migration[4.2]
   def change
     create_table :slots do |t|
       t.belongs_to :booking_request, foreign_key: true, index: true

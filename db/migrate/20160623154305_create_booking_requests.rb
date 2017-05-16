@@ -1,4 +1,4 @@
-class CreateBookingRequests < ActiveRecord::Migration
+class CreateBookingRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :booking_requests do |t|
       t.string :location_id, null: false

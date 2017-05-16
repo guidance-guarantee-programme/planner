@@ -1,4 +1,4 @@
-class AddFulfilmentStatisticsToAppointments < ActiveRecord::Migration
+class AddFulfilmentStatisticsToAppointments < ActiveRecord::Migration[4.2]
   def up
     add_column :appointments, :fulfilment_time_seconds, :integer, default: 0, null: false
     add_column :appointments, :fulfilment_window_seconds, :integer, default: 0, null: false
