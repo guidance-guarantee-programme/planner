@@ -1,0 +1,102 @@
+{
+  "name": "planner",
+  "scripts": {
+  },
+  "env": {
+    "APPLICATION_HOST": {
+      "required": true
+    },
+    "BOOKING_LOCATIONS_API_BEARER_TOKEN": {
+      "required": true
+    },
+    "BOOKING_LOCATIONS_API_OPEN_TIMEOUT": {
+      "required": true
+    },
+    "BOOKING_LOCATIONS_API_READ_TIMEOUT": {
+      "required": true
+    },
+    "BOOKING_LOCATIONS_API_URI": {
+      "required": true
+    },
+    "BUGSNAG_API_KEY": {
+      "required": true
+    },
+    "BUGSNAG_RELEASE_STAGE": {
+      "required": true
+    },
+    "HEROKU_POSTGRESQL_CYAN_URL": {
+      "required": true
+    },
+    "HEROKU_POSTGRESQL_YELLOW_URL": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "MAILGUN_SMTP_LOGIN": {
+      "required": true
+    },
+    "MAILGUN_SMTP_PASSWORD": {
+      "required": true
+    },
+    "MAILGUN_SMTP_PORT": {
+      "required": true
+    },
+    "MAILGUN_SMTP_SERVER": {
+      "required": true
+    },
+    "NEW_RELIC_LICENSE_KEY": {
+      "required": true
+    },
+    "OAUTH_ID": {
+      "required": true
+    },
+    "OAUTH_ROOT_URL": {
+      "required": true
+    },
+    "OAUTH_SECRET": {
+      "required": true
+    },
+    "PLEK_SERVICE_SIGNON_URI": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "REDIS_URL": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    },
+    "SIDEKIQ_WEB_PASSWORD": {
+      "required": true
+    },
+    "SIDEKIQ_WEB_USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "logentries",
+    "heroku-postgresql",
+    "heroku-postgresql",
+    "heroku-redis",
+    "scheduler"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
