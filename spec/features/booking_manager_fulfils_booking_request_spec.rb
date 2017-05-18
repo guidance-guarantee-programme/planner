@@ -183,10 +183,11 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def then_the_booking_request_is_no_longer_active
     @page = Pages::BookingRequests.new
-    expect(@page).to be_displayed
-    expect(@page).to_not have_booking_requests
+    @page.load
+    expect(@page).to have_no_booking_requests
 
-    @page.show_hidden_bookings.click
+    @page.search.status.select('Hidden')
+    @page.search.submit.click
     expect(@page).to have_booking_requests
   end
 
@@ -201,7 +202,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
   def then_the_booking_request_is_now_active
     @page = Pages::BookingRequests.new
-    expect(@page).to be_displayed
+    @page.load
     expect(@page).to have_booking_requests
   end
 
@@ -210,17 +211,17 @@ RSpec.feature 'Fulfiling Booking Requests' do
 
     @page = Pages::FulfilBookingRequest.new
     @page.change_booking_state.click
-    @page.wait_until_booking_request_awaiting_customer_status_visible
     @page.booking_request_awaiting_customer_status.click
     @page.submit_booking_request.click
   end
 
   def then_the_booking_request_is_now_awaiting_customer_feedback
     @page = Pages::BookingRequests.new
-    expect(@page).to be_displayed
-    expect(@page).to_not have_booking_requests
+    @page.load
+    expect(@page).to have_no_booking_requests
 
-    @page.show_awaiting_customer_bookings.click
+    @page.search.status.select('Awaiting Customer Feedback')
+    @page.search.submit.click
     expect(@page).to have_booking_requests
   end
 

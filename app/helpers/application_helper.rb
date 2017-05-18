@@ -18,4 +18,8 @@ module ApplicationHelper
       [location.name, location.id]
     end.sort_by(&:first)
   end
+
+  def location_options(booking_location)
+    FlattenedLocationMapper.map(booking_location).sort_by(&:first)
+  end
 end

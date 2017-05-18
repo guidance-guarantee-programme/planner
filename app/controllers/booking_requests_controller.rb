@@ -1,7 +1,9 @@
 class BookingRequestsController < ApplicationController
   def index
+    @search = BookingRequestsSearchForm.new(search_params)
+
     @booking_requests = LocationAwareEntities.new(
-      unfulfilled_booking_requests,
+      @search.results.page(params[:page]),
       booking_location
     )
   end
@@ -14,10 +16,24 @@ class BookingRequestsController < ApplicationController
       ActivationActivity.from(booking_request, current_user, params[:status_message])
     end
 
-    redirect_to booking_requests_path
+    redirect_to new_booking_request_appointment_path(booking_request)
   end
 
   private
+
+  def search_params # rubocop:disable Metrics/MethodLength
+    params
+      .fetch(:search, {})
+      .permit(
+        :reference,
+        :name,
+        :status,
+        :location
+      ).merge(
+        current_user: current_user,
+        page: params[:page]
+      )
+  end
 
   def booking_request_params
     params.require(:booking_request).permit(:status)
@@ -25,23 +41,5 @@ class BookingRequestsController < ApplicationController
 
   def booking_request
     @booking_request ||= current_user.booking_requests.find(params[:id])
-  end
-
-  def state
-    possible_states = BookingRequest.statuses.keys
-
-    if !params[:state] || possible_states.exclude?(params[:state])
-      possible_states.first
-    else
-      params[:state]
-    end
-  end
-  helper_method :state
-
-  def unfulfilled_booking_requests
-    current_user
-      .unfulfilled_booking_requests
-      .send(state)
-      .page(params[:page])
   end
 end
