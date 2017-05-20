@@ -31,6 +31,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'uglifier', '>= 1.3.0'
 
   group :development, :test do
+    gem 'bootsnap'
     gem 'capybara'
     gem 'factory_girl_rails'
     gem 'phantomjs-binaries'
