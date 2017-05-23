@@ -23,10 +23,11 @@
           </li>
           <li class="filters__item">
             <%= f.label :status, class: 'filters__label' %>
-            <%= f.select :status, friendly_options(BookingRequest.statuses), { include_blank: 'All statuses' }, { class: 't-status form-control filters__form-control' } %>
+            <%= f.select :status, friendly_options(BookingRequest.statuses), { include_blank: 'All Statuses' }, { class: 't-status form-control filters__form-control' } %>
           </li>
           <li class="filters__item">
-            <%= f.label :location, class: 'filters__label' %><%= f.select :location, location_options(booking_location), { include_blank: 'All Locations' }, { class: 't-search-location form-control filters__form-control' } %>
+            <%= f.label :location, class: 'filters__label' %>
+            <%= f.select :location, location_options(booking_location), { include_blank: 'All Locations' }, { class: 't-search-location form-control filters__form-control' } %>
           </li>
           <li class="filters__item">
            <%= f.button class: 't-submit btn btn-default filters__button' do %>
