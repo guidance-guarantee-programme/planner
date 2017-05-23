@@ -29,10 +29,10 @@
             <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= @booking_location.name %>
           </td>
           <td class="t-summary">
-            <%= render 'schedule_summary' %>
+            <%= render 'schedule_summary', location: @booking_location %>
           </td>
           <td>
-            <%= link_to 'Modify', new_schedule_path(location_id: @booking_location.id), class: 'btn btn-info' %>
+            <%= link_to 'Modify', new_schedule_path(location_id: @booking_location.id), class: 'btn btn-info t-manage' %>
           </td>
         </tr>
         <% @booking_location.locations.each do |location| %>
@@ -41,10 +41,10 @@
               <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= location.name %>
             </td>
             <td class="t-summary">
-              <%= render 'schedule_summary' %>
+              <%= render 'schedule_summary', location: location %>
             </td>
             <td>
-              <%= link_to 'Modify', new_schedule_path(location_id: location.id), class: 'btn btn-info' %>
+              <%= link_to 'Modify', new_schedule_path(location_id: location.id), class: 'btn btn-info t-manage' %>
             </td>
           </tr>
         <% end %>

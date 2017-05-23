@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :appointments, only: %i(new create)
   end
 
-  resources :schedules, only: %i(index new)
+  resources :schedules, only: %i(index new create)
 
   root 'booking_requests#index'
 

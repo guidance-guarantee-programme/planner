@@ -1,0 +1,97 @@
+.weekly-schedule {
+  width: 100%;
+
+  @media (min-width: 600px) {
+    display: flex;
+  }
+
+  & + & {
+    border-top: 0;
+  }
+}
+
+.weekly-schedule__day {
+  @media (min-width: 600px) {
+    flex-basis: 20%;
+    border-right: 1px solid $color-white;
+  }
+}
+
+.weekly-schedule__day-name {
+  @media (min-width: 600px) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+}
+
+.weekly-schedule__day-label {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  background: $color-silver;
+
+  @media (min-width: 600px) {
+    flex-basis: 20%;
+    border-right: 1px solid $color-white;
+  }
+}
+
+.weekly-schedule--day-labels {
+  display: none;
+
+  @media (min-width: 600px) {
+    display: flex;
+  }
+}
+
+.weekly-schedule__label {
+  border-bottom: 1px solid $color-white;
+  color: $color-white;
+  display: block;
+  font-size: 100%;
+  margin: 0;
+  padding: 30px;
+  text-align: center;
+  transition: background .2s;
+  width: 100%;
+
+  @media (min-width: 600px) {
+    font-size: 150%;
+  }
+}
+
+.weekly-schedule__switch {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  display: inherit;
+  margin: 0 !important;
+
+  + .weekly-schedule__label {
+    background: $color-silver;
+    color: $color-black;
+    border: 4px solid transparent;
+
+    &:hover {
+      border: 4px solid darken($color-silver, 20%);
+    }
+  }
+
+  &:checked {
+    + .weekly-schedule__label {
+      background: $brand-success;
+      color: $color-white;
+      border: 4px solid transparent;
+
+      &:hover {
+        border: 4px solid darken($brand-success, 20%);
+      }
+    }
+  }
+}

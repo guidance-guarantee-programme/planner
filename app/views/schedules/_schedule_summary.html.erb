@@ -1,23 +1,22 @@
-<span class="sr-only">Mondays, Tuesdays AM, Wednesdays, Thursday AM, Fridays</span>
 <div class="schedule-summary" aria-hidden="true">
   <div class="schedule-summary__day">
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Monday AM"></div>
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Monday PM"></div>
+    <%= summary(:monday_am, location.schedule) %>
+    <%= summary(:monday_pm, location.schedule) %>
   </div>
   <div class="schedule-summary__day">
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Tuesday AM"></div>
-    <div class="schedule-summary__period" title="Closed Tuesday PM"></div>
+    <%= summary(:tuesday_am, location.schedule) %>
+    <%= summary(:tuesday_pm, location.schedule) %>
   </div>
   <div class="schedule-summary__day">
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Wednesday AM"></div>
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Wednesday PM"></div>
+    <%= summary(:wednesday_am, location.schedule) %>
+    <%= summary(:wednesday_pm, location.schedule) %>
   </div>
   <div class="schedule-summary__day">
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Thursday AM"></div>
-    <div class="schedule-summary__period" title="Closed Thursday PM"></div>
+    <%= summary(:thursday_am, location.schedule) %>
+    <%= summary(:thursday_pm, location.schedule) %>
   </div>
   <div class="schedule-summary__day">
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Friday AM"></div>
-    <div class="schedule-summary__period schedule-summary__period--on" title="Open Friday PM"></div>
+    <%= summary(:friday_am, location.schedule) %>
+    <%= summary(:friday_pm, location.schedule) %>
   </div>
 </div>

@@ -11,5 +11,9 @@ class BookingLocationDecorator < SimpleDelegator
     super.map { |l| BookingLocationDecorator.new(l) }
   end
 
+  def schedule
+    @schedule ||= Schedule.current(id)
+  end
+
   alias object __getobj__
 end
