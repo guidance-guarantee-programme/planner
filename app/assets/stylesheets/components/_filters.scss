@@ -11,11 +11,17 @@
 
 .filters__form-control {
   .form-inline & {
-    width: 220px;
+    width: 190px;
   }
 
   &[readonly] {
     background: $read-only-background;
+  }
+}
+
+.filters__form-control--status {
+  .form-inline & {
+    width: 220px;
   }
 }
 
