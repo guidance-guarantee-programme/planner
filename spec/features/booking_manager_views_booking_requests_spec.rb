@@ -18,21 +18,37 @@ RSpec.feature 'Viewing Booking Requests' do
       and_they_do_not_see_the_administrative_location_choices
       when_they_choose_to_show_hidden_booking_requests
       then_they_are_shown_hidden_booking_requests
-      when_they_choose_to_hide_hidden_booking_requests
+      when_they_choose_to_show_active_booking_requests
       then_they_are_shown_booking_requests_for_their_locations
     end
   end
 
+  scenario 'Searching Booking Requests' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_are_booking_requests_for_their_location
+      when_they_search_by_booking_reference
+      then_they_are_shown_the_booking_request_matching_the_reference
+      when_they_search_by_customer_name
+      then_they_are_shown_the_booking_requests_matching_the_customer_name
+      when_they_filter_by_status
+      then_they_are_shown_the_booking_request_matching_the_status
+      when_they_filter_by_location
+      then_they_are_shown_the_booking_request_matching_the_location
+    end
+  end
+
   def when_they_choose_to_show_hidden_booking_requests
-    @page.show_hidden_bookings.click
+    @page.search.status.select('Hidden')
+    @page.search.submit.click
   end
 
   def then_they_are_shown_hidden_booking_requests
     expect(@page).to have_booking_requests(count: 1)
   end
 
-  def when_they_choose_to_hide_hidden_booking_requests
-    @page.hide_hidden_bookings.click
+  def when_they_choose_to_show_active_booking_requests
+    @page.search.status.select('Active').click
+    @page.search.submit.click
   end
 
   def and_they_do_not_see_the_administrative_location_choices
@@ -43,11 +59,19 @@ RSpec.feature 'Viewing Booking Requests' do
     expect(@page.location).to be_visible
   end
 
-  def and_there_are_booking_requests_for_their_location
-    create_list(:hackney_booking_request, 11)
+  def and_there_are_booking_requests_for_their_location # rubocop:disable Metrics/MethodLength
+    @active_booking_requests = create_list(:hackney_booking_request, 8)
+    @active_booking_requests << create(:hackney_booking_request, name: 'Morty Smith')
+    @active_booking_requests << create(:hackney_booking_request, name: 'Jerry Smith')
+    @active_booking_requests << create(
+      :booking_request,
+      name: 'Dalston Dave',
+      booking_location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
+      location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7'
+    )
 
     # this won't be listed as it's not `active`
-    create(:hackney_booking_request, active: false)
+    create(:hackney_booking_request, name: 'Hidden Guy', status: :hidden)
 
     # this won't be listed as it's fulfilled
     create(:appointment)
@@ -62,5 +86,56 @@ RSpec.feature 'Viewing Booking Requests' do
     expect(@page).to be_displayed
     expect(@page).to have_booking_requests(count: 10)
     expect(@page.booking_requests.first).to have_content('Hackney')
+  end
+
+  def when_they_search_by_booking_reference
+    @page = Pages::BookingRequests.new.tap(&:load)
+    expect(@page).to have_booking_requests(count: 10)
+
+    @found_by_booking_reference = @active_booking_requests.first
+    @page.search.reference.set(@found_by_booking_reference.id)
+    @page.search.submit.click
+  end
+
+  def then_they_are_shown_the_booking_request_matching_the_reference
+    expect(@page).to have_booking_requests(count: 1)
+    expect(@page).to have_content(@found_by_booking_reference.name)
+  end
+
+  def when_they_search_by_customer_name
+    @page.load
+
+    @page.search.name.set('Smith')
+    @page.search.submit.click
+  end
+
+  def then_they_are_shown_the_booking_requests_matching_the_customer_name
+    expect(@page).to have_booking_requests(count: 2)
+    expect(@page).to have_content('Morty Smith')
+    expect(@page).to have_content('Jerry Smith')
+  end
+
+  def when_they_filter_by_status
+    @page.load
+
+    @page.search.status.select('Hidden')
+    @page.search.submit.click
+  end
+
+  def then_they_are_shown_the_booking_request_matching_the_status
+    expect(@page).to have_booking_requests(count: 1)
+    expect(@page).to have_content('Hidden Guy')
+  end
+
+  def when_they_filter_by_location
+    @page.load
+
+    @page.search.location.select('Dalston')
+    @page.search.submit.click
+  end
+
+  def then_they_are_shown_the_booking_request_matching_the_location
+    expect(@page).to have_booking_requests(count: 1)
+    expect(@page).to have_content('Dalston Dave')
   end
 end

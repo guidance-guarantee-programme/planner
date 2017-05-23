@@ -34,8 +34,13 @@ module Pages
     element :time_hour,   '#appointment_time_4i'
     element :time_minute, '#appointment_time_5i'
 
-    element :submit, '.t-submit'
-    element :toggle_activation, '.t-toggle-activation'
+    element :change_booking_state, '.t-booking-request-change-state-button'
+
+    element :booking_request_active_status, '.t-booking-request-active-status'
+    element :booking_request_awaiting_customer_status, '.t-booking-request-awaiting-customer-feedback-status'
+    element :booking_request_hidden_status, '.t-booking-request-hidden-status'
+    element :submit_booking_request, '.t-submit-booking-request'
+    element :submit_appointment, '.t-submit-appointment'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'

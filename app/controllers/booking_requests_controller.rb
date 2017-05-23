@@ -1,32 +1,45 @@
 class BookingRequestsController < ApplicationController
   def index
+    @search = BookingRequestsSearchForm.new(search_params)
+
     @booking_requests = LocationAwareEntities.new(
-      unfulfilled_booking_requests,
+      @search.results.page(params[:page]),
       booking_location
     )
   end
 
   def update
-    booking_request.toggle_activation!
-    ActivationActivity.from(booking_request, current_user)
+    booking_request.attributes = booking_request_params
 
-    redirect_to booking_requests_path
+    if booking_request.changed?
+      booking_request.save!
+      ActivationActivity.from(booking_request, current_user, params[:status_message])
+    end
+
+    redirect_to new_booking_request_appointment_path(booking_request)
   end
 
   private
 
-  def show_hidden_booking_requests?
-    params.fetch(:hidden, 'false') == 'true'
+  def search_params # rubocop:disable Metrics/MethodLength
+    params
+      .fetch(:search, {})
+      .permit(
+        :reference,
+        :name,
+        :status,
+        :location
+      ).merge(
+        current_user: current_user,
+        page: params[:page]
+      )
   end
-  helper_method :show_hidden_booking_requests?
+
+  def booking_request_params
+    params.require(:booking_request).permit(:status)
+  end
 
   def booking_request
     @booking_request ||= current_user.booking_requests.find(params[:id])
-  end
-
-  def unfulfilled_booking_requests
-    current_user
-      .unfulfilled_booking_requests(hidden: show_hidden_booking_requests?)
-      .page(params[:page])
   end
 end

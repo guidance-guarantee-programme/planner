@@ -1,181 +1,215 @@
 <% content_for(:page_title, t('service.title', page_title: "Make appointment for #{@appointment_form.name}")) %>
-<div class="page-header">
-  <ol class="breadcrumb">
-    <li><a href="<%= root_path %>">Appointment planner</a></li>
-    <li><a href="<%= root_path %>">Booking requests</a></li>
-    <li class="active"><%= @appointment_form.name %></li>
-  </ol>
-  <h1>
-    Make appointment for <%= @appointment_form.name %><br>
-    <small>Booking reference: <span class="t-reference"><%= @appointment_form.reference %></span></small>
-  </h1>
-</div>
 
-<%= render partial: 'activities/activity_feed', locals: {
-  activities: @activities,
-  booking_request: @appointment_form.location_aware_booking_request
-} %>
-
-<div class="row">
-  <div class="col-md-12">
-    <p class="lead">If the customer’s appointment choices are unavailable, contact them to arrange a new time and date. Return to this page to book the appointment.</p>
-  </div>
-</div>
-
-<%= form_for @appointment_form,
-    url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
-    as: :appointment do |f|
-%>
-<div class="row">
-  <div class="col-md-4">
-    <h2 class="h3">Requested appointment</h2>
-    <p>The customer has requested the following time slots, in order of preference.</p>
-
-    <div class="SlotPicker-choices is-chosen SlotPicker--selected">
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>1</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
-          </div>
+<div data-module="booking-request-state">
+  <div class="modal <%= 'fade' unless Rails.env.test? %> js-booking-request-state-modal" tabindex="-1" role="dialog" aria-labelledby="status-message">
+    <div class="modal-dialog" role="document">
+      <%= form_for @appointment_form.location_aware_booking_request do |f| %>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 id="status-message" class="modal-title">Change the status from <%= f.object.status.humanize %></h4>
         </div>
-      </div>
-
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>2</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>3</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <h3 class="h4">Requested location:</h3>
-    <p class="lead">
-      <strong>
-        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_aware_booking_request.location_id %>" class="t-location-name">
-          <%= guard_missing_location(@appointment_form.location_aware_booking_request, :location_name) %>
-        </a>
-      </strong>
-    </p>
-    <hr>
-    <%= toggle_activation_link(@appointment_form.location_aware_booking_request) do |action| %>
-      <span aria-hidden="true" class="glyphicon glyphicon-eye-<%= action == 'hide' ? 'close' : 'open' %>"></span>
-      <%= action.capitalize %> this Booking Request
-    <% end %>
-  </div>
-
-  <div class="col-md-8 l-appointment-details">
-    <div class="well">
-      <% if @appointment_form.errors.any? %>
-        <div class="alert alert-danger t-errors" role="alert">
-          <h3 class="alert__heading h4">There's a problem</h3>
-          <ul>
-            <% @appointment_form.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
+        <div class="modal-body">
+          <div class="form-group">
+            <% BookingRequest.statuses.keys.each do |status| %>
+              <div class="radio">
+                <label>
+                  <%= f.radio_button :status, status, class: "t-booking-request-#{status.dasherize}-status" %>
+                  <%= t("booking_request.status_descriptions.#{status}") %> - <span class="text-muted"><%= t("booking_request.status_descriptions.#{status}_extra_info") %></span>
+                </label>
+              </div>
             <% end %>
-          </ul>
+          </div>
+          <div class="form-group">
+            <%= label_tag :status_message, 'Reason for change' %>
+            <%= text_area_tag :status_message, nil, class: 'form-control', placeholder: 'Please provide some context for future reference' %>
+          </div>
+          <%= f.button class: 'btn btn-primary btn-block t-submit-booking-request' do %>
+            Update booking request status
+          <% end %>
         </div>
+      </div>
       <% end %>
-
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="h3">Customer details</h2>
-          <div class="form-group">
-            <%= f.label :name %>
-            <%= f.text_field :name, class: 'form-control t-name' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :email %>
-            <%= f.text_field :email, class: 'form-control t-email' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :phone %>
-            <%= f.text_field :phone, class: 'form-control t-phone' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :memorable_word %>
-            <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
-          </div>
-          <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
-          <div class="form-group">
-            <p>Defined contribution pot confirmed?</p>
-            <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
-                <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
-                Yes
-            <% end %>
-
-            <%= f.label :defined_contribution_pot_confirmed, value: false, class: 'radio-inline' do %>
-              <%= f.radio_button :defined_contribution_pot_confirmed, false, class: 't-defined-contribution-pot-confirmed-dont-know' %>
-              Don’t know
-            <% end %>
-          </div>
-          <div class="form-group">
-            <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
-              <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
-            <% end %>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <h2 class="h3">Appointment details</h2>
-
-          <div class="form-group">
-            <%= f.label :guider_id %>
-            <%= f.select(
-              :guider_id,
-              guider_options(@appointment_form.booking_location),
-              { include_blank: true },
-              { class: 'form-control t-guider' }
-            ) %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :location_id %>
-            <%= f.select(
-              :location_id,
-              location_options(@appointment_form.booking_location),
-              options = {},
-              { class: 'form-control t-location' }
-            ) %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :date %>
-            <%= f.text_field :date, class: 'js-date-time-picker t-date form-control', value: @appointment_form.date.to_date.to_s(:govuk_date) %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :time %>
-            <div class="form-control">
-              <%= f.time_select(
-                :time,
-                ignore_date: true,
-                minute_step: 15
-              ) %>
-            </div>
-          </div>
-      </div>
     </div>
   </div>
+
+  <div class="page-header">
+    <ol class="breadcrumb">
+      <li><a href="<%= root_path %>">Appointment planner</a></li>
+      <li><a href="<%= root_path %>">Booking requests</a></li>
+      <li class="active"><%= @appointment_form.name %></li>
+    </ol>
+    <h1>
+      Make appointment for <%= @appointment_form.name %><br>
+      <small>Booking reference: <span class="t-reference"><%= @appointment_form.reference %></span></small>
+    </h1>
+  </div>
+
+  <%= render partial: 'activities/activity_feed', locals: {
+    activities: @activities,
+    booking_request: @appointment_form.location_aware_booking_request
+  } %>
+
   <div class="row">
     <div class="col-md-12">
-      <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
-        Make appointment and notify <%= @appointment_form.name %>
-      <% end %>
+      <p class="lead">If the customer’s appointment choices are unavailable, contact them to arrange a new time and date. Return to this page to book the appointment.</p>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h2 class="h3">Requested appointment</h2>
+      <p>The customer has requested the following time slots, in order of preference.</p>
+
+      <div class="SlotPicker-choices is-chosen SlotPicker--selected">
+        <div class="SlotPicker-choice is-chosen">
+          <div class="SlotPicker-choiceInner">
+            <div class="SlotPicker-position"><span>1</span></div>
+            <div class="SlotPicker-choiceContent">
+              <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
+              <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="SlotPicker-choice is-chosen">
+          <div class="SlotPicker-choiceInner">
+            <div class="SlotPicker-position"><span>2</span></div>
+            <div class="SlotPicker-choiceContent">
+              <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
+              <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="SlotPicker-choice is-chosen">
+          <div class="SlotPicker-choiceInner">
+            <div class="SlotPicker-position"><span>3</span></div>
+            <div class="SlotPicker-choiceContent">
+              <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
+              <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="h4">Requested location:</h3>
+      <p class="lead">
+        <strong>
+          <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_aware_booking_request.location_id %>" class="t-location-name">
+            <%= guard_missing_location(@appointment_form.location_aware_booking_request, :location_name) %>
+          </a>
+        </strong>
+      </p>
+      <hr>
+      <button type="button" class="btn btn-default btn-block booking-request-status-btn js-booking-request-change-status-button t-booking-request-change-state-button">
+        Change booking request status
+      </button>
+    </div>
+
+    <%= form_for @appointment_form,
+        url: booking_request_appointments_path(@appointment_form.location_aware_booking_request),
+        as: :appointment do |f|
+    %>
+    <div class="col-md-8 l-appointment-details">
+      <div class="well">
+        <% if @appointment_form.errors.any? %>
+          <div class="alert alert-danger t-errors" role="alert">
+            <h3 class="alert__heading h4">There's a problem</h3>
+            <ul>
+              <% @appointment_form.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="h3">Customer details</h2>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control t-name' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.text_field :email, class: 'form-control t-email' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, class: 'form-control t-phone' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :memorable_word %>
+              <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
+            </div>
+            <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
+            <div class="form-group">
+              <p>Defined contribution pot confirmed?</p>
+              <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
+                  <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
+                  Yes
+              <% end %>
+
+              <%= f.label :defined_contribution_pot_confirmed, value: false, class: 'radio-inline' do %>
+                <%= f.radio_button :defined_contribution_pot_confirmed, false, class: 't-defined-contribution-pot-confirmed-dont-know' %>
+                Don’t know
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
+                <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h2 class="h3">Appointment details</h2>
+
+            <div class="form-group">
+              <%= f.label :guider_id %>
+              <%= f.select(
+                :guider_id,
+                guider_options(@appointment_form.booking_location),
+                { include_blank: true },
+                { class: 'form-control t-guider' }
+              ) %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :location_id %>
+              <%= f.select(
+                :location_id,
+                location_options(@appointment_form.booking_location),
+                options = {},
+                { class: 'form-control t-location' }
+              ) %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :date %>
+              <%= f.text_field :date, class: 'js-date-time-picker t-date form-control', value: @appointment_form.date.to_date.to_s(:govuk_date) %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :time %>
+              <div class="form-control">
+                <%= f.time_select(
+                  :time,
+                  ignore_date: true,
+                  minute_step: 15
+                ) %>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.button class: 'btn btn-primary btn-block t-submit-appointment' do %>
+          Make appointment and notify <%= @appointment_form.name %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
 </div>
-<% end %>

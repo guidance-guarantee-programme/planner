@@ -26,3 +26,12 @@ en:
       is_false: "Not requested"
   service:
     title: '%{page_title} - Appointment Planner'
+
+  booking_request:
+    status_descriptions:
+      active: Active
+      active_extra_info: booking request ready to be fulfilled
+      awaiting_customer_feedback: Awaiting customer feedback
+      awaiting_customer_feedback_extra_info: attempted to contact customer
+      hidden: Hidden
+      hidden_extra_info: no longer needed

@@ -1,6 +1,12 @@
 class BookingRequest < ActiveRecord::Base
   PERMITTED_AGE_RANGES = %w(50-54 55-plus).freeze
 
+  enum status: %i(
+    active
+    awaiting_customer_feedback
+    hidden
+  )
+
   has_one :appointment
 
   has_many :slots, -> { order(:priority) }, dependent: :destroy
@@ -23,9 +29,6 @@ class BookingRequest < ActiveRecord::Base
 
   alias reference to_param
 
-  scope :active, -> { where(active: true) }
-  scope :inactive, -> { where(active: false) }
-
   def self.latest(email)
     where(email: email).order(:created_at).last
   end
@@ -34,10 +37,6 @@ class BookingRequest < ActiveRecord::Base
     return super() unless obscure
 
     super().to_s.gsub(/(?!\A).(?!\Z)/, '*')
-  end
-
-  def toggle_activation!
-    toggle!(:active) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def primary_slot

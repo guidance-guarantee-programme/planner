@@ -8,19 +8,46 @@
   <h1>Booking requests</h1>
 </div>
 
+<div class="t-search filters">
+  <div class="panel panel-default">
+    <header class="panel-heading">
+      <%= form_for @search, url: booking_requests_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
+        <ul class="nav nav-compact nav-pills filters__nav">
+          <li class="filters__item">
+            <%= f.label :reference, class: 'filters__label' %>
+            <%= f.text_field :reference, class: 't-reference form-control filters__form-control', placeholder: 'Reference' %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :name, class: 'filters__label' %>
+            <%= f.text_field :name, class: 't-name form-control filters__form-control', placeholder: 'Name' %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :status, class: 'filters__label' %>
+            <%= f.select :status, friendly_options(BookingRequest.statuses), { include_blank: 'All statuses' }, { class: 't-status form-control filters__form-control' } %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :location, class: 'filters__label' %><%= f.select :location, location_options(booking_location), { include_blank: 'All Locations' }, { class: 't-search-location form-control filters__form-control' } %>
+          </li>
+          <li class="filters__item">
+           <%= f.button class: 't-submit btn btn-default filters__button' do %>
+             <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
+           <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </header>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
-    <nav aria-label="Active/hidden bookings" class="booking-request-tabs">
-      <ul class="nav nav-tabs">
-        <li role="presentation" <% unless show_hidden_booking_requests? %>class="active"<% end %>><%= link_to 'Active requests', booking_requests_path(hidden: false), class: 't-hide-hidden-bookings' %></li>
-        <li role="presentation" <% if show_hidden_booking_requests? %>class="active"<% end %>><%= link_to 'Hidden requests', booking_requests_path(hidden: true), class: 't-show-hidden-bookings' %></li>
-      </ul>
-    </nav>
     <% if @booking_requests.page.empty? %>
-      <p class="no-content t-notice">No <% if show_hidden_booking_requests? %>hidden<% else %>active<% end %> booking requests.</p>
+      <p class="no-content t-notice">No booking requests.</p>
     <% else %>
       <%= paginate @booking_requests.entities %>
+
       <table class="table table-bordered">
+        <caption><span class="sr-only">Booking Requests</span></caption>
         <thead>
           <tr class="table-header">
             <th>Requested</th>
@@ -28,6 +55,7 @@
             <th>Location</th>
             <th>Slots</th>
             <th>Reference</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
@@ -50,6 +78,9 @@
               </td>
               <td>
                 <%= booking_request.reference %>
+              </td>
+              <td>
+                <%= booking_request.status.humanize %>
               </td>
               <td>
                 <%= link_to('Fulfil', new_booking_request_appointment_path(booking_request), class: 'btn btn-info t-fulfil') %>
