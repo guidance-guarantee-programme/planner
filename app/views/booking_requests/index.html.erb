@@ -23,7 +23,7 @@
           </li>
           <li class="filters__item">
             <%= f.label :status, class: 'filters__label' %>
-            <%= f.select :status, friendly_options(BookingRequest.statuses), { include_blank: 'All Statuses' }, { class: 't-status form-control filters__form-control' } %>
+            <%= f.select :status, friendly_options(BookingRequest.statuses), { include_blank: 'All Statuses' }, { class: 't-status form-control filters__form-control filters__form-control--status' } %>
           </li>
           <li class="filters__item">
             <%= f.label :location, class: 'filters__label' %>
