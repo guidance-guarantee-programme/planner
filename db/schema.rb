@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522140310) do
+ActiveRecord::Schema.define(version: 20170525135108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,16 @@ ActiveRecord::Schema.define(version: 20170522140310) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "bookable_slots", force: :cascade do |t|
+    t.bigint "schedule_id", null: false
+    t.date "date", null: false
+    t.string "start", null: false
+    t.string "end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_bookable_slots_on_schedule_id"
   end
 
   create_table "booking_requests", id: :serial, force: :cascade do |t|
@@ -126,5 +136,6 @@ ActiveRecord::Schema.define(version: 20170522140310) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookable_slots", "schedules"
   add_foreign_key "slots", "booking_requests"
 end

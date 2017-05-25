@@ -1,12 +1,20 @@
 class DefaultBookableSlots
-  Instance = Struct.new(:date, :start, :end)
+  Instance = Struct.new(:date, :start, :end) do
+    def label
+      "#{date.to_date.strftime('%A').downcase}_#{period}"
+    end
+
+    def period
+      start == '0900' ? 'am' : 'pm'
+    end
+  end
 
   attr_reader :from
   attr_reader :to
 
-  def initialize(from = Date.current, to = from.advance(weeks: 6))
+  def initialize(from: Date.current, to: from.advance(weeks: 6))
     @from = from
-    @to = to
+    @to   = to
   end
 
   def call

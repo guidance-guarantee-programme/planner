@@ -1,4 +1,10 @@
 class Schedule < ActiveRecord::Base
+  has_many :bookable_slots
+
+  def generate_bookable_slots!
+    BookableSlotGenerator.new(self).call
+  end
+
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)
