@@ -5,7 +5,7 @@ class DefaultBookableSlots
     end
 
     def period
-      start == '0900' ? 'am' : 'pm'
+      BookableSlot::AM.period(start)
     end
   end
 
@@ -20,8 +20,8 @@ class DefaultBookableSlots
   def call
     available_days.map do |date|
       [
-        Instance.new(date.iso8601, '0900', '1300'),
-        Instance.new(date.iso8601, '1300', '1700')
+        Instance.new(date.iso8601, *BookableSlot::AM.pair),
+        Instance.new(date.iso8601, *BookableSlot::PM.pair)
       ]
     end.flatten
   end

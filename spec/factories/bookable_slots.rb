@@ -4,13 +4,13 @@ FactoryGirl.define do
     date { Time.zone.now }
 
     trait :am do
-      start '0900'
-      add_attribute(:end, '1300')
+      start BookableSlot::AM.start
+      add_attribute(:end, BookableSlot::PM.end)
     end
 
     trait :pm do
-      start '1300'
-      add_attribute(:end, '1700')
+      start BookableSlot::PM.start
+      add_attribute(:end, BookableSlot::PM.end)
     end
   end
 end

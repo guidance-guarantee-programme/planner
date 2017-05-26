@@ -1,12 +1,15 @@
 class BookableSlot < ActiveRecord::Base
+  AM = Period.new('0900', '1300')
+  PM = Period.new('1300', '1700')
+
   belongs_to :schedule
 
   def am?
-    start == '0900'
+    AM.am?(start)
   end
 
   def pm?
-    !am?
+    PM.pm?(start)
   end
 
   def self.for_deletion(schedule_ids)
