@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     trait :am do
       start BookableSlot::AM.start
-      add_attribute(:end, BookableSlot::PM.end)
+      add_attribute(:end, BookableSlot::AM.end)
     end
 
     trait :pm do

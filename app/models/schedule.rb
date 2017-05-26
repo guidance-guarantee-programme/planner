@@ -1,8 +1,14 @@
 class Schedule < ActiveRecord::Base
-  has_many :bookable_slots
+  has_many :bookable_slots, -> { order(:date) }
+
+  alias default? new_record?
 
   def generate_bookable_slots!
     BookableSlotGenerator.new(self).call
+  end
+
+  def bookable_slots_in_window
+    bookable_slots.windowed
   end
 
   def self.current(location_id)

@@ -37,10 +37,6 @@ class DefaultBookableSlots
   end
 
   def grace_period_end
-    if from.monday? || from.tuesday?
-      from.advance(days: 3)
-    else
-      from.next_week(GRACE_PERIODS[from.wday])
-    end
+    GracePeriod.new(from).call
   end
 end

@@ -5,6 +5,7 @@ source 'https://rails-assets.org' do
 end
 
 source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
+  gem 'active_model_serializers'
   gem 'audited'
   gem 'booking_locations'
   gem 'bootstrap-kaminari-views'

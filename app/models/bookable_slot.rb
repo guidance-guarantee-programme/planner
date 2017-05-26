@@ -12,6 +12,10 @@ class BookableSlot < ActiveRecord::Base
     PM.pm?(start)
   end
 
+  def self.windowed
+    where(date: GracePeriod.new.call..6.weeks.from_now)
+  end
+
   def self.for_deletion(schedule_ids)
     where(schedule_id: schedule_ids)
       .where(arel_table[:date].gteq(Time.zone.now))
