@@ -1,4 +1,17 @@
 class Schedule < ActiveRecord::Base
+  SLOT_ATTRIBUTES = %i(
+    monday_am
+    monday_pm
+    tuesday_am
+    tuesday_pm
+    wednesday_am
+    wednesday_pm
+    thursday_am
+    thursday_pm
+    friday_am
+    friday_pm
+  ).freeze
+
   has_many :bookable_slots, -> { order(:date) }
 
   alias default? new_record?
@@ -15,12 +28,5 @@ class Schedule < ActiveRecord::Base
     where(location_id: location_id)
       .order(created_at: :desc)
       .first_or_initialize(location_id: location_id)
-  end
-
-  def self.slot_attributes
-    columns_hash
-      .keys
-      .select { |k| /_[a|p]m\z/ === k } # rubocop:disable Style/CaseEquality
-      .map(&:to_sym)
   end
 end

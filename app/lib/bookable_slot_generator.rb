@@ -24,7 +24,7 @@ class BookableSlotGenerator
 
   def scheduled_slots
     @scheduled_slots ||= schedule.attributes.slice(
-      *Schedule.slot_attributes.map(&:to_s)
+      *Schedule::SLOT_ATTRIBUTES.map(&:to_s)
     ).select { |_, v| v }
   end
 

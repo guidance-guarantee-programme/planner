@@ -21,7 +21,7 @@ class SchedulesController < ApplicationController
     params
       .require(:schedule)
       .permit(
-        *Schedule.slot_attributes,
+        *Schedule::SLOT_ATTRIBUTES,
         :location_id
       )
   end
