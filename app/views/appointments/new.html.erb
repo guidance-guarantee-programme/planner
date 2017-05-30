@@ -138,29 +138,16 @@
             <div class="form-group">
               <%= f.label :phone %>
               <%= f.text_field :phone, class: 'form-control t-phone' %>
+
+              <%= f.label :accessibility_requirements, class: 'checkbox-inline checkbox-inline--accessibility' do %>
+                <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
+              <% end %>
             </div>
             <div class="form-group">
               <%= f.label :memorable_word %>
               <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
             </div>
             <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
-            <div class="form-group">
-              <p>Defined contribution pot confirmed?</p>
-              <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
-                  <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
-                  Yes
-              <% end %>
-
-              <%= f.label :defined_contribution_pot_confirmed, value: false, class: 'radio-inline' do %>
-                <%= f.radio_button :defined_contribution_pot_confirmed, false, class: 't-defined-contribution-pot-confirmed-dont-know' %>
-                Don’t know
-              <% end %>
-            </div>
-            <div class="form-group">
-              <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
-                <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
-              <% end %>
-            </div>
           </div>
           <div class="col-md-6">
             <h2 class="h3">Appointment details</h2>
@@ -190,7 +177,7 @@
               <%= f.text_field :date, class: 'js-date-time-picker t-date form-control', value: @appointment_form.date.to_date.to_s(:govuk_date) %>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-group--time">
               <%= f.label :time %>
               <div class="form-control">
                 <%= f.time_select(
@@ -199,6 +186,19 @@
                   minute_step: 15
                 ) %>
               </div>
+            </div>
+
+            <div class="form-group">
+              <p><b>Defined contribution pot confirmed?</b></p>
+              <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
+                  <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
+                  Yes
+              <% end %>
+
+              <%= f.label :defined_contribution_pot_confirmed, value: false, class: 'radio-inline' do %>
+                <%= f.radio_button :defined_contribution_pot_confirmed, false, class: 't-defined-contribution-pot-confirmed-dont-know' %>
+                Don’t know
+              <% end %>
             </div>
         </div>
       </div>

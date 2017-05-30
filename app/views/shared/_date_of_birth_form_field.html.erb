@@ -5,6 +5,7 @@
 %>
 
 <div class="form-dob clearfix" data-module="customer-age" data-output-id="customer-age">
+  <p><b>Date of birth</b></p>
   <%= field_with_errors_wrapper(form, :date_of_birth, 'form-dob__inputs-container') do %>
     <label for="<%= form_element_day_id %>">
       <span class="sr-only">Date of birth</span> <%= required_label(:day) %>
