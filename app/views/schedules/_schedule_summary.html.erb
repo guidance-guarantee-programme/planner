@@ -1,0 +1,24 @@
+<% cache location.schedule do %>
+<div class="schedule-summary" aria-hidden="true">
+  <div class="schedule-summary__day">
+    <%= summary(:monday_am, location.schedule) %>
+    <%= summary(:monday_pm, location.schedule) %>
+  </div>
+  <div class="schedule-summary__day">
+    <%= summary(:tuesday_am, location.schedule) %>
+    <%= summary(:tuesday_pm, location.schedule) %>
+  </div>
+  <div class="schedule-summary__day">
+    <%= summary(:wednesday_am, location.schedule) %>
+    <%= summary(:wednesday_pm, location.schedule) %>
+  </div>
+  <div class="schedule-summary__day">
+    <%= summary(:thursday_am, location.schedule) %>
+    <%= summary(:thursday_pm, location.schedule) %>
+  </div>
+  <div class="schedule-summary__day">
+    <%= summary(:friday_am, location.schedule) %>
+    <%= summary(:friday_pm, location.schedule) %>
+  </div>
+</div>
+<% end %>

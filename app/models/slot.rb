@@ -11,7 +11,7 @@ class Slot < ActiveRecord::Base
   validate :validate_from_before_to
 
   def morning?
-    from < '1300'
+    BookableSlot::AM.am?(from)
   end
 
   def to_s

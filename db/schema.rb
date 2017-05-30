@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518162225) do
+ActiveRecord::Schema.define(version: 20170525135108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 20170518162225) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
+  create_table "bookable_slots", force: :cascade do |t|
+    t.bigint "schedule_id", null: false
+    t.date "date", null: false
+    t.string "start", null: false
+    t.string "end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_bookable_slots_on_schedule_id"
+  end
+
   create_table "booking_requests", id: :serial, force: :cascade do |t|
     t.string "location_id", null: false
     t.string "name", null: false
@@ -83,6 +93,23 @@ ActiveRecord::Schema.define(version: 20170518162225) do
     t.string "booking_location_id", null: false
     t.date "date_of_birth"
     t.integer "status", default: 0, null: false
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.string "location_id", null: false
+    t.boolean "monday_am", default: true, null: false
+    t.boolean "monday_pm", default: true, null: false
+    t.boolean "tuesday_am", default: true, null: false
+    t.boolean "tuesday_pm", default: true, null: false
+    t.boolean "wednesday_am", default: true, null: false
+    t.boolean "wednesday_pm", default: true, null: false
+    t.boolean "thursday_am", default: true, null: false
+    t.boolean "thursday_pm", default: true, null: false
+    t.boolean "friday_am", default: true, null: false
+    t.boolean "friday_pm", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_schedules_on_location_id"
   end
 
   create_table "slots", id: :serial, force: :cascade do |t|
@@ -109,5 +136,6 @@ ActiveRecord::Schema.define(version: 20170518162225) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bookable_slots", "schedules"
   add_foreign_key "slots", "booking_requests"
 end

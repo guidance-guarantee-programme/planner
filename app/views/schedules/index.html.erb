@@ -1,0 +1,54 @@
+<% content_for(:page_title, t('service.title', page_title: 'Schedules')) %>
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li class="active">Schedules</li>
+  </ol>
+
+  <h1>Schedules</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="centered-table table table-bordered table-striped">
+      <colgroup>
+        <col width="75%" />
+        <col width="20%" />
+        <col width="5%" />
+      </colgroup>
+      <thead>
+        <tr class="table-header">
+          <th>Location</th>
+          <th>Schedule</th>
+          <th><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="t-schedule">
+          <td class="t-location">
+            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= @booking_location.name %>
+          </td>
+          <td class="t-summary">
+            <%= render 'schedule_summary', location: @booking_location %>
+          </td>
+          <td>
+            <%= link_to 'Modify', new_schedule_path(location_id: @booking_location.id), class: 'btn btn-info t-manage' %>
+          </td>
+        </tr>
+        <% @booking_location.locations.each do |location| %>
+          <tr class="t-schedule">
+            <td class="t-location">
+              <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= location.name %>
+            </td>
+            <td class="t-summary">
+              <%= render 'schedule_summary', location: location %>
+            </td>
+            <td>
+              <%= link_to 'Modify', new_schedule_path(location_id: location.id), class: 'btn btn-info t-manage' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+@mixin striped($foreground, $background) {
+  // scss-lint:disable DuplicateProperty
+  background: $foreground; // IE9 fallback
+  background: $background repeating-linear-gradient(
+    -45deg,
+    $foreground,
+    $foreground 1px,
+    $background 1px,
+    $background 6px
+  );
+  // scss-lint:enable DuplicateProperty
+}

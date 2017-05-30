@@ -1,0 +1,20 @@
+.schedule-summary {
+  width: 100%;
+  display: flex;
+}
+
+.schedule-summary__day {
+  flex-basis: 20%;
+  height: 20px;
+}
+
+.schedule-summary__period {
+  background: $color-silver;
+  border-right: 1px solid $color-white;
+  border-bottom: 1px solid $color-white;
+  height: 10px;
+}
+
+.schedule-summary__period--on {
+  background: $brand-success;
+}
