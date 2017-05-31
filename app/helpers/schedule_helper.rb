@@ -3,7 +3,8 @@ module ScheduleHelper
     open = schedule.public_send(period)
     day, slot = period.to_s.split('_')
 
-    content_tag(:div, '', class: classes(day, slot, open), title: title(day, slot, open))
+    content_tag(:div, '', class: classes(day, slot, open), title: title(day, slot, open)) +
+      content_tag(:span, title(day, slot, open), class: 'sr-only')
   end
 
   def classes(day, slot, open)
