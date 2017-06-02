@@ -11,7 +11,8 @@ RSpec.describe AppointmentMapper, '.map' do
       'date_of_birth' => '1950-01-01',
       'memorable_word' => 'spaceship',
       'accessibility_requirements' => '1',
-      'defined_contribution_pot_confirmed' => '1'
+      'defined_contribution_pot_confirmed' => '1',
+      'additional_info' => 'Additional Info'
     }
   end
   let(:appointment_form) do
@@ -35,7 +36,8 @@ RSpec.describe AppointmentMapper, '.map' do
       date_of_birth: appointment_form.date_of_birth,
       memorable_word: appointment_form.memorable_word,
       defined_contribution_pot_confirmed: appointment_form.defined_contribution_pot_confirmed,
-      accessibility_requirements: appointment_form.accessibility_requirements
+      accessibility_requirements: appointment_form.accessibility_requirements,
+      additional_info: appointment_form.additional_info
     )
   end
 end

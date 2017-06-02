@@ -106,6 +106,7 @@ class AppointmentsController < ApplicationController
         :date_of_birth,
         :guider_id,
         :location_id,
+        :additional_info,
         :proceeded_at,
         :status
       )
@@ -134,7 +135,8 @@ class AppointmentsController < ApplicationController
         :guider_id,
         :location_id,
         :date,
-        :time
+        :time,
+        :additional_info
       )
   end
 end

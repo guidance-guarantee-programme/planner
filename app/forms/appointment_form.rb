@@ -8,6 +8,7 @@ class AppointmentForm
     secondary_slot
     tertiary_slot
     booking_location
+    additional_info
   ).freeze
 
   validates :name, presence: true
@@ -36,6 +37,7 @@ class AppointmentForm
   attr_accessor :guider_id
   attr_accessor :location_id
   attr_accessor :date
+  attr_accessor :additional_info
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 
@@ -78,6 +80,10 @@ class AppointmentForm
     @time ||= location_aware_booking_request.primary_slot.delimited_from
 
     Time.zone.parse(@time)
+  end
+
+  def additional_info
+    @additional_info ||= location_aware_booking_request.additional_info
   end
 
   def defined_contribution_pot_confirmed

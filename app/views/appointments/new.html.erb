@@ -189,6 +189,11 @@
             </div>
 
             <div class="form-group">
+              <%= f.label :additional_info %>
+              <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 160, readonly: true %>
+            </div>
+
+            <div class="form-group">
               <p><b>Defined contribution pot confirmed?</b></p>
               <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
                 <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
