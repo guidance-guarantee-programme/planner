@@ -13,6 +13,7 @@ module Pages
     element :memorable_word, '.t-memorable-word'
     element :age_range, '.t-age-range'
     element :day_of_birth, '.t-date-of-birth-day'
+    element :additional_info, '.t-additional-info'
     element :month_of_birth, '.t-date-of-birth-month'
     element :year_of_birth, '.t-date-of-birth-year'
     element :accessibility_requirements, '.t-accessibility-requirements'

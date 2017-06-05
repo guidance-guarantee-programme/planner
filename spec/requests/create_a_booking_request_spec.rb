@@ -36,6 +36,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         'memorable_word' => 'science',
         'age_range' => '50-54',
         'date_of_birth' => '1950-01-01',
+        'additional_info' => 'Additional Info',
         'accessibility_requirements' => false,
         'marketing_opt_in' => true,
         'defined_contribution_pot_confirmed' => true,
@@ -77,6 +78,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       memorable_word: 'science',
       age_range: '50-54',
       date_of_birth: Date.parse('1950-01-01'),
+      additional_info: 'Additional Info',
       accessibility_requirements: false,
       marketing_opt_in: true,
       defined_contribution_pot_confirmed: true

@@ -110,7 +110,7 @@ RSpec.describe AppointmentForm do
     expect(subject.reference).to eq(booking_request.reference)
     expect(subject.memorable_word).to eq(booking_request.memorable_word)
     expect(subject.accessibility_requirements).to eq(booking_request.accessibility_requirements)
-
+    expect(subject.additional_info).to eq(booking_request.additional_info)
     expect(subject.primary_slot).to eq(booking_request.primary_slot)
     expect(subject.secondary_slot).to eq(booking_request.secondary_slot)
     expect(subject.tertiary_slot).to eq(booking_request.tertiary_slot)

@@ -136,6 +136,10 @@
               </div>
             </div>
             <div class="form-group">
+              <%= f.label :additional_info %>
+              <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 160, readonly: true %>
+            </div>
+            <div class="form-group">
               <div class="well appointment-status-well">
                 <%= f.label :status, 'Appointment status' %>
                 <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>

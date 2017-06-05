@@ -93,6 +93,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page.year_of_birth.value).to eq(@booking_request.date_of_birth.year.to_s)
     expect(@page.defined_contribution_pot_confirmed_yes).to be_checked
     expect(@page.accessibility_requirements.value).to eq('1')
+    expect(@page.additional_info.value).to eq('')
   end
 
   def and_they_see_the_requested_slots
