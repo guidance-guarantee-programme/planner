@@ -2,7 +2,6 @@
 class User < ActiveRecord::Base
   PENSION_WISE_API_PERMISSION = 'pension_wise_api_user'
   BOOKING_MANAGER_PERMISSION  = 'booking_manager'
-  SCHEDULE_MANAGER_PERMISSION = 'schedule_manager'
   ADMINISTRATOR_PERMISSION    = 'administrator'
 
   include GDS::SSO::User
@@ -30,9 +29,5 @@ class User < ActiveRecord::Base
 
   def administrator?
     has_permission?(ADMINISTRATOR_PERMISSION)
-  end
-
-  def schedule_manager?
-    has_permission?(SCHEDULE_MANAGER_PERMISSION)
   end
 end
