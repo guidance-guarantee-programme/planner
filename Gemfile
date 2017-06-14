@@ -20,6 +20,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'kaminari'
   gem 'momentjs-rails'
   gem 'newrelic_rpm'
+  gem 'oj'
   gem 'pg'
   gem 'plek'
   gem 'puma'
