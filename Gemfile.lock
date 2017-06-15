@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/rails/rails-observers.git
+  remote: https://github.com/rails/rails-observers.git
   revision: 206cb17bc14f4f5ac6f83da4204013a69549b9dc
   branch: master
   specs:

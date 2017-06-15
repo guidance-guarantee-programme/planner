@@ -1,5 +1,8 @@
 ruby IO.read('.ruby-version').strip
 
+# force Bundler to use SSL
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-daterangepicker'
 end
