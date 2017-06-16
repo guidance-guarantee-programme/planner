@@ -19,6 +19,18 @@ RSpec.describe Appointment do
     expect(described_class.new.created_at).to be_present
   end
 
+  describe '#timezone' do
+    it 'returns "GMT" when the appointment is in winter time' do
+      appointment = described_class.new(proceeded_at: Time.zone.parse('1 January 2017 12:00'))
+      expect(appointment.timezone).to eq 'GMT'
+    end
+
+    it 'returns "BST" when the appointment is in summer time' do
+      appointment = described_class.new(proceeded_at: Time.zone.parse('1 June 2017 12:00'))
+      expect(appointment.timezone).to eq 'BST'
+    end
+  end
+
   describe '#fulfilment_time_seconds' do
     subject { build(:appointment) }
 

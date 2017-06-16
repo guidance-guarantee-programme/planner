@@ -10,7 +10,7 @@
   Time:
   <br>
   <strong class="emphasize">
-    <%= @appointment.proceeded_at.to_s(:govuk_time) %>
+    <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
   </strong>
 <% end %>
 
