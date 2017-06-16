@@ -20,13 +20,28 @@ class Schedule < ActiveRecord::Base
     BookableSlotGenerator.new(self).call
   end
 
-  def bookable_slots_in_window
-    bookable_slots.windowed
+  def create_bookable_slots(date:, am:, pm:)
+    create_bookable_slot(date: date, period: BookableSlot::AM) if am
+    create_bookable_slot(date: date, period: BookableSlot::PM) if pm
+  end
+
+  def bookable_slots_in_window(starting: GracePeriod.new.call, ending: 6.weeks.from_now)
+    bookable_slots.windowed(starting..ending)
   end
 
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)
       .first_or_initialize(location_id: location_id)
+  end
+
+  private
+
+  def create_bookable_slot(date:, period:)
+    bookable_slots.create!(
+      date: date,
+      start: period.start,
+      end: period.end
+    )
   end
 end

@@ -9,11 +9,11 @@ class BookableSlot < ActiveRecord::Base
   end
 
   def pm?
-    PM.pm?(start)
+    PM.pm?(self.end)
   end
 
-  def self.windowed
-    where(date: GracePeriod.new.call..6.weeks.from_now)
+  def self.windowed(date_range)
+    where(date: date_range)
   end
 
   def self.for_deletion(schedule_ids)

@@ -12,7 +12,7 @@
 
 .weekly-schedule__day {
   @media (min-width: 600px) {
-    flex-basis: 20%;
+    flex-basis: 100%;
     border-right: 1px solid $color-white;
   }
 }

@@ -1,0 +1,34 @@
+<% content_for(:page_title, t('service.title', page_title: 'Availability')) %>
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><%= link_to 'Schedules', schedules_path %></li>
+    <li class="active">Availability for <%= @location.name %></li>
+  </ol>
+
+  <h1>Availability for <%= @location.name %></h1>
+
+  <div class="availability-calendar-key" aria-hidden="true">
+    <span class="availability-calendar-key__item availability-calendar-key__item--on"></span> Available
+    <span class="availability-calendar-key__item availability-calendar-key__item--off"></span> Unavailable
+  </div>
+</div>
+
+<div
+  id="AvailabilityCalendar"
+  class="js-calendar availability-calendar t-calendar"
+  data-module="availability-calendar"
+  data-default-date="<%= Time.zone.now.iso8601 %>"
+  data-slots-uri="<%= bookable_slots_path(location_id: @location.id) %>"
+  data-edit-slots-uri="<%= edit_schedule_bookable_slots_path(@schedule) %>">
+  <div
+    class="modal <%= 'fade' unless Rails.env.test? %> js-availability-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="availability">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+</div>

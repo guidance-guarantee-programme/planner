@@ -1,0 +1,117 @@
+@mixin bank-holiday-bg {
+  @include striped(#999, $color-silver);
+}
+
+.availability-calendar {
+  .fc-time-grid .fc-event-container {
+    margin: 0;
+  }
+
+  .fc-event {
+    border-radius: 0;
+    display: flex;
+    box-shadow: 0 0 0 1px $color-white;
+  }
+
+  .fc-content {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+    font-size: 180%;
+    font-weight: bold;
+  }
+
+  .fc-month-view {
+    .fc-content {
+      font-size: 120%;
+      font-weight: normal;
+      padding: 5px;
+    }
+  }
+
+  .fc-day-number {
+    font-weight: bold;
+  }
+
+  .fc-event .fc-bg {
+    opacity: 0;
+  }
+
+  .fc-row .fc-content-skeleton td {
+    padding: 5px;
+  }
+
+  .fc-bank-holiday {
+    @include bank-holiday-bg;
+  }
+
+  .fc-time-grid .fc-slats td {
+    height: 147px;
+  }
+}
+
+.availability-calendar__event {
+  background: $color-silver;
+  color: $color-black;
+  border: 0;
+  cursor: pointer;
+  border: 4px solid transparent;
+  transition: background .2s;
+
+  &:hover {
+    border-color: darken($color-silver, 20%);
+    color: $color-black;
+    z-index: 5;
+  }
+
+  .fc-month-view & {
+    border-width: 2px;
+  }
+}
+
+.availability-calendar__event--on {
+  background: $brand-success;
+  color: $color-white;
+
+  &:hover {
+    border-color: darken($brand-success, 20%);
+    color: $color-white;
+  }
+}
+
+.appointment-calendar__appointment-count {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  .fc-month-view & {
+    bottom: 20%;
+    left: 5px;
+  }
+}
+
+.availability-calendar-key__item {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  border: 1px solid $color-black;
+  margin: 0 0 0 10px;
+  vertical-align: middle;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+}
+
+.availability-calendar-key__item--bank-holiday {
+  @include bank-holiday-bg;
+}
+
+.availability-calendar-key__item--on {
+  background: $brand-success;
+}
+
+.availability-calendar-key__item--off {
+  background: $color-silver;
+}
