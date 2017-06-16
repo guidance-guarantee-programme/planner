@@ -44,6 +44,10 @@ class Appointment < ActiveRecord::Base
     super || Time.zone.now
   end
 
+  def timezone
+    proceeded_at.in_time_zone('London').utc_offset.zero? ? 'GMT' : 'BST'
+  end
+
   def self.needing_reminder
     pending
       .where(proceeded_at: Time.zone.now..48.hours.from_now)
