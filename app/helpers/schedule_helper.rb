@@ -16,4 +16,14 @@ module ScheduleHelper
   def title(day, slot, open)
     "#{open ? 'Open' : 'Closed'} #{day.humanize} #{slot.upcase}"
   end
+
+  def availability_button(location_id)
+    return unless Schedule.exists?(location_id: location_id)
+
+    link_to(
+      'Availability',
+      bookable_slots_path(location_id: location_id),
+      class: 'btn btn-info t-availability'
+    )
+  end
 end
