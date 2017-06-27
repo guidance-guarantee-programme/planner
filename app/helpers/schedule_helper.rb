@@ -21,9 +21,12 @@ module ScheduleHelper
     return unless Schedule.exists?(location_id: location_id)
 
     link_to(
-      'Availability',
       bookable_slots_path(location_id: location_id),
+      title: 'Modify availability',
       class: 'btn btn-info t-availability'
-    )
+    ) do
+      content_tag(:span, '', class: 'glyphicon glyphicon-th', 'aria-hidden' => 'true') +
+        content_tag(:span, 'Modify availability', class: 'sr-only')
+    end
   end
 end
