@@ -12,7 +12,7 @@ class Schedule < ActiveRecord::Base
     friday_pm
   ).freeze
 
-  has_many :bookable_slots, -> { order(:date) }
+  has_many :bookable_slots, -> { order(:date, :start) }
 
   alias default? new_record?
 
