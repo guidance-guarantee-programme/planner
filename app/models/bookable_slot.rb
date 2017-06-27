@@ -4,6 +4,8 @@ class BookableSlot < ActiveRecord::Base
 
   belongs_to :schedule
 
+  audited associated_with: :schedule
+
   def am?
     AM.am?(start)
   end
