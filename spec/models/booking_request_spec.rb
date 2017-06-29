@@ -60,17 +60,9 @@ RSpec.describe BookingRequest do
       expect(build(:booking_request, defined_contribution_pot_confirmed: '')).to_not be_valid
     end
 
-    it 'requires 3 slots' do
+    it 'requires at least one slot' do
       build(:booking_request) do |booking|
         booking.slots.clear
-
-        expect(booking).to_not be_valid
-      end
-    end
-
-    it 'requires one slot of each permitted priority' do
-      build(:booking_request) do |booking|
-        booking.slots << build(:slot)
 
         expect(booking).to_not be_valid
       end
