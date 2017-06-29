@@ -1,4 +1,6 @@
 class SlackPingerJob < ActiveJob::Base
+  include ActionView::Helpers::TextHelper
+
   queue_as :default
 
   def perform(booking_request)
@@ -18,10 +20,12 @@ class SlackPingerJob < ActiveJob::Base
   end
 
   def payload(actual_location, slot_count)
+    slot_count = pluralize(slot_count, 'slot')
+
     {
       username: 'frank',
       channel: '#online-bookings',
-      text: ":rotating_light: #{actual_location} (#{slot_count} slots) :rotating_light:",
+      text: ":rotating_light: #{actual_location} (#{slot_count}) :rotating_light:",
       icon_emoji: ':frank:'
     }
   end
