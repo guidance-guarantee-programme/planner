@@ -59,8 +59,6 @@ class BookingRequest < ActiveRecord::Base
   private
 
   def validate_slots
-    unless slots.map(&:priority).sort == [1, 2, 3] # rubocop:disable Style/GuardClause
-      errors.add(:slots, 'you must provide a slot for each permitted priority (1, 2, 3)')
-    end
+    errors.add(:slots, 'you must provide at least one slot') if slots.empty?
   end
 end

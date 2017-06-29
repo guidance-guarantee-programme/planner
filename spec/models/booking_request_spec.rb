@@ -60,17 +60,9 @@ RSpec.describe BookingRequest do
       expect(build(:booking_request, defined_contribution_pot_confirmed: '')).to_not be_valid
     end
 
-    it 'requires 3 slots' do
+    it 'requires at least one slot' do
       build(:booking_request) do |booking|
         booking.slots.clear
-
-        expect(booking).to_not be_valid
-      end
-    end
-
-    it 'requires one slot of each permitted priority' do
-      build(:booking_request) do |booking|
-        booking.slots << build(:slot)
 
         expect(booking).to_not be_valid
       end
@@ -86,7 +78,7 @@ RSpec.describe BookingRequest do
   end
 
   describe '#slots' do
-    let(:request) { create(:booking_request) }
+    let(:request) { create(:booking_request, number_of_slots: 3) }
 
     it 'is returned in order of #priority' do
       expect(request.slots.pluck(:priority)).to eq([1, 2, 3])

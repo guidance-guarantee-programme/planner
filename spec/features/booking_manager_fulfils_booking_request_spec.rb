@@ -66,7 +66,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_there_is_an_unfulfilled_booking_request
-    @booking_request = create(:hackney_booking_request)
+    @booking_request = create(:hackney_booking_request, number_of_slots: 3)
   end
 
   def when_the_booking_manager_attempts_to_fulfil

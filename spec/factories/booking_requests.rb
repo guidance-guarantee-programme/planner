@@ -15,10 +15,12 @@ FactoryGirl.define do
     marketing_opt_in false
     defined_contribution_pot_confirmed true
 
-    after(:build) do |booking_request|
-      booking_request.slots << build(:slot, priority: 1)
-      booking_request.slots << build(:slot, priority: 2)
-      booking_request.slots << build(:slot, priority: 3)
+    transient { number_of_slots 1 }
+
+    after(:build) do |booking_request, evaluator|
+      (1..evaluator.number_of_slots).each do |slot_number|
+        booking_request.slots << build(:slot, priority: slot_number)
+      end
     end
 
     factory :hackney_booking_request do

@@ -86,7 +86,10 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def and_there_is_an_appointment
-    @appointment = create(:appointment)
+    @appointment = create(
+      :appointment,
+      booking_request: build(:hackney_booking_request, number_of_slots: 3)
+    )
   end
 
   def when_the_booking_manager_edits_the_appointment
