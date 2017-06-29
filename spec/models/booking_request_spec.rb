@@ -78,7 +78,7 @@ RSpec.describe BookingRequest do
   end
 
   describe '#slots' do
-    let(:request) { create(:booking_request) }
+    let(:request) { create(:booking_request, number_of_slots: 3) }
 
     it 'is returned in order of #priority' do
       expect(request.slots.pluck(:priority)).to eq([1, 2, 3])

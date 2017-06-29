@@ -73,9 +73,9 @@
                 <a href="https://www.pensionwise.gov.uk/locations/<%= booking_request.location_id %>"><%= guard_missing_location(booking_request, :location_name) %></a>
               </td>
               <td>
-                <%= booking_request.primary_slot %><br>
-                <%= booking_request.secondary_slot %><br>
-                <%= booking_request.tertiary_slot %>
+                <%= booking_request.primary_slot %>
+                <% if booking_request.secondary_slot %><br><%= booking_request.secondary_slot %><% end %>
+                <% if booking_request.tertiary_slot  %><br><%= booking_request.tertiary_slot %><% end %>
               </td>
               <td>
                 <%= booking_request.reference %>

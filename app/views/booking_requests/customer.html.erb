@@ -20,7 +20,7 @@
   <strong class="emphasize">
     <%= @booking_request.secondary_slot %>
   </strong>
-<% end %>
+<% end if @booking_request.secondary_slot %>
 
 <%= p do %>
   or
@@ -28,7 +28,7 @@
   <strong class="emphasize">
     <%= @booking_request.tertiary_slot %>
   </strong>
-<% end %>
+<% end if @booking_request.tertiary_slot %>
 
 <%= p do %>
   Appointment location:
