@@ -20,7 +20,8 @@ RSpec.feature 'Booking manager manages schedules' do
 
   def then_they_see_default_schedules_across_their_locations
     expect(@page).to be_loaded
-    expect(@page).to have_schedules(count: 6)
+    # Enfield is 'hidden' so will not be displayed
+    expect(@page).to have_schedules(count: 5)
     expect(@page.schedules.first.location.text).to eq('Hackney')
   end
 

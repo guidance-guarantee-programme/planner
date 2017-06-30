@@ -1,6 +1,7 @@
 class SchedulesController < ApplicationController
   def index
     @booking_location = booking_location
+    @child_locations  = booking_location.locations.reject(&:hidden?)
   end
 
   def new
