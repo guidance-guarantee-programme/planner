@@ -35,7 +35,7 @@
             <%= link_to 'Modify', new_schedule_path(location_id: @booking_location.id), class: 'btn btn-info t-manage' %>
           </td>
         </tr>
-        <% @booking_location.locations.each do |location| %>
+        <% @child_locations.each do |location| %>
           <tr class="t-schedule">
             <td class="t-location">
               <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= location.name %>
