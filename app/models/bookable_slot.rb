@@ -4,16 +4,18 @@ class BookableSlot < ActiveRecord::Base
 
   belongs_to :schedule
 
+  audited associated_with: :schedule
+
   def am?
     AM.am?(start)
   end
 
   def pm?
-    PM.pm?(start)
+    PM.pm?(self.end)
   end
 
-  def self.windowed
-    where(date: GracePeriod.new.call..6.weeks.from_now)
+  def self.windowed(date_range)
+    where(date: date_range)
   end
 
   def self.for_deletion(schedule_ids)

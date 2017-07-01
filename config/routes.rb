@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   namespace :mail_gun do
     resources :drops, only: :create
@@ -17,7 +18,18 @@ Rails.application.routes.draw do
     resources :appointments, only: %i(new create)
   end
 
-  resources :schedules, only: %i(index new create)
+  resources :schedules, only: %i(index new create) do
+    resources :bookable_slots, only: [] do
+      collection do
+        get 'edit'
+        put 'update'
+      end
+    end
+  end
+
+  scope '/locations/:location_id' do
+    resources :bookable_slots, only: :index
+  end
 
   root 'booking_requests#index'
 

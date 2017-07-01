@@ -5,6 +5,7 @@ module Pages
     sections :schedules, '.t-schedule' do
       element :location, '.t-location'
       element :manage, '.t-manage'
+      element :availability, '.t-availability'
 
       section :summary, '.t-summary' do
         %i(monday tuesday wednesday thursday friday).each do |day|

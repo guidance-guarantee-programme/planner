@@ -1,0 +1,25 @@
+<%= form_with method: :put, url: schedule_bookable_slots_path(@form.schedule, date: @form.date), class: 't-availability-modal' do |f| %>
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title t-title">Availability for <%= @form.date.to_s(:gov_uk) %></h4>
+</div>
+
+<div class="modal-body">
+  <div class="weekly-schedule form-group">
+    <div class="weekly-schedule__day">
+      <input type="checkbox" id="am" class="weekly-schedule__switch" name="am" value="1" <%= 'checked' if @form.am? %>>
+      <label class="weekly-schedule__label t-am" for="am">AM</label>
+
+      <input type="checkbox" id="pm" class="weekly-schedule__switch" name="pm" value="1" <%= 'checked' if @form.pm? %>>
+      <label class="weekly-schedule__label t-pm" for="pm">PM</label>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <%= f.button "Save availability for #{@form.date.to_s(:gov_uk)}", class: 'btn btn-primary t-save' %>
+</div>
+<% end %>

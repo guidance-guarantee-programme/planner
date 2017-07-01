@@ -16,4 +16,17 @@ module ScheduleHelper
   def title(day, slot, open)
     "#{open ? 'Open' : 'Closed'} #{day.humanize} #{slot.upcase}"
   end
+
+  def availability_button(location_id)
+    return unless Schedule.exists?(location_id: location_id)
+
+    link_to(
+      bookable_slots_path(location_id: location_id),
+      title: 'Modify availability',
+      class: 'btn btn-info t-availability'
+    ) do
+      content_tag(:span, '', class: 'glyphicon glyphicon-th', 'aria-hidden' => 'true') +
+        content_tag(:span, 'Modify availability', class: 'sr-only')
+    end
+  end
 end

@@ -237,6 +237,9 @@ GEM
     rails-assets-bootstrap-daterangepicker (2.1.25)
       rails-assets-jquery (>= 1.9.1, < 4)
       rails-assets-moment (>= 2.9.0)
+    rails-assets-fullcalendar (3.4.0)
+      rails-assets-jquery (>= 2, < 4)
+      rails-assets-moment (>= 2.9.0, < 3)
     rails-assets-jquery (3.2.1)
     rails-assets-moment (2.18.1)
     rails-dom-testing (2.0.3)
@@ -403,6 +406,7 @@ DEPENDENCIES
   puma!
   rails (= 5.1.1)!
   rails-assets-bootstrap-daterangepicker!
+  rails-assets-fullcalendar!
   rails-observers!
   rails_12factor!
   redis-rails!

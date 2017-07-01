@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-daterangepicker'
+  gem 'rails-assets-fullcalendar'
 end
 
 source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength

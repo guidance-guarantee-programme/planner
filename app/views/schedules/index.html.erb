@@ -12,9 +12,9 @@
   <div class="col-md-12">
     <table class="centered-table table table-bordered table-striped">
       <colgroup>
-        <col width="75%" />
+        <col width="65%" />
         <col width="20%" />
-        <col width="5%" />
+        <col width="15%" />
       </colgroup>
       <thead>
         <tr class="table-header">
@@ -32,7 +32,11 @@
             <%= render 'schedule_summary', location: @booking_location %>
           </td>
           <td>
-            <%= link_to 'Modify', new_schedule_path(location_id: @booking_location.id), class: 'btn btn-info t-manage' %>
+            <%= link_to new_schedule_path(location_id: @booking_location.id), title: 'Modify schedule', class: 'btn btn-info t-manage' do %>
+              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+              <span class="sr-only">Modify schedule</span>
+            <% end %>
+            <%= availability_button(@booking_location.id) %>
           </td>
         </tr>
         <% @child_locations.each do |location| %>
@@ -44,7 +48,11 @@
               <%= render 'schedule_summary', location: location %>
             </td>
             <td>
-              <%= link_to 'Modify', new_schedule_path(location_id: location.id), class: 'btn btn-info t-manage' %>
+              <%= link_to new_schedule_path(location_id: location.id), title: 'Modify schedule', class: 'btn btn-info t-manage' do %>
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                <span class="sr-only">Modify schedule</span>
+              <% end %>
+              <%= availability_button(location.id) %>
             </td>
           </tr>
         <% end %>

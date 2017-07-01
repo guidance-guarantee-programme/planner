@@ -1,5 +1,6 @@
 //= require jquery
 //= require moment
+//= require fullcalendar
 //= require bootstrap-daterangepicker
 //= require_tree .
 

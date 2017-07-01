@@ -18,11 +18,22 @@ RSpec.feature 'Booking manager manages schedules' do
     @page.load
   end
 
-  def then_they_see_default_schedules_across_their_locations
+  def then_they_see_default_schedules_across_their_locations # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
     # Enfield is 'hidden' so will not be displayed
     expect(@page).to have_schedules(count: 5)
+
+    # the booking location
     expect(@page.schedules.first.location.text).to eq('Hackney')
+    expect(@page.schedules.first.manage['href']).to eq(
+      new_schedule_path(location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
+    )
+
+    # the first child location
+    expect(@page.schedules.second.location.text).to eq('Dalston')
+    expect(@page.schedules.second.manage['href']).to eq(
+      new_schedule_path(location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7')
+    )
   end
 
   def when_they_manage_the_booking_location_schedule
