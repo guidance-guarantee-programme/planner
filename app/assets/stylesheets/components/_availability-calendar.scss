@@ -83,11 +83,13 @@
   }
 }
 
+// Positioned absolutely over `.fc-content` which has `z-index: 2`
 .appointment-calendar__appointment-count {
   width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
+  z-index: 3;
 
   .fc-month-view & {
     bottom: 20%;
