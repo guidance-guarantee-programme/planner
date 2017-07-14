@@ -13,6 +13,10 @@ class CalendarBookableSlotSerializer < ActiveModel::Serializer
     BookableSlot::AM.period(object.start).upcase
   end
 
+  attribute :appointments do
+    object.appointments.count
+  end
+
   def delimit(time)
     time.dup.insert(2, ':')
   end
