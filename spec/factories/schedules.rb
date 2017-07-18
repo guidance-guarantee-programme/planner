@@ -8,5 +8,9 @@ FactoryGirl.define do
         add_attribute(attribute, false)
       end
     end
+
+    trait :dalston do
+      location_id '183080c6-642b-4b8f-96fd-891f5cd9f9c7'
+    end
   end
 end
