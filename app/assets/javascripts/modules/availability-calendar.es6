@@ -33,6 +33,19 @@
           $(element).attr('id', event.id);
 
           element.find('.fc-content').addClass('availability-calendar__event--on t-event');
+
+          if (event.appointments) {
+            $(element).prepend(`
+              <span class="appointment-calendar__appointment-count">
+                <span aria-hidden="true" class="glyphicon glyphicon-user"></span>
+                <span class="t-appointment-count">${event.appointments}</span>
+                <span class="sr-only"> appointments in this time period</span>
+              </span>
+            `);
+          }
+        },
+        eventAfterRender: (event, element) => {
+          element.closest('td').addClass(`t-slot-${event.id}`);
         },
         eventClick: (event) => {
           this.availabilityModal(event.start);
