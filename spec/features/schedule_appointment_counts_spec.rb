@@ -3,20 +3,22 @@ require 'rails_helper'
 RSpec.feature 'Appointment counts displayed on schedules', js: true do
   scenario 'Viewing the right appointment counts' do
     given_the_user_identifies_as_hackneys_booking_manager do
-      and_i_have_a_schedule
-      and_i_am_examining_bookable_slots_for_a_particular_date
+      travel_to '2017-07-12 13:00' do
+        and_i_have_a_schedule
+        and_i_am_examining_bookable_slots_for_a_particular_date
 
-      and_there_is_one_appointment_first_thing_in_the_morning
-      and_there_is_one_appointment_mid_morning
-      and_there_is_one_appointment_late_morning
+        and_there_is_one_appointment_first_thing_in_the_morning
+        and_there_is_one_appointment_mid_morning
+        and_there_is_one_appointment_late_morning
 
-      and_there_is_an_appointment_at_1pm
-      and_there_is_one_appointment_mid_afternoon
-      and_there_is_one_appointment_last_thing_in_the_day
+        and_there_is_an_appointment_at_1pm
+        and_there_is_one_appointment_mid_afternoon
+        and_there_is_one_appointment_last_thing_in_the_day
 
-      when_i_look_at_the_schedule
-      then_i_see_there_are_three_appointments_in_the_morning
-      and_i_see_there_are_three_appointments_in_the_afternoon
+        when_i_look_at_the_schedule
+        then_i_see_there_are_three_appointments_in_the_morning
+        and_i_see_there_are_three_appointments_in_the_afternoon
+      end
     end
   end
 end
