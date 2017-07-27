@@ -40,7 +40,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'bootsnap'
     gem 'capybara'
     gem 'factory_girl_rails'
-    gem 'phantomjs-binaries'
+    gem 'phantomjs'
     gem 'pry-byebug'
     gem 'rspec-rails'
     gem 'site_prism'
