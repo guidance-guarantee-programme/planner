@@ -1,7 +1,7 @@
 class ScheduleRegeneration
   attr_reader :window
 
-  def initialize(window: 6.weeks.from_now)
+  def initialize(window: 8.weeks.from_now)
     @window = window
   end
 

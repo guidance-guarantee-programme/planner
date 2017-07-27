@@ -5,7 +5,7 @@ RSpec.describe ScheduleRegeneration do
     it 'returns schedules with their final slot at the end of the booking window' do
       # this will be present
       @schedule = create(:schedule) do |schedule|
-        create(:bookable_slot, :am, date: 6.weeks.from_now, schedule: schedule)
+        create(:bookable_slot, :am, date: 8.weeks.from_now, schedule: schedule)
       end
 
       # this won't since it is blank
