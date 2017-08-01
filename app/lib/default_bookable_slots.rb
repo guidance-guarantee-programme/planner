@@ -29,11 +29,11 @@ class DefaultBookableSlots
   private
 
   def available_days
-    (grace_period_end..to).reject { |day| day.on_weekend? || bank_holiday?(day) }
+    (grace_period_end..to).reject { |day| day.on_weekend? || excluded?(day) }
   end
 
-  def bank_holiday?(date)
-    BANK_HOLIDAYS.include?(date)
+  def excluded?(date)
+    EXCLUSIONS.include?(date)
   end
 
   def grace_period_end

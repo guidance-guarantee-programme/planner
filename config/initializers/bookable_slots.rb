@@ -1,7 +1,9 @@
 # Days that are always excluded from availability
-BANK_HOLIDAYS = [
+EXCLUSIONS = [
   Date.parse('29/05/2017'),
   Date.parse('28/08/2017'),
+  Date.parse('03/10/2017'),
+  Date.parse('04/10/2017'),
   Date.parse('25/12/2017'),
   Date.parse('26/12/2017')
 ].freeze
