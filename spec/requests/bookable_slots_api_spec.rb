@@ -22,7 +22,7 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
       # excluded due to falling within the grace period
       create(:bookable_slot, :am, schedule: schedule)
       # excluded as after booking window
-      create(:bookable_slot, :am, schedule: schedule, date: 7.weeks.from_now)
+      create(:bookable_slot, :am, schedule: schedule, date: 9.weeks.from_now)
       # will be returned
       create(:bookable_slot, :am, schedule: schedule, date: GracePeriod.new.call)
     end

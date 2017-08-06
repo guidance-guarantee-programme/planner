@@ -16,7 +16,7 @@ RSpec.feature 'Scheduled slot regeneration' do
       @prior_to_cutoff = create(:bookable_slot, :am, schedule: schedule, date: 1.day.ago)
 
       # this is the last slot, landing on the cutoff
-      @lands_on_cutoff = create(:bookable_slot, :am, schedule: schedule, date: 6.weeks.from_now)
+      @lands_on_cutoff = create(:bookable_slot, :am, schedule: schedule, date: 8.weeks.from_now)
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.feature 'Scheduled slot regeneration' do
 
   def then_the_necessary_slots_are_generated
     expect(@schedule.bookable_slots.last).to have_attributes(
-      date: Date.parse('2017-12-18'),
+      date: Date.parse('2018-01-08'),
       start: BookableSlot::AM.start,
       end: BookableSlot::AM.end
     )
