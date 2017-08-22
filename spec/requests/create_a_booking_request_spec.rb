@@ -40,6 +40,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         'accessibility_requirements' => false,
         'marketing_opt_in' => true,
         'defined_contribution_pot_confirmed' => true,
+        'placed_by_agent' => true,
         'slots' => [
           {
             'date' => '2016-01-01',
@@ -81,7 +82,8 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       additional_info: 'Additional Info',
       accessibility_requirements: false,
       marketing_opt_in: true,
-      defined_contribution_pot_confirmed: true
+      defined_contribution_pot_confirmed: true,
+      placed_by_agent: true
     )
   end
 
