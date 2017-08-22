@@ -99,6 +99,10 @@ RSpec.describe BookingRequest do
     expect(described_class.new).to be_active
   end
 
+  it 'defaults `placed_by_agent`' do
+    expect(described_class.new).to_not be_placed_by_agent
+  end
+
   describe '#memorable_word' do
     it 'can be obscured' do
       expect(build_stubbed(:booking_request).memorable_word).to eq('spaceship')

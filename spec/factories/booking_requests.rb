@@ -14,6 +14,7 @@ FactoryGirl.define do
     accessibility_requirements true
     marketing_opt_in false
     defined_contribution_pot_confirmed true
+    placed_by_agent false
 
     transient { number_of_slots 1 }
 
