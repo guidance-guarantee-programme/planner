@@ -5,6 +5,7 @@ services:
 cache:
   bundler: true
   directories:
+  - $HOME/.phantomjs
   - node_modules
   - tmp/cache/assets/test
   - vendor/assets/bower_components
