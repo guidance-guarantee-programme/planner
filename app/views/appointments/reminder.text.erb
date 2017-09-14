@@ -6,6 +6,6 @@ This is a reminder that you have a Pension Wise appointment booked for:
 
 <%= render 'shared/email/appointment_details' %>
 
-Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
+Call <%= @appointment.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
 
 <%= render '/shared/email/preparing_for_appointment' %>

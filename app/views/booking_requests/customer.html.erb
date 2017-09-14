@@ -34,7 +34,7 @@
   Appointment location:
   <br>
   <strong class="emphasize">
-    <%= @booking_location.name_for(@booking_request.location_id) %>
+    <%= @actual_location.name %>
   </strong>
 <% end %>
 
@@ -63,5 +63,5 @@
 <% end %>
 
 <%= p do %>
-  Call <%= @booking_location.online_booking_twilio_number %> or email us to change or cancel your booking request. You may be asked for your booking reference number.
+  Call <%= @actual_location.online_booking_twilio_number %> or email us to change or cancel your booking request. You may be asked for your booking reference number.
 <% end %>

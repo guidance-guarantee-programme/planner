@@ -5,6 +5,7 @@ RSpec.describe BookingRequests do
     let(:location_id) { '183080c6-642b-4b8f-96fd-891f5cd9f9c7' }
     let(:booking_location_id) { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }
     let(:booking_location) { BookingLocations.find(booking_location_id) }
+    let(:actual_location) { booking_location.location_for(location_id) }
     let(:booking_request) do
       create(:booking_request, location_id: location_id, booking_location_id: booking_location_id)
     end
@@ -31,9 +32,9 @@ RSpec.describe BookingRequests do
         expect(body).to include('s*******p')
       end
 
-      it 'includes the booking location particulars' do
-        expect(body).to include(booking_location.name_for(location_id))
-        expect(body).to include(booking_location.online_booking_twilio_number)
+      it 'includes the actual location particulars' do
+        expect(body).to include(actual_location.name)
+        expect(body).to include(actual_location.online_booking_twilio_number)
       end
 
       it 'includes the three selected slots' do

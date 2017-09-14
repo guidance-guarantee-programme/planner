@@ -6,6 +6,8 @@ class LocationAwareEntity < SimpleDelegator
     super(entity)
   end
 
+  delegate :online_booking_twilio_number, to: :actual_location
+
   def location_name
     actual_location.name
   end
