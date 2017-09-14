@@ -1,7 +1,7 @@
 class BookingRequests < ApplicationMailer
   def customer(booking_request, booking_location)
     @booking_request  = booking_request
-    @booking_location = booking_location
+    @actual_location  = booking_location.location_for(booking_request.location_id)
 
     mailgun_headers('customer_booking_request')
     mail(

@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Appointments do
-  let(:appointment) { build_stubbed(:appointment) }
+  let(:appointment) do
+    build_stubbed(:appointment, location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7')
+  end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
   describe 'Customer reminder' do
@@ -22,8 +24,8 @@ RSpec.describe Appointments do
       it 'includes the appointment particulars' do
         expect(body).to include('2:00pm')
         expect(body).to include('20 June 2016')
-        expect(body).to include('Hackney')
-        expect(body).to include('+442086291134')
+        expect(body).to include('Dalston')
+        expect(body).to include('+44800123456')
         expect(body).to include(appointment.reference)
       end
 
@@ -33,10 +35,10 @@ RSpec.describe Appointments do
 
       it 'includes the address' do
         expect(body).to include(
-          '300 Mare St',
+          '22 Dalston Lane',
           'Hackney',
           'London',
-          'E8 1HE'
+          'E8 3AZ'
         )
       end
     end
@@ -60,8 +62,8 @@ RSpec.describe Appointments do
       it 'includes the appointment particulars' do
         expect(body).to include('2:00pm')
         expect(body).to include('20 June 2016')
-        expect(body).to include('Hackney')
-        expect(body).to include('+442086291134')
+        expect(body).to include('Dalston')
+        expect(body).to include('+44800123456')
         expect(body).to include(appointment.reference)
       end
 
@@ -71,10 +73,10 @@ RSpec.describe Appointments do
 
       it 'includes the address' do
         expect(body).to include(
-          '300 Mare St',
+          '22 Dalston Lane',
           'Hackney',
           'London',
-          'E8 1HE'
+          'E8 3AZ'
         )
       end
 

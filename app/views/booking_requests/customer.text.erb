@@ -15,7 +15,7 @@ or
 <%= @booking_request.tertiary_slot %>
 
 Appointment location:
-<%= @booking_location.name_for(@booking_request.location_id) %>
+<%= @actual_location.name %>
 
 Your phone number:
 <%= @booking_request.phone %>
@@ -26,4 +26,4 @@ Memorable word:
 Reference number:
 <%= @booking_request.reference %>
 
-Call <%= @booking_location.online_booking_twilio_number %> or email us to change or cancel your booking request. You may be asked for your booking reference number.
+Call <%= @actual_location.online_booking_twilio_number %> or email us to change or cancel your booking request. You may be asked for your booking reference number.

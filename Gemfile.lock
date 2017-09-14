@@ -64,7 +64,7 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    booking_locations (0.16.0)
+    booking_locations (0.17.0)
       activesupport (>= 4, <= 6)
       globalid
     bootsnap (1.1.2)

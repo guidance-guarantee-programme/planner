@@ -21,7 +21,7 @@
 <%= render 'shared/email/appointment_details' %>
 
 <%= p do %>
-  Call <%= @appointment.booking_location.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
+  Call <%= @appointment.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
 <% end %>
 
 <%= render 'shared/email/preparing_for_appointment' %>
