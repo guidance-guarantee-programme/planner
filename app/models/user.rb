@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   serialize :permissions, Array
 
   has_many :booking_requests,
-           -> { order(:created_at).includes(:slots) },
+           -> { order(:created_at) },
            primary_key: :organisation_content_id,
            foreign_key: :booking_location_id
 
