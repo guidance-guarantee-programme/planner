@@ -10,6 +10,7 @@
       this.$picker.daterangepicker({
         ranges: {
           'Today': [moment(), moment()],
+          'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
