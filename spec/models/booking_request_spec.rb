@@ -103,6 +103,10 @@ RSpec.describe BookingRequest do
     expect(described_class.new).to_not be_placed_by_agent
   end
 
+  it 'defaults `where_you_heard`' do
+    expect(described_class.new.where_you_heard).to be_zero
+  end
+
   describe '#memorable_word' do
     it 'can be obscured' do
       expect(build_stubbed(:booking_request).memorable_word).to eq('spaceship')

@@ -53,6 +53,7 @@ module Api
           :defined_contribution_pot_confirmed,
           :additional_info,
           :placed_by_agent,
+          :where_you_heard,
           slots: %i(date from to priority)
         ).tap { |p| p[:slots_attributes] = p.delete(:slots) }
       end
