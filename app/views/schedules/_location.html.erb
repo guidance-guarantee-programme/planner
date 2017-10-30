@@ -1,0 +1,15 @@
+<tr class="t-schedule <%= 'danger' if location.schedule.unavailable? %>">
+  <td class="t-location">
+    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= location.name %>
+  </td>
+  <td class="t-summary">
+    <%= render 'schedule_summary', location: location %>
+  </td>
+  <td>
+    <%= link_to new_schedule_path(location_id: location.id), title: 'Modify schedule', class: 'btn btn-info t-manage' do %>
+      <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+      <span class="sr-only">Modify schedule</span>
+    <% end %>
+    <%= availability_button(location.id) %>
+  </td>
+</tr>

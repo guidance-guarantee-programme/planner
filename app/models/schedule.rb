@@ -35,6 +35,12 @@ class Schedule < ActiveRecord::Base
     bookable_slots.windowed(starting..ending)
   end
 
+  def unavailable?
+    return if default?
+
+    bookable_slots_in_window.size.zero?
+  end
+
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)
