@@ -1,4 +1,4 @@
-<tr class="t-schedule">
+<tr class="t-schedule <%= 'danger' if location.schedule.unavailable? %>">
   <td class="t-location">
     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <%= location.name %>
   </td>

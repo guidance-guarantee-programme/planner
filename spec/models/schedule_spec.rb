@@ -3,6 +3,22 @@ require 'rails_helper'
 RSpec.describe Schedule do
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
+  describe '#unavailable?' do
+    context 'with a default schedule' do
+      it 'is false' do
+        expect(described_class.new).to_not be_unavailable
+      end
+    end
+
+    context 'with an empty schedule' do
+      it 'is true' do
+        @schedule = create(:schedule, :blank)
+
+        expect(@schedule).to be_unavailable
+      end
+    end
+  end
+
   describe '#generate_bookable_slots!' do
     before do
       @previous_schedule = create(:schedule) do |schedule|
