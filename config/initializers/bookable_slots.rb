@@ -1,9 +1,13 @@
 # Days that are always excluded from availability
-EXCLUSIONS = [
-  Date.parse('29/05/2017'),
-  Date.parse('28/08/2017'),
-  Date.parse('03/10/2017'),
-  Date.parse('04/10/2017'),
-  Date.parse('25/12/2017'),
-  Date.parse('26/12/2017')
-].freeze
+EXCLUSIONS = %w(
+  25/12/2017
+  26/12/2017
+  01/01/2017
+  30/03/2018
+  02/04/2018
+  07/05/2018
+  28/05/2018
+  27/08/2018
+  25/12/2018
+  26/12/2018
+).map(&:to_date)

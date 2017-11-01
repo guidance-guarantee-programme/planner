@@ -30,7 +30,7 @@ RSpec.describe 'GET /locations/:location_id/bookable_slots.json' do
     @json = JSON.parse(response.body)
 
     # 3 slots returned for the given month
-    expect(@json.count).to eq(3)
+    expect(@json.count).to eq(4)
     expect(@json.first).to include(
       'start' => '2017-05-08T09:00:00.000Z',
       'end'   => '2017-05-08T13:00:00.000Z'
