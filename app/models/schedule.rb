@@ -17,6 +17,7 @@ class Schedule < ActiveRecord::Base
   alias default? new_record?
 
   has_associated_audits
+  audited on: :create
 
   def generate_bookable_slots!
     BookableSlotGenerator.new(self).call
