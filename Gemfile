@@ -39,7 +39,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   group :development, :test do
     gem 'bootsnap'
     gem 'capybara'
-    gem 'factory_girl_rails'
+    gem 'factory_bot_rails'
     gem 'phantomjs'
     gem 'pry-byebug'
     gem 'rspec-rails'

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :bookable_slot do
     schedule
     date { Time.zone.now }
