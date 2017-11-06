@@ -1,2 +1,2 @@
-FactoryGirl.create(:hackney_booking_manager, name: "Andrew")
-FactoryGirl.create(:hackney_booking_request)
+FactoryBot.create(:hackney_booking_manager, name: "Andrew")
+FactoryBot.create(:hackney_booking_request)

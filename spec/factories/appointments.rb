@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :appointment do
     location_id 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef'
     association :booking_request, factory: :hackney_booking_request

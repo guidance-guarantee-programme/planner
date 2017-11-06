@@ -1,14 +1,14 @@
 class AppointmentsPreview < ActionMailer::Preview
   def customer
     Appointments.customer(
-      FactoryGirl.create(:appointment),
+      FactoryBot.create(:appointment),
       booking_location
     )
   end
 
   def reminder
     Appointments.reminder(
-      FactoryGirl.create(:appointment),
+      FactoryBot.create(:appointment),
       booking_location
     )
   end

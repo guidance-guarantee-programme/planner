@@ -1,6 +1,6 @@
 require 'securerandom'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :booking_request do
     booking_location_id { SecureRandom.uuid }
     location_id { SecureRandom.uuid }
