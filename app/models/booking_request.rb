@@ -7,6 +7,8 @@ class BookingRequest < ActiveRecord::Base
     hidden
   )
 
+  belongs_to :agent, class_name: 'User', optional: true
+
   has_one :appointment
 
   has_many :slots, -> { order(:priority) }, dependent: :destroy
@@ -18,7 +20,7 @@ class BookingRequest < ActiveRecord::Base
   validates :name, presence: true
   validates :booking_location_id, presence: true
   validates :location_id, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, unless: :agent_id?
   validates :phone, presence: true
   validates :memorable_word, presence: true
   validates :age_range, inclusion: { in: PERMITTED_AGE_RANGES }

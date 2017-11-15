@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102132151) do
+ActiveRecord::Schema.define(version: 20171115114232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,14 @@ ActiveRecord::Schema.define(version: 20171102132151) do
     t.string "additional_info", limit: 160, default: "", null: false
     t.boolean "placed_by_agent", default: false, null: false
     t.integer "where_you_heard", default: 0, null: false
+    t.integer "agent_id"
+    t.string "address_line_one", default: "", null: false
+    t.string "address_line_two", default: "", null: false
+    t.string "address_line_three", default: "", null: false
+    t.string "town", default: "", null: false
+    t.string "county", default: "", null: false
+    t.string "postcode", default: "", null: false
+    t.string "country", default: "", null: false
   end
 
   create_table "schedules", force: :cascade do |t|

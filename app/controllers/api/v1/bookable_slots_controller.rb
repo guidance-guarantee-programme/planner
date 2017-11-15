@@ -9,12 +9,7 @@ module Api
 
       def slots
         schedule = Schedule.current(params[:location_id])
-
-        if schedule.default?
-          DefaultBookableSlots.new.call
-        else
-          schedule.bookable_slots_in_window
-        end
+        schedule.bookable_slots_in_window
       end
     end
   end

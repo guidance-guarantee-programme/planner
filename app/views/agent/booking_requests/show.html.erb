@@ -1,0 +1,20 @@
+<% content_for(:page_title, t('service.title', page_title: "Booking confirmed at #{location.name}")) %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li class="active"><%= location.name %></li>
+  </ol>
+
+  <h1>Booking confirmed at <%= location.name %></h1>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">We've confirmed the booking</h3>
+  </div>
+  <div class="panel-body">
+    <h3 class="bold-large">Reference <%= @booking.reference %></h3>
+  </div>
+</div>

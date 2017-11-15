@@ -1,0 +1,173 @@
+<% content_for(:page_title, t('service.title', page_title: "Make booking at #{location.name}")) %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li class="active"><%= location.name %></li>
+  </ol>
+
+  <h1>Make booking at <%= location.name %></h1>
+</div>
+
+<%= form_for @booking,
+    url: preview_agent_booking_requests_path(location_id: location_id),
+    as: :booking do |f|
+%>
+<div class="col-md-12 l-appointment-details">
+  <div class="well">
+    <% if @booking.errors.any? %>
+      <div class="alert alert-danger t-errors" role="alert">
+        <h3 class="alert__heading h4">There's a problem</h3>
+        <ul>
+          <% @booking.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="h3">Desired slots</h2>
+
+        <% @grouped_slots ||= slots_by_month(slots) %>
+        <div class="form-group col-md-4">
+          <%= f.label :first_choice_slot %>
+          <%= f.select :first_choice_slot,
+            grouped_options_for_select(@grouped_slots, @booking.first_choice_slot),
+            { include_blank: true },
+            class: 'form-control t-first-choice-slot'
+          %>
+        </div>
+
+        <div class="form-group col-md-4">
+          <%= f.label :second_choice_slot %>
+          <%= f.select :second_choice_slot,
+            grouped_options_for_select(@grouped_slots, @booking.second_choice_slot),
+            { include_blank: true },
+            class: 'form-control t-second-choice-slot'
+          %>
+        </div>
+
+        <div class="form-group col-md-4">
+          <%= f.label :third_choice_slot %>
+          <%= f.select :third_choice_slot,
+            grouped_options_for_select(@grouped_slots, @booking.third_choice_slot),
+            { include_blank: true },
+            class: 'form-control t-third-choice-slot'
+          %>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="h3">Customer details</h2>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control t-name' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :phone %>
+          <%= f.text_field :phone, class: 'form-control t-phone' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control t-email' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :memorable_word %>
+          <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :accessibility_requirements, class: 'checkbox-inline checkbox-inline--accessibility' do %>
+            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
+          <% end %>
+        </div>
+        <div class="form-group">
+          <%= f.label :terms_and_conditions, class: 'checkbox-inline checkbox-inline--accessibility' do %>
+            <%= f.check_box :terms_and_conditions, class: 't-terms-and-conditions' %> Accept terms and conditions?
+          <% end %>
+        </div>
+        <hr>
+
+        <h2 class="h3">Eligibility</h2>
+        <div class="form-group">
+          <%= f.label :date_of_birth %>
+          <%= f.text_field :date_of_birth, class: 'form-control input-md-2 t-date-of-birth', placeholder: 'eg 01/01/1950' %>
+        </div>
+        <div class="form-group">
+          <p><b>Defined contribution pot confirmed?</b></p>
+          <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
+            <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
+            Yes
+          <% end %>
+
+          <%= f.label :defined_contribution_pot_confirmed, value: false, class: 'radio-inline' do %>
+            <%= f.radio_button :defined_contribution_pot_confirmed, false, class: 't-defined-contribution-pot-confirmed-dont-know' %>
+            Don’t know
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2 class="h3">Confirmation address <small>(optional)</small></h2>
+        <div class="form-group">
+          <%= f.label :address_line_one do %>
+            Building and street <span class="sr-only">line one</span>
+          <% end %>
+          <%= f.text_field :address_line_one, class: 'form-control t-address-line-one' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :address_line_two, class: 'sr-only' %>
+          <%= f.text_field :address_line_two, class: 'form-control t-address-line-two' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :address_line_three, class: 'sr-only' %>
+          <%= f.text_field :address_line_three, class: 'form-control t-address-line-three' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :town %>
+          <%= f.text_field :town, class: 'form-control t-town' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :county, 'County (optional)' %>
+          <%= f.text_field :county, class: 'form-control t-county' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :postcode %>
+          <%= f.text_field :postcode, class: 'form-control t-postcode' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :country %>
+          <%= f.select :country, Country.all, { include_blank: true }, class: 'form-control t-country' %>
+        </div>
+
+        <hr>
+        <h2 class="h3">Additional info</h2>
+        <div class="form-group">
+          <%= f.label :additional_info %>
+          <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500 %>
+        </div>
+        <div class="form-group">
+          <%= f.label :where_you_heard, 'Where did you first hear of Pension Wise?' %>
+          <%= f.select :where_you_heard,
+            options_for_select(WhereYouHeard::OPTIONS.invert.to_a, @booking.where_you_heard),
+            { include_blank: true},
+            class: 't-where-you-heard form-control'
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= f.button class: 'btn btn-primary btn-block t-preview' do %>
+      Preview booking at <%= location.name %>
+    <% end %>
+  </div>
+</div>
+<% end %>

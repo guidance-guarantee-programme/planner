@@ -15,10 +15,10 @@ class Appointment < ActiveRecord::Base
 
   belongs_to :booking_request
 
-  delegate :reference, :activities, to: :booking_request
+  delegate :reference, :activities, :agent_id?, to: :booking_request
 
   validates :name, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, unless: :agent_id?
   validates :phone, presence: true
   validates :memorable_word, presence: true
   validates :accessibility_requirements, inclusion: { in: [true, false] }
