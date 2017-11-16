@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115114232) do
+ActiveRecord::Schema.define(version: 20171116122819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20171115114232) do
     t.string "booking_location_id", null: false
     t.date "date_of_birth"
     t.integer "status", default: 0, null: false
-    t.string "additional_info", limit: 160, default: "", null: false
+    t.string "additional_info", limit: 500, default: "", null: false
     t.boolean "placed_by_agent", default: false, null: false
     t.integer "where_you_heard", default: 0, null: false
     t.integer "agent_id"

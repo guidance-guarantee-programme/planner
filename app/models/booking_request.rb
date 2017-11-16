@@ -28,7 +28,7 @@ class BookingRequest < ActiveRecord::Base
   validates :marketing_opt_in, inclusion: { in: [true, false] }
   validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false] }
   validates :placed_by_agent, inclusion: { in: [true, false] }
-  validates :additional_info, length: { maximum: 160 }, allow_blank: true
+  validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :where_you_heard, presence: true
   validate :validate_slots
 
