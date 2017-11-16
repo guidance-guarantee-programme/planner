@@ -114,6 +114,7 @@ RSpec.describe AppointmentForm do
     expect(subject.primary_slot).to eq(booking_request.primary_slot)
     expect(subject.secondary_slot).to eq(booking_request.secondary_slot)
     expect(subject.tertiary_slot).to eq(booking_request.tertiary_slot)
+    expect(subject.agent).to eq(booking_request.agent)
   end
 
   describe '#date' do

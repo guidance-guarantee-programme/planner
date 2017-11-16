@@ -9,6 +9,7 @@ class AppointmentForm
     tertiary_slot
     booking_location
     additional_info
+    agent
   ).freeze
 
   validates :name, presence: true
