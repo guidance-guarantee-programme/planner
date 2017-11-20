@@ -162,8 +162,11 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_the_booking_request_has_associated_audit_activity
-    expect(@booking_request.activities.count).to eq(1)
-    expect(@booking_request.activities.first).to be_a(AppointmentMailActivity)
+    expect(@booking_request.activities.count).to eq(2)
+
+    expect(
+      @booking_request.activities.map(&:class)
+    ).to include(AppointmentMailActivity, FulfilmentActivity)
   end
 
   def when_they_submit_the_invalid_appointment

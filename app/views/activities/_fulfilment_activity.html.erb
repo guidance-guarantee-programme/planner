@@ -1,0 +1,4 @@
+<li class="activity-feed__item t-activity" id="activity-<%= fulfilment_activity.id %>">
+  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+  <b><%= fulfilment_activity.owner_name %></b> booked the appointment <em class="badge"><%= time_ago_in_words(fulfilment_activity.created_at) %> ago</em>
+</li>
