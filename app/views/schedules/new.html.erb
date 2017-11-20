@@ -9,6 +9,8 @@
   <h1>Edit schedule for <%= @location.name %></h1>
 </div>
 
+<p class="lead alert alert-warning">Editing this schedule will replace existing availability from today.</p>
+
 <%= form_for @schedule do |f| %>
   <%= f.hidden_field :location_id %>
   <div class="weekly-schedule weekly-schedule--day-labels" aria-hidden="true">
@@ -87,6 +89,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.button 'Save', class: 'btn btn-primary t-submit' %>
+    <%= f.button 'Save and replace existing availability from today', class: 'btn btn-primary t-submit', data: { confirm: 'Save and replace existing availability from today?' } %>
   </div>
 <% end %>
