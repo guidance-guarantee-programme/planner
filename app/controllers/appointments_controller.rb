@@ -31,6 +31,7 @@ class AppointmentsController < ApplicationController
   def create
     if @appointment_form.valid?
       @appointment = Appointment.create(@appointment_form.appointment_params)
+      FulfilmentActivity.from(@appointment, current_user)
       notify_customer(@appointment)
 
       redirect_to booking_requests_path, success: 'Appointment was created'
