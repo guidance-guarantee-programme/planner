@@ -2,6 +2,7 @@
   "name": "planner",
   "private": true,
   "dependencies": {
-    "moj.slot-picker": "~0.22.2"
+    "moj.slot-picker": "~0.22.2",
+    "jquery.postcodes": "https://github.com/ideal-postcodes/jquery.postcodes.git"
   }
 }

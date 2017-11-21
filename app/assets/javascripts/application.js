@@ -7,3 +7,4 @@
 PWPlanner.poller.init();
 PWPlanner.dateRangePicker.init();
 PWPlanner.dateTimePicker.init();
+PWPlanner.postcodeLookup.init();
