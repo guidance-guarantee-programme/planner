@@ -16,7 +16,6 @@ class AgentBookingForm # rubocop:disable ClassLength
     town
     county
     postcode
-    country
     where_you_heard
     first_choice_slot
     second_choice_slot
@@ -46,7 +45,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   validate :validate_eligibility
 
   def address?
-    [address_line_one, town, postcode, country].all?(&:present?)
+    [address_line_one, town, postcode].all?(&:present?)
   end
 
   def accessibility_requirements
@@ -120,7 +119,6 @@ class AgentBookingForm # rubocop:disable ClassLength
       town: town,
       county: county,
       postcode: postcode,
-      country: country,
       where_you_heard: where_you_heard,
       agent: agent,
       location_id: location_id,

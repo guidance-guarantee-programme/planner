@@ -28,7 +28,6 @@
   <%= f.hidden_field :town %>
   <%= f.hidden_field :county %>
   <%= f.hidden_field :postcode %>
-  <%= f.hidden_field :country %>
   <%= f.hidden_field :additional_info %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
@@ -99,8 +98,7 @@
                 <% if @booking.address_line_three.present? %><%= @booking.address_line_three %><br><% end %>
                 <%= @booking.town %><br>
                 <% if @booking.county.present? %><%= @booking.county %><br><% end %>
-                <%= @booking.postcode %><br>
-                <%= @booking.country %>
+                <%= @booking.postcode %>
               </td>
             </tr>
           </tbody>

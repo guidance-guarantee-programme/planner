@@ -140,10 +140,6 @@
           <%= f.label :postcode %>
           <%= f.text_field :postcode, class: 'form-control t-postcode' %>
         </div>
-        <div class="form-group">
-          <%= f.label :country %>
-          <%= f.select :country, Country.all, { include_blank: true }, class: 'form-control t-country' %>
-        </div>
 
         <hr>
         <h2 class="h3">Additional info</h2>

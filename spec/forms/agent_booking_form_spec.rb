@@ -17,7 +17,6 @@ RSpec.describe AgentBookingForm do
       town: 'London',
       county: 'London',
       postcode: 'W1 1AA',
-      country: 'United Kingdom',
       where_you_heard: 1
     )
   end

@@ -62,7 +62,6 @@ RSpec.feature 'Agent places a booking request' do
     @page.town.set('Reading')
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
-    @page.country.select('United Kingdom')
     @page.additional_info.set('Other notes')
   end
 
@@ -92,7 +91,6 @@ RSpec.feature 'Agent places a booking request' do
       town: 'Reading',
       county: 'Berkshire',
       postcode: 'RG1 1AA',
-      country: 'United Kingdom',
       age_range: '55-plus',
       additional_info: 'Other notes'
     )
