@@ -71,7 +71,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   def validate_eligibility
     return if date_of_birth.blank?
 
-    errors.add(:base, 'Must be aged 50 or over to be eligibile') if age < 50
+    errors.add(:base, 'Must be aged 50 or over to be eligible') if age < 50
   end
 
   def validate_confirmation_details
