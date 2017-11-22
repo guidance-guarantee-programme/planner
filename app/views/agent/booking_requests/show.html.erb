@@ -10,11 +10,10 @@
   <h1>Booking confirmed at <%= location.name %></h1>
 </div>
 
-<div class="panel panel-success">
-  <div class="panel-heading">
-    <h3 class="panel-title">We've confirmed the booking</h3>
-  </div>
-  <div class="panel-body">
-    <h3 class="bold-large">Reference <%= @booking.reference %></h3>
-  </div>
-</div>
+<h3 class="bold-large">Reference: <%= @booking.reference %></h3>
+<p class="lead">
+I have submitted the booking request with your preferred dates. Citizens
+Advice will confirm your appointment in writing within 2 business days,
+including the number to call if you have a query or need to change or cancel
+your appointment.
+</p>
