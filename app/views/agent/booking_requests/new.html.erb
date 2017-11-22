@@ -1,4 +1,4 @@
-<% content_for(:page_title, t('service.title', page_title: "Make booking at #{location.name}")) %>
+<% content_for(:page_title, t('service.title', page_title: "Make booking request at #{location.name}")) %>
 
 <div class="page-header">
   <ol class="breadcrumb">
@@ -7,7 +7,7 @@
     <li class="active"><%= location.name %></li>
   </ol>
 
-  <h1>Make booking at <%= location.name %></h1>
+  <h1>Make booking request at <%= location.name %></h1>
 </div>
 
 <%= form_for @booking,
@@ -162,7 +162,7 @@
 <div class="row">
   <div class="col-md-12">
     <%= f.button class: 'btn btn-primary btn-block t-preview' do %>
-      Preview booking at <%= location.name %>
+      Preview booking request at <%= location.name %>
     <% end %>
   </div>
 </div>
