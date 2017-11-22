@@ -30,6 +30,9 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="h3">Desired slots</h2>
+        <p class="lead">I am able to request a provisional appointment for you
+        and you will be contacted by Citizens Advice to confirm the booking.
+        Are you happy for me to do this?</p>
 
         <% @grouped_slots ||= slots_by_month(slots) %>
         <div class="form-group col-md-4">
@@ -85,11 +88,6 @@
         <div class="form-group">
           <%= f.label :accessibility_requirements, class: 'checkbox-inline checkbox-inline--accessibility' do %>
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
-          <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.label :terms_and_conditions, class: 'checkbox-inline checkbox-inline--accessibility' do %>
-            <%= f.check_box :terms_and_conditions, class: 't-terms-and-conditions' %> Accept terms and conditions?
           <% end %>
         </div>
         <hr>
@@ -155,6 +153,22 @@
             class: 't-where-you-heard form-control'
           %>
         </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <%= f.label :terms_and_conditions, class: 'checkbox-inline checkbox-inline--accessibility' do %>
+            <%= f.check_box :terms_and_conditions, class: 't-terms-and-conditions' %> Accept terms and conditions?
+          <% end %>
+        </div>
+        <p class="lead">
+          By requesting this booking you are agreeing to your details being
+          recorded and stored. Full details of these terms and conditions can
+          be found on the Pension Wise Website.
+        </p>
       </div>
     </div>
   </div>
