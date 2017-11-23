@@ -52,7 +52,8 @@ class Appointment < ActiveRecord::Base
     pending
       .where(proceeded_at: Time.zone.now..48.hours.from_now)
       .where.not(
-        booking_request_id: ReminderActivity.pluck(:booking_request_id)
+        booking_request_id: ReminderActivity.pluck(:booking_request_id),
+        email: ''
       )
   end
 
