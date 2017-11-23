@@ -1,4 +1,13 @@
 <% content_for(:page_title, t('service.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
+
+<% if @appointment_form.postal_confirmation? %>
+<div class="alert alert-warning" role="alert">
+  <p>
+  The customer has requested postal confirmation.
+  </p>
+</div>
+<% end %>
+
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Appointment planner</a></li>
@@ -58,6 +67,14 @@
         </div>
         <% end %>
       </div>
+
+      <% if @appointment_form.postal_confirmation? %>
+      <hr>
+      <h2 class="h3">Postal address</h2>
+      <p>
+        <%= simple_format(@appointment_form.postal_address_lines) %>
+      </p>
+      <% end %>
     </div>
     <div class="col-md-8 l-appointment-details">
       <div class="well">
