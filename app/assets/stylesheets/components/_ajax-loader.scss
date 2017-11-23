@@ -1,0 +1,70 @@
+$loader-color: $color-black;
+$number-of-circles: 8;
+$sin-of-forty-five-degrees: .70711;
+$circle-animation-length: .8s;
+
+$ajax-loaders: 24px 48px;
+
+.ajax-loader {
+  position: relative;
+
+  &:after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    animation-fill-mode: forwards;
+  }
+}
+
+@each $loader-size in $ajax-loaders {
+  $loader-size-half: $loader-size / 2;
+  $circle-size: $loader-size / $number-of-circles;
+  $circle-size-half: $circle-size / 2;
+  $forty-five-degrees-in-pixels: (1 - $sin-of-forty-five-degrees) * $loader-size-half;
+
+  $circles:
+    (x: 0, y: $loader-size-half, spread: $circle-size-half $circle-size-half / 2 0 0 0 0 0 0),
+    (x: -($loader-size-half - $forty-five-degrees-in-pixels), y: $loader-size-half - $forty-five-degrees-in-pixels, spread: 0 $circle-size-half $circle-size-half / 2 0 0 0 0 0),
+    (x: -$loader-size-half, y: 0, spread: 0 0 $circle-size-half $circle-size-half / 2 0 0 0 0),
+    (x: -($loader-size-half - $forty-five-degrees-in-pixels), y: -($loader-size-half - $forty-five-degrees-in-pixels), spread: 0 0 0 $circle-size-half $circle-size-half / 2 0 0 0),
+    (x: 0, y: -$loader-size-half, spread: 0 0 0 0 $circle-size-half $circle-size-half / 2 0 0),
+    (x: $loader-size-half - $forty-five-degrees-in-pixels, y: -($loader-size-half - $forty-five-degrees-in-pixels), spread: 0 0 0 0 0 $circle-size-half $circle-size-half / 2 0),
+    (x: $loader-size-half, y: 0, spread: 0 0 0 0 0 0 $circle-size-half $circle-size-half / 2),
+    (x: $loader-size-half - $forty-five-degrees-in-pixels, y: $loader-size-half - $forty-five-degrees-in-pixels, spread: $circle-size-half / 2 0 0 0 0 0 0 $circle-size-half);
+
+  @function circle($num) {
+    $line: null;
+
+    @each $circle in $circles {
+      $line: append($line, map-get($circle, "x") map-get($circle, "y") 0 nth(map-get($circle, "spread"), $num) $loader-color, "comma");
+    }
+
+    @return $line;
+  }
+
+  .ajax-loader--#{$loader-size} {
+    width: $loader-size;
+    height: $loader-size;
+
+    &:after {
+      width: $circle-size;
+      height: $circle-size;
+      top: $loader-size-half - $circle-size-half;
+      left: $loader-size-half - $circle-size-half;
+      animation: loader-pulse-#{$loader-size} $circle-animation-length infinite;
+      box-shadow: circle(1);
+    }
+  }
+
+  @keyframes loader-pulse-#{$loader-size} {
+    0% { box-shadow: circle(1); }
+
+    @for $i from 1 through ($number-of-circles - 1) {
+      #{(($i - 1) * 100/$number-of-circles) + 100/$number-of-circles}% { box-shadow: circle($i); }
+      #{(($i - 1) * 100/$number-of-circles) + 100/$number-of-circles + .001}% { box-shadow: circle($i + 1); }
+    }
+
+    99.999% { box-shadow: circle($number-of-circles); }
+  }
+}

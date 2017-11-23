@@ -242,6 +242,7 @@ GEM
       rails-assets-jquery (>= 2, < 4)
       rails-assets-moment (>= 2.9.0, < 3)
     rails-assets-jquery (3.2.1)
+    rails-assets-mailgun-validator-jquery (0.0.3)
     rails-assets-moment (2.18.1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
@@ -415,6 +416,7 @@ DEPENDENCIES
   rails (~> 5.1.2)!
   rails-assets-bootstrap-daterangepicker!
   rails-assets-fullcalendar!
+  rails-assets-mailgun-validator-jquery (= 0.0.3)!
   rails-observers!
   rails_12factor!
   redis-rails!
