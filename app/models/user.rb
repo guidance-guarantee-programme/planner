@@ -33,4 +33,8 @@ class User < ActiveRecord::Base
   def administrator?
     has_permission?(ADMINISTRATOR_PERMISSION)
   end
+
+  def booking_manager?
+    has_permission?(BOOKING_MANAGER_PERMISSION)
+  end
 end
