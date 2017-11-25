@@ -3,10 +3,13 @@ class User < ActiveRecord::Base
   PENSION_WISE_API_PERMISSION = 'pension_wise_api_user'
   BOOKING_MANAGER_PERMISSION  = 'booking_manager'
   ADMINISTRATOR_PERMISSION    = 'administrator'
+  AGENT_PERMISSION            = 'agent'
 
   include GDS::SSO::User
 
   serialize :permissions, Array
+
+  has_many :agent_bookings, class_name: 'BookingRequest', foreign_key: :agent_id
 
   has_many :booking_requests,
            -> { order(:created_at) },
@@ -29,5 +32,9 @@ class User < ActiveRecord::Base
 
   def administrator?
     has_permission?(ADMINISTRATOR_PERMISSION)
+  end
+
+  def booking_manager?
+    has_permission?(BOOKING_MANAGER_PERMISSION)
   end
 end

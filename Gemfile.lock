@@ -242,6 +242,7 @@ GEM
       rails-assets-jquery (>= 2, < 4)
       rails-assets-moment (>= 2.9.0, < 3)
     rails-assets-jquery (3.2.1)
+    rails-assets-mailgun-validator-jquery (0.0.3)
     rails-assets-moment (2.18.1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
@@ -364,6 +365,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    uk_postcode (2.1.2)
     unicode-display_width (1.3.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -414,6 +416,7 @@ DEPENDENCIES
   rails (~> 5.1.2)!
   rails-assets-bootstrap-daterangepicker!
   rails-assets-fullcalendar!
+  rails-assets-mailgun-validator-jquery (= 0.0.3)!
   rails-observers!
   rails_12factor!
   redis-rails!
@@ -425,6 +428,7 @@ DEPENDENCIES
   site_prism!
   sprockets-es6!
   uglifier (>= 1.3.0)!
+  uk_postcode!
   webmock!
 
 RUBY VERSION

@@ -7,6 +7,8 @@ class BookingRequest < ActiveRecord::Base
     hidden
   )
 
+  belongs_to :agent, class_name: 'User', optional: true
+
   has_one :appointment
 
   has_many :slots, -> { order(:priority) }, dependent: :destroy
@@ -18,7 +20,7 @@ class BookingRequest < ActiveRecord::Base
   validates :name, presence: true
   validates :booking_location_id, presence: true
   validates :location_id, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, unless: :agent_id?
   validates :phone, presence: true
   validates :memorable_word, presence: true
   validates :age_range, inclusion: { in: PERMITTED_AGE_RANGES }
@@ -26,7 +28,7 @@ class BookingRequest < ActiveRecord::Base
   validates :marketing_opt_in, inclusion: { in: [true, false] }
   validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false] }
   validates :placed_by_agent, inclusion: { in: [true, false] }
-  validates :additional_info, length: { maximum: 160 }, allow_blank: true
+  validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :where_you_heard, presence: true
   validate :validate_slots
 

@@ -1,9 +1,9 @@
 Period = Struct.new(:start, :end) do
-  def am?(time)
+  def am?(time = '0900')
     time == start
   end
 
-  def pm?(time)
+  def pm?(time = '1700')
     time == self.end
   end
 

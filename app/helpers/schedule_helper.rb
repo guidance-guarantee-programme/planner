@@ -1,4 +1,22 @@
 module ScheduleHelper
+  def slots_by_month(slots)
+    [].tap do |result|
+      grouped = slots.group_by { |slot| slot.date.to_date.strftime('%B %Y') }
+      grouped.map do |month_year, day_slots|
+        result << [month_year, grouped_day(day_slots)]
+      end
+    end
+  end
+
+  def grouped_day(day_slots)
+    day_slots.map do |slot|
+      [
+        "#{slot.date.to_date.strftime('%A, %d %b')} - #{slot.period == 'am' ? 'Morning' : 'Afternoon'}",
+        "#{slot.date} #{slot.start.dup.insert(2, ':')}"
+      ]
+    end
+  end
+
   def summary(period, schedule)
     open = schedule.public_send(period)
     day, slot = period.to_s.split('_')

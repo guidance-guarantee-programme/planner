@@ -10,6 +10,18 @@ class Slot < ActiveRecord::Base
   validates :to, format: { with: PERMITTED_TIME_REGEX }
   validate :validate_from_before_to
 
+  def self.from(priority:, start_at:)
+    start_at = start_at.in_time_zone
+
+    new(
+      priority: priority,
+      date: start_at.to_date,
+      from: start_at.strftime('%H%M')
+    ).tap do |slot|
+      slot.to = slot.morning? ? BookableSlot::AM.end : BookableSlot::PM.end
+    end
+  end
+
   def morning?
     BookableSlot::AM.am?(from)
   end

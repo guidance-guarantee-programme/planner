@@ -33,6 +33,14 @@
     </div>
   </div>
 
+  <% if @appointment_form.agent %>
+  <div class="alert alert-warning" role="alert">
+    <p>
+    This booking was placed by <strong><%= @appointment_form.agent.name %></strong> on behalf of the customer.
+    </p>
+  </div>
+  <% end %>
+
   <div class="page-header">
     <ol class="breadcrumb">
       <li><a href="<%= root_path %>">Appointment planner</a></li>

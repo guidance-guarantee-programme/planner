@@ -31,6 +31,12 @@ Rails.application.routes.draw do
     resources :bookable_slots, only: :index
   end
 
+  namespace :agent, path: '/locations/:location_id' do
+    resources :booking_requests, only: %i(new create show) do
+      post 'preview', on: :collection
+    end
+  end
+
   root 'booking_requests#index'
 
   namespace :api, constraints: { format: :json } do

@@ -12,6 +12,9 @@ Lint/HandleExceptions:
   Exclude:
     - Rakefile
 
+Lint/AssignmentInCondition:
+  Enabled: false
+
 Metrics/LineLength:
   Max: 120
 

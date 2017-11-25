@@ -7,7 +7,7 @@ RSpec.describe BookingRequest do
     end
 
     it 'validates maximum length of `additional_info`' do
-      expect(build(:booking_request, additional_info: '*' * 161)).to_not be_valid
+      expect(build(:booking_request, additional_info: '*' * 321)).to_not be_valid
     end
 
     it 'requires a booking_location_id' do

@@ -14,6 +14,10 @@ class BookableSlot < ActiveRecord::Base
     PM.pm?(self.end)
   end
 
+  def period
+    am? ? 'am' : 'pm'
+  end
+
   def appointments
     ending_at = am? ? end_at - 1.minute : end_at
 
