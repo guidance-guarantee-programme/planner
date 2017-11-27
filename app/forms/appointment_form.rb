@@ -1,5 +1,6 @@
 class AppointmentForm
   include ActiveModel::Model
+  include PostalAddressable
 
   BOOKING_REQUEST_ATTRIBUTES = %i(
     reference
@@ -27,6 +28,7 @@ class AppointmentForm
   validate :validate_not_with_an_existing_booking_request
 
   attr_reader :location_aware_booking_request
+  alias booking_request location_aware_booking_request
 
   attr_accessor :name
   attr_accessor :email
