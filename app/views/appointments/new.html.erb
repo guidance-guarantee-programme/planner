@@ -38,6 +38,9 @@
     <p>
     This booking was placed by <strong><%= @appointment_form.agent.name %></strong> on behalf of the customer.
     </p>
+    <% if @appointment_form.postal_confirmation? %>
+    <p>The customer has requested postal confirmation.</p>
+    <% end %>
   </div>
   <% end %>
 
@@ -113,6 +116,13 @@
           </a>
         </strong>
       </p>
+      <% if @appointment_form.postal_confirmation? %>
+      <hr>
+      <h2 class="h3">Postal address</h2>
+      <p>
+        <%= simple_format(@appointment_form.postal_address_lines) %>
+      </p>
+      <% end %>
       <hr>
       <button type="button" class="btn btn-default btn-block booking-request-status-btn js-booking-request-change-status-button t-booking-request-change-state-button">
         Change booking request status
