@@ -39,6 +39,23 @@ RSpec.describe AppointmentForm do
       expect(subject).to be_valid
     end
 
+    context 'with an address' do
+      it 'does not require an email' do
+        subject.email = ''
+
+        expect(subject).to be_valid
+      end
+    end
+
+    context 'with no address' do
+      it 'requires an email address' do
+        booking_request.address_line_one = ''
+        subject.email = ''
+
+        expect(subject).to_not be_valid
+      end
+    end
+
     it 'must not be associated with an existing appointment' do
       booking_request.appointment = build(:appointment)
 
@@ -47,12 +64,6 @@ RSpec.describe AppointmentForm do
 
     it 'requires a name' do
       params[:name] = ''
-
-      expect(subject).to_not be_valid
-    end
-
-    it 'requires an email' do
-      params[:email] = ''
 
       expect(subject).to_not be_valid
     end

@@ -11,10 +11,11 @@ class AppointmentForm
     booking_location
     additional_info
     agent
+    address?
   ).freeze
 
   validates :name, presence: true
-  validates :email, presence: true, email: true
+  validates :email, presence: true, email: true, unless: :address?
   validates :phone, presence: true
   validates :memorable_word, presence: true
   validates :accessibility_requirements, inclusion: { in: [true, false, '1', '0'] }
