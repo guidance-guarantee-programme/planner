@@ -60,6 +60,10 @@ class BookingRequest < ActiveRecord::Base
     super.to_s.titleize
   end
 
+  def address?
+    [address_line_one, town, postcode].all?(&:present?)
+  end
+
   private
 
   def validate_slots

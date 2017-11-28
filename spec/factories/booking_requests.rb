@@ -15,6 +15,9 @@ FactoryBot.define do
     marketing_opt_in false
     defined_contribution_pot_confirmed true
     placed_by_agent false
+    address_line_one '10 Some Road'
+    town 'Some Town'
+    postcode 'W1 1AA'
 
     transient { number_of_slots 1 }
 
