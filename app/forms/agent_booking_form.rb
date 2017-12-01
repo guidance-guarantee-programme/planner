@@ -81,7 +81,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def email_provided?
-    email.present? && email != 'tpbooking@pensionwise.gov.uk'
+    email.present? && /tpbookings?@pensionwise.gov.uk/ !~ email
   end
 
   def age_range
