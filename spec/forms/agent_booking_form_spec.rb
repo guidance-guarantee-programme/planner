@@ -26,6 +26,17 @@ RSpec.describe AgentBookingForm do
       expect(subject).to be_valid
     end
 
+    context 'when one of the legacy journey email addresses are provided' do
+      %w(tpbooking@pensionwise.gov.uk tpbookings@pensionwise.gov.uk).each do |email|
+        it "requires an address for '#{email}'" do
+          subject.email = email
+          subject.address_line_one = ''
+
+          expect(subject).to be_invalid
+        end
+      end
+    end
+
     context 'when an email is not provided' do
       it 'requires an address' do
         subject.email = ''
