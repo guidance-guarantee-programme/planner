@@ -32,7 +32,10 @@ class Schedule < ActiveRecord::Base
     create_bookable_slot(date: date, period: BookableSlot::PM) if pm
   end
 
-  def bookable_slots_in_window(starting: GracePeriod.new.call, ending: 8.weeks.from_now)
+  def bookable_slots_in_window(
+    starting: GracePeriod.new.call,
+    ending:   WindowEnd.new(location_id).call
+  )
     return DefaultBookableSlots.new.call if default?
 
     bookable_slots.windowed(starting..ending)
