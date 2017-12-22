@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def safe_location_name(location_id)
+    location = BookingLocations.find(location_id)
+    location&.name_for(location_id)
+  end
+
   def guard_missing_location(object, attribute)
     object.public_send(attribute)
   rescue
@@ -21,5 +26,9 @@ module ApplicationHelper
 
   def location_options(booking_location)
     FlattenedLocationMapper.map(booking_location).sort_by(&:first)
+  end
+
+  def agent_options
+    User.active.select(&:agent?).pluck(:name, :id)
   end
 end

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   BOOKING_MANAGER_PERMISSION  = 'booking_manager'
   ADMINISTRATOR_PERMISSION    = 'administrator'
   AGENT_PERMISSION            = 'agent'
+  AGENT_MANAGER_PERMISSION    = 'agent_manager'
 
   include GDS::SSO::User
 
@@ -36,5 +37,13 @@ class User < ActiveRecord::Base
 
   def booking_manager?
     has_permission?(BOOKING_MANAGER_PERMISSION)
+  end
+
+  def agent?
+    has_permission?(AGENT_PERMISSION)
+  end
+
+  def agent_manager?
+    has_permission?(AGENT_MANAGER_PERMISSION)
   end
 end

@@ -6,7 +6,9 @@ module Agent
     layout 'application'
     protect_from_forgery with: :exception
 
-    before_action { authorise_user!(User::AGENT_PERMISSION) }
+    before_action do
+      authorise_user!(any_of: [User::AGENT_PERMISSION, User::AGENT_MANAGER_PERMISSION])
+    end
 
     protected
 

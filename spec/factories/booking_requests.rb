@@ -18,6 +18,7 @@ FactoryBot.define do
     address_line_one '10 Some Road'
     town 'Some Town'
     postcode 'W1 1AA'
+    agent nil
 
     transient { number_of_slots 1 }
 

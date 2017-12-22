@@ -1,5 +1,7 @@
 class BookingRequestsController < ApplicationController
   def index
+    return redirect_to agent_search_index_path if agent_only?
+
     @search = BookingRequestsSearchForm.new(search_params)
 
     @booking_requests = LocationAwareEntities.new(
@@ -20,6 +22,10 @@ class BookingRequestsController < ApplicationController
   end
 
   private
+
+  def agent_only?
+    current_user.agent? && !current_user.booking_manager?
+  end
 
   def search_params # rubocop:disable Metrics/MethodLength
     params

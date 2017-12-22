@@ -1,0 +1,99 @@
+<% content_for(:page_title, t('service.title', page_title: 'Teleperformance booking requests')) %>
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><%= link_to 'Appointment planner', root_path %></li>
+    <li class="active">Teleperformance booking requests</li>
+  </ol>
+
+  <h1>Teleperformance booking requests</h1>
+</div>
+
+<div class="t-search filters">
+  <div class="panel panel-default">
+    <header class="panel-heading">
+      <%= form_for @search, url: agent_search_index_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
+        <ul class="nav nav-compact nav-pills filters__nav">
+          <li class="filters__item">
+            <%= f.label :reference, class: 'filters__label' %>
+            <%= f.text_field :reference, class: 't-reference form-control filters__form-control', placeholder: 'Reference' %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :name, class: 'filters__label' %>
+            <%= f.text_field :name, class: 't-name form-control filters__form-control', placeholder: 'Name' %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :status, class: 'filters__label' %>
+            <%= f.select :status, friendly_options(BookingRequest.statuses), { include_blank: 'All Statuses' }, { class: 't-status form-control filters__form-control filters__form-control--status' } %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :agent, class: 'filters__label' %><%= f.select :agent, agent_options, { include_blank: 'All Agents' }, { class: 'form-control filters__form-control t-agent' } %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :date, 'Date', class: 'filters__label' %><%= f.text_field :date, class: 'js-date-range-picker t-date form-control filters__form-control', readonly: true %>
+          </li>
+          <li class="filters__item">
+           <%= f.button class: 't-submit btn btn-default filters__button' do %>
+             <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
+           <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </header>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @booking_requests.page.empty? %>
+      <p class="no-content t-notice">No booking requests.</p>
+    <% else %>
+      <%= paginate @booking_requests %>
+
+      <table class="table table-bordered">
+        <caption><span class="sr-only">Booking Requests</span></caption>
+        <thead>
+          <tr class="table-header">
+            <th>Requested</th>
+            <th>Customer name</th>
+            <th>Location</th>
+            <th>Slots</th>
+            <th>Reference</th>
+            <th>Status</th>
+            <th>Agent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @booking_requests.page.each do |booking_request| %>
+            <tr class="t-booking-request">
+              <td title="<%= booking_request.created_at.to_s(:govuk_date) %>">
+                <%= time_ago_in_words(booking_request.created_at) %> ago<br>
+              </td>
+              <td>
+                <%= booking_request.name %>
+              </td>
+              <td>
+                <a href="https://www.pensionwise.gov.uk/locations/<%= booking_request.location_id %>"><%= safe_location_name(booking_request.location_id) %></a>
+              </td>
+              <td>
+                <%= booking_request.primary_slot %>
+                <% if booking_request.secondary_slot %><br><%= booking_request.secondary_slot %><% end %>
+                <% if booking_request.tertiary_slot  %><br><%= booking_request.tertiary_slot %><% end %>
+              </td>
+              <td>
+                <%= booking_request.reference %>
+              </td>
+              <td>
+                <%= booking_request.status.humanize %>
+              </td>
+              <td>
+                <%= booking_request.agent.name %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @booking_requests %>
+    <% end %>
+  </div>
+</div>
