@@ -98,10 +98,12 @@ RSpec.describe Appointment do
 
     describe '#notify?' do
       context 'when the status was changed' do
-        it 'returns false' do
-          original.update(status: 1)
-
+        it 'handles correctly' do
+          original.update(status: :completed)
           expect(original).to_not be_notify
+
+          original.update(status: :pending)
+          expect(original).to be_notify
         end
       end
 
