@@ -29,6 +29,6 @@ module ApplicationHelper
   end
 
   def agent_options
-    User.active.select(&:agent?).pluck(:name, :id)
+    User.active.order(:name).select(&:agent?).pluck(:name, :id)
   end
 end
