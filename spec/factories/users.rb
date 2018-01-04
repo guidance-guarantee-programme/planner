@@ -6,6 +6,10 @@ FactoryBot.define do
     name 'Rick Sanchez'
     email 'rick@example.com'
 
+    factory :agent_manager do
+      permissions { Array(User::AGENT_MANAGER_PERMISSION) }
+    end
+
     factory :agent do
       permissions { Array(User::AGENT_PERMISSION) }
     end

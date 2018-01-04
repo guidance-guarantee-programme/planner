@@ -37,7 +37,11 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'booking_requests#index'
+  namespace :agent, path: '/agents' do
+    resources :booking_requests, only: :index, as: :search
+  end
+
+  root 'home#index'
 
   namespace :api, constraints: { format: :json } do
     namespace :v1 do
