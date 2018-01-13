@@ -43,8 +43,15 @@
     },
 
     poll: function() {
-      $.ajax({ url: this.url(), data: { timestamp: this.getLast() } })
-       .always($.proxy(this.handleResponse, this));
+      $.ajax({
+        url: this.url(),
+        data: { timestamp: this.getLast() },
+        error: $.proxy(this.handleError, this)
+      }).always($.proxy(this.handleResponse, this));
+    },
+
+    handleError: function() {
+      this.stop();
     },
 
     handleResponse: function(data, status, request) {
