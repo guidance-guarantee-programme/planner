@@ -16,6 +16,7 @@ class WhereYouHeard
     '14' => 'The Pensions Advisory Service (TPAS)',
     '15' => 'Citizens Advice',
     '16' => 'Relative/Friend/Colleague',
+    '18' => 'Jobcentre Plus',
     '17' => 'Other'
   }.freeze
 end
