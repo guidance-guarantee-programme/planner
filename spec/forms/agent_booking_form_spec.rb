@@ -26,6 +26,20 @@ RSpec.describe AgentBookingForm do
       expect(subject).to be_valid
     end
 
+    context 'dob validation bug' do
+      it 'requires a date of birth' do
+        subject.date_of_birth = ''
+
+        expect(subject).to be_invalid
+      end
+
+      it 'requires a four digit year fragment' do
+        subject.date_of_birth = '01/02/53'
+
+        expect(subject).to be_invalid
+      end
+    end
+
     context 'when one of the legacy journey email addresses are provided' do
       %w(tpbooking@pensionwise.gov.uk tpbookings@pensionwise.gov.uk).each do |email|
         it "requires an address for '#{email}'" do

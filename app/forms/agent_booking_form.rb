@@ -31,7 +31,6 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :name, presence: true
   validates :booking_location_id, presence: true
   validates :location_id, presence: true
-  validates :date_of_birth, presence: true, format: %r{\d{1,2}\/\d{1,2}\/\d{2,4}}
   validates :email, presence: true, email: true, allow_blank: true
   validates :postcode, postcode: true, allow_blank: true
   validates :phone, presence: true, format: /\A([\d+\-\s\+()]+)\z/
@@ -69,7 +68,10 @@ class AgentBookingForm # rubocop:disable ClassLength
   private
 
   def validate_eligibility
-    return if date_of_birth.blank?
+    unless %r{\d{1,2}\/\d{1,2}\/\d{4}}.match?(date_of_birth)
+      errors.add(:date_of_birth, 'must be formatted eg 01/01/1950')
+      return
+    end
 
     errors.add(:base, 'Must be aged 50 or over to be eligible') if age < 50
   end
