@@ -26,11 +26,11 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'momentjs-rails'
   gem 'newrelic_rpm'
   gem 'oj'
-  gem 'pg'
+  gem 'pg', '~> 0.21'
   gem 'plek'
   gem 'puma'
   gem 'rails', '~> 5.1.2'
-  gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
+  gem 'rails-observers'
   gem 'sassc-rails'
   gem 'sidekiq'
   gem 'sinatra', require: false
