@@ -30,7 +30,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'plek'
   gem 'puma'
   gem 'rails', '~> 5.1.2'
-  gem 'rails-observers', github: 'rails/rails-observers', branch: 'master'
+  gem 'rails-observers'
   gem 'sassc-rails'
   gem 'sidekiq'
   gem 'sinatra', require: false
