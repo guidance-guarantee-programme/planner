@@ -1,8 +1,5 @@
 # Days that are always excluded from availability
 EXCLUSIONS = %w(
-  25/12/2017
-  26/12/2017
-  01/01/2017
   30/03/2018
   02/04/2018
   07/05/2018
