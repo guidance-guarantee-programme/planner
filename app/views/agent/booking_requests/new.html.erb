@@ -95,7 +95,21 @@
         <h2 class="h3">Eligibility</h2>
         <div class="form-group">
           <%= f.label :date_of_birth %>
-          <%= f.text_field :date_of_birth, class: 'form-control input-md-2 t-date-of-birth', placeholder: 'eg 01/01/1950' %>
+          <%= f.text_field(
+              :date_of_birth,
+              class: 'form-control input-md-2 t-date-of-birth js-date-time-picker',
+              placeholder: 'eg 01/01/1950',
+              data: {
+                config: {
+                  showDropdowns: true,
+                  autoUpdateInput: false,
+                  minDate: '01/01/1920',
+                  maxDate: '01/01/1976',
+                  locale: { format: 'DD/MM/YYYY' }
+                }
+              }
+            )
+          %>
         </div>
         <div class="form-group">
           <p><b>Defined contribution pot confirmed?</b></p>
