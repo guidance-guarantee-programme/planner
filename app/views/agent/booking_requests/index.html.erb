@@ -44,7 +44,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <% if @booking_requests.page.empty? %>
+    <% if @booking_requests.empty? %>
       <p class="no-content t-notice">No booking requests.</p>
     <% else %>
       <%= paginate @booking_requests %>
@@ -63,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @booking_requests.page.each do |booking_request| %>
+          <% @booking_requests.each do |booking_request| %>
             <tr class="t-booking-request">
               <td title="<%= booking_request.created_at.to_s(:govuk_date) %>">
                 <%= time_ago_in_words(booking_request.created_at) %> ago<br>
