@@ -2,7 +2,7 @@ module Agent
   class BookingRequestsController < Agent::ApplicationController
     def index
       @search = AgentSearchForm.new(search_params)
-      @booking_requests = @search.results.page(params[:page])
+      @booking_requests = @search.results
     end
 
     def new
