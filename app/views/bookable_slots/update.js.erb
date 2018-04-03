@@ -1,2 +1,3 @@
 $('.js-calendar').fullCalendar('refetchEvents');
 $('[data-dismiss=modal]').trigger({ type: 'click' });
+<%= "alert('Slots cannot be created on this date.');".html_safe if @failed %>

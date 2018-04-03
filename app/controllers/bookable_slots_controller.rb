@@ -17,6 +17,8 @@ class BookableSlotsController < ApplicationController
 
   def update
     AvailabilityForm.new(availability_params).upsert!
+  rescue ActiveRecord::RecordInvalid
+    @failed = true
   end
 
   private
