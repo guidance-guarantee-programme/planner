@@ -30,8 +30,12 @@ class WindowEnd
     @location_id = location_id
   end
 
+  def nicab?
+    NICAB_LOCATIONS.include?(location_id)
+  end
+
   def call
-    if NICAB_LOCATIONS.include?(location_id)
+    if nicab?
       2.weeks.from_now
     else
       8.weeks.from_now

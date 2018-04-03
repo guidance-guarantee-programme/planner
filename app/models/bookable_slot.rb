@@ -6,6 +6,8 @@ class BookableSlot < ActiveRecord::Base
 
   audited associated_with: :schedule
 
+  validate :validate_date
+
   def am?
     AM.am?(start)
   end
@@ -36,6 +38,12 @@ class BookableSlot < ActiveRecord::Base
   end
 
   private
+
+  def validate_date
+    return unless schedule.nicab?
+
+    errors.add(:start, 'Cannot occur on this date.') if date == '2018-04-09'.to_date
+  end
 
   def start_at
     Time.zone.parse("#{date} #{start.insert(2, ':')}")
