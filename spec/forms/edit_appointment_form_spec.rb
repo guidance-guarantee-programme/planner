@@ -17,4 +17,8 @@ RSpec.describe EditAppointmentForm do
     expect(subject.secondary_slot).to eq(appointment.booking_request.secondary_slot)
     expect(subject.tertiary_slot).to eq(appointment.booking_request.tertiary_slot)
   end
+
+  it 'delegates the agent to the underlying booking request' do
+    expect(subject.agent).to eq(appointment.booking_request.agent)
+  end
 end
