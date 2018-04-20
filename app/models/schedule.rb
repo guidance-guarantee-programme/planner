@@ -51,6 +51,20 @@ class Schedule < ActiveRecord::Base
     bookable_slots_in_window.size.zero?
   end
 
+  def available?
+    !unavailable?
+  end
+
+  def available_before?(from: 4.weeks.from_now)
+    return false unless available?
+
+    first_available_slot_on <= from
+  end
+
+  def first_available_slot_on
+    bookable_slots_in_window.first&.date
+  end
+
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)
