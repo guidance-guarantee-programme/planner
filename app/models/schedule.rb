@@ -27,10 +27,6 @@ class Schedule < ActiveRecord::Base
     BookableSlotGenerator.new(self).call
   end
 
-  def regenerate_bookable_slots!
-    BookableSlotRegenerator.new(self).call
-  end
-
   def create_bookable_slots(date:, am:, pm:)
     create_bookable_slot(date: date, period: BookableSlot::AM) if am
     create_bookable_slot(date: date, period: BookableSlot::PM) if pm
