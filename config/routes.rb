@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :activities, only: %i(index create)
 
     resources :appointments, only: %i(new create)
+
+    resource :postal_address, only: %i(edit update)
   end
 
   resources :schedules, only: %i(index new create) do

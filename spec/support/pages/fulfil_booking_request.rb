@@ -43,6 +43,9 @@ module Pages
     element :submit_booking_request, '.t-submit-booking-request'
     element :submit_appointment, '.t-submit-appointment'
 
+    element :postal_address, '.t-postal-address'
+    element :edit_postal_address, '.t-edit-postal-address'
+
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
 
