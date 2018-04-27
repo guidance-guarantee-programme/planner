@@ -12,9 +12,5 @@ FactoryBot.define do
     trait :dalston do
       location_id '183080c6-642b-4b8f-96fd-891f5cd9f9c7'
     end
-
-    trait :belfast_central do
-      location_id '1de9b76c-c349-4e2a-a3a7-bb0f59b0807e'
-    end
   end
 end
