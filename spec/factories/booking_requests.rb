@@ -47,5 +47,19 @@ FactoryBot.define do
       booking_location_id '7f916cf6-d2bd-4bcc-90dc-594207c8b1f4'
       location_id '7f916cf6-d2bd-4bcc-90dc-594207c8b1f4'
     end
+
+    factory :postal_booking_request do
+      booking_location_id 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef'
+      location_id 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef'
+
+      address_line_one '22 Dalston Lane'
+      address_line_two ''
+      address_line_three ''
+      town 'Hackney'
+      county 'London'
+      postcode 'E8 3AZ'
+
+      email ''
+    end
   end
 end

@@ -18,6 +18,7 @@ spec/examples.txt
 # Node / Bower
 vendor/assets/bower_components
 node_modules
+package-lock.json
 
 # Coverage stuff
 coverage

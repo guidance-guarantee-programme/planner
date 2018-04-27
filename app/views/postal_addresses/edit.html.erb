@@ -1,0 +1,88 @@
+<% content_for(:page_title, t('service.title', page_title: "Edit postal address for #{@booking_request.name}")) %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <% if @booking_request.appointment %>
+      <li><a href="<%= appointments_path %>">Appointments</a></li>
+      <li><a href="<%= edit_appointment_path(@booking_request.appointment) %>"><%= @booking_request.name %></a></li>
+    <% else %>
+      <li><a href="<%= booking_requests_path %>">Booking requests</a></li>
+      <li><a href="<%= new_booking_request_appointment_path(@booking_request) %>"><%= @booking_request.name %></a></li>
+    <% end %>
+    <li class="active">Edit postal address</li>
+  </ol>
+
+  <h1>
+    Edit postal address for <%= @booking_request.name %><br>
+    <small>Booking reference: <%= @booking_request.reference %></small>
+  </h1>
+</div>
+
+<%= form_for @postal_address, url: booking_request_postal_address_path(@booking_request), as: :postal_address, method: :patch do |f| %>
+  <div class="row">
+    <div class="col-md-6 l-booking-request-details">
+      <% if @postal_address.errors.any? %>
+        <div class="alert alert-danger t-errors" role="alert">
+          <h3 class="alert__heading h4">There's a problem</h3>
+          <ul>
+            <% @postal_address.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="h3" id="postal-address-heading" data-postcode-api-key="<%= postcode_api_key %>">Confirmation address <small>(required if no email address)</small></h2>
+          <div class="form-group">
+            <%= f.label :address_line_one do %>
+              Building and street <span class="sr-only">line one</span>
+            <% end %>
+            <%= f.text_field :address_line_one, class: 'form-control t-address-line-one' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :address_line_two, class: 'sr-only' %>
+            <%= f.text_field :address_line_two, class: 'form-control t-address-line-two' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :address_line_three, class: 'sr-only' %>
+            <%= f.text_field :address_line_three, class: 'form-control t-address-line-three' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :town %>
+            <%= f.text_field :town, class: 'form-control t-town' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :county %>
+            <%= f.text_field :county, class: 'form-control t-county' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :postcode %>
+            <%= f.text_field :postcode, class: 'form-control t-postcode' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.button 'Update postal address', class: 'btn btn-primary t-submit' %>
+          <% if @booking_request.appointment %>
+            <%= link_to 'Cancel', edit_appointment_path(@booking_request.appointment), class: 'btn btn-default t-cancel' %>
+          <% else %>
+            <%= link_to 'Cancel', new_booking_request_appointment_path(@booking_request), class: 'btn btn-default t-cancel' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/html" id="postcode-lookup-template">
+  <div class="form-group form-inline postcode-lookup" id="postcode-lookup">
+    <label for="appointment_summary_lookup" class="sr-only">Postcode or address to search for</label><br>
+    <input class="form-control input-md-3 add-right-margin" placeholder="Enter postcode or address" type="text" id="postcode-lookup-input" />
+    <button class="btn btn-success btn-sm" onclick="return false" id="postcode-lookup-button">Find UK address</button>
+  </div>
+  <div class="form-group form-inline" id="postcode-lookup-results-container">
+  </div>
+</script>

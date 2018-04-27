@@ -31,6 +31,9 @@ module Pages
 
     element :submit, '.t-submit'
 
+    element :postal_address, '.t-postal-address'
+    element :edit_postal_address, '.t-edit-postal-address'
+
     element :status, '.t-status'
 
     elements :errors, '.field_with_errors'

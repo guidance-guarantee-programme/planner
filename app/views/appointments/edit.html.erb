@@ -79,8 +79,9 @@
       <% if @appointment_form.postal_confirmation? %>
         <hr>
       <h2 class="h3">Postal address</h2>
+      <%= simple_format(@appointment_form.postal_address_lines, class: 't-postal-address') %>
       <p>
-        <%= simple_format(@appointment_form.postal_address_lines) %>
+        <small><%= link_to 'Edit', edit_booking_request_postal_address_path(@appointment_form.booking_request), class: 't-edit-postal-address' %></small>
       </p>
       <% end %>
     </div>

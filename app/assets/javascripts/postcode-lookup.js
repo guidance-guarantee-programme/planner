@@ -27,11 +27,12 @@
         dropdown_class: 'form-control input-md-3',
         dropdown_container: '#postcode-lookup-results-container',
         output_fields: {
-          line_1: '#booking_address_line_one',
-          line_2: '#booking_address_line_two',
-          line_3: '#booking_address_line_three',
-          post_town: '#booking_town',
-          postcode: '#booking_postcode'
+          line_1: 'input[id$=address_line_one]',
+          line_2: 'input[id$=address_line_two]',
+          line_3: 'input[id$=address_line_three]',
+          postal_county: 'input[id$=county]',
+          post_town: 'input[id$=town]',
+          postcode: 'input[id$=postcode]'
         }
       });
     }

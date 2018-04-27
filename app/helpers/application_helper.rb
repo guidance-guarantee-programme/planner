@@ -31,4 +31,8 @@ module ApplicationHelper
   def agent_options
     User.active.order(:name).select(&:agent?).pluck(:name, :id)
   end
+
+  def postcode_api_key
+    ENV.fetch('POSTCODE_API_KEY') { 'iddqd' } # default to test API key
+  end
 end
