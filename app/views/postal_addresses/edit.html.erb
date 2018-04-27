@@ -34,6 +34,7 @@
       <% end %>
       <div class="row">
         <div class="col-md-12">
+          <h2 class="h3" id="postal-address-heading" data-postcode-api-key="<%= postcode_api_key %>">Confirmation address <small>(required if no email address)</small></h2>
           <div class="form-group">
             <%= f.label :address_line_one do %>
               Building and street <span class="sr-only">line one</span>
@@ -75,3 +76,13 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/html" id="postcode-lookup-template">
+  <div class="form-group form-inline postcode-lookup" id="postcode-lookup">
+    <label for="appointment_summary_lookup" class="sr-only">Postcode or address to search for</label><br>
+    <input class="form-control input-md-3 add-right-margin" placeholder="Enter postcode or address" type="text" id="postcode-lookup-input" />
+    <button class="btn btn-success btn-sm" onclick="return false" id="postcode-lookup-button">Find UK address</button>
+  </div>
+  <div class="form-group form-inline" id="postcode-lookup-results-container">
+  </div>
+</script>

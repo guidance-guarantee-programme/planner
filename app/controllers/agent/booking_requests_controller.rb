@@ -38,11 +38,6 @@ module Agent
 
     private
 
-    def postcode_api_key
-      ENV.fetch('POSTCODE_API_KEY') { 'iddqd' } # default to test API key
-    end
-    helper_method :postcode_api_key
-
     def send_notifications(booking)
       CustomerConfirmationJob.perform_later(booking)
       BookingManagerConfirmationJob.perform_later(booking)
