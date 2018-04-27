@@ -6,7 +6,7 @@ class BookableSlot < ActiveRecord::Base
 
   audited associated_with: :schedule
 
-  validate :validate_date
+  validate :validate_date_exclusions
 
   def am?
     AM.am?(start)
@@ -39,10 +39,8 @@ class BookableSlot < ActiveRecord::Base
 
   private
 
-  def validate_date
-    return unless schedule.nicab?
-
-    errors.add(:start, 'Cannot occur on this date.') if date == '2018-04-09'.to_date
+  def validate_date_exclusions
+    errors.add(:start, 'Cannot occur on this date') if EXCLUSIONS.include?(date)
   end
 
   def start_at

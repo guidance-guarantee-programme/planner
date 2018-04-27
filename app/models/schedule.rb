@@ -19,10 +19,6 @@ class Schedule < ActiveRecord::Base
   has_associated_audits
   audited on: :create
 
-  def nicab?
-    WindowEnd.new(location_id).nicab?
-  end
-
   def generate_bookable_slots!
     BookableSlotGenerator.new(self).call
   end
