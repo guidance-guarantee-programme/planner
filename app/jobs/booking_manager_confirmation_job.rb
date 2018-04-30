@@ -4,8 +4,7 @@ class BookingManagerConfirmationJob < ActiveJob::Base
   queue_as :default
 
   def perform(booking_request)
-    booking_location = BookingLocations.find(booking_request.location_id)
-    booking_managers = User.active.where(organisation_content_id: booking_location.id)
+    booking_managers = User.active.where(organisation_content_id: booking_request.location_id)
 
     raise BookingManagersNotFoundError unless booking_managers.present?
 
