@@ -46,7 +46,7 @@
         <%= f.select :organisation_content_id,
               options_for_select(booking_location_options, current_user.organisation_content_id),
               {},
-              { class: 't-location js-location' }
+              { class: 't-location js-location form-control input-sm' }
         %>
       </div>
     <% end %>
