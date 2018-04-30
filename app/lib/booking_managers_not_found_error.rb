@@ -1,0 +1,1 @@
+class BookingManagersNotFoundError < StandardError; end

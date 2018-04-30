@@ -1,0 +1,7 @@
+The email to <%= @booking_request.email %> failed to send.
+
+<% if @booking_request.appointment -%>
+<%= edit_appointment_url(@booking_request.appointment) %>
+<% else -%>
+<%= new_booking_request_appointment_url(@booking_request) %>
+<% end -%>

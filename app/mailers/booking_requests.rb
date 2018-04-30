@@ -15,4 +15,12 @@ class BookingRequests < ApplicationMailer
     mailgun_headers('booking_manager_booking_request')
     mail to: booking_manager.email, subject: 'Pension Wise Booking Request'
   end
+
+  def email_failure(booking_request, booking_manager)
+    @booking_request = booking_request
+    @booking_manager = booking_manager
+
+    mailgun_headers('email_failure_booking_request')
+    mail to: booking_manager.email, subject: 'Email Failure - Pension Wise Booking Request'
+  end
 end

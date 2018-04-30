@@ -1,0 +1,11 @@
+<%= p do %>
+  The email to <%= mail_to @booking_request.email, @booking_request.name %> failed to send.
+<% end %>
+
+<%= p do %>
+  <% if @booking_request.appointment -%>
+    <%= link_to 'View the appointment', edit_appointment_url(@booking_request.appointment) %>
+  <% else -%>
+    <%= link_to 'View the booking request', new_booking_request_appointment_url(@booking_request) %>
+  <% end -%>
+<% end %>
