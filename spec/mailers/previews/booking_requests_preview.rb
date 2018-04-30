@@ -11,4 +11,11 @@ class BookingRequestsPreview < ActionMailer::Preview
       FactoryBot.create(:booking_manager)
     )
   end
+
+  def email_failure
+    BookingRequests.email_failure(
+      FactoryBot.create(:hackney_booking_request),
+      FactoryBot.create(:hackney_booking_manager)
+    )
+  end
 end

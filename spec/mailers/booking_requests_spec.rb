@@ -67,4 +67,37 @@ RSpec.describe BookingRequests do
       end
     end
   end
+
+  describe 'Email failure notification' do
+    let(:booking_request) { build_stubbed(:hackney_booking_request) }
+    let(:booking_manager) { build_stubbed(:hackney_booking_manager) }
+
+    subject(:mail) { BookingRequests.email_failure(booking_request, booking_manager) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Email Failure - Pension Wise Booking Request')
+      expect(mail.to).to eq([booking_manager.email])
+      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"email_failure_booking_request"')
+    end
+
+    describe 'rendering the body' do
+      let(:body) { subject.body.encoded }
+
+      it 'includes a link to the booking request' do
+        expect(body).to include("http://localhost:3001/booking_requests/#{booking_request.id}/appointments/new")
+      end
+
+      context 'when the email fails after the appointment is created' do
+        let(:appointment) { build_stubbed(:appointment) }
+        let(:booking_request) { appointment.booking_request }
+
+        it 'includes a link to the booking request' do
+          expect(body).to include("http://localhost:3001/appointments/#{appointment.id}/edit")
+        end
+      end
+    end
+  end
 end

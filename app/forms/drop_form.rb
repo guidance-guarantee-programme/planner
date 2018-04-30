@@ -32,12 +32,14 @@ class DropForm
       description,
       booking_request
     )
+
+    DropNotificationJob.perform_later(booking_request)
   end
 
   private
 
   def booking_request
-    BookingRequest.latest(recipient)
+    @booking_request ||= BookingRequest.latest(recipient)
   end
 
   # rubocop:disable Style/GuardClause

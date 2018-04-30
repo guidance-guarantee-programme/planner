@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BookingManagerConfirmationJob, '#perform' do
+RSpec.describe DropNotificationJob, '#perform' do
   let(:location_id) { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }
   let(:booking_request) { create(:booking_request, location_id: location_id) }
 
