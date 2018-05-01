@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DropNotificationJob, '#perform' do
-  let(:location_id) { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }
-  let(:booking_request) { create(:booking_request, location_id: location_id) }
+  let(:booking_request) { create(:hackney_booking_request) }
 
   subject { described_class.new.perform(booking_request) }
 
