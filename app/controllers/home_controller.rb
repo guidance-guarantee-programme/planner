@@ -6,16 +6,19 @@ class HomeController < ActionController::Base
 
   before_action do
     authorise_user!(
-      any_of: [User::BOOKING_MANAGER_PERMISSION, User::AGENT_MANAGER_PERMISSION]
+      any_of: [
+        User::BOOKING_MANAGER_PERMISSION,
+        User::AGENT_MANAGER_PERMISSION,
+        User::AGENT_PERMISSION
+      ]
     )
   end
 
   def index
-    if agent_manager_only?
-      redirect_to agent_search_index_path
-    else
-      redirect_to booking_requests_path
-    end
+    return redirect_to agent_search_index_path if agent_manager_only?
+    return redirect_to booking_requests_path   if current_user.booking_manager?
+
+    render :index, layout: 'application'
   end
 
   private

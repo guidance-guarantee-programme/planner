@@ -1,0 +1,18 @@
+<% content_for(:page_title, t('service.title', page_title: 'Place a booking request')) %>
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li class="active">Place a booking request</li>
+  </ol>
+
+  <h1>Place a booking request</h1>
+</div>
+
+<div class="lead notice">
+  <p>
+    To place a booking request you should follow the customer booking journey.
+  </p>
+  <p>
+    <%= link_to 'Place a booking request', booking_journey_path, class: 'btn btn-primary btn-lg' %>
+  </p>
+</div>

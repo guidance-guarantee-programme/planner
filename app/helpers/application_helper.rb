@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def booking_journey_path
+    Plek.find('www') + '/en/book-face-to-face'
+  end
+
   def safe_location_name(location_id)
     location = BookingLocations.find(location_id)
     location&.name_for(location_id)
