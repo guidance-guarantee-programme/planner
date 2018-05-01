@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= paginate @child_locations %>
+    <%= paginate @locations %>
 
     <table class="centered-table table table-bordered table-striped">
       <colgroup>
@@ -26,14 +26,12 @@
         </tr>
       </thead>
       <tbody>
-        <%= render 'location', location: @booking_location %>
-
-        <% @child_locations.each do |location| %>
+        <% @locations.each do |location| %>
           <%= render 'location', location: location %>
         <% end %>
       </tbody>
     </table>
 
-    <%= paginate @child_locations %>
+    <%= paginate @locations %>
   </div>
 </div>
