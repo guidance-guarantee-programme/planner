@@ -11,6 +11,10 @@ class BookingLocationDecorator < SimpleDelegator
     super.map { |l| BookingLocationDecorator.new(l) }
   end
 
+  def visible_locations
+    locations.reject(&:hidden?).sort_by(&:name)
+  end
+
   def schedule
     @schedule ||= Schedule.current(id)
   end

@@ -10,6 +10,8 @@
 
 <div class="row">
   <div class="col-md-12">
+    <%= paginate @child_locations %>
+
     <table class="centered-table table table-bordered table-striped">
       <colgroup>
         <col width="65%" />
@@ -31,5 +33,7 @@
         <% end %>
       </tbody>
     </table>
+
+    <%= paginate @child_locations %>
   </div>
 </div>
