@@ -5,8 +5,7 @@ class SchedulesController < ApplicationController
   rescue_from InvalidPageError, PageRangeError, with: :redirect_to_first_page
 
   def index
-    @booking_location = booking_location
-    @child_locations  = paginate_locations(booking_location)
+    @locations = paginate_locations
   end
 
   def new
@@ -32,19 +31,30 @@ class SchedulesController < ApplicationController
       )
   end
 
-  def paginate_locations(booking_location)
-    locations = booking_location.visible_locations
-
-    total_pages  = (locations.size.to_f / per_page).ceil
+  def paginate_locations
+    locations    = all_locations
+    total_pages  = calculate_total_pages(locations)
     current_page = page_param
 
     unless (1..total_pages).cover?(current_page)
       raise PageRangeError, 'Page number out of range'
     end
 
-    offset = (current_page - 1) * per_page
+    offset = calculate_offset(current_page)
 
     Kaminari.paginate_array(locations, limit: per_page, offset: offset)
+  end
+
+  def all_locations
+    [booking_location] + booking_location.visible_locations
+  end
+
+  def calculate_total_pages(locations)
+    (locations.size.to_f / per_page).ceil
+  end
+
+  def calculate_offset(current_page)
+    (current_page - 1) * per_page
   end
 
   def page_param

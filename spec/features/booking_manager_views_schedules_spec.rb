@@ -137,7 +137,7 @@ RSpec.feature 'Booking manager views schedules' do
 
   def then_they_see_the_first_page_of_schedules # rubocop:disable MethodLength, AbcSize
     expect(@page).to be_loaded
-    expect(@page).to have_schedules(count: 11)
+    expect(@page).to have_schedules(count: 10)
     expect(@page.pagination.first.current_page).to have_text('1')
 
     # the booking location
@@ -157,21 +157,15 @@ RSpec.feature 'Booking manager views schedules' do
     @page.pagination.first.next_page.click
   end
 
-  def then_they_see_the_second_page_of_schedules # rubocop:disable MethodLength, AbcSize
+  def then_they_see_the_second_page_of_schedules # rubocop:disable AbcSize
     expect(@page).to be_loaded
-    expect(@page).to have_schedules(count: 11)
+    expect(@page).to have_schedules(count: 10)
     expect(@page.pagination.first.current_page).to have_text('2')
 
-    # the booking location
-    expect(@page.schedules.first.location.text).to eq('Drumchapel')
+    # the tenth child location
+    expect(@page.schedules.first.location.text).to eq('Barrhead (East Renfrewshire)')
     expect(@page.schedules.first.manage['href']).to eq(
-      new_schedule_path(location_id: '0c686436-de02-4d92-8dc7-26c97bb7c5bb')
-    )
-
-    # the eleventh child location
-    expect(@page.schedules.second.location.text).to eq('Bellshill')
-    expect(@page.schedules.second.manage['href']).to eq(
-      new_schedule_path(location_id: 'a2b7d5d5-fd01-4353-a8be-3aceebb191d2')
+      new_schedule_path(location_id: 'f1b32460-99c4-4719-b6a8-e44b3d16a0c0')
     )
   end
 
@@ -183,21 +177,15 @@ RSpec.feature 'Booking manager views schedules' do
     @page.pagination.first.last_page.click
   end
 
-  def then_they_see_the_last_page_of_schedules # rubocop:disable MethodLength, AbcSize
+  def then_they_see_the_last_page_of_schedules # rubocop:disable AbcSize
     expect(@page).to be_loaded
     expect(@page).to have_schedules(count: 3)
     expect(@page.pagination.first.current_page).to have_text('9')
 
-    # the booking location
-    expect(@page.schedules.first.location.text).to eq('Drumchapel')
+    # the eightieth  child location
+    expect(@page.schedules.first.location.text).to eq('Uist')
     expect(@page.schedules.first.manage['href']).to eq(
-      new_schedule_path(location_id: '0c686436-de02-4d92-8dc7-26c97bb7c5bb')
-    )
-
-    # the eighty first child location
-    expect(@page.schedules.second.location.text).to eq('Westhill')
-    expect(@page.schedules.second.manage['href']).to eq(
-      new_schedule_path(location_id: '3530de46-c1a3-4b9b-99f1-51d3878068bb')
+      new_schedule_path(location_id: 'b88818f2-3ab9-4a04-a51a-e416a1af0ad3')
     )
   end
 
