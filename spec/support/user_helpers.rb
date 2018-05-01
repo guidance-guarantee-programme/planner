@@ -8,26 +8,20 @@ module UserHelpers
     ENV['GDS_SSO_MOCK_INVALID'] = sso_env
   end
 
-  def given_the_user_identifies_as_an_agent
-    @user = create(:agent)
-    GDS::SSO.test_user = @user
-
-    yield
-  ensure
-    GDS::SSO.test_user = nil
+  def given_the_user_identifies_as_an_agent(&block)
+    given_the_user_identifies_as(:agent, &block)
   end
 
-  def given_the_user_identifies_as_hackneys_administrator
-    @user = create(:hackney_administrator)
-    GDS::SSO.test_user = @user
-
-    yield
-  ensure
-    GDS::SSO.test_user = nil
+  def given_the_user_identifies_as_hackneys_administrator(&block)
+    given_the_user_identifies_as(:hackney_administrator, &block)
   end
 
-  def given_the_user_identifies_as_hackneys_booking_manager
-    @user = create(:hackney_booking_manager)
+  def given_the_user_identifies_as_hackneys_booking_manager(&block)
+    given_the_user_identifies_as(:hackney_booking_manager, &block)
+  end
+
+  def given_the_user_identifies_as(factory_name)
+    @user = create(factory_name)
     GDS::SSO.test_user = @user
 
     yield
