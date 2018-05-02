@@ -26,6 +26,6 @@ RSpec.feature 'Booking manager receives a push notification about email failure'
 
   def then_a_growl_notification_appears
     expect(@page.growls.first.title).to have_text('Email failure')
-    expect(@page.growls.first.message).to have_text('The email to morty@example.com failed to send')
+    expect(@page.growls.first.message).to have_text('The email to morty@example.com failed to deliver')
   end
 end
