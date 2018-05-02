@@ -1,4 +1,4 @@
-class DropNotificationJob < ActiveJob::Base
+class EmailDropNotificationJob < ActiveJob::Base
   queue_as :default
 
   def perform(booking_request)

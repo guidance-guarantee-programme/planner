@@ -8,9 +8,14 @@ RSpec.describe 'POST /mail_gun/drops' do
         when_mail_gun_posts_a_drop_notification
         then_an_activity_is_created
         and_an_email_is_sent_to_the_booking_manager
+        and_a_push_notification_is_sent_to_online_booking_managers
         and_the_service_responds_ok
       end
     end
+  end
+
+  before do
+    allow(Pusher).to receive(:trigger)
   end
 
   def with_a_configured_token(token)
@@ -47,6 +52,17 @@ RSpec.describe 'POST /mail_gun/drops' do
   def and_an_email_is_sent_to_the_booking_manager
     expect(last_email.subject).to eq('Email Failure - Pension Wise Booking Request')
     expect(last_email.to).to eq(['rick@example.com'])
+  end
+
+  def and_a_push_notification_is_sent_to_online_booking_managers
+    expect(Pusher).to have_received(:trigger).with(
+      'drop_notifications',
+      'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
+      title: 'Email failure',
+      fixed: true,
+      message: 'The email to morty@example.com failed to send',
+      url: "/booking_requests/#{@booking_request.id}/appointments/new"
+    )
   end
 
   def and_the_service_responds_ok

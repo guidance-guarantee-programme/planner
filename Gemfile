@@ -6,7 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-daterangepicker'
   gem 'rails-assets-fullcalendar'
+  gem 'rails-assets-growl'
   gem 'rails-assets-mailgun-validator-jquery', '0.0.3'
+  gem 'rails-assets-pusher'
 end
 
 source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
@@ -29,6 +31,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'pg', '~> 0.21'
   gem 'plek'
   gem 'puma'
+  gem 'pusher'
   gem 'rails', '~> 5.1.2'
   gem 'rails-observers'
   gem 'sassc-rails'
@@ -44,6 +47,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'factory_bot_rails'
     gem 'phantomjs'
     gem 'pry-byebug'
+    gem 'pusher-fake'
     gem 'rspec-rails'
     gem 'site_prism'
   end

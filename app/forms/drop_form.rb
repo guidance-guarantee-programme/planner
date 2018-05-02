@@ -33,7 +33,8 @@ class DropForm
       booking_request
     )
 
-    DropNotificationJob.perform_later(booking_request)
+    EmailDropNotificationJob.perform_later(booking_request)
+    PusherDropNotificationJob.perform_later(booking_request)
   end
 
   private
