@@ -55,7 +55,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def self.needing_reminder # rubocop:disable AbcSize
-    two_day_reminder_range   = Time.zone.now..48.hours.from_now
+    two_day_reminder_range   = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
     seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
 
     pending
