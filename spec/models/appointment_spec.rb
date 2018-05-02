@@ -3,6 +3,20 @@ require 'rails_helper'
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment) }
 
+  context 'when the status changes before saving' do
+    it 'stores the associated statuses' do
+      appointment = create(:appointment)
+
+      expect(appointment.status_transitions.pluck(:status)).to match_array('pending')
+
+      appointment.update(status: :cancelled_by_pension_wise)
+
+      expect(appointment.status_transitions.pluck(:status)).to match_array(
+        %w(pending cancelled_by_pension_wise)
+      )
+    end
+  end
+
   it 'defaults #status to `pending`' do
     expect(described_class.new).to be_pending
   end

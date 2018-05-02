@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180420111141) do
+ActiveRecord::Schema.define(version: 20180502091455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,14 @@ ActiveRecord::Schema.define(version: 20180420111141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["booking_request_id"], name: "index_slots_on_booking_request_id"
+  end
+
+  create_table "status_transitions", force: :cascade do |t|
+    t.bigint "appointment_id"
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_id"], name: "index_status_transitions_on_appointment_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

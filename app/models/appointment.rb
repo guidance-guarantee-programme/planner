@@ -12,8 +12,11 @@ class Appointment < ActiveRecord::Base
   )
 
   before_save :calculate_statistics, if: :proceeded_at_changed?
+  before_create :track_status
+  before_update :track_status_transition
 
   belongs_to :booking_request
+  has_many :status_transitions
 
   delegate :reference, :activities, :agent_id?, to: :booking_request
 
@@ -61,6 +64,14 @@ class Appointment < ActiveRecord::Base
   end
 
   private
+
+  def track_status
+    status_transitions << StatusTransition.new(status: status)
+  end
+
+  def track_status_transition
+    track_status if status_changed?
+  end
 
   def after_audit
     AuditActivity.from(audits.last, booking_request)
