@@ -25,7 +25,7 @@ class PusherDropNotificationJob < ActiveJob::Base
   end
 
   def payload_message(booking_request)
-    "The email to #{booking_request.email} failed to send"
+    "The email to #{booking_request.email} failed to deliver"
   end
 
   def payload_url(booking_request)
