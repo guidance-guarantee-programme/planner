@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DropNotificationJob, '#perform' do
+RSpec.describe EmailDropNotificationJob, '#perform' do
   let(:booking_request) { create(:hackney_booking_request) }
 
   subject { described_class.new.perform(booking_request) }

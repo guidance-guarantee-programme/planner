@@ -17,5 +17,10 @@ module Pages
     end
 
     element :location, '.t-location'
+
+    sections :growls, '#growls-default .growl' do
+      element :title, '.growl-title'
+      element :message, '.growl-message'
+    end
   end
 end

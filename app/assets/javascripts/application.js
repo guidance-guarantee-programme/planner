@@ -3,6 +3,9 @@
 //= require fullcalendar
 //= require bootstrap-daterangepicker
 //= require mailgun-validator-jquery
+//= require growl
+//= require pusher
+//= require planner-base
 //= require_tree .
 
 PWPlanner.poller.init();
