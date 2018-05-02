@@ -8,7 +8,7 @@ RSpec.describe PusherDropNotificationJob, '#perform' do
       expect(Pusher).to receive(:trigger).with(
         'drop_notifications',
         'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
-        title: 'Email failure', fixed: true,
+        title: 'Email failure', fixed: true, delayOnHover: false,
         message: 'The email to morty@example.com failed to deliver',
         url: "/booking_requests/#{booking_request.id}/appointments/new"
       )
@@ -25,7 +25,7 @@ RSpec.describe PusherDropNotificationJob, '#perform' do
       expect(Pusher).to receive(:trigger).with(
         'drop_notifications',
         'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
-        title: 'Email failure', fixed: true,
+        title: 'Email failure', fixed: true, delayOnHover: false,
         message: 'The email to morty@example.com failed to deliver',
         url: "/appointments/#{appointment.id}/edit"
       )

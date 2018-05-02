@@ -18,7 +18,7 @@ class PusherDropNotificationJob < ActiveJob::Base
 
   def payload(booking_request)
     {
-      title: 'Email failure', fixed: true,
+      title: 'Email failure', fixed: true, delayOnHover: false,
       message: payload_message(booking_request),
       url: payload_url(booking_request)
     }
