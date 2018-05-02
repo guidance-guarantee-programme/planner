@@ -54,13 +54,14 @@ class Appointment < ActiveRecord::Base
     proceeded_at.in_time_zone('London').utc_offset.zero? ? 'GMT' : 'BST'
   end
 
-  def self.needing_reminder
+  def self.needing_reminder # rubocop:disable AbcSize
+    two_day_reminder_range   = Time.zone.now..48.hours.from_now
+    seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
+
     pending
-      .where(proceeded_at: Time.zone.now..48.hours.from_now)
-      .where.not(
-        booking_request_id: ReminderActivity.pluck(:booking_request_id),
-        email: ''
-      )
+      .where(proceeded_at: two_day_reminder_range)
+      .or(where(proceeded_at: seven_day_reminder_range))
+      .where.not(email: '')
   end
 
   private

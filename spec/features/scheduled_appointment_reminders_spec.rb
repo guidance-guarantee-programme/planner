@@ -23,13 +23,13 @@ RSpec.feature 'Scheduled appointment reminders' do
     end
   end
 
-  scenario 'it does not send a reminder if one has already been sent' do
+  scenario 'within 7 days of the appointment it does send a reminder' do
     perform_enqueued_jobs do
-      travel_to Time.zone.parse('2016-06-18 12:05') do
-        given_an_already_reminded_appointment_exists
+      travel_to Time.zone.parse('2016-06-13 12:05') do
+        given_an_unreminded_appointment_exists
         when_the_reminder_job_runs
-        then_no_email_reminder_is_delivered
-        and_no_additional_reminder_activity_is_logged
+        then_an_email_reminder_is_delivered
+        and_a_reminder_activity_is_logged
       end
     end
   end
@@ -37,13 +37,6 @@ RSpec.feature 'Scheduled appointment reminders' do
   def given_an_unreminded_appointment_exists
     @proceeded_at = Time.zone.parse('2016-06-20 12:00')
     @appointment = create(:appointment, proceeded_at: @proceeded_at)
-  end
-
-  def given_an_already_reminded_appointment_exists
-    @proceeded_at = Time.zone.parse('2016-06-20 12:00')
-    @appointment = create(:appointment, proceeded_at: @proceeded_at) do |a|
-      create(:reminder_activity, booking_request: a.booking_request)
-    end
   end
 
   def when_the_reminder_job_runs
