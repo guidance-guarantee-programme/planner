@@ -3,6 +3,20 @@ require 'rails_helper'
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment) }
 
+  describe '.needing_reminder' do
+    context 'with an appointment 7 days in the future' do
+      it 'is included correctly based on its status' do
+        appointment = create(:appointment, proceeded_at: 7.days.from_now)
+
+        expect(described_class.needing_reminder).to include(appointment)
+
+        appointment.update(status: :cancelled_by_customer)
+
+        expect(described_class.needing_reminder).to be_empty
+      end
+    end
+  end
+
   context 'when the status changes before saving' do
     it 'stores the associated statuses' do
       appointment = create(:appointment)
