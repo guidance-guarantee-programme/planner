@@ -1,39 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
-  scenario 'Returns 2 week windowed slots for NICAB locations' do
-    travel_to '2017-05-26 13:00' do
-      given_a_nicab_location_exists
-      when_a_request_for_the_location_is_made
-      then_the_service_responds_ok
-      and_slots_are_serialized_as_json
-      and_the_slots_are_windowed_at_two_weeks
-    end
-  end
-
-  def given_a_nicab_location_exists
-    @schedule = create(
-      :schedule,
-      location_id: '2d320a0c-89f0-44d7-9cf9-6f29e4f97dd8' # Ballymena
-    ).tap(&:generate_bookable_slots!)
-  end
-
-  def and_the_slots_are_windowed_at_two_weeks # rubocop:disable AbcSize
-    expect(@json.count).to eq(16)
-
-    expect(@json.first).to eq(
-      'date'  => '2017-05-31',
-      'start' => BookableSlot::AM.start,
-      'end'   => BookableSlot::AM.end
-    )
-
-    expect(@json.last).to eq(
-      'date'  => '2017-06-09',
-      'start' => BookableSlot::PM.start,
-      'end'   => BookableSlot::PM.end
-    )
-  end
-
   scenario 'Returns real availability for locations with schedules' do
     travel_to '2017-05-26 13:00' do
       given_a_location_with_a_schedule_exists
