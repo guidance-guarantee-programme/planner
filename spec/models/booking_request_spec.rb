@@ -52,10 +52,6 @@ RSpec.describe BookingRequest do
       expect(build(:booking_request, accessibility_requirements: '')).to_not be_valid
     end
 
-    it 'requires marketing_opt_in' do
-      expect(build(:booking_request, marketing_opt_in: '')).to_not be_valid
-    end
-
     it 'requires defined_contribution_pot_confirmed' do
       expect(build(:booking_request, defined_contribution_pot_confirmed: '')).to_not be_valid
     end

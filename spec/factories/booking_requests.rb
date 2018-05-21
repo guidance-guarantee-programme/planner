@@ -12,7 +12,7 @@ FactoryBot.define do
     date_of_birth '1950-01-01'
     additional_info ''
     accessibility_requirements true
-    marketing_opt_in false
+    gdpr_consent 'yes'
     defined_contribution_pot_confirmed true
     placed_by_agent false
     address_line_one '10 Some Road'

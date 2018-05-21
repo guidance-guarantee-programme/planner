@@ -30,9 +30,12 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="h3">Desired slots</h2>
-        <p class="lead">I am able to request a provisional appointment for you
-        and you will be contacted by Citizens Advice to confirm the booking.
-        Are you happy for me to do this?</p>
+        <p class="lead">
+          I can request three different slots for your
+          appointment. At this stage I can only take a preference for morning or
+          afternoon. You will be contacted within 2 working days to confirm the
+          actual date and time of the booking.
+        </p>
 
         <% @grouped_slots ||= slots_by_month(slots) %>
         <div class="form-group col-md-4">
@@ -123,6 +126,33 @@
             Don’t know
           <% end %>
         </div>
+
+        <hr>
+
+        <h2 class="h3">Research</h2>
+        <div class="form-group">
+          <p><strong>Customer research consent</strong></p>
+          <p class="help-block">
+            Your feedback helps us improve the service. Is it OK if we share your
+            contact details with our trusted research partner? Ipsos MORI may
+            contact you to ask if you would like to provide feedback and you can
+            decide then if you want to take part.
+          </p>
+
+          <%= f.label :gdpr_consent, value: 'yes', class: 'radio-inline' do %>
+            <%= f.radio_button :gdpr_consent, 'yes', class: 't-gdpr-consent-yes' %>
+            Yes
+          <% end %>
+          <%= f.label :gdpr_consent, value: 'no', class: 'radio-inline' do %>
+            <%= f.radio_button :gdpr_consent, 'no', class: 't-gdpr-consent-no' %>
+            No
+          <% end %>
+          <%= f.label :gdpr_consent, value: '', class: 'radio-inline' do %>
+            <%= f.radio_button :gdpr_consent, '', class: 't-gdpr-consent-no-response' %>
+            No response
+          <% end %>
+        </div>
+
       </div>
       <div class="col-md-6">
         <h2 class="h3" id="postal-address-heading" data-postcode-api-key="<%= postcode_api_key %>">Confirmation address <small>(required if no email address)</small></h2>
@@ -167,22 +197,6 @@
             class: 't-where-you-heard form-control'
           %>
         </div>
-      </div>
-    </div>
-
-    <hr>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <%= f.label :terms_and_conditions, class: 'checkbox-inline checkbox-inline--accessibility' do %>
-            <%= f.check_box :terms_and_conditions, class: 't-terms-and-conditions' %> Accept terms and conditions?
-          <% end %>
-        </div>
-        <p class="lead">
-          By requesting this booking you are agreeing to your details being
-          recorded and stored. Full details of these terms and conditions can
-          be found on the Pension Wise Website.
-        </p>
       </div>
     </div>
   </div>

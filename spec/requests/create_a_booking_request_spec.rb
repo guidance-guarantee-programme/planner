@@ -38,10 +38,10 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         'date_of_birth' => '1950-01-01',
         'additional_info' => 'Additional Info',
         'accessibility_requirements' => false,
-        'marketing_opt_in' => true,
         'defined_contribution_pot_confirmed' => true,
         'placed_by_agent' => true,
         'where_you_heard' => 1,
+        'gdpr_consent' => 'yes',
         'slots' => [
           {
             'date' => '2016-01-01',
@@ -82,10 +82,10 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       date_of_birth: Date.parse('1950-01-01'),
       additional_info: 'Additional Info',
       accessibility_requirements: false,
-      marketing_opt_in: true,
       defined_contribution_pot_confirmed: true,
       placed_by_agent: true,
-      where_you_heard: 1
+      where_you_heard: 1,
+      gdpr_consent: 'yes'
     )
   end
 

@@ -9,7 +9,6 @@ class AgentBookingForm # rubocop:disable ClassLength
     memorable_word
     accessibility_requirements
     defined_contribution_pot_confirmed
-    terms_and_conditions
     address_line_one
     address_line_two
     address_line_three
@@ -24,6 +23,7 @@ class AgentBookingForm # rubocop:disable ClassLength
     location_id
     booking_location_id
     additional_info
+    gdpr_consent
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -38,7 +38,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :where_you_heard, presence: true
   validates :defined_contribution_pot_confirmed, presence: true
-  validates :terms_and_conditions, acceptance: { accept: '1' }
+  validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
   validates :first_choice_slot, presence: true
   validate :validate_confirmation_details
   validate :validate_eligibility
@@ -49,10 +49,6 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   def accessibility_requirements
     ActiveRecord::Type::Boolean.new.cast(@accessibility_requirements)
-  end
-
-  def marketing_opt_in
-    ActiveRecord::Type::Boolean.new.cast(@marketing_opt_in)
   end
 
   def create_booking!
@@ -114,7 +110,6 @@ class AgentBookingForm # rubocop:disable ClassLength
       memorable_word: memorable_word,
       accessibility_requirements: accessibility_requirements,
       defined_contribution_pot_confirmed: defined_contribution_pot_confirmed,
-      marketing_opt_in: terms_and_conditions,
       address_line_one: address_line_one,
       address_line_two: address_line_two,
       address_line_three: address_line_three,
@@ -125,7 +120,8 @@ class AgentBookingForm # rubocop:disable ClassLength
       agent: agent,
       location_id: location_id,
       booking_location_id: booking_location_id,
-      additional_info: additional_info
+      additional_info: additional_info,
+      gdpr_consent: gdpr_consent
     }
   end
 

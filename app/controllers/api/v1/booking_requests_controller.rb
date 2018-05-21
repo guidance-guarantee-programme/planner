@@ -49,11 +49,11 @@ module Api
           :age_range,
           :date_of_birth,
           :accessibility_requirements,
-          :marketing_opt_in,
           :defined_contribution_pot_confirmed,
           :additional_info,
           :placed_by_agent,
           :where_you_heard,
+          :gdpr_consent,
           slots: %i(date from to priority)
         ).tap { |p| p[:slots_attributes] = p.delete(:slots) }
       end

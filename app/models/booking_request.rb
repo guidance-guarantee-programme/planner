@@ -25,11 +25,11 @@ class BookingRequest < ActiveRecord::Base
   validates :memorable_word, presence: true
   validates :age_range, inclusion: { in: PERMITTED_AGE_RANGES }
   validates :accessibility_requirements, inclusion: { in: [true, false] }
-  validates :marketing_opt_in, inclusion: { in: [true, false] }
   validates :defined_contribution_pot_confirmed, inclusion: { in: [true, false] }
   validates :placed_by_agent, inclusion: { in: [true, false] }
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :where_you_heard, presence: true
+  validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
   validate :validate_slots
 
   alias reference to_param
