@@ -65,5 +65,30 @@ RSpec.describe AgentBookingForm do
         expect(subject).to be_valid
       end
     end
+
+    context 'eligibility' do
+      it 'is valid if I am exactly 50 years old at my first_choice_slot' do
+        subject.date_of_birth = '01/01/2000'
+        subject.first_choice_slot = '2050-01-01 13:00'
+
+        expect(subject).to be_valid
+      end
+
+      it 'is invalid if I am exactly 49 years old at my first_choice_slot' do
+        subject.date_of_birth = '01/01/2000'
+        subject.first_choice_slot = '2049-12-31 13:00'
+
+        expect(subject).to_not be_valid
+      end
+
+      it 'is invalid if I am exactly 49 years old at one of my slots' do
+        subject.date_of_birth = '01/01/2000'
+        subject.first_choice_slot = '2050-01-01 13:00'
+        subject.second_choice_slot = '2050-01-02 13:00'
+        subject.third_choice_slot = '2049-12-31 13:00'
+
+        expect(subject).to_not be_valid
+      end
+    end
   end
 end
