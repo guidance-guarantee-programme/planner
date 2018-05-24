@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502091455) do
+ActiveRecord::Schema.define(version: 20180521151748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,7 +87,6 @@ ActiveRecord::Schema.define(version: 20180502091455) do
     t.string "memorable_word", null: false
     t.string "age_range", null: false
     t.boolean "accessibility_requirements", null: false
-    t.boolean "marketing_opt_in", null: false
     t.boolean "defined_contribution_pot_confirmed", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -104,6 +103,7 @@ ActiveRecord::Schema.define(version: 20180502091455) do
     t.string "town", default: "", null: false
     t.string "county", default: "", null: false
     t.string "postcode", default: "", null: false
+    t.string "gdpr_consent", default: "", null: false
   end
 
   create_table "reporting_summaries", force: :cascade do |t|

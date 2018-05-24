@@ -12,12 +12,12 @@ RSpec.describe AgentBookingForm do
       defined_contribution_pot_confirmed: true,
       memorable_word: 'couch',
       first_choice_slot: '2017-01-01 13:00',
-      terms_and_conditions: '1',
       address_line_one: '1 Main Street',
       town: 'London',
       county: 'London',
       postcode: 'W1 1AA',
-      where_you_heard: 1
+      where_you_heard: 1,
+      gdpr_consent: 'yes'
     )
   end
 

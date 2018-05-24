@@ -55,7 +55,7 @@ RSpec.feature 'Agent places a booking request' do
     @page.date_of_birth.set('01/01/1950')
     @page.accessibility_requirements.set(true)
     @page.defined_contribution_pot_confirmed_yes.set(true)
-    @page.terms_and_conditions.set(true)
+    @page.gdpr_consent_yes.set(true)
     @page.where_you_heard.select('Other')
     @page.email.set('summer@example.com')
     @page.address_line_one.set('3 Grange View')
@@ -85,14 +85,14 @@ RSpec.feature 'Agent places a booking request' do
       date_of_birth: Date.parse('1950-01-01'),
       accessibility_requirements: true,
       defined_contribution_pot_confirmed: true,
-      marketing_opt_in: true,
       where_you_heard: 17, # Other
       address_line_one: '3 Grange View',
       town: 'Reading',
       county: 'Berkshire',
       postcode: 'RG1 1AA',
       age_range: '55-plus',
-      additional_info: 'Other notes'
+      additional_info: 'Other notes',
+      gdpr_consent: 'yes'
     )
 
     expect(@booking.primary_slot.date).to eq('2017-11-17'.to_date)

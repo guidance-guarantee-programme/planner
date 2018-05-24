@@ -18,7 +18,7 @@
   <%= f.hidden_field :second_choice_slot %>
   <%= f.hidden_field :third_choice_slot %>
   <%= f.hidden_field :date_of_birth %>
-  <%= f.hidden_field :terms_and_conditions %>
+  <%= f.hidden_field :gdpr_consent %>
   <%= f.hidden_field :defined_contribution_pot_confirmed %>
   <%= f.hidden_field :where_you_heard %>
   <%= f.hidden_field :accessibility_requirements %>
@@ -115,6 +115,11 @@
           </tbody>
         </table>
         <% end %>
+
+        <p class="alert alert-warning">
+          Full details on our privacy policy, including the customers rights in
+          regards to their personal data, can be found on the Pension Wise website
+        </p>
       </div>
     </div>
   </div>
