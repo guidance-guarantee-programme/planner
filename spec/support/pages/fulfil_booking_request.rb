@@ -19,6 +19,7 @@ module Pages
     element :accessibility_requirements, '.t-accessibility-requirements'
     element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
+    element :gdpr_consent, '.t-gdpr-consent'
 
     element :slot_one_date,     '.t-slot-1-date'
     element :slot_one_period,   '.t-slot-1-period'

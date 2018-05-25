@@ -1,4 +1,4 @@
-class AppointmentForm
+class AppointmentForm # rubocop:disable ClassLength
   include ActiveModel::Model
   include PostalAddressable
 
@@ -12,6 +12,7 @@ class AppointmentForm
     additional_info
     agent
     address?
+    consent
   ).freeze
 
   validates :name, presence: true
