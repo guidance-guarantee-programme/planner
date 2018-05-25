@@ -44,6 +44,10 @@ class BookingRequest < ActiveRecord::Base
     where(email: email).order(:created_at).last
   end
 
+  def consent
+    gdpr_consent.present? ? gdpr_consent.titleize : 'No response'
+  end
+
   def memorable_word(obscure: false)
     return super() unless obscure
 

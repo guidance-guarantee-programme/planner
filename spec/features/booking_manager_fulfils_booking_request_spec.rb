@@ -94,6 +94,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page.defined_contribution_pot_confirmed_yes).to be_checked
     expect(@page.accessibility_requirements.value).to eq('1')
     expect(@page.additional_info.value).to eq('')
+    expect(@page.gdpr_consent).to have_text('Yes')
   end
 
   def and_they_see_the_requested_slots
