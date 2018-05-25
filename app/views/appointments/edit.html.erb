@@ -76,8 +76,14 @@
         <% end %>
       </div>
 
+      <hr>
+      <h3 class="h4">Customer research consent:</h3>
+      <p class="lead">
+        <strong class="t-gdpr-consent"><%= @appointment_form.consent %></strong>
+      </p>
+
       <% if @appointment_form.postal_confirmation? %>
-        <hr>
+      <hr>
       <h2 class="h3">Postal address</h2>
       <%= simple_format(@appointment_form.postal_address_lines, class: 't-postal-address') %>
       <p>
