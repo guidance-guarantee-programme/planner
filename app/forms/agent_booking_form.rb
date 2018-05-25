@@ -69,12 +69,7 @@ class AgentBookingForm # rubocop:disable ClassLength
       return
     end
 
-    at = [first_choice_slot, second_choice_slot, third_choice_slot]
-         .reject(&:blank?)
-         .map(&:in_time_zone)
-         .min
-
-    errors.add(:base, 'Must be aged 50 or over to be eligible') if age(at) < 50
+    errors.add(:base, 'Must be aged 50 or over to be eligible') if age < 50
   end
 
   def validate_confirmation_details
@@ -97,12 +92,21 @@ class AgentBookingForm # rubocop:disable ClassLength
     end
   end
 
-  def age(at = Time.zone.today)
+  def age
+    at = earliest_slot_time
+
     date_of_birth = self.date_of_birth.in_time_zone
 
     age = at.year - date_of_birth.year
     age -= 1 if at.to_date < date_of_birth + age.years
     age
+  end
+
+  def earliest_slot_time
+    [first_choice_slot, second_choice_slot, third_choice_slot]
+      .reject(&:blank?)
+      .map(&:in_time_zone)
+      .min
   end
 
   def to_attributes # rubocop:disable MethodLength, AbcSize
