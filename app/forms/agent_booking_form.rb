@@ -93,11 +93,20 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def age
+    at = earliest_slot_time
+
     date_of_birth = self.date_of_birth.in_time_zone
 
-    age = Time.zone.today.year - date_of_birth.year
-    age -= 1 if Time.zone.today.to_date < date_of_birth + age.years
+    age = at.year - date_of_birth.year
+    age -= 1 if at.to_date < date_of_birth + age.years
     age
+  end
+
+  def earliest_slot_time
+    [first_choice_slot, second_choice_slot, third_choice_slot]
+      .reject(&:blank?)
+      .map(&:in_time_zone)
+      .min
   end
 
   def to_attributes # rubocop:disable MethodLength, AbcSize
