@@ -21,7 +21,7 @@
         displayEventTime: false,
         columnFormat: 'ddd D/M',
         height: 'auto',
-        weekends: false,
+        weekends: el.data('display-weekends'),
         defaultView: 'month',
         slotDuration: '12:00:00',
         slotLabelFormat: 'A',

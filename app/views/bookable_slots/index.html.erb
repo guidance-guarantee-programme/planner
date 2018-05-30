@@ -19,7 +19,8 @@
   data-module="availability-calendar"
   data-default-date="<%= Time.zone.now.iso8601 %>"
   data-slots-uri="<%= bookable_slots_path(location_id: @location.id) %>"
-  data-edit-slots-uri="<%= edit_schedule_bookable_slots_path(@schedule) %>">
+  data-edit-slots-uri="<%= edit_schedule_bookable_slots_path(@schedule) %>"
+  data-display-weekends="<%= @location.online_booking_weekends? %>">
   <div
     class="modal <%= 'fade' unless Rails.env.test? %> js-availability-modal"
     tabindex="-1"
