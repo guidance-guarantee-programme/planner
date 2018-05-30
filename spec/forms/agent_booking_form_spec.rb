@@ -93,6 +93,16 @@ RSpec.describe AgentBookingForm do
 
         expect(subject).to_not be_valid
       end
+
+      context 'when no slots were selected' do
+        it 'is not valid' do
+          subject.first_choice_slot  = ''
+          subject.second_choice_slot = ''
+          subject.third_choice_slot  = ''
+
+          expect(subject).to be_invalid
+        end
+      end
     end
   end
 
