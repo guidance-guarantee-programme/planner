@@ -93,7 +93,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def age
-    at = earliest_slot_time
+    return 0 unless at = earliest_slot_time
 
     date_of_birth = self.date_of_birth.in_time_zone
 
