@@ -8,11 +8,37 @@ RSpec.feature 'Booking manager manages availability' do
         when_they_view_their_schedules
         and_choose_to_edit_the_availability
         then_they_are_shown_the_existing_availability
+        and_they_do_not_see_weekends
         when_they_remove_a_slot
         and_they_add_another
         then_the_availability_is_affected
       end
     end
+  end
+
+  scenario 'Viewing weekend availability', js: true do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_a_schedule_with_weekends_exists
+      when_they_view_the_weekend_schedule
+      then_they_see_the_weekends
+    end
+  end
+
+  def and_a_schedule_with_weekends_exists
+    @schedule = create(:schedule, :blank, :dalston)
+  end
+
+  def when_they_view_the_weekend_schedule
+    @page = Pages::Availability.new
+    @page.load(location_id: @schedule.location_id)
+  end
+
+  def then_they_see_the_weekends
+    expect(@page).to have_text(/Sat|Sun/)
+  end
+
+  def and_they_do_not_see_weekends
+    expect(@page).to have_no_text(/Sat|Sun/)
   end
 
   def and_a_schedule_exists
