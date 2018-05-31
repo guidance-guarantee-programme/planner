@@ -56,6 +56,14 @@ class Appointment < ActiveRecord::Base
     proceeded_at.in_time_zone('London').utc_offset.zero? ? 'GMT' : 'BST'
   end
 
+  def self.needing_sms_reminder
+    window = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
+
+    pending
+      .where(proceeded_at: window)
+      .where("phone like '07%'")
+  end
+
   def self.needing_reminder # rubocop:disable AbcSize
     two_day_reminder_range   = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
     seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
