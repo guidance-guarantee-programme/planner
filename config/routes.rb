@@ -2,6 +2,8 @@ require 'sidekiq/web'
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  resources :sms_cancellations, only: :create
+
   namespace :mail_gun do
     resources :drops, only: :create
   end

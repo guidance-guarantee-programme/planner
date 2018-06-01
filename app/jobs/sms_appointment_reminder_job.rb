@@ -1,13 +1,5 @@
-require 'notifications/client'
-
-class SmsAppointmentReminderJob < ActiveJob::Base
+class SmsAppointmentReminderJob < SmsJobBase
   TEMPLATE_ID = '443d8862-3c3c-438d-8fe6-6a3e1aa539eb'.freeze
-
-  queue_as :default
-
-  rescue_from(Notifications::Client::RequestError) do |exception|
-    Bugsnag.notify(exception)
-  end
 
   def perform(appointment)
     return unless api_key
@@ -25,8 +17,6 @@ class SmsAppointmentReminderJob < ActiveJob::Base
   private
 
   def send_sms_reminder(appointment)
-    sms_client = Notifications::Client.new(api_key)
-
     sms_client.send_sms(
       phone_number: appointment.phone,
       template_id: TEMPLATE_ID,
@@ -36,9 +26,5 @@ class SmsAppointmentReminderJob < ActiveJob::Base
         location: appointment.location_name
       }
     )
-  end
-
-  def api_key
-    ENV['NOTIFY_API_KEY']
   end
 end

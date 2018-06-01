@@ -9,6 +9,7 @@ class Appointment < ActiveRecord::Base
     ineligible_pension_type
     cancelled_by_customer
     cancelled_by_pension_wise
+    cancelled_by_customer_sms
   )
 
   before_save :calculate_statistics, if: :proceeded_at_changed?
@@ -31,6 +32,16 @@ class Appointment < ActiveRecord::Base
   validate  :validate_proceeded_at
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
+
+  def cancel!
+    without_auditing do
+      transaction do
+        update!(status: :cancelled_by_customer_sms)
+
+        SmsCancellationActivity.from(self)
+      end
+    end
+  end
 
   def updated?
     audits.present?
@@ -72,6 +83,12 @@ class Appointment < ActiveRecord::Base
       .not_booked_today
       .where(proceeded_at: [two_day_reminder_range, seven_day_reminder_range])
       .where.not(email: '')
+  end
+
+  def self.for_sms_cancellation(number)
+    pending
+      .order(created_at: :desc)
+      .find_by("REPLACE(phone, ' ', '') = :number", number: number)
   end
 
   private
