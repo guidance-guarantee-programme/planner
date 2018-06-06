@@ -42,6 +42,12 @@ RSpec.describe AgentBookingForm do
 
         expect(subject).to be_invalid
       end
+
+      it 'requires a correctly formatted date' do
+        subject.date_of_birth = '01/19/1949'
+
+        expect(subject).to be_invalid
+      end
     end
 
     context 'when one of the legacy journey email addresses are provided' do

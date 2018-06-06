@@ -63,8 +63,14 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   private
 
+  def parsed_date_of_birth
+    date_of_birth.to_date
+  rescue ArgumentError
+    nil
+  end
+
   def validate_eligibility
-    unless %r{\d{1,2}\/\d{1,2}\/\d{4}}.match?(date_of_birth)
+    unless %r{\d{1,2}\/\d{1,2}\/\d{4}}.match?(date_of_birth) || parsed_date_of_birth.blank?
       errors.add(:date_of_birth, 'must be formatted eg 01/01/1950')
       return
     end
@@ -94,8 +100,7 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   def age
     return 0 unless at = earliest_slot_time
-
-    date_of_birth = self.date_of_birth.in_time_zone
+    return 0 unless date_of_birth = parsed_date_of_birth
 
     age = at.year - date_of_birth.year
     age -= 1 if at.to_date < date_of_birth + age.years
