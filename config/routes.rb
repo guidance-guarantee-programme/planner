@@ -43,6 +43,10 @@ Rails.application.routes.draw do
     resources :booking_requests, only: :index, as: :search
   end
 
+  namespace :admin, path: '/admin' do
+    resource :search, only: :show
+  end
+
   root 'home#index'
 
   namespace :api, constraints: { format: :json } do

@@ -41,6 +41,24 @@
   <% end %>
 
   <% if current_user.administrator? %>
+    <li class="dropdown quick-search t-quick-search" data-module="quick-search">
+      <a href="#" class="dropdown-toggle js-quick-search-button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Find an appointment by reference</span>
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        <span class="caret"></span>
+      </a>
+      <div class="dropdown-menu quick-search__dropdown">
+        <form method="get" action="/admin/search" class="form-inline">
+          <div class="form-group quick-search__form-group">
+            <label for="quick-search-input" class="quick-search__label"><span class="sr-only">Reference</span>
+              <input type="text" id="quick-search-input" class="form-control input-sm quick-search__input js-quick-search-input" name="id" placeholder="Reference">
+            </label>
+          </div>
+          <input type="submit" class="quick-search__button btn btn-primary btn-xs t-quick-search-button" value="Search">
+        </form>
+      </div>
+    </li>
+
     <%= form_for current_user, html: { class: 'navbar-form navbar-right js-location-form' } do |f| %>
       <div class="form-group">
         <%= f.select :organisation_content_id,
