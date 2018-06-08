@@ -18,7 +18,7 @@ class Appointment < ActiveRecord::Base
   belongs_to :booking_request
   has_many :status_transitions
 
-  delegate :reference, :activities, :agent_id?, to: :booking_request
+  delegate :reference, :activities, :agent_id?, :booking_location_id, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true, unless: :agent_id?
