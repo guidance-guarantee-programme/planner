@@ -71,6 +71,7 @@ class Appointment < ActiveRecord::Base
     window = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
 
     pending
+      .not_booked_today
       .where(proceeded_at: window)
       .where("phone like '07%'")
   end

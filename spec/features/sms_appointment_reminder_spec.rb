@@ -9,13 +9,15 @@ RSpec.feature 'SMS appointment reminders' do
     end
   end
 
-  def given_appointments_due_sms_reminders_exist
+  def given_appointments_due_sms_reminders_exist # rubocop:disable AbcSize
+    # on the same day so excluded
+    @same_day = create(:appointment, proceeded_at: 2.days.from_now)
     # past the reminder window
-    @past = create(:appointment, proceeded_at: 5.days.from_now)
+    @past = create(:appointment, proceeded_at: 5.days.from_now, created_at: 1.day.ago)
     # in the window but no mobile number
-    @no_mobile = create(:appointment, phone: '02082524727', proceeded_at: 2.days.from_now)
+    @no_mobile = create(:appointment, phone: '02082524727', proceeded_at: 2.days.from_now, created_at: 1.day.ago)
     # in the window with a mobile number
-    @mobile = create(:appointment, phone: '07715930455', proceeded_at: 2.days.from_now)
+    @mobile = create(:appointment, phone: '07715930455', proceeded_at: 2.days.from_now, created_at: 1.day.ago)
   end
 
   def when_the_task_is_executed
