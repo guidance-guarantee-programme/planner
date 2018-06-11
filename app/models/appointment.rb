@@ -30,6 +30,8 @@ class Appointment < ActiveRecord::Base
   validates :guider_id, presence: true
   validate  :validate_proceeded_at
 
+  scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
+
   def updated?
     audits.present?
   end
@@ -59,6 +61,7 @@ class Appointment < ActiveRecord::Base
     seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
 
     pending
+      .not_booked_today
       .where(proceeded_at: [two_day_reminder_range, seven_day_reminder_range])
       .where.not(email: '')
   end

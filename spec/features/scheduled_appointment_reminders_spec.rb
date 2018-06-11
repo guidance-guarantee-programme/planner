@@ -36,7 +36,7 @@ RSpec.feature 'Scheduled appointment reminders' do
 
   def given_an_unreminded_appointment_exists
     @proceeded_at = Time.zone.parse('2016-06-20 12:00')
-    @appointment = create(:appointment, proceeded_at: @proceeded_at)
+    @appointment = create(:appointment, proceeded_at: @proceeded_at, created_at: 1.day.ago)
   end
 
   def when_the_reminder_job_runs

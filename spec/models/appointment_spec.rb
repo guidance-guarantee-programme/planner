@@ -6,13 +6,19 @@ RSpec.describe Appointment do
   describe '.needing_reminder' do
     context 'with an appointment 7 days in the future' do
       it 'is included correctly based on its status' do
-        appointment = create(:appointment, proceeded_at: 7.days.from_now)
+        appointment = create(:appointment, proceeded_at: 7.days.from_now, created_at: 1.day.ago)
 
         expect(described_class.needing_reminder).to include(appointment)
 
         appointment.update(status: :cancelled_by_customer)
 
         expect(described_class.needing_reminder).to be_empty
+      end
+
+      it 'excludes appointments created the same day' do
+        appointment = create(:appointment, proceeded_at: 7.days.from_now)
+
+        expect(described_class.needing_reminder).to_not include(appointment)
       end
     end
   end
