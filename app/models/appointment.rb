@@ -59,8 +59,7 @@ class Appointment < ActiveRecord::Base
     seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
 
     pending
-      .where(proceeded_at: two_day_reminder_range)
-      .or(pending.where(proceeded_at: seven_day_reminder_range))
+      .where(proceeded_at: [two_day_reminder_range, seven_day_reminder_range])
       .where.not(email: '')
   end
 
