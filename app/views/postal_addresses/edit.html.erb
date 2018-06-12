@@ -2,7 +2,7 @@
 
 <div class="page-header">
   <ol class="breadcrumb">
-    <li><a href="<%= root_path %>">Appointment planner</a></li>
+    <li><a href="<%= root_path %>">Planner</a></li>
     <% if @booking_request.appointment %>
       <li><a href="<%= appointments_path %>">Appointments</a></li>
       <li><a href="<%= edit_appointment_path(@booking_request.appointment) %>"><%= @booking_request.name %></a></li>
