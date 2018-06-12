@@ -25,7 +25,7 @@ en:
       is_true: "Requested, please discuss with customer"
       is_false: "Not requested"
   service:
-    title: '%{page_title} - Appointment Planner'
+    title: '%{page_title} - Planner'
 
   booking_request:
     status_descriptions:
