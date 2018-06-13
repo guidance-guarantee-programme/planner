@@ -2,6 +2,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking Manager edits an Appointment' do
+  scenario 'Resending the appointment confirmation', js: true do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      then_the_appointment_details_are_presented
+      when_they_resend_the_confirmation
+      then_the_confirmation_is_sent
+    end
+  end
+
   scenario 'Viewing the full changes' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment_with_changes
@@ -45,6 +55,16 @@ RSpec.feature 'Booking Manager edits an Appointment' do
         and_the_customer_is_not_notified
       end
     end
+  end
+
+  def when_they_resend_the_confirmation
+    @page.accept_confirm do
+      @page.resend_confirmation.click
+    end
+  end
+
+  def then_the_confirmation_is_sent
+    assert_enqueued_jobs(1, only: AppointmentChangeNotificationJob)
   end
 
   def and_there_is_an_appointment_with_changes

@@ -2,6 +2,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
+  scenario 'Bookings manager re-sends the customer confirmation email', js: true do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_unfulfilled_booking_request
+      when_the_booking_manager_attempts_to_fulfil
+      then_they_are_shown_the_fulfilment_page
+      when_they_resend_the_customer_confirmation_email
+      then_the_customer_is_sent_the_email
+    end
+  end
+
   scenario 'Bookings manager attempts to fulfil with a hidden location' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
@@ -59,6 +69,16 @@ RSpec.feature 'Fulfiling Booking Requests' do
         then_they_see_the_validation_messages
       end
     end
+  end
+
+  def when_they_resend_the_customer_confirmation_email
+    @page.accept_confirm do
+      @page.resend_confirmation.click
+    end
+  end
+
+  def then_the_customer_is_sent_the_email
+    assert_enqueued_jobs(1, only: CustomerConfirmationJob)
   end
 
   def when_they_change_the_chosen_location_to_a_hidden_one

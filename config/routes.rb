@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :appointments, only: %i(new create)
 
     resource :postal_address, only: %i(edit update)
+
+    resource :confirmation, only: :create
   end
 
   resources :schedules, only: %i(index new create) do
