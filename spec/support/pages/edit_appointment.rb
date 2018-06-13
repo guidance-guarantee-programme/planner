@@ -31,6 +31,7 @@ module Pages
     element :slot_three_period, '.t-slot-3-period'
 
     element :submit, '.t-submit'
+    element :resend_confirmation, '.t-resend-confirmation'
 
     element :postal_address, '.t-postal-address'
     element :edit_postal_address, '.t-edit-postal-address'

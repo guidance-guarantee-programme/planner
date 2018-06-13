@@ -34,63 +34,75 @@
   booking_request: @appointment_form.booking_request
 } %>
 
-<%= form_for @appointment_form do |f| %>
-  <div class="row">
-    <div class="col-md-4">
-      <h2 class="h3">Requested appointment</h2>
-      <p>The customer has requested the following time slots, in order of preference.</p>
+<div class="row">
+  <div class="col-md-4">
+    <h2 class="h3">Requested appointment</h2>
+    <p>The customer has requested the following time slots, in order of preference.</p>
 
-      <div class="is-chosen SlotPicker--selected">
-        <div class="SlotPicker-choice is-chosen">
-          <div class="SlotPicker-choiceInner">
-            <div class="SlotPicker-position"><span>1</span></div>
-            <div class="SlotPicker-choiceContent">
-              <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-              <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
-            </div>
+    <div class="is-chosen SlotPicker--selected">
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>1</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
           </div>
         </div>
-
-        <% if @appointment_form.secondary_slot %>
-        <div class="SlotPicker-choice is-chosen">
-          <div class="SlotPicker-choiceInner">
-            <div class="SlotPicker-position"><span>2</span></div>
-            <div class="SlotPicker-choiceContent">
-              <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-              <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
-            </div>
-          </div>
-        </div>
-        <% end %>
-
-        <% if @appointment_form.tertiary_slot %>
-        <div class="SlotPicker-choice is-chosen">
-          <div class="SlotPicker-choiceInner">
-            <div class="SlotPicker-position"><span>3</span></div>
-            <div class="SlotPicker-choiceContent">
-              <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-              <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
-            </div>
-          </div>
-        </div>
-        <% end %>
       </div>
 
-      <hr>
-      <h3 class="h4">Customer research consent:</h3>
-      <p class="lead">
-        <strong class="t-gdpr-consent"><%= @appointment_form.consent %></strong>
-      </p>
+      <% if @appointment_form.secondary_slot %>
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>2</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
+          </div>
+        </div>
+      </div>
+      <% end %>
 
-      <% if @appointment_form.postal_confirmation? %>
-      <hr>
-      <h2 class="h3">Postal address</h2>
-      <%= simple_format(@appointment_form.postal_address_lines, class: 't-postal-address') %>
-      <p>
-        <small><%= link_to 'Edit', edit_booking_request_postal_address_path(@appointment_form.booking_request), class: 't-edit-postal-address' %></small>
-      </p>
+      <% if @appointment_form.tertiary_slot %>
+      <div class="SlotPicker-choice is-chosen">
+        <div class="SlotPicker-choiceInner">
+          <div class="SlotPicker-position"><span>3</span></div>
+          <div class="SlotPicker-choiceContent">
+            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
+            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
+          </div>
+        </div>
+      </div>
       <% end %>
     </div>
+
+    <hr>
+    <h3 class="h4">Customer research consent:</h3>
+    <p class="lead">
+      <strong class="t-gdpr-consent"><%= @appointment_form.consent %></strong>
+    </p>
+
+    <% if @appointment_form.postal_confirmation? %>
+    <hr>
+    <h2 class="h3">Postal address</h2>
+    <%= simple_format(@appointment_form.postal_address_lines, class: 't-postal-address') %>
+    <p>
+      <small><%= link_to 'Edit', edit_booking_request_postal_address_path(@appointment_form.booking_request), class: 't-edit-postal-address' %></small>
+    </p>
+    <% end %>
+
+    <% if @appointment_form.email? %>
+      <hr>
+      <%= button_to(
+            'Resend email confirmation',
+            booking_request_confirmation_path(@appointment_form.booking_request),
+            class: 'btn btn-default btn-block t-resend-confirmation',
+            data: { confirm: 'Are you sure?' }
+        )
+      %>
+    <% end %>
+  </div>
+
+  <%= form_for @appointment_form do |f| %>
     <div class="col-md-8 l-appointment-details">
       <div class="well">
         <% if @appointment_form.errors.any? %>
@@ -192,5 +204,5 @@
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

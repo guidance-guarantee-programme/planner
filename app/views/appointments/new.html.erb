@@ -135,6 +135,15 @@
       <button type="button" class="btn btn-default btn-block booking-request-status-btn js-booking-request-change-status-button t-booking-request-change-state-button">
         Change booking request status
       </button>
+      <% if @appointment_form.email? %>
+        <%= button_to(
+              'Resend email confirmation',
+              booking_request_confirmation_path(@appointment_form.booking_request),
+              class: 'btn btn-default btn-block t-resend-confirmation',
+              data: { confirm: 'Are you sure?' }
+          )
+        %>
+      <% end %>
     </div>
 
     <%= form_for @appointment_form,

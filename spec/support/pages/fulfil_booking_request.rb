@@ -37,6 +37,7 @@ module Pages
     element :time_minute, '#appointment_time_5i'
 
     element :change_booking_state, '.t-booking-request-change-state-button'
+    element :resend_confirmation, '.t-resend-confirmation'
 
     element :booking_request_active_status, '.t-booking-request-active-status'
     element :booking_request_awaiting_customer_status, '.t-booking-request-awaiting-customer-feedback-status'

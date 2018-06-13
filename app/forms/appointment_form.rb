@@ -13,6 +13,7 @@ class AppointmentForm # rubocop:disable ClassLength
     agent
     address?
     consent
+    email?
   ).freeze
 
   validates :name, presence: true
