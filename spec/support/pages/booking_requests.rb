@@ -14,6 +14,10 @@ module Pages
 
     sections :booking_requests, '.t-booking-request' do
       element :fulfil, '.t-fulfil'
+
+      element :primary_slot, '.t-primary-slot'
+      element :secondary_slot, '.t-secondary-slot'
+      element :tertiary_slot, '.t-tertiary-slot'
     end
 
     element :location, '.t-location'
