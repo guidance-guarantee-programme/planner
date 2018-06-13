@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Viewing Booking Requests' do
+  scenario 'Booking manager views booking request slots' do
+    given_the_user_identifies_as_hackneys_administrator do
+      and_they_have_a_booking_with_multiple_slots
+      when_they_visit_the_site
+      then_they_see_the_correct_slot_ordering
+    end
+  end
+
   scenario 'Administrators can change their location' do
     given_the_user_identifies_as_hackneys_administrator do
       and_there_are_booking_requests_for_their_location
@@ -35,6 +43,19 @@ RSpec.feature 'Viewing Booking Requests' do
       when_they_filter_by_location
       then_they_are_shown_the_booking_request_matching_the_location
     end
+  end
+
+  def and_they_have_a_booking_with_multiple_slots
+    @booking_request = create(:hackney_booking_request, number_of_slots: 3)
+  end
+
+  def then_they_see_the_correct_slot_ordering # rubocop:disable AbcSize
+    @page   = Pages::BookingRequests.new
+    booking = @page.booking_requests.first
+
+    expect(booking.primary_slot).to have_text(@booking_request.primary_slot)
+    expect(booking.secondary_slot).to have_text(@booking_request.secondary_slot)
+    expect(booking.tertiary_slot).to have_text(@booking_request.tertiary_slot)
   end
 
   def when_they_choose_to_show_hidden_booking_requests
