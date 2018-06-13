@@ -18,7 +18,8 @@ namespace :confidentiality do
       address_line_three: 'redacted',
       town: 'redacted',
       county: 'redacted',
-      postcode: 'redacted'
+      postcode: 'redacted',
+      gdpr_consent: 'no'
     }
 
     ActiveRecord::Base.transaction do
@@ -29,7 +30,17 @@ namespace :confidentiality do
       if appointment
         puts 'Redacting appointment...'
         appointment.without_auditing do
-          appointment.update!(attributes)
+          appointment_attributes = attributes.except(
+            :address_line_one,
+            :address_line_two,
+            :address_line_three,
+            :town,
+            :county,
+            :postcode,
+            :gdpr_consent
+          )
+
+          appointment.update!(appointment_attributes)
           appointment.audits.delete_all
         end
       end
