@@ -1,0 +1,15 @@
+<h1 style="color: #0B0C0C !important;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-weight: 700;font-size: 20px;line-height: 1.111111111;padding: 15px 0;">
+  SMS Appointment Cancellation
+</h1>
+
+<%= p do %>
+  The customer cancelled their appointment by SMS.
+<% end %>
+
+<%= p do %>
+  Appointment reference: <%= @appointment.reference %>.
+<% end %>
+
+<%= p do %>
+  <%= link_to 'View the appointment', edit_appointment_url(@appointment) %>.
+<% end %>

@@ -1,4 +1,12 @@
 class Appointments < ApplicationMailer
+  def booking_manager_cancellation(booking_manager, appointment)
+    @appointment = appointment
+
+    mailgun_headers :sms_appointment_cancellation
+
+    mail(to: booking_manager.email, subject: 'Pension Wise Appointment SMS Cancellation')
+  end
+
   def customer(appointment, booking_location)
     @appointment = LocationAwareEntity.new(
       entity: appointment,

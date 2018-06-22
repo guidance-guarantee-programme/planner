@@ -1,0 +1,5 @@
+<li class="activity-feed__item t-activity" id="activity-<%= sms_cancellation_activity.id %>">
+  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+  <strong>The customer</strong> cancelled their appointment via SMS
+  <em class="badge"><%= time_ago_in_words(sms_cancellation_activity.created_at) %> ago</em>
+</li>

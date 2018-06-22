@@ -9,6 +9,7 @@ class Appointment < ActiveRecord::Base
     ineligible_pension_type
     cancelled_by_customer
     cancelled_by_pension_wise
+    cancelled_by_customer_sms
   )
 
   before_save :calculate_statistics, if: :proceeded_at_changed?
@@ -31,6 +32,16 @@ class Appointment < ActiveRecord::Base
   validate  :validate_proceeded_at
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
+
+  def cancel!
+    without_auditing do
+      transaction do
+        update!(status: :cancelled_by_customer_sms)
+
+        SmsCancellationActivity.from(self)
+      end
+    end
+  end
 
   def updated?
     audits.present?
@@ -56,6 +67,15 @@ class Appointment < ActiveRecord::Base
     proceeded_at.in_time_zone('London').utc_offset.zero? ? 'GMT' : 'BST'
   end
 
+  def self.needing_sms_reminder
+    window = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
+
+    pending
+      .not_booked_today
+      .where(proceeded_at: window)
+      .where("phone like '07%'")
+  end
+
   def self.needing_reminder # rubocop:disable AbcSize
     two_day_reminder_range   = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
     seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
@@ -64,6 +84,12 @@ class Appointment < ActiveRecord::Base
       .not_booked_today
       .where(proceeded_at: [two_day_reminder_range, seven_day_reminder_range])
       .where.not(email: '')
+  end
+
+  def self.for_sms_cancellation(number)
+    pending
+      .order(created_at: :desc)
+      .find_by("REPLACE(phone, ' ', '') = :number", number: number)
   end
 
   private
