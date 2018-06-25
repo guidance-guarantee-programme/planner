@@ -44,7 +44,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
 
   group :development, :test do
     gem 'bootsnap'
-    gem 'capybara'
+    gem 'capybara', '2.18.0'
     gem 'factory_bot_rails'
     gem 'phantomjs'
     gem 'pry-byebug'
