@@ -1,4 +1,4 @@
-class AppointmentForm # rubocop:disable ClassLength
+class AppointmentForm
   include ActiveModel::Model
   include PostalAddressable
 
@@ -76,10 +76,6 @@ class AppointmentForm # rubocop:disable ClassLength
 
   def location_id
     @location_id ||= location_aware_booking_request.location_id
-  end
-
-  def date
-    @date ||= location_aware_booking_request.primary_slot.date
   end
 
   def time

@@ -54,7 +54,7 @@ module Pages
     section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
 
     def advance_date!
-      chosen_date = Date.parse(date.value)
+      chosen_date = date.value ? date.value.to_date : Date.current
 
       date.set(chosen_date.advance(days: 1))
     end
