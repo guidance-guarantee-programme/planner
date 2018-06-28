@@ -7,6 +7,7 @@
       this.config = $.extend(
         true,
         {
+          autoUpdateInput: false,
           singleDatePicker: true,
           locale: {
             format: 'DD MMMM YYYY'

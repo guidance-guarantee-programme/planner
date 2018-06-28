@@ -128,12 +128,6 @@ RSpec.describe AppointmentForm do
     expect(subject.agent).to eq(booking_request.agent)
   end
 
-  describe '#date' do
-    it 'defaults to the primary slot date' do
-      expect(subject.date).to eq(booking_request.primary_slot.date)
-    end
-  end
-
   describe '#time' do
     context 'when provided with params' do
       let(:params) { Hash['time(4i)' => '13', 'time(5i)' => '00'] }
