@@ -136,12 +136,6 @@ RSpec.describe AppointmentForm do
         expect(subject.time.strftime('%H:%M')).to eq('13:00')
       end
     end
-
-    context 'when no params are provided' do
-      it 'defaults to the primary slot start time' do
-        expect(subject.time.strftime('%H:%M')).to eq(booking_request.primary_slot.delimited_from)
-      end
-    end
   end
 
   describe '#location_id' do

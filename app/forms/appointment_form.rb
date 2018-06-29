@@ -31,6 +31,7 @@ class AppointmentForm
   validate :validate_not_with_an_existing_booking_request
 
   attr_reader :location_aware_booking_request
+  attr_reader :time
   alias booking_request location_aware_booking_request
 
   attr_accessor :name
@@ -78,12 +79,6 @@ class AppointmentForm
     @location_id ||= location_aware_booking_request.location_id
   end
 
-  def time
-    @time ||= location_aware_booking_request.primary_slot.delimited_from
-
-    Time.zone.parse(@time)
-  end
-
   def additional_info
     @additional_info ||= location_aware_booking_request.additional_info
   end
@@ -123,6 +118,6 @@ class AppointmentForm
     hour   = params.delete('time(4i)')
     minute = params.delete('time(5i)')
 
-    @time = "#{hour}:#{minute}" if hour && minute
+    @time = Time.zone.parse("#{hour}:#{minute}") if hour && minute
   end
 end
