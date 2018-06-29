@@ -78,6 +78,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def then_the_customer_is_sent_the_email
+    expect(@page).to have_success
+
     assert_enqueued_jobs(1, only: CustomerConfirmationJob)
   end
 

@@ -64,6 +64,8 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def then_the_confirmation_is_sent
+    expect(@page).to have_success
+
     assert_enqueued_jobs(1, only: AppointmentChangeNotificationJob)
   end
 

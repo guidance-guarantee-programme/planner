@@ -46,7 +46,6 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'bootsnap'
     gem 'capybara', '2.18.0'
     gem 'factory_bot_rails'
-    gem 'phantomjs'
     gem 'pry-byebug'
     gem 'pusher-fake'
     gem 'rspec-rails'
@@ -58,9 +57,10 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   end
 
   group :test do
+    gem 'chromedriver-helper'
     gem 'coveralls', require: false
     gem 'database_cleaner'
-    gem 'poltergeist'
+    gem 'selenium-webdriver'
     gem 'webmock'
   end
 
