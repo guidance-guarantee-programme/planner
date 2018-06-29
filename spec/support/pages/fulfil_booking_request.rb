@@ -50,6 +50,7 @@ module Pages
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
+    element :success, '.alert-success'
 
     section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
 
