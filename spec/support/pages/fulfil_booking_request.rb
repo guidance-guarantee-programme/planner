@@ -60,8 +60,8 @@ module Pages
     end
 
     def set_time(hour:, minute:)
-      time_hour.set(hour)
-      time_minute.set(minute)
+      time_hour.select(hour)
+      time_minute.select(minute)
     end
 
     def time
