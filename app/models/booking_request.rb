@@ -74,6 +74,11 @@ class BookingRequest < ActiveRecord::Base
     [address_line_one, town, postcode].all?(&:present?)
   end
 
+  def cani?
+    # Belfast Central DC UID
+    booking_location_id == '1de9b76c-c349-4e2a-a3a7-bb0f59b0807e'.freeze
+  end
+
   private
 
   def validate_slots
