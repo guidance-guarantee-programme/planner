@@ -2,8 +2,24 @@
   Dear <%= @booking_request.name %>,
 <% end %>
 
-<%= p do %>
-  Thank you for requesting a Pension Wise appointment. We’ll confirm the date in the next 2 working days.
+<% if @booking_request.cani? %>
+  <%= p do %>
+    Thank you for requesting a Pension Wise appointment.
+  <% end %>
+  <%= p do %>
+    <strong>
+      Due to office closures during 12th-13th July, you may experience slightly
+      longer waiting times in receiving confirmation of your Pension Wise
+      appointment.
+    </strong>
+  <% end %>
+  <%= p do %>
+    Please bear with us and we will do our best to get back to you as quickly as we can.
+  <% end %>
+<% else %>
+  <%= p do %>
+    Thank you for requesting a Pension Wise appointment. We’ll confirm the date in the next 2 working days.
+  <% end %>
 <% end %>
 
 <%= p do %>
