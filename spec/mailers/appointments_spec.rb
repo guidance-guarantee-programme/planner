@@ -48,7 +48,7 @@ RSpec.describe Appointments do
         expect(body).to include('2:00pm')
         expect(body).to include('20 June 2016')
         expect(body).to include('Dalston')
-        expect(body).to include('+44800123456')
+        expect(body).to include('0800123456')
         expect(body).to include(appointment.reference)
       end
 
@@ -86,7 +86,7 @@ RSpec.describe Appointments do
         expect(body).to include('2:00pm')
         expect(body).to include('20 June 2016')
         expect(body).to include('Dalston')
-        expect(body).to include('+44800123456')
+        expect(body).to include('0800123456')
         expect(body).to include(appointment.reference)
       end
 
