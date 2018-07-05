@@ -64,7 +64,7 @@
           <% @booking_requests.page.each do |booking_request| %>
             <tr class="t-booking-request">
               <td>
-                <%= booking_request.created_at.to_s(:govuk_date) %>
+                <%= booking_request.created_at.in_time_zone('London').to_s(:govuk_date) %>
               </td>
               <td>
                 <%= booking_request.name %>
