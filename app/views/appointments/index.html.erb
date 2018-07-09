@@ -50,12 +50,12 @@
         <caption><span class="sr-only">Appointments</span></caption>
         <thead>
           <tr class="table-header">
-            <th>Date of appointment</th>
-            <th>Time of appointment</th>
+            <th>Appointment</th>
             <th>Customer name</th>
             <th>Guider</th>
             <th>Location</th>
             <th>Reference</th>
+            <th>Requested</th>
             <th>Status</th>
             <th></th>
           </tr>
@@ -64,10 +64,7 @@
           <% @appointments.page.each do |appointment| %>
             <tr class="t-appointment">
               <td>
-                <%= appointment.proceeded_at.strftime('%A, %b %e') %>
-              </td>
-              <td>
-                <%= appointment.proceeded_at.strftime('%H:%M') %>
+                <%= appointment.proceeded_at.to_s(:govuk_date) %>
               </td>
               <td>
                 <%= appointment.name %>
@@ -80,6 +77,9 @@
               </td>
               <td>
                 <%= appointment.reference %>
+              </td>
+              <td>
+                <%= appointment.booking_request.created_at.in_time_zone('London').to_s(:govuk_date) %>
               </td>
               <td>
                 <%= appointment.status.titleize %>
