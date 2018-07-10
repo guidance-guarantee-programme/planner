@@ -1,4 +1,5 @@
 <li class="activity-feed__item t-activity" id="activity-<%= activation_activity.id %>">
   <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-  <b><%= activation_activity.owner_name %></b> made the booking request <%= activation_activity.message %> <em class="badge"><%= time_ago_in_words(activation_activity.created_at) %> ago</em>
+  <b><%= activation_activity.owner_name %></b> made the booking request <%= activation_activity.message %>
+  <span class="activity-feed__date"><%= timestamp(activation_activity.created_at) %></span>
 </li>

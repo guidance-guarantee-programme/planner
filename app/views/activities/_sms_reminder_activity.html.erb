@@ -1,5 +1,5 @@
 <li class="activity-feed__item t-activity" id="activity-<%= sms_reminder_activity.id %>">
   <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
   <strong>The system</strong> sent an appointment reminder SMS to the customer
-  <em class="badge"><%= time_ago_in_words(sms_reminder_activity.created_at) %> ago</em>
+  <span class="activity-feed__date"><%= timestamp(sms_reminder_activity.created_at) %></span>
 </li>

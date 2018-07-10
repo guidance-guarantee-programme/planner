@@ -2,5 +2,5 @@
   <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
   <strong>The system</strong> sent an email to the customer informing them
   their appointment has been <%= appointment_mail_activity.message %>
-  <em class="badge"><%= time_ago_in_words(appointment_mail_activity.created_at) %> ago</em>
+  <span class="activity-feed__date"><%= timestamp(appointment_mail_activity.created_at) %></span>
 </li>
