@@ -1,5 +1,6 @@
 <li class="activity-feed__item t-activity" id="activity-<%= drop_activity.id %>">
   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
   <b>Email delivery failure: </b>
-  <em>An email confirmation could not be delivered. Check the customer's email address for mistakes or typos.</em> <em class="badge"><%= time_ago_in_words(drop_activity.created_at) %> ago</em>
+  <em>An email confirmation could not be delivered. Check the customer's email address for mistakes or typos.</em>
+  <span class="activity-feed__date"><%= timestamp(drop_activity.created_at) %></span>
 </li>

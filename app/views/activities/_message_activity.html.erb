@@ -1,4 +1,4 @@
 <li class="activity-feed__item t-activity" id="activity-<%= message_activity.id %>">
   <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-  <b><%= message_activity.owner_name %></b> said <em><%= message_activity.message %></em> <em class="badge"><%= time_ago_in_words(message_activity.created_at) %> ago</em>
+  <b><%= message_activity.owner_name %></b> said <em><%= message_activity.message %></em> <span class="activity-feed__date"><%= timestamp(message_activity.created_at) %></span>
 </li>
