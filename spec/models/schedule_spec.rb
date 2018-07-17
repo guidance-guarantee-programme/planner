@@ -21,6 +21,8 @@ RSpec.describe Schedule do
 
   describe '#generate_bookable_slots!' do
     before do
+      travel_to '2017-07-19 13:00 UTC'
+
       @previous_schedule = create(:schedule) do |schedule|
         create(:bookable_slot, :am, schedule: schedule)
       end
@@ -31,6 +33,8 @@ RSpec.describe Schedule do
 
       @current_schedule = create(:schedule, :blank, monday_am: true, friday_pm: true)
     end
+
+    after { travel_back }
 
     it 'performs the requisite steps to generate bookable slots' do
       @current_schedule.generate_bookable_slots!

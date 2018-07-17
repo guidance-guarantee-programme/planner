@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe BookableSlot do
   it 'is valid with valid attributes' do
-    expect(build(:bookable_slot)).to be_valid
+    travel_to '2018-07-19 13:00 UTC' do
+      expect(build(:bookable_slot)).to be_valid
+    end
   end
 
   it 'does not allows slots to be created during exclusions' do
