@@ -6,7 +6,7 @@ RSpec.describe Appointment do
   describe '.needing_reminder' do
     context 'with an appointment 7 days in the future' do
       it 'is included correctly based on its status' do
-        appointment = create(:appointment, proceeded_at: 7.days.from_now, created_at: 1.day.ago)
+        appointment = create(:appointment, proceeded_at: 7.days.from_now, created_at: 1.day.ago, phone: '02082524727')
 
         expect(described_class.needing_reminder).to include(appointment)
 
