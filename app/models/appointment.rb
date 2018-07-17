@@ -33,6 +33,8 @@ class Appointment < ActiveRecord::Base
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
   scope :with_mobile, -> { where("phone like '07%'") }
+  scope :without_mobile, -> { where.not("phone like '07%'") }
+  scope :with_email, -> { where.not(email: '') }
 
   def cancel!
     without_auditing do
@@ -68,29 +70,25 @@ class Appointment < ActiveRecord::Base
     proceeded_at.in_time_zone('London').utc_offset.zero? ? 'GMT' : 'BST'
   end
 
-  def self.needing_sms_reminder # rubocop:disable AbcSize
-    reminder_ranges = [
-      2.days.from_now.beginning_of_day..2.days.from_now.end_of_day,
-      7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
-    ]
-
-    pending.not_booked_today.with_mobile.where(proceeded_at: reminder_ranges)
+  def self.needing_sms_reminder
+    pending.not_booked_today.with_mobile.where(proceeded_at: [day_range(2), day_range(7)])
   end
 
-  def self.needing_reminder # rubocop:disable AbcSize
-    two_day_reminder_range   = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
-    seven_day_reminder_range = 7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
+  def self.needing_reminder
+    scoped = not_booked_today.with_email.pending
 
-    pending
-      .not_booked_today
-      .where(proceeded_at: [two_day_reminder_range, seven_day_reminder_range])
-      .where.not(email: '')
+    scoped.where(proceeded_at: day_range(2))
+          .or(scoped.without_mobile.where(proceeded_at: day_range(7)))
   end
 
   def self.for_sms_cancellation(number)
     pending
       .order(created_at: :desc)
       .find_by("REPLACE(phone, ' ', '') = :number", number: number)
+  end
+
+  def self.day_range(days)
+    days.days.from_now.beginning_of_day..days.days.from_now.end_of_day
   end
 
   private
