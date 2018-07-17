@@ -32,6 +32,7 @@ class Appointment < ActiveRecord::Base
   validate  :validate_proceeded_at
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
+  scope :with_mobile, -> { where("phone like '07%'") }
 
   def cancel!
     without_auditing do
@@ -67,13 +68,13 @@ class Appointment < ActiveRecord::Base
     proceeded_at.in_time_zone('London').utc_offset.zero? ? 'GMT' : 'BST'
   end
 
-  def self.needing_sms_reminder
-    window = 2.days.from_now.beginning_of_day..2.days.from_now.end_of_day
+  def self.needing_sms_reminder # rubocop:disable AbcSize
+    reminder_ranges = [
+      2.days.from_now.beginning_of_day..2.days.from_now.end_of_day,
+      7.days.from_now.beginning_of_day..7.days.from_now.end_of_day
+    ]
 
-    pending
-      .not_booked_today
-      .where(proceeded_at: window)
-      .where("phone like '07%'")
+    pending.not_booked_today.with_mobile.where(proceeded_at: reminder_ranges)
   end
 
   def self.needing_reminder # rubocop:disable AbcSize

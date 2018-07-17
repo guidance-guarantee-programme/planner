@@ -18,6 +18,8 @@ RSpec.feature 'SMS appointment reminders' do
     @no_mobile = create(:appointment, phone: '02082524727', proceeded_at: 2.days.from_now, created_at: 1.day.ago)
     # in the window with a mobile number
     @mobile = create(:appointment, phone: '07715930455', proceeded_at: 2.days.from_now, created_at: 1.day.ago)
+    # in the 7 day window with a mobile number
+    @seven_day = create(:appointment, phone: '07715930455', proceeded_at: 7.days.from_now, created_at: 1.day.ago)
   end
 
   def when_the_task_is_executed
@@ -25,6 +27,6 @@ RSpec.feature 'SMS appointment reminders' do
   end
 
   def then_the_required_jobs_are_scheduled
-    assert_enqueued_jobs(1, only: SmsAppointmentReminderJob)
+    assert_enqueued_jobs(2, only: SmsAppointmentReminderJob)
   end
 end
