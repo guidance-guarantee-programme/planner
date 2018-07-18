@@ -26,6 +26,7 @@ class AppointmentForm
   validates :guider_id, presence: true
   validates :location_id, presence: true
   validates :date, presence: true
+  validates :time, presence: true
 
   validate :validate_date
   validate :validate_not_with_an_existing_booking_request
@@ -118,6 +119,6 @@ class AppointmentForm
     hour   = params.delete('time(4i)')
     minute = params.delete('time(5i)')
 
-    @time = Time.zone.parse("#{hour}:#{minute}") if hour && minute
+    @time = Time.zone.parse("#{hour}:#{minute}") if hour.present? && minute.present?
   end
 end

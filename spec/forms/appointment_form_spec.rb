@@ -92,6 +92,13 @@ RSpec.describe AppointmentForm do
       expect(subject).to_not be_valid
     end
 
+    it 'requires a time' do
+      params['time(4i)'] = ''
+      params['time(5i)'] = ''
+
+      expect(subject).to be_invalid
+    end
+
     describe '#date' do
       it 'is required' do
         params[:date] = ''
