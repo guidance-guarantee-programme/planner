@@ -19,7 +19,7 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= Integer(ENV.fetch('MAX_THREADS') { 3 }) * 2 %>
+  pool: <%= Integer(ENV.fetch('MAX_THREADS') { 3 }) * 3 %>
 
 development:
   <<: *default
