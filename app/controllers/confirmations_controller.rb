@@ -3,7 +3,7 @@ class ConfirmationsController < ApplicationController
     @booking_request = current_user.booking_requests.find(params[:booking_request_id])
 
     if @booking_request.appointment
-      AppointmentChangeNotificationJob.perform_later(@booking_request.appointment, false)
+      AppointmentChangeNotificationJob.perform_later(@booking_request.appointment)
     else
       CustomerConfirmationJob.perform_later(@booking_request)
     end
