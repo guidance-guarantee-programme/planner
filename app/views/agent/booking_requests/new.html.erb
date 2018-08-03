@@ -92,8 +92,8 @@
         </div>
         <div class="form-group">
           <%= f.label :accessibility_requirements, class: 'checkbox-inline checkbox-inline--accessibility' do %>
-            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
-          <% end %>
+            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Do you require an adjustment to help you access your appointment eg wheelchair access, BSL interpreter?
+        <% end %>
         </div>
         <hr>
 
@@ -190,6 +190,7 @@
         <div class="form-group">
           <%= f.label :additional_info %>
           <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500 %>
+          <div class="help-block">eg any times you’re not available, accessibility adjustments</div>
         </div>
         <div class="form-group">
           <%= f.label :where_you_heard, 'Where did you first hear of Pension Wise?' %>
