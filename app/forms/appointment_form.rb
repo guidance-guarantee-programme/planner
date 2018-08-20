@@ -1,4 +1,4 @@
-class AppointmentForm
+class AppointmentForm # rubocop:disable ClassLength
   include ActiveModel::Model
   include PostalAddressable
 
@@ -29,6 +29,7 @@ class AppointmentForm
   validates :time, presence: true
 
   validate :validate_date
+  validate :validate_time
   validate :validate_not_with_an_existing_booking_request
 
   attr_reader :location_aware_booking_request
@@ -96,6 +97,12 @@ class AppointmentForm
 
   def validate_not_with_an_existing_booking_request
     errors.add(:base, 'has already been fulfilled') if location_aware_booking_request.appointment
+  end
+
+  def validate_time
+    return unless time
+
+    errors.add(:time, 'must be during the permitted hours') unless (8..18).cover?(time.hour)
   end
 
   def validate_date
