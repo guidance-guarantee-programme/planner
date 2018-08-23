@@ -3,8 +3,8 @@ class GracePeriod
     3 => :monday,
     4 => :tuesday,
     5 => :wednesday,
-    6 => :thursday,
-    0 => :thursday
+    6 => :wednesday,
+    0 => :wednesday
   }.freeze
 
   def initialize(from = Date.current)
