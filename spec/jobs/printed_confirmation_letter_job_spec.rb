@@ -19,7 +19,7 @@ RSpec.describe PrintedConfirmationLetterJob, '#perform' do
       appointment = create(:appointment, :with_address)
 
       expect(client).to receive(:send_letter).with(
-        template_id: PrintedConfirmationLetterJob::TEMPLATE_ID,
+        template_id: PrintedConfirmationLetterJob::CONFIRMATION_TEMPLATE_ID,
         reference: appointment.reference,
         personalisation: {
           date: '20 June 2016',
@@ -35,6 +35,17 @@ RSpec.describe PrintedConfirmationLetterJob, '#perform' do
           address_line_6: 'London',
           postcode: 'E8 3AZ'
         }
+      )
+
+      described_class.new.perform(appointment)
+    end
+
+    it 'requests a reschedule printed confirmation via notify' do
+      appointment = create(:appointment, :with_address)
+      appointment.update(name: 'Bob Smith')
+
+      expect(client).to receive(:send_letter).with(
+        hash_including(template_id: PrintedConfirmationLetterJob::RESCHEDULE_TEMPLATE_ID)
       )
 
       described_class.new.perform(appointment)

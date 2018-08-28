@@ -1,5 +1,5 @@
 class PrintedConfirmationPresenter
-  delegate :reference, :booking_request, to: :appointment
+  delegate :reference, :booking_request, :updated?, to: :appointment
 
   def initialize(booking_location, appointment)
     @appointment = LocationAwareEntity.new(entity: appointment, booking_location: booking_location)
