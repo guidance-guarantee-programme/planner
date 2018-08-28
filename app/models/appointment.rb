@@ -1,4 +1,6 @@
 class Appointment < ActiveRecord::Base
+  include PostalAddressable
+
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
 
   enum status: %i(
@@ -20,6 +22,7 @@ class Appointment < ActiveRecord::Base
   has_many :status_transitions
 
   delegate :reference, :activities, :agent_id?, :booking_location_id, to: :booking_request
+  delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true, unless: :agent_id?
