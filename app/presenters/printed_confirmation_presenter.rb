@@ -7,6 +7,7 @@ class PrintedConfirmationPresenter
 
   def to_h # rubocop:disable MethodLength, AbcSize
     {
+      reference: reference,
       date: date,
       time: time,
       location: location,

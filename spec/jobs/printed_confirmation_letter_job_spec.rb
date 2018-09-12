@@ -22,6 +22,7 @@ RSpec.describe PrintedConfirmationLetterJob, '#perform' do
         template_id: PrintedConfirmationLetterJob::CONFIRMATION_TEMPLATE_ID,
         reference: appointment.reference,
         personalisation: {
+          reference: appointment.reference,
           date: '20 June 2016',
           time: '2:00pm (BST)',
           location: "Hackney\nHackney Citizens Advice\n300 Mare St\nHackney\nLondon\nE8 1HE",
