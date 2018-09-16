@@ -61,6 +61,7 @@ class AppointmentsController < ApplicationController
     return unless appointment.notify?
 
     AppointmentChangeNotificationJob.perform_later(appointment)
+    PrintedConfirmationLetterJob.perform_later(appointment)
   end
 
   def location_aware_appointment

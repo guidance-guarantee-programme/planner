@@ -59,6 +59,7 @@ FactoryBot.define do
       county 'London'
       postcode 'E8 3AZ'
 
+      agent
       email ''
     end
   end

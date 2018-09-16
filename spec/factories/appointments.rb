@@ -11,5 +11,10 @@ FactoryBot.define do
     date_of_birth '1950-01-01'
     guider_id 1
     proceeded_at Time.zone.parse('2016-06-20 14:00')
+
+    trait :with_address do
+      email ''
+      association :booking_request, factory: :postal_booking_request
+    end
   end
 end
