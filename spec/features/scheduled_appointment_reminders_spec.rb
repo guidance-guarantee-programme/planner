@@ -15,7 +15,7 @@ RSpec.feature 'Scheduled appointment reminders' do
   scenario 'within 48 hours of the appointment, it does send a reminder' do
     perform_enqueued_jobs do
       travel_to Time.zone.parse('2016-06-18 12:05') do
-        given_an_unreminded_appointment_exists
+        given_an_unreminded_appointment_exists(phone: '02082524782')
         when_the_reminder_job_runs
         then_an_email_reminder_is_delivered
         and_a_reminder_activity_is_logged
@@ -37,6 +37,17 @@ RSpec.feature 'Scheduled appointment reminders' do
   scenario '7 day email reminders are not sent for appointments with mobiles' do
     perform_enqueued_jobs do
       travel_to Time.zone.parse('2016-06-13 11:55') do
+        given_an_unreminded_appointment_exists(phone: '07715930455')
+        when_the_reminder_job_runs
+        then_no_email_reminder_is_delivered
+        and_no_reminder_activity_is_logged
+      end
+    end
+  end
+
+  scenario '2 day email reminders are not sent for appointments with mobiles' do
+    perform_enqueued_jobs do
+      travel_to Time.zone.parse('2016-06-18 11:55') do
         given_an_unreminded_appointment_exists(phone: '07715930455')
         when_the_reminder_job_runs
         then_no_email_reminder_is_delivered

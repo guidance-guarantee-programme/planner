@@ -78,10 +78,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def self.needing_reminder
-    scoped = not_booked_today.with_email.pending
-
-    scoped.where(proceeded_at: day_range(2))
-          .or(scoped.without_mobile.where(proceeded_at: day_range(7)))
+    not_booked_today.with_email.without_mobile.pending.where(proceeded_at: [day_range(2), day_range(7)])
   end
 
   def self.for_sms_cancellation(number)
