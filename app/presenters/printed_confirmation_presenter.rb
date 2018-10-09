@@ -11,7 +11,7 @@ class PrintedConfirmationPresenter
       date: date,
       time: time,
       location: location,
-      guider: appointment.guider_name,
+      guider: appointment.guider_name.split.first,
       phone: appointment.online_booking_twilio_number,
       address_line_1: appointment.name,
       address_line_2: appointment.address_line_one,

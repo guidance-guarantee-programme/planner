@@ -26,7 +26,7 @@ RSpec.describe PrintedConfirmationLetterJob, '#perform' do
           date: '20 June 2016',
           time: '2:00pm (BST)',
           location: "Hackney\nHackney Citizens Advice\n300 Mare St\nHackney\nLondon\nE8 1HE",
-          guider: 'Ben Lovell',
+          guider: 'Ben',
           phone: '02086291134',
           address_line_1: 'Mortimer Smith',
           address_line_2: '22 Dalston Lane',
