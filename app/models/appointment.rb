@@ -54,7 +54,7 @@ class Appointment < ActiveRecord::Base
   end
 
   def notify?
-    return unless previous_changes.any?
+    return if previous_changes.none? || proceeded_at.past?
     return true if previous_changes.exclude?(:status)
 
     previous_changes[:status] && pending?
