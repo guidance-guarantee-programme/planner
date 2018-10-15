@@ -22,15 +22,17 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   scenario 'Successfully editing an Appointment' do
     perform_enqueued_jobs do
-      given_the_user_identifies_as_hackneys_booking_manager do
-        and_there_is_an_appointment
-        when_the_booking_manager_edits_the_appointment
-        then_the_appointment_details_are_presented
-        and_they_see_the_requested_slots
-        when_they_modify_the_appointment_details
-        then_the_appointment_is_updated
-        and_the_customer_is_notified
-        and_the_booking_request_has_associated_audit_and_mail_activity
+      travel_to '2016-01-01' do # ensure appointment has not elapsed
+        given_the_user_identifies_as_hackneys_booking_manager do
+          and_there_is_an_appointment
+          when_the_booking_manager_edits_the_appointment
+          then_the_appointment_details_are_presented
+          and_they_see_the_requested_slots
+          when_they_modify_the_appointment_details
+          then_the_appointment_is_updated
+          and_the_customer_is_notified
+          and_the_booking_request_has_associated_audit_and_mail_activity
+        end
       end
     end
   end
@@ -195,8 +197,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_booking_request_has_associated_audit_and_mail_activity
     expect(@booking_request.activities.count).to eq(2)
-    expect(@booking_request.activities[0]).to be_a(AppointmentMailActivity)
-    expect(@booking_request.activities[1]).to be_a(AuditActivity)
+    expect(@booking_request.activities.map(&:class)).to include(AppointmentMailActivity, AuditActivity)
   end
 
   def then_they_see_the_original_status

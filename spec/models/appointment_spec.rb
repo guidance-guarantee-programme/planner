@@ -133,19 +133,29 @@ RSpec.describe Appointment do
     describe '#notify?' do
       context 'when the status was changed' do
         it 'handles correctly' do
-          original.update(status: :completed)
-          expect(original).to_not be_notify
+          travel_to '2016-01-01 13:00' do
+            original.update(status: :completed)
+            expect(original).to_not be_notify
 
-          original.update(status: :pending)
-          expect(original).to be_notify
+            original.update(status: :pending)
+            expect(original).to be_notify
+          end
+        end
+
+        context 'when the appointment has elapsed' do
+          it 'is false' do
+            expect(original).not_to be_notify
+          end
         end
       end
 
       context 'when the status was not changed' do
         it 'returns true' do
-          original.update(name: 'George')
+          travel_to '2016-01-01 13:00' do
+            original.update(name: 'George')
 
-          expect(original).to be_notify
+            expect(original).to be_notify
+          end
         end
       end
     end
