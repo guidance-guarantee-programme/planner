@@ -8,6 +8,9 @@ class BookableSlot < ActiveRecord::Base
 
   validate :validate_date_exclusions
 
+  scope :realtime, -> { where.not(guider_id: nil) }
+  scope :non_realtime, -> { where(guider_id: nil) }
+
   def am?
     AM.am?(start)
   end
@@ -28,6 +31,14 @@ class BookableSlot < ActiveRecord::Base
       .where(proceeded_at: start_at..ending_at)
   end
 
+  def start_at
+    Time.zone.parse("#{date} #{start.dup.insert(2, ':')}")
+  end
+
+  def end_at
+    Time.zone.parse("#{date} #{self.end.dup.insert(2, ':')}")
+  end
+
   def self.windowed(date_range)
     where(date: date_range)
   end
@@ -41,13 +52,5 @@ class BookableSlot < ActiveRecord::Base
 
   def validate_date_exclusions
     errors.add(:start, 'Cannot occur on this date') if EXCLUSIONS.include?(date)
-  end
-
-  def start_at
-    Time.zone.parse("#{date} #{start.insert(2, ':')}")
-  end
-
-  def end_at
-    Time.zone.parse("#{date} #{self.end.insert(2, ':')}")
   end
 end

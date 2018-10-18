@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   scope '/locations/:location_id' do
     resources :bookable_slots, only: :index
+    resources :realtime_bookable_slots, only: %w(index create destroy)
+    resources :guiders, only: :index
   end
 
   namespace :agent, path: '/locations/:location_id' do

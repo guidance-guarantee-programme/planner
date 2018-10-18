@@ -47,4 +47,18 @@ module ScheduleHelper
         content_tag(:span, 'Modify availability', class: 'sr-only')
     end
   end
+
+  def realtime_availability_button(location_id)
+    return unless Realtime.pilot?(location_id)
+    return unless Schedule.exists?(location_id: location_id)
+
+    link_to(
+      realtime_bookable_slots_path(location_id: location_id),
+      title: 'Modify realtime availability',
+      class: 'btn btn-info t-realtime-availability'
+    ) do
+      content_tag(:span, '', class: 'glyphicon glyphicon-time', 'aria-hidden' => 'true') +
+        content_tag(:span, 'Modify realtime availability', class: 'sr-only')
+    end
+  end
 end

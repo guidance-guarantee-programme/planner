@@ -4,8 +4,10 @@ ruby IO.read('.ruby-version').strip
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 source 'https://rails-assets.org' do
+  gem 'rails-assets-alertifyjs'
   gem 'rails-assets-bootstrap-daterangepicker'
   gem 'rails-assets-fullcalendar'
+  gem 'rails-assets-fullcalendar-scheduler'
   gem 'rails-assets-growl'
   gem 'rails-assets-mailgun-validator-jquery', '0.0.3'
   gem 'rails-assets-pusher'
@@ -61,6 +63,8 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'chromedriver-helper'
     gem 'coveralls', require: false
     gem 'database_cleaner'
+    gem 'phantomjs'
+    gem 'poltergeist'
     gem 'selenium-webdriver'
     gem 'webmock'
   end

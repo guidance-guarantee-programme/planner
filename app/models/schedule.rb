@@ -19,6 +19,15 @@ class Schedule < ActiveRecord::Base
   has_associated_audits
   audited on: :create
 
+  def create_realtime_bookable_slot!(start_at:, guider_id:)
+    bookable_slots.create!(
+      guider_id: guider_id,
+      date: start_at.to_date,
+      start: start_at.strftime('%H%M'),
+      end: start_at.advance(hours: 1).strftime('%H%M')
+    )
+  end
+
   def generate_bookable_slots!
     BookableSlotGenerator.new(self).call
   end
