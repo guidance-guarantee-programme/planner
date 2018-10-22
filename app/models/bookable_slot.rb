@@ -7,6 +7,7 @@ class BookableSlot < ActiveRecord::Base
   audited associated_with: :schedule
 
   validate :validate_date_exclusions
+  validate :validate_slot_allocation
 
   scope :realtime, -> { where.not(guider_id: nil) }
   scope :non_realtime, -> { where(guider_id: nil) }
@@ -49,6 +50,20 @@ class BookableSlot < ActiveRecord::Base
   end
 
   private
+
+  def validate_slot_allocation # rubocop:disable AbcSize
+    if guider_id?
+      return unless slot = schedule.bookable_slots.non_realtime.last
+      report_overlapping_slot_error if slot.date >= date
+    else
+      return unless slot = schedule.bookable_slots.realtime.first
+      report_overlapping_slot_error if slot.date <= date
+    end
+  end
+
+  def report_overlapping_slot_error
+    errors.add(:date, 'cannot overlap realtime/non-realtime slots')
+  end
 
   def validate_date_exclusions
     errors.add(:start, 'Cannot occur on this date') if EXCLUSIONS.include?(date)

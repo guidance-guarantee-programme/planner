@@ -28,6 +28,14 @@ class Schedule < ActiveRecord::Base
     )
   end
 
+  def create_bookable_slot(date:, period:)
+    bookable_slots.create!(
+      date: date,
+      start: period.start,
+      end: period.end
+    )
+  end
+
   def generate_bookable_slots!
     BookableSlotGenerator.new(self).call
   end
@@ -70,15 +78,5 @@ class Schedule < ActiveRecord::Base
     where(location_id: location_id)
       .order(created_at: :desc)
       .first_or_initialize(location_id: location_id)
-  end
-
-  private
-
-  def create_bookable_slot(date:, period:)
-    bookable_slots.create!(
-      date: date,
-      start: period.start,
-      end: period.end
-    )
   end
 end
