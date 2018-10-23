@@ -8,6 +8,7 @@ class BookableSlot < ActiveRecord::Base
 
   validate :validate_date_exclusions
   validate :validate_slot_allocation
+  validate :validate_guider_overlapping
 
   scope :realtime, -> { where.not(guider_id: nil) }
   scope :non_realtime, -> { where(guider_id: nil) }
@@ -33,11 +34,15 @@ class BookableSlot < ActiveRecord::Base
   end
 
   def start_at
-    Time.zone.parse("#{date} #{start.dup.insert(2, ':')}")
+    @start_at ||= Time.zone.parse("#{date} #{start.dup.insert(2, ':')}")
   end
 
   def end_at
-    Time.zone.parse("#{date} #{self.end.dup.insert(2, ':')}")
+    @end_at ||= Time.zone.parse("#{date} #{self.end.dup.insert(2, ':')}")
+  end
+
+  def overlaps?(bookable_slot)
+    range.cover?(bookable_slot.start_at.advance(minutes: 1)) || range.cover?(bookable_slot.end_at.advance(minutes: -1))
   end
 
   def self.windowed(date_range)
@@ -50,6 +55,18 @@ class BookableSlot < ActiveRecord::Base
   end
 
   private
+
+  def range
+    start_at...end_at
+  end
+
+  def validate_guider_overlapping
+    return unless guider_id?
+
+    if self.class.where(date: date, guider_id: guider_id).any?(&method(:overlaps?)) # rubocop:disable GuardClause
+      errors.add(:start, 'cannot overlap with another slot')
+    end
+  end
 
   def validate_slot_allocation # rubocop:disable AbcSize
     if guider_id?
