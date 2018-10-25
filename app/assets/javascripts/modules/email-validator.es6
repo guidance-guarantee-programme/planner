@@ -6,7 +6,7 @@
       this.$component = component;
 
       this.$component.mailgun_validator({
-        api_key: 'pubkey-b37c931b1fcef90bf2d83b7cdfd6df39',
+        api_key: 'pubkey-315b5fdbcd4d698bdef6688c47ed0f12',
         in_progress: this.showLoadingSpinner.bind(this),
         success: this.onSuccess.bind(this),
         error: this.onError.bind(this)
