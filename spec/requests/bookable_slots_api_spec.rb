@@ -21,10 +21,11 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
     @schedule = create(:schedule).tap do |schedule|
       # excluded due to falling within the grace period
       create(:bookable_slot, :am, schedule: schedule)
-      # excluded as after booking window
-      create(:bookable_slot, :am, schedule: schedule, date: 9.weeks.from_now)
       # will be returned
       create(:bookable_slot, :am, schedule: schedule, date: GracePeriod.start)
+      # the following realtime slots are deduplicated
+      create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now, guider_id: 2)
+      create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now)
     end
   end
 
@@ -33,12 +34,21 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
   end
 
   def and_the_correct_slots_are_returned
-    expect(@json.count).to eq(1)
+    expect(@json.count).to eq(2)
 
-    expect(@json.first).to eq(
-      'date'  => '2017-05-31',
-      'start' => BookableSlot::AM.start,
-      'end'   => BookableSlot::AM.end
+    expect(@json).to eq(
+      [
+        {
+          'date'  => '2017-05-31',
+          'start' => BookableSlot::AM.start,
+          'end'   => BookableSlot::AM.end
+        },
+        {
+          'date'  => '2017-06-05',
+          'start' => '0900',
+          'end'   => '1000'
+        }
+      ]
     )
   end
 
