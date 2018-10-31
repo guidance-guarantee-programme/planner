@@ -48,12 +48,12 @@ module ScheduleHelper
     end
   end
 
-  def realtime_availability_button(location_id)
-    return unless Realtime.pilot?(location_id)
-    return unless Schedule.exists?(location_id: location_id)
+  def realtime_availability_button(location)
+    return unless location.realtime?
+    return unless Schedule.exists?(location_id: location.id)
 
     link_to(
-      realtime_bookable_slots_path(location_id: location_id),
+      realtime_bookable_slots_path(location_id: location.id),
       title: 'Modify realtime availability',
       class: 'btn btn-info t-realtime-availability'
     ) do
