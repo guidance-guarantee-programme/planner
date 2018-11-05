@@ -13,7 +13,7 @@ module Api
 
         return scope if schedule.default?
 
-        scope.group_by(&:start_at).values.map(&:first)
+        schedule.without_appointments(scope).group_by(&:start_at).values.map(&:first)
       end
     end
   end

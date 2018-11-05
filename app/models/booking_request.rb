@@ -1,6 +1,8 @@
 class BookingRequest < ActiveRecord::Base
   PERMITTED_AGE_RANGES = %w(50-54 55-plus).freeze
 
+  attr_reader :allocated
+
   enum status: %i(
     active
     awaiting_customer_feedback
@@ -31,6 +33,8 @@ class BookingRequest < ActiveRecord::Base
   validates :where_you_heard, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
   validate :validate_slots
+
+  delegate :realtime?, to: :primary_slot, allow_nil: true
 
   alias reference to_param
 
@@ -78,5 +82,7 @@ class BookingRequest < ActiveRecord::Base
 
   def validate_slots
     errors.add(:slots, 'you must provide at least one slot') if slots.empty?
+
+    errors.add(:slots, 'could not be allocated') unless @allocated = Schedule.allocates?(self)
   end
 end

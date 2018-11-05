@@ -63,6 +63,46 @@ RSpec.describe BookingRequest do
         expect(booking).to_not be_valid
       end
     end
+
+    describe 'allocation of slots' do
+      context 'when a realtime slot is chosen' do
+        before do
+          travel_to '2018-11-05 13:00' do
+            @available_slot  = create(:bookable_slot, :realtime, date: 3.days.from_now)
+            @booking_request = build(:hackney_booking_request, number_of_slots: 0)
+            @booking_request.slots.build(date: '2018-11-08', from: '0900', to: '1000', priority: 1)
+          end
+        end
+
+        context 'when an available slot can be allocated' do
+          it 'is valid' do
+            expect(@booking_request).to be_valid
+          end
+        end
+
+        context 'when no available slot can be allocated' do
+          it 'is not valid' do
+            # has an associated appointment
+            create(
+              :appointment,
+              guider_id: @available_slot.guider_id,
+              proceeded_at: @available_slot.start_at,
+              booking_request: @booking_request
+            )
+
+            expect(@booking_request).to be_invalid
+          end
+        end
+      end
+
+      context 'when non-realtime slots are chosen' do
+        it 'is valid' do
+          @booking_request = build(:booking_request)
+          expect(@booking_request).not_to be_realtime
+          expect(@booking_request).to be_valid
+        end
+      end
+    end
   end
 
   describe '#reference' do
@@ -108,6 +148,21 @@ RSpec.describe BookingRequest do
       expect(build_stubbed(:booking_request).memorable_word).to eq('spaceship')
       expect(build_stubbed(:booking_request).memorable_word(obscure: true)).to eq('s*******p')
       expect(build_stubbed(:booking_request, memorable_word: nil).memorable_word(obscure: true)).to eq('')
+    end
+  end
+
+  describe '#realtime?' do
+    context 'when the first slot is realtime' do
+      it 'is true' do
+        build(:booking_request).tap do |booking_request|
+          expect(booking_request).not_to be_realtime
+
+          booking_request.primary_slot.from = '0900'
+          booking_request.primary_slot.to   = '1000'
+
+          expect(booking_request).to be_realtime
+        end
+      end
     end
   end
 end

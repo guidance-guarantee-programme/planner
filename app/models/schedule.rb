@@ -54,10 +54,21 @@ class Schedule < ActiveRecord::Base
     bookable_slots.windowed(starting..ending)
   end
 
+  def without_appointments(scoped = bookable_slots_in_window)
+    scoped.joins(
+      <<-SQL
+        LEFT JOIN appointments ON
+          appointments.guider_id = bookable_slots.guider_id
+          AND appointments.proceeded_at = TO_TIMESTAMP(CONCAT(bookable_slots.date, ' ', bookable_slots.start), 'YYYY-MM-DD HH24MI')
+          AND NOT appointments.status IN (5, 6, 7)
+      SQL
+    ).where('appointments.proceeded_at IS NULL')
+  end
+
   def unavailable?
     return if default?
 
-    bookable_slots_in_window.size.zero?
+    without_appointments.size.zero?
   end
 
   def available?
@@ -71,7 +82,21 @@ class Schedule < ActiveRecord::Base
   end
 
   def first_available_slot_on
-    bookable_slots_in_window.first&.date
+    return GracePeriod.new.call if default?
+
+    without_appointments.first&.date
+  end
+
+  def self.allocates?(booking_request)
+    schedule = current(booking_request.location_id)
+
+    return true if schedule.default?
+
+    schedule.without_appointments.find_by(
+      date: booking_request.primary_slot.date,
+      start: booking_request.primary_slot.from,
+      end: booking_request.primary_slot.to
+    )
   end
 
   def self.current(location_id)

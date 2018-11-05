@@ -1,4 +1,5 @@
 class Slot < ActiveRecord::Base
+  NON_REALTIME_DURATION = 400
   PERMITTED_TIME_REGEX = /\A\d{4}\z/
   PERMITTED_PRIORITIES = [1, 2, 3].freeze
 
@@ -20,6 +21,10 @@ class Slot < ActiveRecord::Base
     ).tap do |slot|
       slot.to = slot.morning? ? BookableSlot::AM.end : BookableSlot::PM.end
     end
+  end
+
+  def realtime?
+    to.to_i - from.to_i != NON_REALTIME_DURATION
   end
 
   def morning?
