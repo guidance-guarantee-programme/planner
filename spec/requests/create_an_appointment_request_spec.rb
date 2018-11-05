@@ -16,6 +16,27 @@ RSpec.describe 'POST /api/v1/booking_requests' do
     end
   end
 
+  scenario 'the realtime slot disappears due to a race or otherwise' do
+    given_the_client_identifies_as_pension_wise
+    and_the_hackney_booking_manager_exists
+    and_an_empty_schedule_exists
+    when_a_valid_booking_request_is_made
+    then_the_service_responds_with_a_422
+    and_no_booking_is_created
+  end
+
+  def and_an_empty_schedule_exists
+    @schedule = create(:schedule, :blank)
+  end
+
+  def then_the_service_responds_with_a_422
+    expect(response).to be_unprocessable
+  end
+
+  def and_no_booking_is_created
+    expect(BookingRequest.count).to be_zero
+  end
+
   def given_the_client_identifies_as_pension_wise
     create(:pension_wise_api_user)
   end
