@@ -7,6 +7,7 @@
       this.$el = el;
       this.$slotsUri = this.$el.data('slots-uri')
       this.$guidersUri = this.$el.data('guiders-uri')
+      this.$appointmentsUri = this.$el.data('appointments-uri')
 
       $(this.$el).fullCalendar({
         header: {
@@ -37,6 +38,10 @@
             url: this.$slotsUri,
             rendering: 'background',
             eventType: 'slot'
+          },
+          {
+            url: this.$appointmentsUri,
+            eventType: 'appointment'
           }
         ],
         dayClick: (date, jsEvent, _, resourceObject) => {

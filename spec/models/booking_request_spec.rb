@@ -65,13 +65,14 @@ RSpec.describe BookingRequest do
     end
 
     describe 'allocation of slots' do
+      before { travel_to('2018-11-05 13:00') }
+      after { travel_back }
+
       context 'when a realtime slot is chosen' do
         before do
-          travel_to '2018-11-05 13:00' do
-            @available_slot  = create(:bookable_slot, :realtime, date: 3.days.from_now)
-            @booking_request = build(:hackney_booking_request, number_of_slots: 0)
-            @booking_request.slots.build(date: '2018-11-08', from: '0900', to: '1000', priority: 1)
-          end
+          @available_slot  = create(:bookable_slot, :realtime, date: 4.days.from_now)
+          @booking_request = build(:hackney_booking_request, number_of_slots: 0)
+          @booking_request.slots.build(date: '2018-11-09', from: '0900', to: '1000', priority: 1)
         end
 
         context 'when an available slot can be allocated' do
