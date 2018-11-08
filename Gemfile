@@ -41,6 +41,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'sprockets-es6'
   gem 'uglifier', '>= 1.3.0'
   gem 'uk_postcode'
+  gem 'working_hours'
 
   group :development, :test do
     gem 'bootsnap'
