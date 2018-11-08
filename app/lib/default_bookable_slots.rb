@@ -37,6 +37,6 @@ class DefaultBookableSlots
   end
 
   def grace_period_end
-    GracePeriod.new(from).call
+    GracePeriod.start
   end
 end
