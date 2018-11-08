@@ -11,12 +11,18 @@
 
       $(this.$el).fullCalendar({
         header: {
-          right: 'prev,next'
+          right: 'today jumpToDate prev,next'
         },
         resourceLabelText: 'Guider',
         nowIndicator: true,
         allDaySlot: false,
         groupByDateAndResource: true,
+        customButtons: {
+          jumpToDate: {
+            text: 'Jump to date',
+            click: this.jumpToDateClick.bind(this)
+          }
+        },
         buttonText: {
           today: 'Jump to today'
         },
@@ -90,6 +96,8 @@
         },
         schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source'
       });
+
+      this.insertJumpToDate();
     }
 
     deleteSlot(jsEvent) {
@@ -153,6 +161,52 @@
         }
       })
     }
+
+    jumpToDateClick() {
+      const dateRangePicker = this.$jumpToDateEl.data('daterangepicker'),
+        currentDate = this.getCurrentDate();
+
+      this.$jumpToDateEl.val(currentDate);
+
+      dateRangePicker.setStartDate(currentDate);
+      dateRangePicker.setEndDate(currentDate);
+
+      this.$jumpToDateEl.click();
+    }
+
+    insertJumpToDate() {
+      const $jumpToDateButton = $('.fc-jumpToDate-button');
+
+      $jumpToDateButton.wrap('<div class="fc-button-group fc-button-group--jump-to-date" />');
+
+      if ($jumpToDateButton.length === 0) {
+        return;
+      }
+
+      this.$jumpToDateEl = $(`
+        <input type="text" class="jump-to-date" name="jump-to-date" id="jump-to-date" value="${this.getCurrentDate()}">
+      `).daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+          format: 'YYYY-MM-DD'
+        }
+      }).on(
+        'change',
+        this.jumpToDateElChange.bind(this)
+      ).insertAfter($jumpToDateButton);
+
+      $('<label for="jump-to-date"><span class="sr-only">Jump to date</span></label>').insertAfter($jumpToDateButton);
+    }
+
+    getCurrentDate(format = 'YYYY-MM-DD') {
+      return $(this.$el).fullCalendar('getDate').format(format);
+    }
+
+    jumpToDateElChange(el) {
+      $(this.$el).fullCalendar('gotoDate', moment($(el.currentTarget).val()));
+    }
+
   }
 
   window.GOVUKAdmin.Modules.RealtimeCalendar = RealtimeCalendar;
