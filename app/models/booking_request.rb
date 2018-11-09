@@ -11,7 +11,7 @@ class BookingRequest < ActiveRecord::Base
 
   has_one :appointment
 
-  has_many :slots, -> { order(:priority) }, dependent: :destroy
+  has_many :slots, -> { order(:priority) }, dependent: :delete_all
 
   has_many :activities, -> { order('created_at DESC') }
 

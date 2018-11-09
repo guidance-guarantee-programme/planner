@@ -29,13 +29,13 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'newrelic_rpm'
   gem 'notifications-ruby-client'
   gem 'oj'
-  gem 'pg', '~> 0.21'
+  gem 'pg'
   gem 'plek'
   gem 'puma'
   gem 'pusher'
-  gem 'rails', '~> 5.1.2'
+  gem 'rails', '~> 5.2.0'
   gem 'rails-observers'
-  gem 'sassc-rails'
+  gem 'sassc-rails', '1.3.0'
   gem 'sidekiq'
   gem 'sinatra', require: false
   gem 'sprockets-es6'
@@ -45,7 +45,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
 
   group :development, :test do
     gem 'bootsnap'
-    gem 'capybara', '2.18.0'
+    gem 'capybara'
     gem 'factory_bot_rails'
     gem 'pry-byebug'
     gem 'pusher-fake'
