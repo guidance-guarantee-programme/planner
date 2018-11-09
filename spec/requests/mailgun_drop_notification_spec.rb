@@ -66,7 +66,7 @@ RSpec.describe 'POST /mail_gun/drops' do
   end
 
   def and_the_service_responds_ok
-    expect(response).to be_success
+    expect(response).to be_successful
   end
 
   def last_email
