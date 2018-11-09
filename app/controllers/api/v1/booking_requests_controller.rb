@@ -4,6 +4,7 @@ module Api
       include GDS::SSO::ControllerMethods
       include LogrageFilterer
 
+      skip_before_action :verify_authenticity_token
       before_action :authorise_api_user!
 
       def create
