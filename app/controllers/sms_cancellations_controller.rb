@@ -1,6 +1,7 @@
 class SmsCancellationsController < ActionController::Base
   wrap_parameters false
 
+  skip_before_action :verify_authenticity_token
   before_action :token_authenticate
 
   def create
