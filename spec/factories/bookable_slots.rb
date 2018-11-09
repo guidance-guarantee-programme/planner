@@ -4,13 +4,13 @@ FactoryBot.define do
     date { Time.zone.now }
 
     trait :am do
-      start BookableSlot::AM.start
-      add_attribute(:end, BookableSlot::AM.end)
+      start { BookableSlot::AM.start }
+      add_attribute(:end) { BookableSlot::AM.end }
     end
 
     trait :pm do
-      start BookableSlot::PM.start
-      add_attribute(:end, BookableSlot::PM.end)
+      start { BookableSlot::PM.start }
+      add_attribute(:end) { BookableSlot::PM.end }
     end
   end
 end
