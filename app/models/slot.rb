@@ -2,7 +2,7 @@ class Slot < ActiveRecord::Base
   PERMITTED_TIME_REGEX = /\A\d{4}\z/
   PERMITTED_PRIORITIES = [1, 2, 3].freeze
 
-  belongs_to :booking_request
+  belongs_to :booking_request, optional: true
 
   validates :date, presence: true
   validates :priority, inclusion: { in: PERMITTED_PRIORITIES }

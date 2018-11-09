@@ -1,4 +1,4 @@
-<%= form_with method: :put, url: schedule_bookable_slots_path(@form.schedule, date: @form.date), class: 't-availability-modal' do |f| %>
+<%= form_with remote: true, method: :put, url: schedule_bookable_slots_path(@form.schedule, date: @form.date), class: 't-availability-modal' do |f| %>
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>

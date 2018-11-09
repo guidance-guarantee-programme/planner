@@ -79,7 +79,7 @@ RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true
 
   def then_they_see_all_the_activities
     @page.activity_feed.tap do |feed|
-      feed.wait_for_hidden_activities
+      feed.wait_until_hidden_activities_visible
 
       expect(feed).to have_activities(count: 2)
       expect(feed.activities.last).to have_text('name')

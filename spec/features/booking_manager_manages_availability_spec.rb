@@ -59,7 +59,7 @@ RSpec.feature 'Booking manager manages availability' do
     expect(@page).to be_displayed
 
     # two Monday AM slots will be present
-    @page.calendar.wait_for_events
+    @page.calendar.wait_until_events_visible
     expect(@page.calendar).to have_events(count: 2)
   end
 

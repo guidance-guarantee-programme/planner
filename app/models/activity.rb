@@ -2,7 +2,7 @@ class Activity < ActiveRecord::Base
   POLLING_KEY = 'POLL_INTERVAL_MILLISECONDS'.freeze
 
   belongs_to :booking_request
-  belongs_to :user
+  belongs_to :user, optional: true
 
   scope :since, ->(since) { where('created_at > ?', since) }
 

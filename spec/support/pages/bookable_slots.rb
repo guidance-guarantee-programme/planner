@@ -7,7 +7,7 @@ module Pages
     set_url '/locations/{location_id}/bookable_slots'
 
     def slot(bookable_slot)
-      BookableSlot.new(self, find_first(".t-slot-#{bookable_slot.id}"))
+      BookableSlot.new(self, first(".t-slot-#{bookable_slot.id}"))
     end
   end
 end
