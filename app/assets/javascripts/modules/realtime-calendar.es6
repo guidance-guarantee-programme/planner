@@ -11,7 +11,7 @@
 
       $(this.$el).fullCalendar({
         header: {
-          right: 'today jumpToDate prev,next'
+          right: 'today jumpToDate jumpBackWeek,jumpForwardWeek prev,next'
         },
         titleFormat: 'dddd, Do MMMM',
         resourceLabelText: 'Guider',
@@ -22,6 +22,14 @@
           jumpToDate: {
             text: 'Jump to date',
             click: this.jumpToDateClick.bind(this)
+          },
+          jumpBackWeek: {
+            text: '-7 days',
+            click: this.jumpWeek.bind(this, false)
+          },
+          jumpForwardWeek: {
+            text: '+7 days',
+            click: this.jumpWeek.bind(this, true)
           }
         },
         buttonText: {
@@ -163,6 +171,16 @@
       })
     }
 
+    jumpWeek(forward) {
+      var current = moment(this.getCurrentDate());
+
+      if (forward) {
+        $(this.$el).fullCalendar('gotoDate', current.add(7, 'days'));
+      } else {
+        $(this.$el).fullCalendar('gotoDate', current.subtract(7, 'days'));
+      }
+    }
+
     jumpToDateClick() {
       const dateRangePicker = this.$jumpToDateEl.data('daterangepicker'),
         currentDate = this.getCurrentDate();
@@ -207,7 +225,6 @@
     jumpToDateElChange(el) {
       $(this.$el).fullCalendar('gotoDate', moment($(el.currentTarget).val()));
     }
-
   }
 
   window.GOVUKAdmin.Modules.RealtimeCalendar = RealtimeCalendar;
