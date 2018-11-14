@@ -19,6 +19,12 @@ class Schedule < ActiveRecord::Base
   has_associated_audits
   audited on: :create
 
+  def realtime?
+    return false if default?
+
+    without_appointments.realtime.size.positive?
+  end
+
   def create_realtime_bookable_slot!(start_at:, guider_id:)
     bookable_slots.create!(
       guider_id: guider_id,
@@ -55,6 +61,8 @@ class Schedule < ActiveRecord::Base
   end
 
   def without_appointments(scoped = bookable_slots_in_window)
+    return scoped if default?
+
     scoped.joins(
       <<-SQL
         LEFT JOIN appointments ON
@@ -82,7 +90,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def first_available_slot_on
-    return GracePeriod.new.call if default?
+    return GracePeriod.start if default?
 
     without_appointments.first&.date
   end

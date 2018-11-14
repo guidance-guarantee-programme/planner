@@ -46,14 +46,16 @@
               <td><%= @booking.name %></td>
             </tr>
             <tr>
-              <td class="active"><b>Desired slots</b></td>
+              <td class="active"><b>Desired slot(s)</b></td>
               <td>
                 <%= @booking.first_choice_slot %>
-                <% if @booking.second_choice_slot %>
-                  <br><%= @booking.second_choice_slot %>
-                <% end %>
-                <% if @booking.third_choice_slot %>
-                  <br><%= @booking.third_choice_slot %>
+                <% unless @booking.realtime? %>
+                  <% if @booking.second_choice_slot %>
+                    <br><%= @booking.second_choice_slot %>
+                  <% end %>
+                  <% if @booking.third_choice_slot %>
+                    <br><%= @booking.third_choice_slot %>
+                  <% end %>
                 <% end %>
               </td>
             </tr>

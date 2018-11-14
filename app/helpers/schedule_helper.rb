@@ -9,12 +9,18 @@ module ScheduleHelper
   end
 
   def grouped_day(day_slots)
-    day_slots.map do |slot|
+    day_slots.group_by(&:start_at).values.map(&:first).map do |slot|
       [
-        "#{slot.date.to_date.strftime('%A, %d %b')} - #{slot.period == 'am' ? 'Morning' : 'Afternoon'}",
-        "#{slot.date} #{slot.start.dup.insert(2, ':')}"
+        "#{slot.date.to_date.strftime('%A, %d %b')} - #{slot_period(slot)}",
+        "#{slot.date}-#{slot.start}-#{slot.end}"
       ]
     end
+  end
+
+  def slot_period(slot)
+    return slot.start_at.to_s(:govuk_time) if slot.realtime?
+
+    slot.period == 'am' ? 'Morning' : 'Afternoon'
   end
 
   def summary(period, schedule)

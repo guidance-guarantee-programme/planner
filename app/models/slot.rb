@@ -11,16 +11,21 @@ class Slot < ActiveRecord::Base
   validates :to, format: { with: PERMITTED_TIME_REGEX }
   validate :validate_from_before_to
 
-  def self.from(priority:, start_at:)
-    start_at = start_at.in_time_zone
+  def self.from(priority:, slot:)
+    date, from, to = slot.match(/\A(\d{4}-\d{2}-\d{2})-(\d{4})-(\d{4})\z/).captures
 
-    new(
+    new(priority: priority, date: date, from: from, to: to)
+  end
+
+  def self.parse_slot_text(priority:, slot:)
+    date, from, to = slot.match(/\A(\d{4}-\d{2}-\d{2})-(\d{4})-(\d{4})\z/).captures
+
+    {
       priority: priority,
-      date: start_at.to_date,
-      from: start_at.strftime('%H%M')
-    ).tap do |slot|
-      slot.to = slot.morning? ? BookableSlot::AM.end : BookableSlot::PM.end
-    end
+      date: date,
+      from: from,
+      to: to
+    }
   end
 
   def realtime?
@@ -40,6 +45,8 @@ class Slot < ActiveRecord::Base
   end
 
   def period
+    return delimited_from if realtime?
+
     morning? ? 'Morning' : 'Afternoon'
   end
 

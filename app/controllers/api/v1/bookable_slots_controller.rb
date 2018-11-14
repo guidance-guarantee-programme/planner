@@ -9,11 +9,8 @@ module Api
 
       def slots
         schedule = Schedule.current(params[:location_id])
-        scope    = schedule.bookable_slots_in_window
 
-        return scope if schedule.default?
-
-        schedule.without_appointments(scope).group_by(&:start_at).values.map(&:first)
+        schedule.without_appointments.group_by(&:start_at).values.map(&:first)
       end
     end
   end

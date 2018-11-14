@@ -1,5 +1,7 @@
 module Agent
   class BookingRequestsController < Agent::ApplicationController
+    include RealtimeProcessable
+
     def index
       @search = AgentSearchForm.new(search_params)
       @booking_requests = @search.results
@@ -24,7 +26,7 @@ module Agent
 
       if creating?
         @booking = @booking.create_booking!
-        send_notifications(@booking)
+        process_booking_request(@booking)
 
         redirect_to agent_booking_request_path(@booking, location_id: location_id)
       else
@@ -44,10 +46,19 @@ module Agent
       SlackPingerJob.perform_later(booking)
     end
 
+    def schedule
+      @schedule ||= Schedule.current(location_id)
+    end
+
     def slots
-      @slots ||= Schedule.current(location_id).bookable_slots_in_window
+      @slots ||= schedule.without_appointments
     end
     helper_method :slots
+
+    def realtime?
+      schedule.realtime?
+    end
+    helper_method :realtime?
 
     def booking_params
       params
