@@ -24,7 +24,7 @@ class AvailabilityForm
 
   def upsert!
     ActiveRecord::Base.transaction do
-      slots.destroy_all
+      slots.delete_all
 
       schedule.create_bookable_slots(date: date, am: am, pm: pm)
     end
@@ -33,9 +33,9 @@ class AvailabilityForm
   private
 
   def slots
-    @slots ||= schedule.bookable_slots_in_window(
+    schedule.bookable_slots_in_window(
       starting: date,
       ending: date
-    )
+    ).non_realtime
   end
 end
