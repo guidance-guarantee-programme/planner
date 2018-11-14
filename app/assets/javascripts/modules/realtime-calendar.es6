@@ -13,6 +13,7 @@
         header: {
           right: 'today jumpToDate prev,next'
         },
+        titleFormat: 'dddd, Do MMMM',
         resourceLabelText: 'Guider',
         nowIndicator: true,
         allDaySlot: false,
