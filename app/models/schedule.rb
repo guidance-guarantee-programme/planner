@@ -107,6 +107,16 @@ class Schedule < ActiveRecord::Base
     )
   end
 
+  def self.allocate_slot(appointment, slot_date_time)
+    schedule = current(appointment.location_id)
+
+    schedule.without_appointments.find_by(
+      date: slot_date_time.to_date,
+      start: slot_date_time.strftime('%H%M'),
+      end: slot_date_time.advance(hours: 1).strftime('%H%M')
+    )
+  end
+
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)

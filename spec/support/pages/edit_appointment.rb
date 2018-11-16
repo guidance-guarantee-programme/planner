@@ -33,6 +33,7 @@ module Pages
     element :process, '.t-process'
     element :submit, '.t-submit'
     element :resend_confirmation, '.t-resend-confirmation'
+    element :reschedule, '.t-reschedule-button'
 
     element :postal_address, '.t-postal-address'
     element :edit_postal_address, '.t-edit-postal-address'
@@ -44,5 +45,10 @@ module Pages
     element :success, '.alert-success'
 
     section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
+
+    section :rescheduling_modal, '.t-rescheduling-modal' do
+      element :slot, '.t-slot'
+      element :reschedule, '.t-reschedule'
+    end
   end
 end

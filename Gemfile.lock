@@ -181,6 +181,8 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     lograge (0.10.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -462,6 +464,7 @@ DEPENDENCIES
   gds-sso!
   govuk_admin_template!
   kaminari!
+  launchy!
   lograge!
   momentjs-rails!
   newrelic_rpm!

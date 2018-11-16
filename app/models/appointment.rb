@@ -49,6 +49,15 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     end
   end
 
+  def allocate!(slot_date_time)
+    return unless slot = Schedule.allocate_slot(self, slot_date_time)
+
+    self.guider_id    = slot.guider_id
+    self.proceeded_at = slot.start_at
+
+    save
+  end
+
   def cancelled?
     status.starts_with?('cancelled')
   end

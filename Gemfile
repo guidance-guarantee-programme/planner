@@ -63,6 +63,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'chromedriver-helper'
     gem 'coveralls', require: false
     gem 'database_cleaner'
+    gem 'launchy'
     gem 'phantomjs'
     gem 'poltergeist'
     gem 'selenium-webdriver'
