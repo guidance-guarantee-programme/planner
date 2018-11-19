@@ -21,7 +21,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   belongs_to :booking_request
   has_many :status_transitions
 
-  delegate :reference, :activities, :agent_id?, :booking_location_id, to: :booking_request
+  delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, to: :booking_request
   delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
 
   validates :name, presence: true

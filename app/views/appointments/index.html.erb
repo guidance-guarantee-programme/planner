@@ -68,6 +68,9 @@
             <tr class="t-appointment">
               <td>
                 <%= appointment.proceeded_at.to_s(:govuk_date) %>
+                <% if appointment.realtime? %>
+                  <span class="badge"><span class="glyphicon glyphicon-time"></span></span>
+                <% end %>
               </td>
               <td>
                 <%= appointment.name %>
