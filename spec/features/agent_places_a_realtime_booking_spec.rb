@@ -63,6 +63,7 @@ RSpec.feature 'Agent places a realtime booking' do
 
     @page = Pages::AgentBookingPreview.new
     expect(@page).to be_displayed
+    expect(@page.first_choice_slot).to have_text('7 November 2018 - 09:00')
 
     @page.confirmation.click
   end

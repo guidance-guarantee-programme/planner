@@ -4,12 +4,10 @@ class AgentBookingDecorator < SimpleDelegator
   end
 
   def second_choice_slot
-    return if super.blank?
     slot_text(super)
   end
 
   def third_choice_slot
-    return if super.blank?
     slot_text(super)
   end
 
@@ -26,6 +24,8 @@ class AgentBookingDecorator < SimpleDelegator
   private
 
   def slot_text(slot)
-    "#{slot.to_date.to_s(:govuk_date)} - #{slot.end_with?('09:00') ? 'Morning' : 'Afternoon'}"
+    return if slot.blank?
+
+    Slot.from(priority: 1, slot: slot).to_s
   end
 end
