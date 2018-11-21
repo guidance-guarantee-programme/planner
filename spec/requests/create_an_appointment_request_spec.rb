@@ -9,6 +9,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         and_a_schedule_with_realtime_slots_exists
         when_a_valid_booking_request_is_made
         then_the_service_responds_with_a_201
+        and_the_appointment_details_are_serialized
         and_the_booking_request_is_created
         and_the_appointment_is_created
         and_the_customer_receives_a_confirmation_email
@@ -82,8 +83,15 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def then_the_service_responds_with_a_201
-    puts response.body
     expect(response).to be_created
+  end
+
+  def and_the_appointment_details_are_serialized
+    expect(JSON.parse(response.body)).to eq(
+      'reference'    => Appointment.last.reference,
+      'proceeded_at' => '2018-11-08T09:00:00.000Z',
+      'location'     => 'Hackney'
+    )
   end
 
   def and_the_booking_request_is_created

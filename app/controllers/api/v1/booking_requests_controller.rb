@@ -13,7 +13,7 @@ module Api
 
         if booking_request.save
           process_booking_request(booking_request)
-          head :created
+          render_response(booking_request)
         else
           render_errors(booking_request)
         end
@@ -29,6 +29,23 @@ module Api
       end
 
       private
+
+      def render_response(booking_request)
+        if booking_request.appointment
+          appointment = location_aware_appointment(booking_request.appointment)
+
+          render json: appointment, serializer: AppointmentConfirmationSerializer, status: :created
+        else
+          render json: {}, status: :created
+        end
+      end
+
+      def location_aware_appointment(appointment)
+        LocationAwareEntity.new(
+          entity: appointment,
+          booking_location: BookingLocations.find(appointment.location_id)
+        )
+      end
 
       def send_notifications(booking_request)
         CustomerConfirmationJob.perform_later(booking_request)
