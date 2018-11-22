@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181101122713) do
+ActiveRecord::Schema.define(version: 2018_11_22_151136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20181101122713) do
     t.boolean "defined_contribution_pot_confirmed", default: true, null: false
     t.boolean "accessibility_requirements", default: false, null: false
     t.string "additional_info", limit: 500, default: "", null: false
+    t.datetime "processed_at"
     t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id"
     t.index ["location_id"], name: "index_appointments_on_location_id"
   end
@@ -76,6 +77,7 @@ ActiveRecord::Schema.define(version: 20181101122713) do
     t.string "end", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "guider_id"
     t.index ["schedule_id"], name: "index_bookable_slots_on_schedule_id"
   end
 

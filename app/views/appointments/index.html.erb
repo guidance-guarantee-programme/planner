@@ -29,6 +29,9 @@
             <%= f.label :guider, class: 'filters__label' %><%= f.select :guider, guider_options(booking_location), { include_blank: 'All Guiders' }, { class: 'form-control filters__form-control t-guider' } %>
           </li>
           <li class="filters__item">
+            <%= f.label :processed, class: 'filters__label' %><%= f.select :processed, [['Yes', 'true'], ['No', 'false']], { include_blank: 'All' }, { class: 'form-control filters__form-control t-processed' } %>
+          </li>
+          <li class="filters__item">
            <%= f.button class: 't-submit btn btn-default filters__button' do %>
              <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
            <% end %>

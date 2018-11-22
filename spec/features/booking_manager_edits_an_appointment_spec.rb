@@ -2,6 +2,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking Manager edits an Appointment' do
+  scenario 'Processing an appointment' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      and_processes_the_appointment
+      then_the_appointment_is_processed
+    end
+  end
+
   scenario 'Resending the appointment confirmation', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment
@@ -57,6 +66,17 @@ RSpec.feature 'Booking Manager edits an Appointment' do
         and_the_customer_is_not_notified
       end
     end
+  end
+
+  def and_processes_the_appointment
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    @page.process.click
+  end
+
+  def then_the_appointment_is_processed
+    expect(@page).to have_success
   end
 
   def when_they_resend_the_confirmation
