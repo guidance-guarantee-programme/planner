@@ -1,4 +1,4 @@
-class Appointment < ActiveRecord::Base
+class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   include PostalAddressable
 
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
@@ -38,6 +38,16 @@ class Appointment < ActiveRecord::Base
   scope :with_mobile, -> { where("phone like '07%'") }
   scope :without_mobile, -> { where.not("phone like '07%'") }
   scope :with_email, -> { where.not(email: '') }
+
+  def process!(by)
+    return if processed_at?
+
+    transaction do
+      touch(:processed_at) # rubocop:disable SkipsModelValidations
+
+      ProcessedActivity.from!(user: by, appointment: self)
+    end
+  end
 
   def cancel!
     without_auditing do

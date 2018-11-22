@@ -1,0 +1,5 @@
+<li class="activity-feed__item t-activity" id="activity-<%= processed_activity.id %>">
+  <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+  <strong><%= processed_activity.owner_name %></strong> processed the appointment
+  <span class="activity-feed__date"><%= timestamp(processed_activity.created_at) %></span>
+</li>

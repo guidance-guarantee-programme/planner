@@ -30,6 +30,7 @@ module Pages
     element :slot_three_date,   '.t-slot-3-date'
     element :slot_three_period, '.t-slot-3-period'
 
+    element :process, '.t-process'
     element :submit, '.t-submit'
     element :resend_confirmation, '.t-resend-confirmation'
 

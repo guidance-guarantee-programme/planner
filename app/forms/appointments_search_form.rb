@@ -8,10 +8,12 @@ class AppointmentsSearchForm
   attr_accessor :guider
   attr_accessor :current_user
   attr_accessor :appointment_date
+  attr_accessor :processed
 
   def results # rubocop:disable Metrics/AbcSize
     scope = current_user.appointments
     scope = search_term_scope(scope)
+    scope = processed_scope(scope)
     scope = scope.where(proceeded_at: date_range) if date_range
     scope = scope.where(status: status) if status.present?
     scope = scope.where(location_id: location) if location.present?
@@ -21,6 +23,16 @@ class AppointmentsSearchForm
   end
 
   private
+
+  def processed_scope(scope)
+    return scope if processed.blank?
+
+    if ActiveRecord::Type::Boolean.new.cast(processed)
+      scope.where.not(processed_at: nil)
+    else
+      scope.where(processed_at: nil)
+    end
+  end
 
   def search_term_scope(scope)
     return scope unless search_term.present?
