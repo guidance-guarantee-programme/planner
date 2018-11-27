@@ -30,13 +30,6 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="h3">Desired slots</h2>
-        <p class="lead">
-          I can request three different slots for your
-          appointment. At this stage I can only take a preference for morning or
-          afternoon. You will be contacted within 2 working days to confirm the
-          actual date and time of the booking.
-        </p>
-
         <% @grouped_slots ||= slots_by_month(slots) %>
         <div class="form-group col-md-4">
           <%= f.label :first_choice_slot %>
