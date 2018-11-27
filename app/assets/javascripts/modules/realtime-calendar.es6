@@ -81,8 +81,11 @@
 
           $(element).attr('id', event.id)
         },
-        resourceRender: (resource, labelTds) => {
-          labelTds.addClass('t-guider')
+        resourceRender(resourceObj, labelTds, bodyTds, view) {
+          if (view.type === 'agendaDay') {
+            labelTds.html('');
+            $(`<div class="t-guider">${resourceObj.title}</div>`).prependTo(labelTds);
+          } 
         },
         loading: (isLoading) => {
           if (isLoading) {

@@ -1,6 +1,8 @@
 $calendar-loading-view-background: transparentize($color-white, .2);
 $calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
 
+$guider-row-height: 100px;
+
 .fc {
   a,
   a:visited {
@@ -54,4 +56,25 @@ $calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
   right: 50%;
   top: 50%;
   background: transparent;
+}
+
+.fc-resource-cell {
+  height: $guider-row-height;
+  position: relative;
+  white-space: nowrap;
+
+  div {
+    bottom: 0;
+    box-sizing: border-box;
+    font-size: .9em;
+    left: 50%;
+    line-height: 1em;
+    margin-left: -.5em;
+    padding-left: 5px;
+    position: absolute;
+    text-align: left;
+    transform: rotate(-90deg);
+    transform-origin: .5em .5em;
+    width: $guider-row-height;
+  }
 }
