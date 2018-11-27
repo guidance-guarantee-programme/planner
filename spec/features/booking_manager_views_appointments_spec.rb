@@ -60,7 +60,7 @@ RSpec.feature 'Booking manager views appointments' do
     expect(@page).to have_appointments(count: 1)
   end
 
-  def and_there_are_matching_appointments_for_their_location
+  def and_there_are_matching_appointments_for_their_location # rubocop:disable MethodLength
     @found_by_location = create(
       :appointment,
       name: 'Dalston Dave',
@@ -68,9 +68,14 @@ RSpec.feature 'Booking manager views appointments' do
     )
 
     @found_by_guider            = create(:appointment, name: 'Mrs Smith', guider_id: 2)
-    @found_by_booking_reference = create(:appointment, name: 'Mr Reference')
-    @found_by_customer_name     = create(:appointment, name: 'Bob Bobson')
-    @found_by_customer_name_and_status = create(:appointment, name: 'Bob Bobson', status: :completed)
+    @found_by_booking_reference = create(:appointment, name: 'Mr Reference', guider_id: 4)
+    @found_by_customer_name     = create(:appointment, name: 'Bob Bobson', guider_id: 5)
+    @found_by_customer_name_and_status = create(
+      :appointment,
+      name: 'Bob Bobson',
+      status: :completed,
+      proceeded_at: 1.day.from_now
+    )
   end
 
   def when_they_search_by_booking_reference
@@ -97,10 +102,12 @@ RSpec.feature 'Booking manager views appointments' do
   end
 
   def and_there_are_appointments_for_their_location
-    create_list(:appointment, 11)
+    11.times do |n|
+      create(:appointment, guider_id: n)
+    end
 
     # this won't be listed as it's not in Hackney
-    create(:appointment, booking_request: create(:booking_request))
+    create(:appointment, booking_request: create(:booking_request), proceeded_at: 2.weeks.from_now)
   end
 
   def when_they_visit_the_appointments_list

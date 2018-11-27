@@ -33,6 +33,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   validates :location_id, presence: true
   validates :guider_id, presence: true
   validate  :validate_proceeded_at
+  validate  :validate_guider_availability
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
   scope :with_mobile, -> { where("phone like '07%'") }
@@ -160,5 +161,16 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     Time.zone.parse(proceeded_at.to_s)
   rescue ArgumentError
     errors.add(:proceeded_at, 'must be formatted correctly')
+  end
+
+  def validate_guider_availability
+    return unless guider_id? && proceeded_at?
+
+    if self.class
+           .where(guider_id: guider_id)
+           .where("(proceeded_at, interval '1 hour') overlaps (?, interval '1 hour')", proceeded_at)
+           .where.not(status: [5, 6, 7], id: id).size.positive?
+      errors.add(:guider_id, 'is already booked with an overlapping appointment')
+    end
   end
 end
