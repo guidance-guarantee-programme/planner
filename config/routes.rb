@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   scope '/locations/:location_id' do
     resources :bookable_slots, only: :index
     resources :realtime_bookable_slots, only: %w(index create destroy)
+    resources :realtime_bookable_slot_lists, only: :index
     resources :realtime_appointments, only: :index
     resources :guiders, only: :index
   end

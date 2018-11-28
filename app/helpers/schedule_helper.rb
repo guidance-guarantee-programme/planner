@@ -58,6 +58,10 @@ module ScheduleHelper
     return unless location.realtime?
     return unless Schedule.exists?(location_id: location.id)
 
+    safe_join([bookable_slots_button(location), bookable_slot_list_button(location)], "\n")
+  end
+
+  def bookable_slots_button(location)
     link_to(
       realtime_bookable_slots_path(location_id: location.id),
       title: 'Modify realtime availability',
@@ -65,6 +69,17 @@ module ScheduleHelper
     ) do
       content_tag(:span, '', class: 'glyphicon glyphicon-time', 'aria-hidden' => 'true') +
         content_tag(:span, 'Modify realtime availability', class: 'sr-only')
+    end
+  end
+
+  def bookable_slot_list_button(location)
+    link_to(
+      realtime_bookable_slot_lists_path(location_id: location.id),
+      title: 'View realtime slots',
+      class: 'btn btn-info t-realtime-slots'
+    ) do
+      content_tag(:span, '', class: 'glyphicon glyphicon-info-sign', 'aria-hidden' => 'true') +
+        content_tag(:span, 'View realtime slots', class: 'sr-only')
     end
   end
 end
