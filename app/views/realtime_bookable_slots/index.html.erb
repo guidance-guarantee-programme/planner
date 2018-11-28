@@ -6,7 +6,10 @@
    <li class="active">Realtime availability for <%= @location.name %></li>
  </ol>
 
- <h1>Realtime availability for <%= @location.name %></h1>
+ <h1>
+   Realtime availability for <%= @location.name %><br>
+   <small>Booking window from <%= GracePeriod.start.to_s(:govuk_date) %> to <%= GracePeriod.end.to_s(:govuk_date) %></small>
+ </h1>
 
 <div class="alert alert-success js-success t-success" role="alert" style="display:none;">
   <span class="glyphicon glyphicon-ok"></span> Slot was modified successfully.
