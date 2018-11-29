@@ -7,6 +7,7 @@ module RealtimeProcessable
 
     AppointmentChangeNotificationJob.perform_later(appointment)
     PrintedConfirmationLetterJob.perform_later(appointment)
+    SlackPingerJob.perform_later(appointment)
   end
 
   def fulfil_appointment(booking_request)
