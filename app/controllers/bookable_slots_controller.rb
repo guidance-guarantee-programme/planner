@@ -24,7 +24,7 @@ class BookableSlotsController < ApplicationController
   private
 
   def render_bookable_slots_json
-    render json: @schedule.bookable_slots_in_window(date_range).all,
+    render json: @schedule.bookable_slots_in_window(date_range).non_realtime.all,
            each_serializer: CalendarBookableSlotSerializer
   end
 

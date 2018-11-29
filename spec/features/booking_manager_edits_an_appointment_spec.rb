@@ -11,6 +11,18 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Rescheduling a realtime appointment', js: true do
+    travel_to '2018-11-11 13:00' do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_a_realtime_appointment
+        and_available_realtime_slots_exist
+        when_the_booking_manager_edits_the_appointment
+        and_reschedules_the_appointment
+        then_the_appointment_is_rescheduled
+      end
+    end
+  end
+
   scenario 'Resending the appointment confirmation', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment
@@ -77,6 +89,39 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def then_the_appointment_is_processed
     expect(@page).to have_success
+  end
+
+  def and_there_is_a_realtime_appointment
+    @slot    = create(:bookable_slot, :realtime, date: '2018-11-15')
+    @booking = build(:hackney_booking_request, number_of_slots: 0)
+    @booking.slots.build(date: '2018-11-15', from: '0900', to: '1000', priority: 1)
+
+    @appointment = create(:appointment, booking_request: @booking, proceeded_at: @slot.start_at)
+  end
+
+  def and_available_realtime_slots_exist
+    @slot = create(:bookable_slot, :realtime, date: '2018-11-16', guider_id: 2, schedule: @slot.schedule)
+  end
+
+  def and_reschedules_the_appointment
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    @page.reschedule.click
+    @page.wait_until_rescheduling_modal_visible
+
+    @page.rescheduling_modal.slot.select('Friday, 16 Nov - 9:00am')
+    @page.rescheduling_modal.reschedule.click
+  end
+
+  def then_the_appointment_is_rescheduled
+    @page.wait_until_rescheduling_modal_invisible
+    expect(@page).to have_text('The appointment was rescheduled')
+
+    expect(@appointment.reload).to have_attributes(
+      proceeded_at: @slot.start_at,
+      guider_id: @slot.guider_id
+    )
   end
 
   def when_they_resend_the_confirmation

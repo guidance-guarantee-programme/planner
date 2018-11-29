@@ -40,6 +40,7 @@
           %>
         </div>
 
+        <% unless realtime? %>
         <div class="form-group col-md-4">
           <%= f.label :second_choice_slot %>
           <%= f.select :second_choice_slot,
@@ -57,6 +58,7 @@
             class: 'form-control t-third-choice-slot'
           %>
         </div>
+        <% end %>
       </div>
     </div>
 

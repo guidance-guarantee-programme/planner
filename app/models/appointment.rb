@@ -21,7 +21,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   belongs_to :booking_request
   has_many :status_transitions
 
-  delegate :reference, :activities, :agent_id?, :booking_location_id, to: :booking_request
+  delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, to: :booking_request
   delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
 
   validates :name, presence: true
@@ -33,6 +33,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   validates :location_id, presence: true
   validates :guider_id, presence: true
   validate  :validate_proceeded_at
+  validate  :validate_guider_availability
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
   scope :with_mobile, -> { where("phone like '07%'") }
@@ -47,6 +48,19 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
 
       ProcessedActivity.from!(user: by, appointment: self)
     end
+  end
+
+  def allocate!(slot_date_time)
+    return unless slot = Schedule.allocate_slot(self, slot_date_time)
+
+    self.guider_id    = slot.guider_id
+    self.proceeded_at = slot.start_at
+
+    save
+  end
+
+  def cancelled?
+    status.starts_with?('cancelled')
   end
 
   def cancel!
@@ -101,6 +115,20 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     days.days.from_now.beginning_of_day..days.days.from_now.end_of_day
   end
 
+  def self.realtime_appointments(location_id, date_range) # rubocop:disable MethodLength
+    joins('inner join schedules on schedules.location_id = appointments.location_id')
+      .joins(
+        <<-SQL
+          inner join bookable_slots on bookable_slots.schedule_id = schedules.id
+          and bookable_slots.guider_id = appointments.guider_id
+          and bookable_slots.date = appointments.proceeded_at::date
+          and bookable_slots.start = to_char(appointments.proceeded_at, 'HH24MI')
+          and not bookable_slots.guider_id is null
+        SQL
+      )
+      .where(proceeded_at: date_range, schedules: { location_id: location_id })
+  end
+
   private
 
   def track_status
@@ -133,5 +161,16 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     Time.zone.parse(proceeded_at.to_s)
   rescue ArgumentError
     errors.add(:proceeded_at, 'must be formatted correctly')
+  end
+
+  def validate_guider_availability
+    return unless guider_id? && proceeded_at?
+
+    if self.class
+           .where(guider_id: guider_id)
+           .where("(proceeded_at, interval '1 hour') overlaps (?, interval '1 hour')", proceeded_at)
+           .where.not(status: [5, 6, 7], id: id).size.positive?
+      errors.add(:guider_id, 'is already booked with an overlapping appointment')
+    end
   end
 end

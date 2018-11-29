@@ -11,7 +11,7 @@ RSpec.describe AgentBookingForm do
       date_of_birth: '01/01/1950',
       defined_contribution_pot_confirmed: true,
       memorable_word: 'couch',
-      first_choice_slot: '2017-01-01 13:00',
+      first_choice_slot: '2017-01-01-1300-1700',
       address_line_one: '1 Main Street',
       address_line_two: '',
       address_line_three: '',
@@ -79,23 +79,23 @@ RSpec.describe AgentBookingForm do
     context 'eligibility' do
       it 'is valid if I am exactly 50 years old at my first_choice_slot' do
         subject.date_of_birth = '01/01/2000'
-        subject.first_choice_slot = '2050-01-01 13:00'
+        subject.first_choice_slot = '2050-01-01-1300-1700'
 
         expect(subject).to be_valid
       end
 
       it 'is invalid if I am exactly 49 years old at my first_choice_slot' do
         subject.date_of_birth = '01/01/2000'
-        subject.first_choice_slot = '2049-12-31 13:00'
+        subject.first_choice_slot = '2049-12-31-1300-1700'
 
         expect(subject).to_not be_valid
       end
 
       it 'is invalid if I am exactly 49 years old at one of my slots' do
         subject.date_of_birth = '01/01/2000'
-        subject.first_choice_slot = '2050-01-01 13:00'
-        subject.second_choice_slot = '2050-01-02 13:00'
-        subject.third_choice_slot = '2049-12-31 13:00'
+        subject.first_choice_slot = '2050-01-01-1300-1700'
+        subject.second_choice_slot = '2050-01-02-1300-1700'
+        subject.third_choice_slot = '2049-12-31-1300-1700'
 
         expect(subject).to_not be_valid
       end
@@ -115,13 +115,13 @@ RSpec.describe AgentBookingForm do
   describe 'create_booking!' do
     it 'fails to create a booking if the age_range is incorrect' do
       subject.date_of_birth = '01/01/2000'
-      subject.first_choice_slot = '2049-31-12 13:00'
+      subject.first_choice_slot = '2049-31-12-1300-1700'
       expect { subject.create_booking! }.to raise_error(ArgumentError)
     end
 
     it 'creates a booking if the age range is 50-54' do
       subject.date_of_birth = '01/01/2000'
-      subject.first_choice_slot = '2050-01-01 13:00'
+      subject.first_choice_slot = '2050-01-01-1300-1700'
 
       expect(subject.create_booking!).to be_persisted
     end

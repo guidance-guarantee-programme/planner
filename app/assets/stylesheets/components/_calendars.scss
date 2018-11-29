@@ -1,0 +1,80 @@
+$calendar-loading-view-background: transparentize($color-white, .2);
+$calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
+
+$guider-row-height: 100px;
+
+.fc {
+  a,
+  a:visited {
+    color: $color-white;
+  }
+
+  min-height: 400px;
+}
+
+.fc-slats table {
+  font-size: 12px;
+}
+
+.fc-event {
+  @include striped($color-boston-blue);
+}
+
+.fc-event--cancelled {
+  @include striped($calendar-appointment-cancelled-background);
+  border-color: $calendar-appointment-cancelled-background;
+
+  &:hover td {
+    @include striped($calendar-appointment-cancelled-background);
+  }
+}
+
+.calendar-loading {
+  align-items: center;
+  background: $calendar-loading-view-background;
+  bottom: 0;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+}
+
+.fc-button-group--jump-to-date {
+  position: relative;
+}
+
+.jump-to-date {
+  border: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  background: transparent;
+}
+
+.fc-resource-cell {
+  height: $guider-row-height;
+  position: relative;
+  white-space: nowrap;
+
+  div {
+    bottom: 0;
+    box-sizing: border-box;
+    font-size: .9em;
+    left: 50%;
+    line-height: 1em;
+    margin-left: -.5em;
+    padding-left: 5px;
+    position: absolute;
+    text-align: left;
+    transform: rotate(-90deg);
+    transform-origin: .5em .5em;
+    width: $guider-row-height;
+  }
+}

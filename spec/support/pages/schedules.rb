@@ -14,6 +14,7 @@ module Pages
       element :location, '.t-location'
       element :manage, '.t-manage'
       element :availability, '.t-availability'
+      element :realtime_availability, '.t-realtime-availability'
 
       section :summary, '.t-summary' do
         %i(monday tuesday wednesday thursday friday).each do |day|

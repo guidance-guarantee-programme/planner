@@ -1,7 +1,3 @@
-@mixin bank-holiday-bg {
-  @include striped(#999, $color-silver);
-}
-
 .availability-calendar {
   .fc-time-grid .fc-event-container {
     margin: 0;
@@ -43,10 +39,6 @@
 
   .fc-row .fc-content-skeleton td {
     padding: 5px;
-  }
-
-  .fc-bank-holiday {
-    @include bank-holiday-bg;
   }
 
   .fc-time-grid .fc-slats td {
@@ -108,10 +100,6 @@
   &:first-of-type {
     margin-left: 0;
   }
-}
-
-.availability-calendar-key__item--bank-holiday {
-  @include bank-holiday-bg;
 }
 
 .availability-calendar-key__item--on {

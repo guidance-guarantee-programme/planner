@@ -3,6 +3,12 @@ FactoryBot.define do
     schedule
     date { Time.zone.now }
 
+    trait :realtime do
+      guider_id { 1 }
+      start { '0900' }
+      add_attribute(:end) { '1000' }
+    end
+
     trait :am do
       start { BookableSlot::AM.start }
       add_attribute(:end) { BookableSlot::AM.end }

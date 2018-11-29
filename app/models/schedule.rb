@@ -19,6 +19,29 @@ class Schedule < ActiveRecord::Base
   has_associated_audits
   audited on: :create
 
+  def realtime?
+    return false if default?
+
+    without_appointments.realtime.size.positive?
+  end
+
+  def create_realtime_bookable_slot!(start_at:, guider_id:)
+    bookable_slots.create!(
+      guider_id: guider_id,
+      date: start_at.to_date,
+      start: start_at.strftime('%H%M'),
+      end: start_at.advance(hours: 1).strftime('%H%M')
+    )
+  end
+
+  def create_bookable_slot(date:, period:)
+    bookable_slots.create!(
+      date: date,
+      start: period.start,
+      end: period.end
+    )
+  end
+
   def generate_bookable_slots!
     BookableSlotGenerator.new(self).call
   end
@@ -37,10 +60,23 @@ class Schedule < ActiveRecord::Base
     bookable_slots.windowed(starting..ending)
   end
 
+  def without_appointments(scoped = bookable_slots_in_window)
+    return scoped if default?
+
+    scoped.joins(
+      <<-SQL
+        LEFT JOIN appointments ON
+          appointments.guider_id = bookable_slots.guider_id
+          AND appointments.proceeded_at = TO_TIMESTAMP(CONCAT(bookable_slots.date, ' ', bookable_slots.start), 'YYYY-MM-DD HH24MI')
+          AND NOT appointments.status IN (5, 6, 7)
+      SQL
+    ).where('appointments.proceeded_at IS NULL')
+  end
+
   def unavailable?
     return if default?
 
-    bookable_slots_in_window.size.zero?
+    without_appointments.size.zero?
   end
 
   def available?
@@ -54,22 +90,36 @@ class Schedule < ActiveRecord::Base
   end
 
   def first_available_slot_on
-    bookable_slots_in_window.first&.date
+    return GracePeriod.start if default?
+
+    without_appointments.first&.date
+  end
+
+  def self.allocates?(booking_request)
+    schedule = current(booking_request.location_id)
+
+    return true if schedule.default?
+
+    schedule.without_appointments.find_by(
+      date: booking_request.primary_slot.date,
+      start: booking_request.primary_slot.from,
+      end: booking_request.primary_slot.to
+    )
+  end
+
+  def self.allocate_slot(appointment, slot_date_time)
+    schedule = current(appointment.location_id)
+
+    schedule.without_appointments.find_by(
+      date: slot_date_time.to_date,
+      start: slot_date_time.strftime('%H%M'),
+      end: slot_date_time.advance(hours: 1).strftime('%H%M')
+    )
   end
 
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)
       .first_or_initialize(location_id: location_id)
-  end
-
-  private
-
-  def create_bookable_slot(date:, period:)
-    bookable_slots.create!(
-      date: date,
-      start: period.start,
-      end: period.end
-    )
   end
 end

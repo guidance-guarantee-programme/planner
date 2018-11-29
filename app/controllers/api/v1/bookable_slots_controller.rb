@@ -9,7 +9,8 @@ module Api
 
       def slots
         schedule = Schedule.current(params[:location_id])
-        schedule.bookable_slots_in_window
+
+        schedule.without_appointments.group_by(&:start_at).values.map(&:first)
       end
     end
   end

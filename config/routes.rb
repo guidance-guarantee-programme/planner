@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :appointments, only: %i(index edit update) do
     resource :process, only: :create
     resources :changes, only: :index
+
+    resource :reschedule, only: :create
   end
 
   resources :booking_requests, only: %i(index update) do
@@ -36,6 +38,10 @@ Rails.application.routes.draw do
 
   scope '/locations/:location_id' do
     resources :bookable_slots, only: :index
+    resources :realtime_bookable_slots, only: %w(index create destroy)
+    resources :realtime_bookable_slot_lists, only: :index
+    resources :realtime_appointments, only: :index
+    resources :guiders, only: :index
   end
 
   namespace :agent, path: '/locations/:location_id' do

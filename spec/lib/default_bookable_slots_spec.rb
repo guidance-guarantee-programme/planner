@@ -22,4 +22,8 @@ RSpec.describe DefaultBookableSlots do
 
     expect(weekends).to be_empty
   end
+
+  it 'is always non-realtime' do
+    expect(@slots.none?(&:realtime?)).to be_truthy
+  end
 end

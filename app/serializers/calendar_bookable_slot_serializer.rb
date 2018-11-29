@@ -1,5 +1,6 @@
 class CalendarBookableSlotSerializer < ActiveModel::Serializer
   attribute :id
+  attribute :guider_id, key: :resourceId
 
   attribute :start do
     Time.zone.parse("#{object.date} #{delimit(object.start)}")
@@ -14,7 +15,7 @@ class CalendarBookableSlotSerializer < ActiveModel::Serializer
   end
 
   attribute :appointments do
-    object.appointments.count
+    object.guider_id ? 0 : object.appointments.count
   end
 
   def delimit(time)

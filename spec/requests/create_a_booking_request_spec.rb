@@ -9,6 +9,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       then_the_booking_request_is_created
       and_the_booking_has_associated_slots
       and_the_service_responds_with_a_201
+      and_an_empty_json_response
       and_the_customer_receives_a_confirmation_email
       and_the_booking_manager_receives_a_notification_email
     end
@@ -102,6 +103,10 @@ RSpec.describe 'POST /api/v1/booking_requests' do
 
   def and_the_service_responds_with_a_201
     expect(response).to be_created
+  end
+
+  def and_an_empty_json_response
+    expect(JSON.parse(response.body)).to eq({})
   end
 
   def and_the_customer_receives_a_confirmation_email

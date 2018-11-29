@@ -3,6 +3,7 @@ module Api
     class BookingRequestsController < ActionController::Base
       include GDS::SSO::ControllerMethods
       include LogrageFilterer
+      include RealtimeProcessable
 
       skip_before_action :verify_authenticity_token
       before_action :authorise_api_user!
@@ -11,8 +12,8 @@ module Api
         booking_request = BookingRequest.new(booking_request_params)
 
         if booking_request.save
-          send_notifications(booking_request)
-          head :created
+          process_booking_request(booking_request)
+          render_response(booking_request)
         else
           render_errors(booking_request)
         end
@@ -28,6 +29,23 @@ module Api
       end
 
       private
+
+      def render_response(booking_request)
+        if booking_request.appointment
+          appointment = location_aware_appointment(booking_request.appointment)
+
+          render json: appointment, serializer: AppointmentConfirmationSerializer, status: :created
+        else
+          render json: {}, status: :created
+        end
+      end
+
+      def location_aware_appointment(appointment)
+        LocationAwareEntity.new(
+          entity: appointment,
+          booking_location: BookingLocations.find(appointment.location_id)
+        )
+      end
 
       def send_notifications(booking_request)
         CustomerConfirmationJob.perform_later(booking_request)

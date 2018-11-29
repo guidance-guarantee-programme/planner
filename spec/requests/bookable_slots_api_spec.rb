@@ -17,14 +17,28 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
     and_slots_are_serialized_as_json
   end
 
-  def given_a_location_with_a_schedule_exists
+  def given_a_location_with_a_schedule_exists # rubocop:disable AbcSize
     @schedule = create(:schedule).tap do |schedule|
       # excluded due to falling within the grace period
       create(:bookable_slot, :am, schedule: schedule)
-      # excluded as after booking window
-      create(:bookable_slot, :am, schedule: schedule, date: 9.weeks.from_now)
       # will be returned
       create(:bookable_slot, :am, schedule: schedule, date: GracePeriod.start)
+      # the following realtime slots are deduplicated
+      create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now, guider_id: 2)
+      create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now)
+      # excluded as it's for a pending appointment
+      create_appointment_with_booking_slot(
+        schedule: schedule,
+        date: 11.days.from_now,
+        guider_id: 3
+      )
+      # included as the underlying appointment is cancelled
+      create_appointment_with_booking_slot(
+        schedule: schedule,
+        date: 11.days.from_now,
+        guider_id: 4,
+        status: :cancelled_by_customer
+      )
     end
   end
 
@@ -33,12 +47,26 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
   end
 
   def and_the_correct_slots_are_returned
-    expect(@json.count).to eq(1)
+    expect(@json.count).to eq(3)
 
-    expect(@json.first).to eq(
-      'date'  => '2017-05-31',
-      'start' => BookableSlot::AM.start,
-      'end'   => BookableSlot::AM.end
+    expect(@json).to eq(
+      [
+        {
+          'date'  => '2017-05-31',
+          'start' => BookableSlot::AM.start,
+          'end'   => BookableSlot::AM.end
+        },
+        {
+          'date'  => '2017-06-05',
+          'start' => '0900',
+          'end'   => '1000'
+        },
+        {
+          'date'  => '2017-06-06',
+          'start' => '0900',
+          'end'   => '1000'
+        }
+      ]
     )
   end
 
@@ -54,5 +82,19 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
     @json = JSON.parse(response.body).tap do |json|
       expect(json.first.keys).to match_array(%w(date start end))
     end
+  end
+
+  def create_appointment_with_booking_slot(schedule:, date:, guider_id:, status: :pending)
+    slot    = create(:bookable_slot, :realtime, schedule: schedule, date: date, guider_id: guider_id)
+    booking = build(:hackney_booking_request, number_of_slots: 0)
+    booking.slots.build(date: date, from: '0900', to: '1000', priority: 1)
+
+    create(
+      :appointment,
+      booking_request: booking,
+      guider_id: guider_id,
+      proceeded_at: slot.start_at,
+      status: status
+    )
   end
 end

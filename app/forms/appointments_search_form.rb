@@ -11,7 +11,7 @@ class AppointmentsSearchForm
   attr_accessor :processed
 
   def results # rubocop:disable Metrics/AbcSize
-    scope = current_user.appointments
+    scope = current_user.appointments.includes(booking_request: :slots)
     scope = search_term_scope(scope)
     scope = processed_scope(scope)
     scope = scope.where(proceeded_at: date_range) if date_range

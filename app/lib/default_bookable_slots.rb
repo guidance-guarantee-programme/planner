@@ -7,6 +7,14 @@ class DefaultBookableSlots
     def period
       BookableSlot::AM.period(start)
     end
+
+    def realtime?
+      false
+    end
+
+    def start_at
+      @start_at ||= Time.zone.parse("#{date} #{start.dup.insert(2, ':')}")
+    end
   end
 
   attr_reader :from

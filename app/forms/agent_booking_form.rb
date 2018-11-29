@@ -28,6 +28,8 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   attr_accessor(*ATTRIBUTES)
 
+  delegate :realtime?, to: :booking_request
+
   validates :name, presence: true
   validates :booking_location_id, presence: true
   validates :location_id, presence: true
@@ -52,16 +54,18 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def create_booking!
-    BookingRequest.new(to_attributes).tap do |booking|
-      build_slot(booking, priority: 1, slot: first_choice_slot)
-      build_slot(booking, priority: 2, slot: second_choice_slot)
-      build_slot(booking, priority: 3, slot: third_choice_slot)
-
-      booking.save!
-    end
+    booking_request.tap(&:save!)
   end
 
   private
+
+  def booking_request
+    @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
+      build_slot(booking, priority: 1, slot: first_choice_slot)
+      build_slot(booking, priority: 2, slot: second_choice_slot)
+      build_slot(booking, priority: 3, slot: third_choice_slot)
+    end
+  end
 
   def parsed_date_of_birth
     date_of_birth.to_date
@@ -140,6 +144,6 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def build_slot(booking, priority:, slot:)
-    booking.slots << Slot.from(priority: priority, start_at: slot) if slot.present?
+    booking.slots << Slot.from(priority: priority, slot: slot) if slot.present?
   end
 end

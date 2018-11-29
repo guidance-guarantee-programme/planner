@@ -9,12 +9,18 @@ module ScheduleHelper
   end
 
   def grouped_day(day_slots)
-    day_slots.map do |slot|
+    day_slots.group_by(&:start_at).values.map(&:first).map do |slot|
       [
-        "#{slot.date.to_date.strftime('%A, %d %b')} - #{slot.period == 'am' ? 'Morning' : 'Afternoon'}",
-        "#{slot.date} #{slot.start.dup.insert(2, ':')}"
+        "#{slot.date.to_date.strftime('%A, %d %b')} - #{slot_period(slot)}",
+        "#{slot.date}-#{slot.start}-#{slot.end}"
       ]
     end
+  end
+
+  def slot_period(slot)
+    return slot.start_at.to_s(:govuk_time) if slot.realtime?
+
+    slot.period == 'am' ? 'Morning' : 'Afternoon'
   end
 
   def summary(period, schedule)
@@ -45,6 +51,35 @@ module ScheduleHelper
     ) do
       content_tag(:span, '', class: 'glyphicon glyphicon-th', 'aria-hidden' => 'true') +
         content_tag(:span, 'Modify availability', class: 'sr-only')
+    end
+  end
+
+  def realtime_availability_button(location)
+    return unless location.realtime?
+    return unless Schedule.exists?(location_id: location.id)
+
+    safe_join([bookable_slots_button(location), bookable_slot_list_button(location)], "\n")
+  end
+
+  def bookable_slots_button(location)
+    link_to(
+      realtime_bookable_slots_path(location_id: location.id),
+      title: 'Modify realtime availability',
+      class: 'btn btn-info t-realtime-availability'
+    ) do
+      content_tag(:span, '', class: 'glyphicon glyphicon-time', 'aria-hidden' => 'true') +
+        content_tag(:span, 'Modify realtime availability', class: 'sr-only')
+    end
+  end
+
+  def bookable_slot_list_button(location)
+    link_to(
+      realtime_bookable_slot_lists_path(location_id: location.id),
+      title: 'View realtime slots',
+      class: 'btn btn-info t-realtime-slots'
+    ) do
+      content_tag(:span, '', class: 'glyphicon glyphicon-info-sign', 'aria-hidden' => 'true') +
+        content_tag(:span, 'View realtime slots', class: 'sr-only')
     end
   end
 end

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Appointment counts displayed on schedules', js: true do
   scenario 'Viewing the right appointment counts' do
+    skip 'Until we have figured out what to do with realtime counts'
+
     given_the_user_identifies_as_hackneys_booking_manager do
       travel_to '2017-07-12 13:00' do
         and_i_have_a_schedule

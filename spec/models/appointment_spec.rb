@@ -179,5 +179,14 @@ RSpec.describe Appointment do
 
       expect(subject).to_not be_valid
     end
+
+    it 'cannot overlap with an existing appointment for a given guider' do
+      create(:appointment, proceeded_at: subject.proceeded_at.advance(minutes: 15))
+
+      expect(subject).to be_invalid
+
+      subject.guider_id = 2
+      expect(subject).to be_valid
+    end
   end
 end
