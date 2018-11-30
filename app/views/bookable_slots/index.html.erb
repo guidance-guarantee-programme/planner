@@ -6,7 +6,10 @@
     <li class="active">Availability for <%= @location.name %></li>
   </ol>
 
-  <h1>Availability for <%= @location.name %></h1>
+  <h1>
+    Availability for <%= @location.name %><br>
+   <small>Booking window from <%= GracePeriod.start.to_s(:govuk_date) %> to <%= GracePeriod.end.to_s(:govuk_date) %></small>
+  </h1>
 
   <div class="availability-calendar-key" aria-hidden="true">
     <span class="availability-calendar-key__item availability-calendar-key__item--on"></span> Available
