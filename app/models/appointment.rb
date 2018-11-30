@@ -66,7 +66,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   def cancel!
     without_auditing do
       transaction do
-        update!(status: :cancelled_by_customer_sms)
+        update_attribute(:status, :cancelled_by_customer_sms) # rubocop:disable SkipsModelValidations
 
         SmsCancellationActivity.from(self)
       end
