@@ -83,6 +83,8 @@ class BookingRequest < ActiveRecord::Base
   def validate_slots
     errors.add(:slots, 'you must provide at least one slot') if slots.empty?
 
+    return unless realtime?
+
     errors.add(:slots, 'could not be allocated') unless @allocated = Schedule.allocates?(self)
   end
 end
