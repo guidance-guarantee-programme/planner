@@ -129,6 +129,12 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
       .where(proceeded_at: date_range, schedules: { location_id: location_id })
   end
 
+  def self.overlaps?(guider_id:, proceeded_at:, id: nil)
+    where(guider_id: guider_id)
+      .where("(proceeded_at, interval '1 hour') overlaps (?, interval '1 hour')", proceeded_at)
+      .where.not(status: [5, 6, 7], id: id).size.positive?
+  end
+
   private
 
   def track_status
@@ -166,10 +172,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   def validate_guider_availability
     return unless guider_id? && proceeded_at?
 
-    if self.class
-           .where(guider_id: guider_id)
-           .where("(proceeded_at, interval '1 hour') overlaps (?, interval '1 hour')", proceeded_at)
-           .where.not(status: [5, 6, 7], id: id).size.positive?
+    if self.class.overlaps?(guider_id: guider_id, proceeded_at: proceeded_at, id: id) # rubocop:disable GuardClause
       errors.add(:guider_id, 'is already booked with an overlapping appointment')
     end
   end

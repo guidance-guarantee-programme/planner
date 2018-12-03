@@ -31,6 +31,7 @@ class AppointmentForm # rubocop:disable ClassLength
   validate :validate_date
   validate :validate_time
   validate :validate_not_with_an_existing_booking_request
+  validate :validate_guider_availability
 
   attr_reader :location_aware_booking_request
   attr_reader :time
@@ -94,6 +95,16 @@ class AppointmentForm # rubocop:disable ClassLength
   end
 
   private
+
+  def validate_guider_availability
+    return unless [guider_id, date, time].all?(&:present?)
+
+    proceeded_at = "#{date} #{time.to_s(:time)}"
+
+    if Appointment.overlaps?(guider_id: guider_id, proceeded_at: proceeded_at) # rubocop:disable GuardClause
+      errors.add(:guider_id, 'is already booked with an overlapping appointment')
+    end
+  end
 
   def validate_not_with_an_existing_booking_request
     errors.add(:base, 'has already been fulfilled') if location_aware_booking_request.appointment
