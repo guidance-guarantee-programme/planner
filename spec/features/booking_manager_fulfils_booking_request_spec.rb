@@ -71,6 +71,49 @@ RSpec.feature 'Fulfiling Booking Requests' do
     end
   end
 
+  scenario 'Booking manager attempts to double book a guider' do
+    travel_to '2018-12-03 13:00' do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_an_appointment_exists
+        and_an_unfulfilled_booking_request_exists
+        when_the_booking_manager_attempts_fulfillment
+        and_they_attempt_to_double_book
+        then_they_see_the_validation_messages
+      end
+    end
+  end
+
+  def and_an_appointment_exists
+    @appointment = create(:appointment, proceeded_at: '2018-12-06 09:00')
+  end
+
+  def and_an_unfulfilled_booking_request_exists
+    @schedule = create(:schedule, :blank)
+    @slot     = create(:bookable_slot, :realtime, date: '2018-12-06', schedule: @schedule)
+    @booking  = build(:hackney_booking_request, number_of_slots: 0)
+    @booking.slots.build(date: '2018-12-06', from: '0900', to: '1300', priority: 1)
+    @booking.save!
+  end
+
+  def when_the_booking_manager_attempts_fulfillment
+    @page = Pages::FulfilBookingRequest.new
+    @page.load(booking_request_id: @booking.id)
+
+    expect(@page).to be_displayed
+  end
+
+  def and_they_attempt_to_double_book
+    @page.date.set('2018-12-06')
+    @page.set_time(hour: '09', minute: '00')
+    @page.guider.select('Ben Lovell')
+
+    @page.submit_appointment.click
+  end
+
+  def then_they_see_the_validation_messages
+    expect(@page).to have_errors
+  end
+
   def when_they_resend_the_customer_confirmation_email
     @page.accept_confirm do
       @page.resend_confirmation.click
