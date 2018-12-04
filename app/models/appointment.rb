@@ -12,6 +12,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     cancelled_by_customer
     cancelled_by_pension_wise
     cancelled_by_customer_sms
+    incomplete_other
   )
 
   before_save :calculate_statistics, if: :proceeded_at_changed?
