@@ -13,6 +13,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         and_the_booking_request_is_created
         and_the_appointment_is_created
         and_the_customer_receives_a_confirmation_email
+        and_the_booking_manager_receives_an_email_notification
       end
     end
   end
@@ -121,6 +122,10 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def and_the_customer_receives_a_confirmation_email
-    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise Appointment')
+    expect(ActionMailer::Base.deliveries.map(&:subject)).to include('Your Pension Wise Appointment')
+  end
+
+  def and_the_booking_manager_receives_an_email_notification
+    expect(ActionMailer::Base.deliveries.map(&:subject)).to include('Pension Wise Booking Request')
   end
 end

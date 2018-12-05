@@ -5,6 +5,7 @@ module RealtimeProcessable
     appointment = fulfil_appointment(booking_request)
     appointment = Appointment.create!(appointment.appointment_params)
 
+    BookingManagerConfirmationJob.perform_later(booking_request)
     AppointmentChangeNotificationJob.perform_later(appointment)
     PrintedConfirmationLetterJob.perform_later(appointment)
     SlackPingerJob.perform_later(appointment)
