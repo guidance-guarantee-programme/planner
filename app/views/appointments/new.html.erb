@@ -33,6 +33,12 @@
     </div>
   </div>
 
+  <% unless @appointment_form.defined_contribution_pot_confirmed %>
+  <div class="alert alert-warning" role="alert">
+    <p>The customer is not certain they have a defined contribution pot.</p>
+  </div>
+  <% end %>
+
   <% if @appointment_form.agent %>
   <div class="alert alert-warning" role="alert">
     <p>
