@@ -37,7 +37,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'pusher'
   gem 'rails', '~> 5.2.0'
   gem 'rails-observers'
-  gem 'sassc-rails', '1.3.0'
+  gem 'sassc-rails'
   gem 'sidekiq'
   gem 'sinatra', require: false
   gem 'sprockets-es6'
