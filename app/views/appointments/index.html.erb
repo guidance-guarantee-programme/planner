@@ -58,7 +58,7 @@
             <th>Guider</th>
             <th>Location</th>
             <th>Reference</th>
-            <th>Requested</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
@@ -84,7 +84,7 @@
                 <%= appointment.reference %>
               </td>
               <td>
-                <%= appointment.booking_request.created_at.in_time_zone('London').to_s(:govuk_date) %>
+                <%= appointment.status.titleize %>
               </td>
               <td>
                 <%= link_to(edit_appointment_path(appointment), title: 'Manage', class: 'btn btn-info t-edit') do %>
