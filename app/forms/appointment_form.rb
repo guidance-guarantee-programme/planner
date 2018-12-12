@@ -101,7 +101,9 @@ class AppointmentForm # rubocop:disable ClassLength
 
     proceeded_at = "#{date} #{time.to_s(:time)}"
 
-    if Appointment.overlaps?(guider_id: guider_id, proceeded_at: proceeded_at) # rubocop:disable GuardClause
+    if Appointment.overlaps?(
+      guider_id: guider_id, proceeded_at: proceeded_at, location_id: location_id
+    )
       errors.add(:guider_id, 'is already booked with an overlapping appointment')
     end
   end

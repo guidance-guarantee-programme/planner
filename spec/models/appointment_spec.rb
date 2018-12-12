@@ -188,5 +188,13 @@ RSpec.describe Appointment do
       subject.guider_id = 2
       expect(subject).to be_valid
     end
+
+    it 'does not validate overlaps for Reading specifically' do
+      create(:appointment, proceeded_at: subject.proceeded_at.advance(minutes: 15))
+      expect(subject).to be_invalid
+
+      subject.location_id = 'a801a72d-91be-4a33-86a6-3d652cfc00d0'
+      expect(subject).to be_valid
+    end
   end
 end
