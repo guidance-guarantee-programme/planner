@@ -1,5 +1,5 @@
 require_relative './production'
 
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/production.rb.
+  config.action_mailer.perform_deliveries = ENV['PERFORM_MAILER_DELIVERIES'].present?
 end
