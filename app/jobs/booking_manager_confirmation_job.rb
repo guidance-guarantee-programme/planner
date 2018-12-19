@@ -7,7 +7,7 @@ class BookingManagerConfirmationJob < ActiveJob::Base
     raise BookingManagersNotFoundError unless booking_managers.present?
 
     booking_managers.each do |booking_manager|
-      BookingRequests.booking_manager(booking_manager).deliver_later
+      BookingRequests.booking_manager(booking_request, booking_manager).deliver_later
     end
   end
 end

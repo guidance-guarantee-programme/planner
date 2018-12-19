@@ -1,7 +1,11 @@
 <%= p do %>
-  A new booking has come in.
+  A new <%= @booking_request_or_appointment.model_name.human.downcase %> has come in.
 <% end %>
 
 <%= p do %>
-  <%= link_to 'Go to the planner', root_url %>
+  Reference: <%= @booking_request_or_appointment.reference %>.
+<% end %>
+
+<%= p do %>
+  <%= mailer_booking_link(@booking_request_or_appointment) %>
 <% end %>

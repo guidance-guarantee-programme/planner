@@ -11,9 +11,12 @@ class BookingRequests < ApplicationMailer
     )
   end
 
-  def booking_manager(booking_manager)
+  def booking_manager(booking_request_or_appointment, booking_manager)
+    @booking_request_or_appointment = booking_request_or_appointment
+    name = booking_request_or_appointment.model_name.human
+
     mailgun_headers('booking_manager_booking_request')
-    mail to: booking_manager.email, subject: 'Pension Wise Booking Request'
+    mail to: booking_manager.email, subject: "Pension Wise #{name.titleize}"
   end
 
   def email_failure(booking_request, booking_manager)
