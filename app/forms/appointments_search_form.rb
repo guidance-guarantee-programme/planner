@@ -25,8 +25,6 @@ class AppointmentsSearchForm
   private
 
   def processed_scope(scope)
-    return scope if processed.blank?
-
     if ActiveRecord::Type::Boolean.new.cast(processed)
       scope.where.not(processed_at: nil)
     else
