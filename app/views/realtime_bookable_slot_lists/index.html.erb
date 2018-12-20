@@ -58,7 +58,7 @@
             <tr class="t-slot">
               <td class="t-start-at"><%= slot.start_at.to_s(:govuk_date) %></td>
               <td class="t-guider"><%= slot.guider_name %></td>
-              <td class="t-available"><%= slot.appointments.empty? ? 'Yes' : 'No' %></td>
+              <td class="t-available"><%= slot.appointment_count.zero? ? 'Yes' : 'No' %></td>
               <td><%= time_ago_in_words(slot.created_at) %> ago</td>
             </tr>
           <% end %>
