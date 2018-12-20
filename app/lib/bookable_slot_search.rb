@@ -17,10 +17,11 @@ class BookableSlotSearch
         AND NOT appointments.status IN (5, 6, 7)
       SQL
     )
+
     scope = scope.where(date: date_range) if date.present?
     scope = scope.where(guider_id: guider) if guider.present?
-
-    scope.page(page).per(per_page)
+    scope = scope.page(page).per(per_page)
+    scope.select('bookable_slots.*, count(appointments.id) as appointment_count').group('bookable_slots.id')
   end
 
   private
