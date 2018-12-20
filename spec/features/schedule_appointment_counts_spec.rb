@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'Appointment counts displayed on schedules', js: true do
   scenario 'Viewing the right appointment counts' do
-    skip 'Until we have figured out what to do with realtime counts'
-
     given_the_user_identifies_as_hackneys_booking_manager do
       travel_to '2017-07-12 13:00' do
         and_i_have_a_schedule
@@ -48,7 +46,7 @@ def and_there_is_one_appointment_late_morning
 end
 
 def and_there_is_an_appointment_at_1pm
-  create(:appointment, proceeded_at: Time.zone.parse("#{@date} 13:00"))
+  create(:appointment, proceeded_at: Time.zone.parse("#{@date} 13:00"), guider_id: 2)
 end
 
 def and_there_is_one_appointment_mid_afternoon
