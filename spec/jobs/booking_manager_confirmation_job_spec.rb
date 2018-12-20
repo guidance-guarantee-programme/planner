@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BookingManagerConfirmationJob, '#perform' do
   let(:booking_request) { create(:hackney_booking_request) }
+  let(:appointment) { create(:appointment) }
 
   subject { described_class.new.perform(booking_request) }
 
@@ -24,6 +25,18 @@ RSpec.describe BookingManagerConfirmationJob, '#perform' do
 
     it 'raises an error' do
       expect { subject }.to raise_error(BookingManagersNotFoundError)
+    end
+  end
+
+  context 'when the booking has an appointment associated' do
+    let(:booking_manager) { create(:hackney_booking_manager) }
+
+    it 'passes the appointment on to the mailer' do
+      expect(BookingRequests).to receive(:booking_manager)
+        .with(appointment, booking_manager)
+        .and_return(double.as_null_object)
+
+      described_class.new.perform(appointment.booking_request)
     end
   end
 end
