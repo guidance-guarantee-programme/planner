@@ -7,6 +7,8 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
         and_a_schedule_exists_with_realtime_slots
         when_they_view_the_list
         then_they_see_the_slots
+        when_they_delete_a_slot
+        then_the_slot_is_deleted
       end
     end
   end
@@ -39,6 +41,15 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     end
 
     expect(@page.slots.last.available).to have_text('No')
+  end
+
+  def when_they_delete_a_slot
+    @page.slots.first.delete.click
+  end
+
+  def then_the_slot_is_deleted
+    expect(@page).to have_success
+    expect(@page).to have_slots(count: 1)
   end
 
   def create_appointment_with_booking_slot(schedule:, date:, guider_id:, status: :pending)

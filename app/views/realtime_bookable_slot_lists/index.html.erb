@@ -50,6 +50,7 @@
             <th>Guider</th>
             <th>Available</th>
             <th>Created</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -60,6 +61,12 @@
               <td class="t-guider"><%= slot.guider_name %></td>
               <td class="t-available"><%= slot.appointment_count.zero? ? 'Yes' : 'No' %></td>
               <td><%= time_ago_in_words(slot.created_at) %> ago</td>
+              <td>
+                <%= link_to realtime_bookable_slot_path(slot, location_id: location.id), title: 'Delete this slot', class: 'btn btn-danger t-delete', method: :delete, data: { confirm: 'Are you sure?' } do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span class="sr-only">Delete</span>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>
