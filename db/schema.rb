@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_151136) do
+ActiveRecord::Schema.define(version: 2019_01_09_203754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2018_11_22_151136) do
     t.string "additional_info", limit: 500, default: "", null: false
     t.datetime "processed_at"
     t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id"
+    t.index ["guider_id", "proceeded_at"], name: "index_appointments_on_guider_id_and_proceeded_at"
     t.index ["location_id"], name: "index_appointments_on_location_id"
   end
 
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2018_11_22_151136) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "guider_id"
+    t.index ["schedule_id", "date"], name: "index_bookable_slots_on_schedule_id_and_date"
     t.index ["schedule_id"], name: "index_bookable_slots_on_schedule_id"
   end
 
