@@ -22,7 +22,13 @@ class RealtimeBookableSlotsController < ApplicationController
   def destroy
     @schedule.bookable_slots.realtime.destroy(params[:id])
 
-    head :no_content
+    respond_to do |format|
+      format.js { head :no_content }
+      format.html do
+        redirect_back fallback_location: realtime_bookable_slot_lists_path(location_id: @schedule.location_id),
+                      success: 'The slot was deleted'
+      end
+    end
   end
 
   private

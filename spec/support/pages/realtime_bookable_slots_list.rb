@@ -6,6 +6,9 @@ module Pages
       element :start_at, '.t-start-at'
       element :guider, '.t-guider'
       element :available, '.t-available'
+      element :delete, '.t-delete'
     end
+
+    element :success, '.alert-success'
   end
 end
