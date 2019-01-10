@@ -67,7 +67,8 @@ class Schedule < ActiveRecord::Base
       <<-SQL
         LEFT JOIN appointments ON
           appointments.guider_id = bookable_slots.guider_id
-          AND appointments.proceeded_at = TO_TIMESTAMP(CONCAT(bookable_slots.date, ' ', bookable_slots.start), 'YYYY-MM-DD HH24MI')
+          AND (appointments.proceeded_at, interval '1 hour')
+          OVERLAPS (TO_TIMESTAMP(CONCAT(bookable_slots.date, ' ', bookable_slots.start), 'YYYY-MM-DD HH24MI'), interval '1 hour')
           AND NOT appointments.status IN (5, 6, 7)
       SQL
     ).where('appointments.proceeded_at IS NULL')
