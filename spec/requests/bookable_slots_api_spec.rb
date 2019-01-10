@@ -39,6 +39,16 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
         guider_id: 4,
         status: :cancelled_by_customer
       )
+      # excluded since an appointment overlaps the start/end
+      @overlapping = create(
+        :bookable_slot,
+        :realtime,
+        schedule: schedule,
+        date: '2017-06-06',
+        start: '1330',
+        end: '1430'
+      )
+      create(:appointment, proceeded_at: @overlapping.start_at.advance(minutes: 30))
     end
   end
 
