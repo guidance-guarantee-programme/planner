@@ -116,18 +116,8 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     days.days.from_now.beginning_of_day..days.days.from_now.end_of_day
   end
 
-  def self.realtime_appointments(location_id, date_range) # rubocop:disable MethodLength
-    joins('inner join schedules on schedules.location_id = appointments.location_id')
-      .joins(
-        <<-SQL
-          inner join bookable_slots on bookable_slots.schedule_id = schedules.id
-          and bookable_slots.guider_id = appointments.guider_id
-          and bookable_slots.date = appointments.proceeded_at::date
-          and bookable_slots.start = to_char(appointments.proceeded_at, 'HH24MI')
-          and not bookable_slots.guider_id is null
-        SQL
-      )
-      .where(proceeded_at: date_range, schedules: { location_id: location_id })
+  def self.realtime_appointments(location_id, date_range)
+    where(proceeded_at: date_range, location_id: location_id)
   end
 
   def self.overlaps?(guider_id:, proceeded_at:, id: nil, location_id: nil)
