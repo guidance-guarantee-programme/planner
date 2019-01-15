@@ -11,11 +11,11 @@ class BookingRequest < ActiveRecord::Base
 
   belongs_to :agent, class_name: 'User', optional: true
 
-  has_one :appointment
+  has_one :appointment, dependent: :destroy
 
-  has_many :slots, -> { order(:priority) }, dependent: :delete_all
+  has_many :slots, -> { order(:priority) }, dependent: :destroy
 
-  has_many :activities, -> { order('created_at DESC') }
+  has_many :activities, -> { order('created_at DESC') }, dependent: :destroy
 
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false
 
