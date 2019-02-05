@@ -3,6 +3,11 @@ $calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
 
 $guider-row-height: 100px;
 
+th {
+  border-width: 0;
+  overflow: hidden;
+}
+
 .fc {
   a,
   a:visited {
