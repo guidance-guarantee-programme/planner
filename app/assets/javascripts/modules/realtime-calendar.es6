@@ -8,10 +8,11 @@
       this.$slotsUri = this.$el.data('slots-uri')
       this.$guidersUri = this.$el.data('guiders-uri')
       this.$appointmentsUri = this.$el.data('appointments-uri')
+      this.isFullscreen = false
 
       $(this.$el).fullCalendar({
         header: {
-          right: 'today jumpToDate jumpBackWeek,jumpForwardWeek prev,next'
+          right: 'fullscreen today jumpToDate jumpBackWeek,jumpForwardWeek prev,next'
         },
         titleFormat: 'dddd, Do MMMM',
         resourceLabelText: 'Guider',
@@ -19,6 +20,10 @@
         allDaySlot: false,
         groupByDateAndResource: true,
         customButtons: {
+          fullscreen: {
+            text: 'Fullscreen',
+            click: this.fullscreenClick.bind(this)
+          },
           jumpToDate: {
             text: 'Jump to date',
             click: this.jumpToDateClick.bind(this)
@@ -110,6 +115,7 @@
       });
 
       this.insertJumpToDate();
+      this.setCalendarToCorrectHeight();
     }
 
     deleteSlot(jsEvent) {
@@ -228,6 +234,66 @@
     jumpToDateElChange(el) {
       $(this.$el).fullCalendar('gotoDate', moment($(el.currentTarget).val()));
     }
+
+    fullscreenClick(event) {
+      let method = 'show';
+
+      this.isFullscreen = this.isFullscreen ? false : true;
+
+      this.$el.toggleClass('realtime-calendar--fullscreen');
+      $('.container').toggleClass('container--fullscreen');
+      $(event.currentTarget).toggleClass('fc-state-active');
+
+      if (this.isFullscreen) {
+        method = 'hide';
+      }
+
+      $('.page-footer, .page-header, .navbar')[method]();
+
+      this.alterHeight();
+    }
+
+    getHeight() {
+      let height = $(window).height();
+
+      if (this.isFullscreen === false) {
+        height -= (this.$el.offset().top + $('.page-footer').outerHeight(true));
+      } else {
+        height -= 20;
+      }
+
+      return height;
+    }
+
+    alterHeight() {
+      $(this.$el).fullCalendar('option', 'height', this.getHeight());
+    }
+
+    setCalendarToCorrectHeight() {
+      this.alterHeight();
+      $(window).on('resize', this.debounce(this.alterHeight.bind(this), 20));
+    }
+
+    debounce(func, wait, immediate) {
+      let timeout;
+
+      return () => {
+        const context = this,
+          args = arguments,
+          later = () => {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+          },
+          callNow = immediate && !timeout;
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(later, wait);
+
+        if (callNow) func.apply(context, args);
+      };
+    }
+
   }
 
   window.GOVUKAdmin.Modules.RealtimeCalendar = RealtimeCalendar;

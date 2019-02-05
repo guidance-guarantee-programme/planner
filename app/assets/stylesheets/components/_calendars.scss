@@ -3,6 +3,11 @@ $calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
 
 $guider-row-height: 100px;
 
+th {
+  border-width: 0;
+  overflow: hidden;
+}
+
 .fc {
   a,
   a:visited {
@@ -77,4 +82,12 @@ $guider-row-height: 100px;
     transform-origin: .5em .5em;
     width: $guider-row-height;
   }
+}
+
+.realtime-calendar--fullscreen {
+  margin-top: 10px;
+}
+
+.container--fullscreen {
+  width: 100%;
 }
