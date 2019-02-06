@@ -38,7 +38,7 @@ RSpec.feature 'Booking manager manages realtime availability' do
 
   def when_they_add_a_slot_for_a_specific_guider
     @page.wait_for_calendar_events
-    @page.click_slot('09:30', 'Ben Lovell')
+    @page.click_slot('09:30', 'B Lovell')
   end
 
   def then_the_slot_is_created
@@ -47,7 +47,7 @@ RSpec.feature 'Booking manager manages realtime availability' do
   end
 
   def when_they_remove_a_slot_for_a_specific_guider
-    @page.click_slot('09:30', 'Ben Lovell')
+    @page.click_slot('09:30', 'B Lovell')
     @page.accept_confirmation
   end
 
