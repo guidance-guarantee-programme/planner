@@ -20,10 +20,10 @@ RSpec.describe 'GET /locations/{location_id}/guiders' do
     @guiders = JSON.parse(response.body)
     expect(@guiders).to eq(
       [
-        { 'id' => 1, 'title' => 'Ben Lovell' },
-        { 'id' => 2, 'title' => 'Jenny Smith' },
-        { 'id' => 3, 'title' => 'Bob Johnson' },
-        { 'id' => 4, 'title' => 'Janice Jones' }
+        { 'id' => 1, 'title' => 'B Lovell' },
+        { 'id' => 2, 'title' => 'J Smith' },
+        { 'id' => 3, 'title' => 'B Johnson' },
+        { 'id' => 4, 'title' => 'J Jones' }
       ]
     )
   end
