@@ -1,5 +1,6 @@
 class BookableSlotsController < ApplicationController
   def index
+    @window   = GracePeriod.new(params[:location_id])
     @schedule = Schedule.current(params[:location_id])
     @location = booking_location.location_for(params[:location_id])
 

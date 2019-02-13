@@ -22,7 +22,7 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
       # excluded due to falling within the grace period
       create(:bookable_slot, :am, schedule: schedule)
       # will be returned
-      create(:bookable_slot, :am, schedule: schedule, date: GracePeriod.start)
+      create(:bookable_slot, :am, schedule: schedule, date: GracePeriod.new(location_id: schedule.location_id).start)
       # the following realtime slots are deduplicated
       create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now, guider_id: 2)
       create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now)

@@ -13,7 +13,7 @@ class BookableSlotGenerator
   end
 
   def slot_window
-    Hash[to: 4.months.from_now]
+    Hash[to: 4.months.from_now, location_id: @schedule.location_id]
   end
 
   private

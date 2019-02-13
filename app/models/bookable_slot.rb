@@ -87,6 +87,8 @@ class BookableSlot < ActiveRecord::Base
   end
 
   def validate_date_exclusions
-    errors.add(:start, 'Cannot occur on this date') if EXCLUSIONS.include?(date)
+    return unless schedule
+
+    errors.add(:start, 'Cannot occur on this date') if Exclusions.new(schedule.location_id).include?(date)
   end
 end
