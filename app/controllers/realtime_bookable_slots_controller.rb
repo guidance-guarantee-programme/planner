@@ -1,5 +1,6 @@
 class RealtimeBookableSlotsController < ApplicationController
   before_action :load_schedule
+  before_action :load_window
 
   def index
     @location = booking_location.location_for(params[:location_id])
@@ -32,6 +33,10 @@ class RealtimeBookableSlotsController < ApplicationController
   end
 
   private
+
+  def load_window
+    @window = GracePeriod.new(params[:location_id])
+  end
 
   def load_schedule
     @schedule = Schedule.current(params[:location_id])

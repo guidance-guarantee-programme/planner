@@ -20,9 +20,10 @@ class DefaultBookableSlots
   attr_reader :from
   attr_reader :to
 
-  def initialize(from: Date.current, to: from.advance(weeks: 6))
+  def initialize(from: Date.current, to: from.advance(weeks: 6), location_id:)
     @from = from
     @to   = to
+    @location_id = location_id
   end
 
   def call
@@ -36,15 +37,17 @@ class DefaultBookableSlots
 
   private
 
+  attr_reader :location_id
+
   def available_days
     (grace_period_end..to).reject { |day| day.on_weekend? || excluded?(day) }
   end
 
   def excluded?(date)
-    EXCLUSIONS.include?(date)
+    Exclusions.new(location_id).include?(date)
   end
 
   def grace_period_end
-    GracePeriod.start
+    @grace_period_end ||= GracePeriod.new(location_id).start
   end
 end

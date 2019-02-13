@@ -1,4 +1,4 @@
-class Schedule < ActiveRecord::Base
+class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   SLOT_ATTRIBUTES = %i(
     monday_am
     monday_pm
@@ -52,10 +52,10 @@ class Schedule < ActiveRecord::Base
   end
 
   def bookable_slots_in_window(
-    starting: GracePeriod.start,
-    ending:   GracePeriod.end
+    starting: grace_period.start,
+    ending:   grace_period.end
   )
-    return DefaultBookableSlots.new.call if default?
+    return DefaultBookableSlots.new(location_id: location_id).call if default?
 
     bookable_slots.windowed(starting..ending)
   end
@@ -91,7 +91,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def first_available_slot_on
-    return GracePeriod.start if default?
+    return grace_period.start if default?
 
     without_appointments.first&.date
   end
@@ -122,5 +122,11 @@ class Schedule < ActiveRecord::Base
     where(location_id: location_id)
       .order(created_at: :desc)
       .first_or_initialize(location_id: location_id)
+  end
+
+  private
+
+  def grace_period
+    @grace_period ||= GracePeriod.new(location_id)
   end
 end

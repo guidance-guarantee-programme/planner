@@ -8,7 +8,7 @@
 
   <h1>
     Availability for <%= @location.name %><br>
-   <small>Booking window from <%= GracePeriod.start.to_s(:govuk_date) %> to <%= GracePeriod.end.to_s(:govuk_date) %></small>
+   <small>Booking window from <%= @window.start.to_s(:govuk_date) %> to <%= @window.end.to_s(:govuk_date) %></small>
   </h1>
 
   <div class="availability-calendar-key" aria-hidden="true">

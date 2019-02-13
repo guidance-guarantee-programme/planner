@@ -1,5 +1,3 @@
-WorkingHours::Config.holidays = EXCLUSIONS
-
 WorkingHours::Config.working_hours = {
   mon: { '09:00' => '17:30' },
   tue: { '09:00' => '17:30' },
