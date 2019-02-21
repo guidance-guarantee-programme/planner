@@ -1,0 +1,62 @@
+<%= form_for @form, remote: true, method: :post, url: realtime_bookable_slot_copies_path(location_id: @form.location_id, date: @form.date, guider_id: @form.guider_id) do |f| %>
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title t-title">
+    Copy slots for <%= @form.guider_name %> <small><%= @form.date.to_date.to_s(:govuk_date) %></small>
+  </h4>
+</div>
+
+<div class="modal-body">
+  <% if @form.errors.any? %>
+    <div class="alert alert-danger t-errors" role="alert">
+      <h3 class="alert__heading h4">There's a problem</h3>
+      <ul>
+        <% @form.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h4>Slots to copy from</h4>
+  <div class="form-group">
+    <%= f.collection_check_boxes(:slots, @form.time_slots, :start_at, :start_at, include_hidden: false, checked: @form.slots) do |b| %>
+      <%= b.label(class: 'checkbox-inline') do %>
+        <%= b.check_box %>
+        <%= b.object.start_at.to_s(:govuk_time) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h4>Days to copy to</h4>
+  <div class="form-group">
+    <%= f.collection_check_boxes(:day_ids, weekday_options, :first, :last, include_hidden: false, checked: @form.day_ids) do |b| %>
+      <%= b.label(class: 'checkbox-inline') do %>
+        <%= b.check_box %>
+        <%= b.text %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h4>Between these dates <small>(inclusive)</small></h4>
+  <div class="form-group">
+    <div class="input-group col-xs-5">
+      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      <%= f.text_field :date_range, class: 'js-date-range-picker form-control t-date-range', data: { config: copy_modal_configuration } %>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <%= f.button "Copy slots for #{@form.guider_name}", class: 'btn btn-primary t-save', data: { disable_with: 'Please wait...' } %>
+</div>
+<% end %>
+
+<script>
+  $(function() {
+    PWPlanner.dateRangePicker.init();
+  });
+</script>

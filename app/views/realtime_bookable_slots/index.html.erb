@@ -23,5 +23,13 @@
  data-default-date="<%= Time.zone.now.iso8601 %>"
  data-guiders-uri="<%= guiders_path(location_id: @location.id) %>"
  data-slots-uri="<%= realtime_bookable_slots_path(location_id: @location.id) %>"
- data-appointments-uri="<%= realtime_appointments_path(location_id: @location.id) %>">
+ data-appointments-uri="<%= realtime_appointments_path(location_id: @location.id) %>"
+ data-copy-slots-uri="<%= new_realtime_bookable_slot_copy_path(location_id: @location.id) %>">
+
+ <div class="modal <%= 'fade' unless Rails.env.test? %> js-copy-modal t-copy-modal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+     </div>
+   </div>
+ </div>
 </div>

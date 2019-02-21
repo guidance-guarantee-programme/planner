@@ -10,6 +10,12 @@ module Pages
 
     element :ok, '.ok'
 
+    section :copy_modal, '.t-copy-modal' do
+      element :date_range, '.t-date-range'
+      element :save, '.t-save'
+      element :errors, '.t-errors'
+    end
+
     def wait_for_calendar_events
       Timeout.timeout(Capybara.default_max_wait_time) do
         loop until page.evaluate_script('jQuery.active').zero?

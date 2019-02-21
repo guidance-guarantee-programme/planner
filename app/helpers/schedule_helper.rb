@@ -1,4 +1,14 @@
 module ScheduleHelper
+  def copy_modal_configuration
+    date = 1.day.from_now.strftime('%d/%m/%Y')
+
+    { ranges: false, minDate: date, startDate: date }.as_json
+  end
+
+  def weekday_options
+    [[1, 'Monday'], [2, 'Tuesday'], [3, 'Wednesday'], [4, 'Thursday'], [5, 'Friday']]
+  end
+
   def slots_by_month(slots)
     [].tap do |result|
       grouped = slots.group_by { |slot| slot.date.to_date.strftime('%B %Y') }

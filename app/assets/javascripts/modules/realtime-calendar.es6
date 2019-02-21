@@ -8,6 +8,8 @@
       this.$slotsUri = this.$el.data('slots-uri')
       this.$guidersUri = this.$el.data('guiders-uri')
       this.$appointmentsUri = this.$el.data('appointments-uri')
+      this.$copySlotsUri = this.$el.data('copy-slots-uri')
+      this.$modal = this.$el.find('.js-copy-modal')
       this.isFullscreen = false
 
       $(this.$el).fullCalendar({
@@ -86,11 +88,15 @@
 
           $(element).attr('id', event.id)
         },
-        resourceRender(resourceObj, labelTds, bodyTds, view) {
+        resourceRender: (resourceObj, labelTds, bodyTds, view) => {
           if (view.type === 'agendaDay') {
             labelTds.html('');
+
+            var uri = `${this.$copySlotsUri}?guider_id=${resourceObj.id}&date=${this.getCurrentDate()}`;
+
             $(`<div class="t-guider">${resourceObj.title}</div>`).prependTo(labelTds);
-          } 
+            labelTds.on('click', this.showCopyModal.bind(this, uri)).addClass('resource-link');
+          }
         },
         loading: (isLoading) => {
           if (isLoading) {
@@ -116,6 +122,10 @@
 
       this.insertJumpToDate();
       this.setCalendarToCorrectHeight();
+    }
+
+    showCopyModal(uri) {
+      this.$modal.modal().find('.modal-content').load(uri);
     }
 
     deleteSlot(jsEvent) {
