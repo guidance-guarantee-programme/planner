@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'Booking manager manages realtime availability' do
   scenario 'Adding realtime slots to an existing schedule', driver: :poltergeist do
-    skip 'While we have the temporary notice on display'
     given_the_user_identifies_as_hackneys_booking_manager do
       travel_to '2018-10-26 13:00' do
         and_a_schedule_exists
