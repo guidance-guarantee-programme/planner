@@ -43,7 +43,7 @@ RSpec.feature 'Booking manager copies realtime slots for a guider', js: true do
     @actual   = BookableSlot.where(guider_id: @slot.guider_id).map(&:start_at)
     @expected = [
       '2019-02-26 09:00',
-      '2019-03-04 09:00',
+      '2019-03-04 09:15',
       '2019-03-08 09:00',
       '2019-03-11 09:00',
       '2019-03-15 09:00'
@@ -54,6 +54,9 @@ RSpec.feature 'Booking manager copies realtime slots for a guider', js: true do
 
   def and_a_schedule_with_slots_exists
     @slot = create(:bookable_slot, :realtime)
+
+    # this won't be overwritten by the copied slot as they overlap
+    create(:bookable_slot, :realtime, schedule: @slot.schedule, date: '2019-03-04', start: '0915')
   end
 
   def when_they_view_realtime_availability
