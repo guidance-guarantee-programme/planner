@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_203754) do
+ActiveRecord::Schema.define(version: 2019_03_06_150047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 2019_01_09_203754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "guider_id"
-    t.index ["schedule_id", "date"], name: "index_bookable_slots_on_schedule_id_and_date"
     t.index ["schedule_id"], name: "index_bookable_slots_on_schedule_id"
   end
 
@@ -108,6 +107,14 @@ ActiveRecord::Schema.define(version: 2019_01_09_203754) do
     t.string "county", default: "", null: false
     t.string "postcode", default: "", null: false
     t.string "gdpr_consent", default: "", null: false
+  end
+
+  create_table "organisation_lookups", force: :cascade do |t|
+    t.string "organisation", default: "", null: false
+    t.string "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_organisation_lookups_on_location_id"
   end
 
   create_table "reporting_summaries", force: :cascade do |t|
