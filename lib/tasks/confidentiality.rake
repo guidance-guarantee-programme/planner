@@ -24,7 +24,8 @@ namespace :confidentiality do
 
     ActiveRecord::Base.transaction do
       puts 'Redacting booking request...'
-      booking_request.update!(attributes)
+      booking_request.assign_attributes(attributes)
+      booking_request.save(validate: false)
       booking_request.activities.where(type: 'AuditActivity').delete_all
 
       if appointment
@@ -40,7 +41,8 @@ namespace :confidentiality do
             :gdpr_consent
           )
 
-          appointment.update!(appointment_attributes)
+          appointment.assign_attributes(appointment_attributes)
+          appointment.save(validate: false)
           appointment.audits.delete_all
         end
       end
