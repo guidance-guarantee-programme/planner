@@ -9,6 +9,7 @@ class BookableSlot < ActiveRecord::Base
   validate :validate_date_exclusions
   validate :validate_slot_allocation
   validate :validate_guider_overlapping
+  validate :validate_appointment_overlapping
 
   scope :realtime, -> { where.not(guider_id: nil) }
   scope :non_realtime, -> { where(guider_id: nil) }
@@ -62,6 +63,14 @@ class BookableSlot < ActiveRecord::Base
 
   def range
     start_at...end_at
+  end
+
+  def validate_appointment_overlapping
+    return unless guider_id? && date?
+
+    if Appointment.overlaps?(guider_id: guider_id, proceeded_at: start_at) # rubocop:disable GuardClause
+      errors.add(:start, 'cannot overlap an existing appointment')
+    end
   end
 
   def validate_guider_overlapping
