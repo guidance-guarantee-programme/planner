@@ -6,9 +6,17 @@ class RealtimeBookableSlotCopiesController < ApplicationController
   def new
   end
 
+  def preview
+    if @form.valid?
+      @good, @bad = *@form.call(preview: true)
+    else
+      render :new
+    end
+  end
+
   def create
     respond_to do |format|
-      format.js { @form.call }
+      format.js { @form.call(preview: false) }
     end
   end
 

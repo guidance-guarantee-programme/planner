@@ -14,6 +14,9 @@ module Pages
       element :date_range, '.t-date-range'
       element :save, '.t-save'
       element :errors, '.t-errors'
+
+      elements :good_slots, '.t-preview-slot-good'
+      elements :bad_slots, '.t-preview-slot-bad'
     end
 
     def wait_for_calendar_events

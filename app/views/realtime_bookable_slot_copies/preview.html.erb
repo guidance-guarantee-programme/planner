@@ -1,0 +1,42 @@
+<%= form_for @form, remote: true, method: :post, url: realtime_bookable_slot_copies_path(location_id: @form.location_id, date: @form.date, guider_id: @form.guider_id) do |f| %>
+  <% @form.day_ids.each do |id| %>
+    <%= hidden_field_tag 'realtime_bookable_slot_copy_form[day_ids][]', id %>
+  <% end %>
+  <% @form.slots.each do |slot| %>
+    <%= hidden_field_tag 'realtime_bookable_slot_copy_form[slots][]', slot %>
+  <% end %>
+
+  <%= f.hidden_field :date_range %>
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title t-title">
+      Copy slots for <%= @form.guider_name %> <small><%= @form.date.to_date.to_s(:govuk_date) %></small>
+    </h4>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Slots to create</h4>
+        <% @good.each do |slot| %>
+          <span class="t-preview-slot-good"><%= slot.start_at.to_s(:govuk_date) %></span><br>
+        <% end %>
+      </div>
+
+      <div class="col-md-6">
+        <h4>Skipped slots</h4>
+        <% @bad.each do |slot| %>
+          <span class="t-preview-slot-bad"><%= slot.start_at.to_s(:govuk_date) %></span><br>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <%= f.button "Copy slots for #{@form.guider_name}", class: 'btn btn-primary t-save', data: { disable_with: 'Please wait...', confirm: 'Are you sure?' } %>
+  </div>
+<% end %>

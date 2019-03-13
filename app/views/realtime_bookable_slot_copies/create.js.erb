@@ -1,6 +1,2 @@
-<% if @form.valid? %>
-  $('.js-calendar').fullCalendar('refetchEvents');
-  $('[data-dismiss=modal]').trigger({ type: 'click' });
-<% else %>
-  $('.modal-content').html("<%= j(render template: 'realtime_bookable_slot_copies/new', layout: false) %>");
-<% end %>
+$('.js-calendar').fullCalendar('refetchEvents');
+$('[data-dismiss=modal]').trigger({ type: 'click' });

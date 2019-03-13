@@ -20,6 +20,8 @@ RSpec.feature 'Booking manager copies realtime slots for a guider', js: true do
         when_they_view_realtime_availability
         and_click_on_a_guider
         and_complete_the_form
+        then_they_see_the_previewed_slots
+        when_they_confirm_the_previewed_slots
         then_the_modal_is_closed
         and_the_correct_slots_are_copied
       end
@@ -33,6 +35,17 @@ RSpec.feature 'Booking manager copies realtime slots for a guider', js: true do
 
     # enter date range manually and close date picker
     @page.copy_modal.date_range.set("04/03/2019 - 15/03/2019\n")
+  end
+
+  def then_they_see_the_previewed_slots
+    expect(@page.copy_modal).to have_good_slots
+    expect(@page.copy_modal).to have_bad_slots(count: 1)
+  end
+
+  def when_they_confirm_the_previewed_slots
+    accept_alert do
+      @page.copy_modal.save.click
+    end
   end
 
   def then_the_modal_is_closed
