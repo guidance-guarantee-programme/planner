@@ -5,6 +5,7 @@ RSpec.feature 'Agent places a booking request' do
   scenario 'Successfully placing a booking request' do
     travel_to '2017-11-14 13:00' do
       given_the_user_identifies_as_an_agent
+      and_bookable_slots_exist
       when_they_attempt_to_place_a_customer_booking_at_hackney
       and_they_choose_several_slots
       and_they_provide_the_customer_details
@@ -38,6 +39,14 @@ RSpec.feature 'Agent places a booking request' do
   def when_they_attempt_to_place_a_customer_booking_at_hackney
     @page = Pages::AgentBooking.new
     @page.load(location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
+  end
+
+  def and_bookable_slots_exist
+    create(:schedule) do |schedule|
+      create(:bookable_slot, :am, date: '2017-11-17', schedule: schedule)
+      create(:bookable_slot, :pm, date: '2017-11-17', schedule: schedule)
+      create(:bookable_slot, :am, date: '2017-12-01', schedule: schedule)
+    end
   end
 
   def and_they_choose_several_slots

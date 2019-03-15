@@ -11,10 +11,10 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
     end
   end
 
-  scenario 'Returns default availability for locations without schedules' do
+  scenario 'Returns empty availability for locations without schedules' do
     when_a_request_for_a_location_without_a_schedule_is_made
     then_the_service_responds_ok
-    and_slots_are_serialized_as_json
+    and_an_empty_array_is_serialized_as_json
   end
 
   def given_a_location_with_a_schedule_exists # rubocop:disable AbcSize
@@ -92,6 +92,10 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
     @json = JSON.parse(response.body).tap do |json|
       expect(json.first.keys).to match_array(%w(date start end))
     end
+  end
+
+  def and_an_empty_array_is_serialized_as_json
+    expect(JSON.parse(response.body)).to eq([])
   end
 
   def create_appointment_with_booking_slot(schedule:, date:, guider_id:, status: :pending)
