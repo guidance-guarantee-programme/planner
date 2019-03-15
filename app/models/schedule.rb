@@ -55,7 +55,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
     starting: grace_period.start,
     ending:   grace_period.end
   )
-    return DefaultBookableSlots.new(location_id: location_id).call if default?
+    return [] if default?
 
     bookable_slots.windowed(starting..ending)
   end
