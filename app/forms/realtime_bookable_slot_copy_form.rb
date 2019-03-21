@@ -21,7 +21,7 @@ class RealtimeBookableSlotCopyForm
     schedule.bookable_slots.where(date: date, guider_id: guider_id)
   end
 
-  def call(preview:) # rubocop:disable AbcSize
+  def call(preview:) # rubocop:disable AbcSize, MethodLength
     return if invalid?
 
     good = []
@@ -35,10 +35,17 @@ class RealtimeBookableSlotCopyForm
       end
     end
 
+    instrument_created_slots(good) unless preview
+
     [good, bad]
   end
 
   private
+
+  def instrument_created_slots(slots)
+    Rails.logger.info("Copied slots - guider: #{guider_id}, schedule: #{schedule.id}")
+    Rails.logger.info("Slot IDs: #{slots.map(&:id).join(', ')}")
+  end
 
   def create_slot(start_at, good, bad, preview)
     slot = schedule.find_or_initialize_realtime_bookable_slot(
