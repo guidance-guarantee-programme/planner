@@ -8,7 +8,7 @@ module Pages
     element :success, '.t-success'
     element :day, '.fc-agendaDay-button'
 
-    element :ok, '.ok'
+    element :ok, '.t-ok'
 
     section :copy_modal, '.t-copy-modal' do
       element :date_range, '.t-date-range'

@@ -67,17 +67,23 @@ class BookableSlot < ActiveRecord::Base
 
   def validate_appointment_overlapping
     return unless guider_id? && date?
+    return unless overlapping = Appointment.overlapping(guider_id: guider_id, proceeded_at: start_at).first
 
-    if Appointment.overlaps?(guider_id: guider_id, proceeded_at: start_at) # rubocop:disable GuardClause
-      errors.add(:start, 'cannot overlap an existing appointment')
+    if overlapping.location_id == schedule.location_id
+      errors.add(:date, 'overlaps an existing appointment in the same schedule')
+    else
+      errors.add(:date, 'overlaps an existing appointment in a different schedule')
     end
   end
 
   def validate_guider_overlapping
     return unless guider_id?
+    return unless overlapping = self.class.where(date: date, guider_id: guider_id).detect(&method(:overlaps?))
 
-    if self.class.where(date: date, guider_id: guider_id).any?(&method(:overlaps?)) # rubocop:disable GuardClause
-      errors.add(:start, 'cannot overlap with another slot')
+    if overlapping.schedule_id == schedule_id
+      errors.add(:date, 'overlaps with a slot in the same schedule')
+    else
+      errors.add(:date, 'overlaps with a slot in a different schedule')
     end
   end
 
@@ -98,6 +104,8 @@ class BookableSlot < ActiveRecord::Base
   def validate_date_exclusions
     return unless schedule
 
-    errors.add(:start, 'Cannot occur on this date') if Exclusions.new(schedule.location_id).include?(date)
+    errors.add(:date, 'cannot occur on this date as it is a listed exclusion') if Exclusions
+                                                                                  .new(schedule.location_id)
+                                                                                  .include?(date)
   end
 end

@@ -30,8 +30,8 @@ class Schedule < ActiveRecord::Base
     )
   end
 
-  def create_realtime_bookable_slot!(start_at:, guider_id:)
-    bookable_slots.create!(
+  def create_realtime_bookable_slot(start_at:, guider_id:)
+    bookable_slots.create(
       guider_id: guider_id,
       date: start_at.to_date,
       start: start_at.strftime('%H%M'),

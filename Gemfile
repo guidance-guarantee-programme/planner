@@ -4,7 +4,6 @@ ruby IO.read('.ruby-version').strip
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-alertifyjs'
   gem 'rails-assets-bootstrap-daterangepicker'
   gem 'rails-assets-fullcalendar', '3.9.0'
   gem 'rails-assets-fullcalendar-scheduler', '1.9.4'
@@ -15,6 +14,7 @@ end
 
 source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'active_model_serializers'
+  gem 'alertifyjs-rails'
   gem 'audited'
   gem 'booking_locations'
   gem 'bootstrap-kaminari-views'

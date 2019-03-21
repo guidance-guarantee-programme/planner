@@ -35,7 +35,7 @@ RSpec.describe BookableSlot do
       it 'does not permit non-realtime slots after the first realtime slot' do
         @schedule = create(:schedule)
 
-        @schedule.create_realtime_bookable_slot!(
+        @schedule.create_realtime_bookable_slot(
           start_at: 2.days.from_now,
           guider_id: 1
         )

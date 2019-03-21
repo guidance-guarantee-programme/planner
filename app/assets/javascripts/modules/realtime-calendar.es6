@@ -12,6 +12,10 @@
       this.$modal = this.$el.find('.js-copy-modal')
       this.isFullscreen = false
 
+      alertify.defaults.transition = 'fade'
+      alertify.defaults.theme.ok = 'btn btn-primary t-ok'
+      alertify.defaults.theme.cancel = 'btn btn-default'
+
       $(this.$el).fullCalendar({
         header: {
           right: 'fullscreen today jumpToDate jumpBackWeek,jumpForwardWeek prev,next'
@@ -130,11 +134,8 @@
 
     deleteSlot(jsEvent) {
       alertify
-        .theme('bootstrap')
-        .okBtn('OK')
-        .confirm('Are you sure you want to delete this slot?', (e) => {
-          e.preventDefault()
-
+        .confirm('<strong class="text-danger">Are you sure you want to delete this slot?</strong>',
+                 'Clicking OK will delete the slot.', () => {
           const id = jsEvent.target.id
 
           $.ajax({
@@ -145,10 +146,12 @@
               $(this.$el).fullCalendar('refetchEvents')
             },
             error: () => {
-              alertify.theme('bootstrap').alert('You cannot delete this slot.')
+              alertify.alert('<strong class="text-danger">You cannot delete this slot</strong>', 'It has an associated appointment')
             }
           })
-        })
+        },
+          () => { /* this handler has to be here otherwise alertify does not cancel */ }
+        )
     }
 
     showSpinner() {
@@ -181,11 +184,9 @@
         url: this.$slotsUri,
         data: { start_at: date.utc().format(), guider_id: resourceObject.id },
         headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
+        dataType: 'script',
         success: () => {
           $(this.$el).fullCalendar('refetchEvents')
-        },
-        error: () => {
-          alertify.theme('bootstrap').alert('You cannot create a slot here.')
         }
       })
     }

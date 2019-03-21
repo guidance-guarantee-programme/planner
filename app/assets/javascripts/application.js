@@ -2,7 +2,7 @@
 //= require moment
 //= require fullcalendar
 //= require fullcalendar-scheduler
-//= require alertifyjs
+//= require alertify
 //= require bootstrap-daterangepicker
 //= require mailgun-validator-jquery
 //= require growl
