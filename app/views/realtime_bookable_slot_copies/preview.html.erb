@@ -33,6 +33,9 @@
         <h4>Skipped slots</h4>
         <% @bad.each do |slot| %>
           <span class="t-preview-slot-bad"><%= slot.start_at.to_s(:govuk_date) %></span><br>
+          <% slot.errors.full_messages.each do |message| %>
+            <span class="text-danger"><%= message %></span><br>
+          <% end %>
         <% end %>
       </div>
     </div>
