@@ -126,6 +126,7 @@
 
       this.insertJumpToDate();
       this.setCalendarToCorrectHeight();
+      this.bindModalClose();
     }
 
     showCopyModal(uri) {
@@ -283,6 +284,13 @@
     setCalendarToCorrectHeight() {
       this.alterHeight();
       $(window).on('resize', this.debounce(this.alterHeight.bind(this), 20));
+    }
+
+    bindModalClose() {
+      this.$modal.on('hidden.bs.modal', () => {
+        // ensure modal content isn't cached
+        $(this).removeData('bs.modal');
+      });
     }
 
     debounce(func, wait, immediate) {
