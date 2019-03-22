@@ -1,4 +1,4 @@
 alertify.alert(
   '<strong class="text-danger">You cannot create a slot here</strong>',
-  '<p><%= @bookable_slot.errors.full_messages.join("<br>") %></p>'
+  '<p><%= raw @bookable_slot.errors.full_messages.map(&:capitalize).join("<br>") %></p>'
 );

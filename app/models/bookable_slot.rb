@@ -70,9 +70,9 @@ class BookableSlot < ActiveRecord::Base
     return unless overlapping = Appointment.overlapping(guider_id: guider_id, proceeded_at: start_at).first
 
     if overlapping.location_id == schedule.location_id
-      errors.add(:date, 'overlaps an existing appointment in the same schedule')
+      errors.add(:base, 'overlaps an existing appointment in the same schedule')
     else
-      errors.add(:date, 'overlaps an existing appointment in a different schedule')
+      errors.add(:base, 'overlaps an existing appointment in a different schedule')
     end
   end
 
@@ -81,9 +81,9 @@ class BookableSlot < ActiveRecord::Base
     return unless overlapping = self.class.where(date: date, guider_id: guider_id).detect(&method(:overlaps?))
 
     if overlapping.schedule_id == schedule_id
-      errors.add(:date, 'overlaps with a slot in the same schedule')
+      errors.add(:base, 'overlaps with a slot in the same schedule')
     else
-      errors.add(:date, 'overlaps with a slot in a different schedule')
+      errors.add(:base, 'overlaps with a slot in a different schedule')
     end
   end
 
@@ -98,13 +98,13 @@ class BookableSlot < ActiveRecord::Base
   end
 
   def report_overlapping_slot_error
-    errors.add(:date, 'cannot overlap realtime/non-realtime slots')
+    errors.add(:base, 'cannot overlap realtime/non-realtime slots')
   end
 
   def validate_date_exclusions
     return unless schedule
 
-    errors.add(:date, 'cannot occur on this date as it is a listed exclusion') if Exclusions
+    errors.add(:base, 'cannot occur on this date as it is a listed exclusion') if Exclusions
                                                                                   .new(schedule.location_id)
                                                                                   .include?(date)
   end
