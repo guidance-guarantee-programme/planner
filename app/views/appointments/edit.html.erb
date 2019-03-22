@@ -91,6 +91,16 @@
     </div>
 
     <hr>
+    <h3 class="h4">Requested location</h3>
+    <p class="lead">
+      <strong>
+        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment_form.location_id %>" class="t-location-name">
+          <%= guard_missing_location(@appointment_form, :location_name) %>
+        </a>
+      </strong>
+    </p>
+
+    <hr>
     <h3 class="h4">Customer research consent:</h3>
     <p class="lead">
       <strong class="t-gdpr-consent"><%= @appointment_form.consent %></strong>
