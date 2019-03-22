@@ -48,16 +48,13 @@ class RealtimeBookableSlotCopyForm
   end
 
   def create_slot(start_at, good, bad, preview)
-    slot = schedule.find_or_initialize_realtime_bookable_slot(
-      start_at: start_at,
-      guider_id: guider_id
-    )
+    slot = schedule.build_realtime_bookable_slot(start_at: start_at, guider_id: guider_id)
 
-    if slot.persisted? || slot.invalid?
-      bad << slot
-    else
+    if slot.valid?
       slot.save unless preview
       good << slot
+    else
+      bad << slot
     end
   end
 
