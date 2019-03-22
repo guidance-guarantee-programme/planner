@@ -201,7 +201,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     # refine to 2016-06-20
     @page.advance_date!
     # refine time
-    @page.set_time(hour: 15, minute: 30)
+    @page.set_time(hour: '15', minute: '30')
   end
 
   def then_the_appointment_is_created
