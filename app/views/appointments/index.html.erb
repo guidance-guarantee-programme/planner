@@ -32,6 +32,9 @@
             <%= f.label :processed, class: 'filters__label' %><%= f.select :processed, [['No', 'false'], ['Yes', 'true']], {}, { class: 'form-control filters__form-control t-processed' } %>
           </li>
           <li class="filters__item">
+            <%= f.label :dc_pot_confirmed, 'DC Pot Confirmed', class: 'filters__label' %><%= f.select :dc_pot_confirmed, [['Yes', 'true'], ['Don’t know', 'false']], { include_blank: 'All Options' }, { class: 'form-control filters__form-control t-dc-pot-confirmed' } %>
+          </li>
+          <li class="filters__item">
            <%= f.button class: 't-submit btn btn-default filters__button' do %>
              <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
            <% end %>

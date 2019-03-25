@@ -9,11 +9,13 @@ class AppointmentsSearchForm
   attr_accessor :current_user
   attr_accessor :appointment_date
   attr_accessor :processed
+  attr_accessor :dc_pot_confirmed
 
   def results # rubocop:disable Metrics/AbcSize
     scope = current_user.appointments.includes(booking_request: :slots)
     scope = search_term_scope(scope)
     scope = processed_scope(scope)
+    scope = dc_pot_scope(scope)
     scope = scope.where(proceeded_at: date_range) if date_range
     scope = scope.where(status: status) if status.present?
     scope = scope.where(location_id: location) if location.present?
@@ -23,6 +25,12 @@ class AppointmentsSearchForm
   end
 
   private
+
+  def dc_pot_scope(scope)
+    return scope if dc_pot_confirmed.blank?
+
+    scope.where(booking_requests: { defined_contribution_pot_confirmed: dc_pot_confirmed })
+  end
 
   def processed_scope(scope)
     if ActiveRecord::Type::Boolean.new.cast(processed)
