@@ -51,7 +51,8 @@ class AppointmentsController < ApplicationController
         :status,
         :location,
         :guider,
-        :processed
+        :processed,
+        :dc_pot_confirmed
       ).merge(
         current_user: current_user,
         page: params[:page]
