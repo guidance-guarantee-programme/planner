@@ -24,8 +24,7 @@
   <div class="row">
     <div class="col-md-7">
       <h1>
-        Manage appointment for <%= @appointment_form.name %><br>
-        <small>Booking reference: <%= @appointment_form.reference %></small>
+        Manage appointment for <%= @appointment_form.name %> <small><%= @appointment_form.reference %></small>
       </h1>
     </div>
 
@@ -91,6 +90,12 @@
     </div>
 
     <hr>
+    <h3 class="h4">Created at</h3>
+    <p class="lead">
+      <strong><%= @appointment_form.created_at.to_s(:govuk_date) %></strong>
+    </p>
+
+    <hr>
     <h3 class="h4">Requested location</h3>
     <p class="lead">
       <strong>
@@ -101,7 +106,7 @@
     </p>
 
     <hr>
-    <h3 class="h4">Customer research consent:</h3>
+    <h3 class="h4">Customer research consent</h3>
     <p class="lead">
       <strong class="t-gdpr-consent"><%= @appointment_form.consent %></strong>
     </p>
