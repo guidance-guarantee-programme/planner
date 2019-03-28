@@ -28,7 +28,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def and_an_empty_schedule_exists
-    @schedule = create(:schedule, :blank)
+    @schedule = create(:schedule)
   end
 
   def then_the_service_responds_with_a_422
@@ -48,7 +48,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def and_a_schedule_with_realtime_slots_exists
-    @schedule = create(:schedule, :blank)
+    @schedule = create(:schedule)
     @slot     = create(:bookable_slot, :realtime, date: '2018-11-08', schedule: @schedule)
   end
 

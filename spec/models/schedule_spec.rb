@@ -5,14 +5,14 @@ RSpec.describe Schedule do
 
   describe '#unavailable?' do
     context 'with a default schedule' do
-      it 'is false' do
-        expect(described_class.new).to_not be_unavailable
+      it 'is true' do
+        expect(described_class.new).to be_unavailable
       end
     end
 
     context 'with an empty schedule' do
       it 'is true' do
-        @schedule = create(:schedule, :blank)
+        @schedule = create(:schedule)
 
         expect(@schedule).to be_unavailable
       end
@@ -31,7 +31,7 @@ RSpec.describe Schedule do
         create(:bookable_slot, :am, schedule: schedule)
       end
 
-      @current_schedule = create(:schedule, :blank, monday_am: true, friday_pm: true)
+      @current_schedule = create(:schedule, monday_am: true, friday_pm: true)
     end
 
     after { travel_back }
@@ -67,7 +67,7 @@ RSpec.describe Schedule do
 
     context 'when no schedules exist' do
       it 'returns a default schedule' do
-        expect(described_class.current(hackney.id)).to_not be_persisted
+        expect(described_class.current(hackney.id)).to be_unavailable
       end
     end
   end

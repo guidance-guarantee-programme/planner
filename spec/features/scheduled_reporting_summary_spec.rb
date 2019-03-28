@@ -30,15 +30,15 @@ RSpec.feature 'Scheduled reporting summary' do
 
   def and_the_booking_locations_have_schedules_of_varying_availability
     # Unavailable
-    create(:schedule, :blank, location_id: '108cac82-16ec-41f0-8177-e55019e8c110')
+    create(:schedule, location_id: '108cac82-16ec-41f0-8177-e55019e8c110')
 
     # Limited availability
-    create(:schedule, :blank, location_id: '377e27e1-8f38-437a-baa9-4e90ebd980e8') do |schedule|
+    create(:schedule, location_id: '377e27e1-8f38-437a-baa9-4e90ebd980e8') do |schedule|
       create(:bookable_slot, :am, schedule: schedule, date: 1.week.from_now)
     end
 
     # Only available after the 4 week window
-    create(:schedule, :blank, location_id: '47b30a8f-d5f9-448e-a7ac-d5397a853e6a') do |schedule|
+    create(:schedule, location_id: '47b30a8f-d5f9-448e-a7ac-d5397a853e6a') do |schedule|
       create(:bookable_slot, :am, schedule: schedule, date: 5.weeks.from_now)
     end
   end

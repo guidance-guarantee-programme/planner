@@ -42,8 +42,6 @@ module ScheduleHelper
   end
 
   def availability_button(location_id)
-    return unless Schedule.exists?(location_id: location_id)
-
     link_to(
       bookable_slots_path(location_id: location_id),
       title: 'Modify availability',
@@ -56,7 +54,6 @@ module ScheduleHelper
 
   def realtime_availability_button(location)
     return unless location.realtime?
-    return unless Schedule.exists?(location_id: location.id)
 
     safe_join([bookable_slots_button(location), bookable_slot_list_button(location)], "\n")
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_150047) do
+ActiveRecord::Schema.define(version: 2019_03_28_103352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,16 +128,16 @@ ActiveRecord::Schema.define(version: 2019_03_06_150047) do
 
   create_table "schedules", force: :cascade do |t|
     t.string "location_id", null: false
-    t.boolean "monday_am", default: true, null: false
-    t.boolean "monday_pm", default: true, null: false
-    t.boolean "tuesday_am", default: true, null: false
-    t.boolean "tuesday_pm", default: true, null: false
-    t.boolean "wednesday_am", default: true, null: false
-    t.boolean "wednesday_pm", default: true, null: false
-    t.boolean "thursday_am", default: true, null: false
-    t.boolean "thursday_pm", default: true, null: false
-    t.boolean "friday_am", default: true, null: false
-    t.boolean "friday_pm", default: true, null: false
+    t.boolean "monday_am", default: false, null: false
+    t.boolean "monday_pm", default: false, null: false
+    t.boolean "tuesday_am", default: false, null: false
+    t.boolean "tuesday_pm", default: false, null: false
+    t.boolean "wednesday_am", default: false, null: false
+    t.boolean "wednesday_pm", default: false, null: false
+    t.boolean "thursday_am", default: false, null: false
+    t.boolean "thursday_pm", default: false, null: false
+    t.boolean "friday_am", default: false, null: false
+    t.boolean "friday_pm", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_schedules_on_location_id"

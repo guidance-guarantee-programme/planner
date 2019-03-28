@@ -25,7 +25,7 @@ RSpec.feature 'Booking manager manages availability' do
   end
 
   def and_a_schedule_with_weekends_exists
-    @schedule = create(:schedule, :blank, :dalston)
+    @schedule = create(:schedule, :dalston)
   end
 
   def when_they_view_the_weekend_schedule
@@ -42,7 +42,7 @@ RSpec.feature 'Booking manager manages availability' do
   end
 
   def and_a_schedule_exists
-    @schedule = create(:schedule, :blank, monday_am: true, &:generate_bookable_slots!)
+    @schedule = create(:schedule, monday_am: true, &:generate_bookable_slots!)
   end
 
   def when_they_view_their_schedules
