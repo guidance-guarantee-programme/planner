@@ -1,4 +1,4 @@
-class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
+class Schedule < ActiveRecord::Base
   SLOT_ATTRIBUTES = %i(
     monday_am
     monday_pm
@@ -14,14 +14,10 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
 
   has_many :bookable_slots, -> { order(:date, :start) }
 
-  alias default? new_record?
-
   has_associated_audits
   audited on: :create
 
   def realtime?
-    return false if default?
-
     without_appointments.realtime.size.positive?
   end
 
@@ -51,18 +47,11 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
     create_bookable_slot(date: date, period: BookableSlot::PM) if pm
   end
 
-  def bookable_slots_in_window(
-    starting: grace_period.start,
-    ending:   grace_period.end
-  )
-    return [] if default?
-
+  def bookable_slots_in_window(starting: grace_period.start, ending: grace_period.end)
     bookable_slots.windowed(starting..ending)
   end
 
   def without_appointments(scoped = bookable_slots_in_window)
-    return scoped if default?
-
     scoped.joins(
       <<-SQL
         LEFT JOIN appointments ON
@@ -75,8 +64,6 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def unavailable?
-    return if default?
-
     without_appointments.size.zero?
   end
 
@@ -91,15 +78,11 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def first_available_slot_on
-    return grace_period.start if default?
-
     without_appointments.first&.date
   end
 
   def self.allocates?(booking_request)
     schedule = current(booking_request.location_id)
-
-    return true if schedule.default?
 
     schedule.without_appointments.find_by(
       date: booking_request.primary_slot.date,
@@ -121,7 +104,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   def self.current(location_id)
     where(location_id: location_id)
       .order(created_at: :desc)
-      .first_or_initialize(location_id: location_id)
+      .find_or_create_by!(location_id: location_id)
   end
 
   private

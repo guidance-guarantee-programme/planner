@@ -17,7 +17,7 @@ RSpec.feature 'Booking manager manages realtime availability' do
   end
 
   def and_a_schedule_exists
-    @schedule = create(:schedule, :blank)
+    @schedule = create(:schedule)
   end
 
   def when_they_view_their_schedules

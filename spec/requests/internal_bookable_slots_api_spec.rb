@@ -13,7 +13,7 @@ RSpec.describe 'GET /locations/:location_id/bookable_slots.json' do
   end
 
   def given_a_location_with_a_schedule_exists
-    @schedule = create(:schedule, :blank, monday_am: true, &:generate_bookable_slots!)
+    @schedule = create(:schedule, monday_am: true, &:generate_bookable_slots!)
   end
 
   def when_a_request_for_bookable_slots_is_made

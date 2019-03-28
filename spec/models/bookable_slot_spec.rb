@@ -33,7 +33,7 @@ RSpec.describe BookableSlot do
 
     context 'when mixed slots exists' do
       it 'does not permit non-realtime slots after the first realtime slot' do
-        @schedule = create(:schedule, :blank)
+        @schedule = create(:schedule)
 
         @schedule.create_realtime_bookable_slot!(
           start_at: 2.days.from_now,
