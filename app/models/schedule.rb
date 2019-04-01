@@ -21,8 +21,17 @@ class Schedule < ActiveRecord::Base
     without_appointments.realtime.size.positive?
   end
 
-  def create_realtime_bookable_slot!(start_at:, guider_id:)
-    bookable_slots.create!(
+  def build_realtime_bookable_slot(start_at:, guider_id:)
+    bookable_slots.build(
+      guider_id: guider_id,
+      date: start_at.to_date,
+      start: start_at.strftime('%H%M'),
+      end: start_at.advance(hours: 1).strftime('%H%M')
+    )
+  end
+
+  def create_realtime_bookable_slot(start_at:, guider_id:)
+    bookable_slots.create(
       guider_id: guider_id,
       date: start_at.to_date,
       start: start_at.strftime('%H%M'),

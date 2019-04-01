@@ -9,6 +9,7 @@ class BookableSlot < ActiveRecord::Base
   validate :validate_date_exclusions
   validate :validate_slot_allocation
   validate :validate_guider_overlapping
+  validate :validate_appointment_overlapping
 
   scope :realtime, -> { where.not(guider_id: nil) }
   scope :non_realtime, -> { where(guider_id: nil) }
@@ -64,11 +65,25 @@ class BookableSlot < ActiveRecord::Base
     start_at...end_at
   end
 
+  def validate_appointment_overlapping
+    return unless guider_id? && date?
+    return unless overlapping = Appointment.overlapping(guider_id: guider_id, proceeded_at: start_at).first
+
+    if overlapping.location_id == schedule.location_id
+      errors.add(:base, 'overlaps an existing appointment in the same schedule')
+    else
+      errors.add(:base, 'overlaps an existing appointment in a different schedule')
+    end
+  end
+
   def validate_guider_overlapping
     return unless guider_id?
+    return unless overlapping = self.class.where(date: date, guider_id: guider_id).detect(&method(:overlaps?))
 
-    if self.class.where(date: date, guider_id: guider_id).any?(&method(:overlaps?)) # rubocop:disable GuardClause
-      errors.add(:start, 'cannot overlap with another slot')
+    if overlapping.schedule_id == schedule_id
+      errors.add(:base, 'overlaps with a slot in the same schedule')
+    else
+      errors.add(:base, 'overlaps with a slot in a different schedule')
     end
   end
 
@@ -83,12 +98,14 @@ class BookableSlot < ActiveRecord::Base
   end
 
   def report_overlapping_slot_error
-    errors.add(:date, 'cannot overlap realtime/non-realtime slots')
+    errors.add(:base, 'cannot overlap realtime/non-realtime slots')
   end
 
   def validate_date_exclusions
     return unless schedule
 
-    errors.add(:start, 'Cannot occur on this date') if Exclusions.new(schedule.location_id).include?(date)
+    errors.add(:base, 'cannot occur on this date as it is a listed exclusion') if Exclusions
+                                                                                  .new(schedule.location_id)
+                                                                                  .include?(date)
   end
 end

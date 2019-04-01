@@ -88,9 +88,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_an_unfulfilled_booking_request_exists
-    @schedule = create(:schedule)
-    @slot     = create(:bookable_slot, :realtime, date: '2018-12-06', schedule: @schedule)
-    @booking  = build(:hackney_booking_request, number_of_slots: 0)
+    @booking = build(:hackney_booking_request, number_of_slots: 0)
     @booking.slots.build(date: '2018-12-06', from: '0900', to: '1300', priority: 1)
     @booking.save!
   end

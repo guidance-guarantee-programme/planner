@@ -12,12 +12,18 @@ class RealtimeBookableSlotsController < ApplicationController
   end
 
   def create
-    @schedule.create_realtime_bookable_slot!(
+    @bookable_slot = @schedule.create_realtime_bookable_slot(
       start_at: Time.zone.parse(params[:start_at]),
       guider_id: params[:guider_id]
     )
 
-    head :created
+    respond_to do |format|
+      format.js do
+        return head :ok if @bookable_slot.persisted?
+
+        render :errors, layout: false, status: :unprocessable_entity
+      end
+    end
   end
 
   def destroy

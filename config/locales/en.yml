@@ -35,3 +35,21 @@ en:
       awaiting_customer_feedback_extra_info: attempted to contact customer
       hidden: Hidden
       hidden_extra_info: no longer needed
+
+  activemodel:
+    attributes:
+      realtime_bookable_slot_copy_form:
+        day_ids: Days to copy to
+        slots: Slots to copy from
+        date_range: Between these dates
+
+    errors:
+      models:
+        realtime_bookable_slot_copy_form:
+          attributes:
+            day_ids:
+              blank: must be selected
+            date_range:
+              blank: must be given
+            slots:
+              blank: must be selected
