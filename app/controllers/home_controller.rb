@@ -16,7 +16,7 @@ class HomeController < ActionController::Base
 
   def index
     return redirect_to agent_search_index_path if agent_manager_only?
-    return redirect_to booking_requests_path   if current_user.booking_manager?
+    return redirect_to appointments_path       if current_user.booking_manager?
 
     render :index, layout: 'application'
   end

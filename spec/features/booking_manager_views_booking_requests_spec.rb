@@ -99,7 +99,7 @@ RSpec.feature 'Viewing Booking Requests' do
   end
 
   def when_they_visit_the_site
-    visit '/'
+    visit booking_requests_path
   end
 
   def then_they_are_shown_booking_requests_for_their_locations

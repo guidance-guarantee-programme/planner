@@ -1,6 +1,8 @@
 class BookingRequest < ActiveRecord::Base
   PERMITTED_AGE_RANGES = %w(50-54 55-plus).freeze
 
+  include PostalAddressable
+
   attr_reader :allocated
 
   enum status: %i(
