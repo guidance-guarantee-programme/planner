@@ -1,6 +1,6 @@
 module PostalAddressable
   def postal_confirmation?
-    booking_request.address_line_one? && email_withheld?
+    __booking_request__.address_line_one? && email_withheld?
   end
 
   def email_withheld?
@@ -9,12 +9,16 @@ module PostalAddressable
 
   def postal_address_lines
     [
-      booking_request.address_line_one,
-      booking_request.address_line_two,
-      booking_request.address_line_three,
-      booking_request.town,
-      booking_request.county,
-      booking_request.postcode
+      __booking_request__.address_line_one,
+      __booking_request__.address_line_two,
+      __booking_request__.address_line_three,
+      __booking_request__.town,
+      __booking_request__.county,
+      __booking_request__.postcode
     ].reject(&:blank?).join("\n")
+  end
+
+  def __booking_request__
+    respond_to?(:booking_request) ? booking_request : self
   end
 end

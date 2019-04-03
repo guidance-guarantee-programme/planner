@@ -1,32 +1,28 @@
-<% content_for(:page_title, t('service.title', page_title: "Booking confirmed at #{location.name}")) %>
+<% content_for(:page_title, t('service.title', page_title: "Appointment confirmed at #{location.name}")) %>
 
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Planner</a></li>
-    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li><a href="<%= root_path %>">Appointments</a></li>
     <li class="active"><%= location.name %></li>
   </ol>
 
-  <h1>Booking confirmed at <%= location.name %></h1>
+  <h1>Appointment confirmed at <%= location.name %></h1>
 </div>
-
 <p>
-Your appointment request has been submitted with your preferred dates and the
-appointment will last up to 45 minutes. Citizens Advice will contact you to
-confirm your appointment within 2 working days.
+Your reference number is <%= @booking.reference %> and your appointment will
+last up to 45 minutes. I have sent a confirmation <%= confirmation_type(@booking) %> 
+which will contain all the information you need and will help you prepare for
+your appointment.
 </p>
 
 <p>
-Your reference number is <%= @booking.reference %>.
-Please make a note of this number as you will need it if you want to rearrange
-or cancel your appointment.
-</p>
-
-<p>To make the most of your appointment we recommend that you find out the following:
-<ul>
-  <li>how much is in your pension pot(s)</li>
-  <li>an estimate of your State Pension</li>
-</ul>
+To make the most of your appointment we recommend that you find out the
+following:
+  <ul>
+    <li>how much is in your pension pot(s)</li>
+    <li>an estimate of your State Pension</li>
+  </ul>
 </p>
 
 <hr>
@@ -40,6 +36,7 @@ Pension Centre on 0800 731 0175 to ask for a statement.
 </p>
 
 <hr>
+
 <p>
-  <%= link_to 'Go back and place another booking request', 'https://www.pensionwise.gov.uk/en/book-face-to-face', class: 'btn btn-primary' %>
+  <%= link_to 'Go back and place another appointment', 'https://www.pensionwise.gov.uk/en/book-face-to-face', class: 'btn btn-primary' %>
 </p>

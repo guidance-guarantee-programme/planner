@@ -1,4 +1,8 @@
 module AppointmentHelper
+  def confirmation_type(booking)
+    booking.postal_confirmation? ? 'letter' : 'email'
+  end
+
   def field_with_errors_wrapper(form, field, klass)
     error_class = form.object.errors[field].any? ? "field_with_errors #{klass}" : klass
 
