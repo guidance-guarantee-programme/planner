@@ -15,7 +15,7 @@ module EmailHelper
 
   def mailer_booking_link(booking_request_or_appointment)
     name = booking_request_or_appointment.model_name.human.downcase
-    url  = if booking_request_or_appointment.is_a?(Appointment)
+    url  = if booking_request_or_appointment.entity.is_a?(Appointment)
              edit_appointment_url(booking_request_or_appointment)
            else
              new_booking_request_appointment_url(booking_request_or_appointment)

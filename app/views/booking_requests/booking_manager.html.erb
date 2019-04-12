@@ -3,8 +3,12 @@
 <% end %>
 
 <%= p do %>
-  Reference: <%= @booking_request_or_appointment.reference %>.
+  Reference: <%= @booking_request_or_appointment.reference %>
 <% end %>
+
+<%= p do %>
+  Guider: <%= @booking_request_or_appointment.guider_name %>
+<% end if @booking_request_or_appointment.guider_name.present? %>
 
 <%= p do %>
   <%= mailer_booking_link(@booking_request_or_appointment) %>

@@ -1,6 +1,6 @@
 class Appointments < ApplicationMailer
   def booking_manager_cancellation(booking_manager, appointment)
-    @appointment = appointment
+    @appointment = decorate(appointment)
 
     mailgun_headers :sms_appointment_cancellation
 
@@ -8,10 +8,7 @@ class Appointments < ApplicationMailer
   end
 
   def customer(appointment, booking_location)
-    @appointment = LocationAwareEntity.new(
-      entity: appointment,
-      booking_location: booking_location
-    )
+    @appointment = decorate(appointment, booking_location)
 
     identification_headers_for(appointment)
 
@@ -23,10 +20,7 @@ class Appointments < ApplicationMailer
   end
 
   def reminder(appointment, booking_location)
-    @appointment = LocationAwareEntity.new(
-      entity: appointment,
-      booking_location: booking_location
-    )
+    @appointment = decorate(appointment, booking_location)
 
     mailgun_headers :appointment_reminder
 
@@ -38,6 +32,15 @@ class Appointments < ApplicationMailer
   end
 
   private
+
+  def decorate(appointment, booking_location = nil)
+    booking_location ||= BookingLocations.find(appointment.location_id)
+
+    LocationAwareEntity.new(
+      entity: appointment,
+      booking_location: booking_location
+    )
+  end
 
   def identification_headers_for(appointment)
     value = appointment.updated? ? 'appointment_modified' : 'appointment_confirmation'

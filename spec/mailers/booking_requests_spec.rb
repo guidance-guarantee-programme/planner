@@ -62,8 +62,11 @@ RSpec.describe BookingRequests do
     describe 'rendering the body' do
       let(:body) { subject.body.encoded }
 
-      it 'includes a link to the booking request page' do
+      it 'renders the particulars' do
+        expect(body).to include('View the booking request')
         expect(body).to include("http://localhost:3001/booking_requests/#{booking_request.id}/appointments/new")
+
+        expect(body).not_to include('Guider:') # guider is not yet allocated
       end
     end
 
@@ -73,7 +76,9 @@ RSpec.describe BookingRequests do
       it 'renders the appointment particulars' do
         expect(mail.subject).to eq('Pension Wise Appointment')
 
+        expect(subject.body.encoded).to include('View the appointment')
         expect(subject.body.encoded).to include("/appointments/#{booking_request.id}/edit")
+        expect(subject.body.encoded).to include('Guider: Ben Lovell') # guider
       end
     end
   end
