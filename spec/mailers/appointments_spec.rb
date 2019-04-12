@@ -25,6 +25,7 @@ RSpec.describe Appointments do
       it 'includes the appointment particulars' do
         expect(body).to include(appointment.reference)
         expect(body).to include("/appointments/#{appointment.id}/edit")
+        expect(body).to include('Ben Lovell') # guider
       end
     end
   end
