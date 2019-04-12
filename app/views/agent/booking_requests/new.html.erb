@@ -1,13 +1,13 @@
-<% content_for(:page_title, t('service.title', page_title: "Make booking request at #{location.name}")) %>
+<% content_for(:page_title, t('service.title', page_title: "Book appointment at #{location.name}")) %>
 
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Planner</a></li>
-    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li><a href="<%= root_path %>">Appointments</a></li>
     <li class="active"><%= location.name %></li>
   </ol>
 
-  <h1>Make booking request at <%= location.name %></h1>
+  <h1>Book appointment at <%= location.name %></h1>
 </div>
 
 <%= form_for @booking,
@@ -29,7 +29,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h2 class="h3">Desired slots</h2>
+        <h2 class="h3">Desired appointment</h2>
         <% @grouped_slots ||= slots_by_month(slots) %>
         <div class="form-group col-md-4">
           <%= f.label :first_choice_slot %>
@@ -179,7 +179,7 @@
         <div class="form-group">
           <%= f.label :additional_info %>
           <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500 %>
-          <div class="help-block">eg any times you’re not available, accessibility adjustments</div>
+          <div class="help-block">eg accessibility adjustments</div>
         </div>
         <div class="form-group">
           <%= f.label :where_you_heard, 'Where did you first hear of Pension Wise?' %>
@@ -196,7 +196,7 @@
 <div class="row">
   <div class="col-md-12">
     <%= f.button class: 'btn btn-primary btn-block t-preview' do %>
-      Preview booking request at <%= location.name %>
+      Preview appointment at <%= location.name %>
     <% end %>
   </div>
 </div>
