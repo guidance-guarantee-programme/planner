@@ -17,6 +17,9 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     # this will be available
     @slot = create(:bookable_slot, :realtime)
 
+    # this will not be displayed by default since it's before today
+    @hidden = create(:bookable_slot, :realtime, date: 3.days.ago.to_date, schedule: @slot.schedule)
+
     # this will be unavailable due to associated booking
     create_appointment_with_booking_slot(
       schedule: @slot.schedule,

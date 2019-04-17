@@ -18,7 +18,7 @@ class BookableSlotSearch
       SQL
     )
 
-    scope = scope.where(date: date_range) if date.present?
+    scope = scope.where(date: date_range)
     scope = scope.where(guider_id: guider) if guider.present?
     scope = scope.page(page).per(per_page)
     scope.select('bookable_slots.*, count(appointments.id) as appointment_count').group('bookable_slots.id')
@@ -27,8 +27,10 @@ class BookableSlotSearch
   private
 
   def date_range
-    return if date.blank?
-
-    Range.new(*date.split(' - ').map(&:to_date))
+    if date.blank?
+      Date.current..2.years.from_now.to_date
+    else
+      Range.new(*date.split(' - ').map(&:to_date))
+    end
   end
 end
