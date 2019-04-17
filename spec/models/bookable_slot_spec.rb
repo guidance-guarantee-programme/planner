@@ -36,19 +36,19 @@ RSpec.describe BookableSlot do
         @schedule = create(:schedule)
 
         @schedule.create_realtime_bookable_slot(
-          start_at: 2.days.from_now,
+          start_at: '2019-03-15 09:00'.to_time, # rubocop:disable Rails/Date
           guider_id: 1
         )
 
         @slot = @schedule.bookable_slots.build(
-          date: 3.days.from_now.to_date,
+          date: '2019-03-16'.to_date,
           start: '0900',
           end: '1300'
         )
 
         expect(@slot).to be_invalid
 
-        @slot.date = 2.days.ago
+        @slot.date = '2019-03-14'.to_date
 
         expect(@slot).to be_valid
       end
