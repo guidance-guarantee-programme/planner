@@ -1,5 +1,6 @@
 $calendar-loading-view-background: transparentize($color-white, .2);
 $calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
+$calendar-bookable-slot-background: darken($color-green, 60%);
 
 $guider-row-height: 110px;
 
@@ -21,8 +22,13 @@ th {
   font-size: 12px;
 }
 
+.fc-bgevent {
+  background: $calendar-bookable-slot-background;
+}
+
 .fc-event {
   @include striped($color-boston-blue);
+  margin: 2px;
 }
 
 .fc-event--cancelled {
