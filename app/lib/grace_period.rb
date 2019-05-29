@@ -4,7 +4,7 @@ class GracePeriod
   end
 
   def start
-    date  = 3.working.days.from_now.to_date
+    date  = 2.working.days.from_now.to_date
     date += 1.working.day if exclusions.include?(date)
 
     date

@@ -15,7 +15,7 @@ RSpec.describe DefaultBookableSlots do
 
   it 'returns slots in the booking window' do
     # advanced to the grace period and exclude the bank holiday
-    expect(slots.first.date).to eq('2017-05-30')
+    expect(slots.first.date).to eq('2017-05-29')
     # the end of the booking window
     expect(slots.last.date).to eq('2017-07-06')
   end
