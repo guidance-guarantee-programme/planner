@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GracePeriod do
   it 'is correct for CAS' do
-    travel_to '2019-04-16'.to_date do
+    travel_to '2019-04-17'.to_date do
       cas = described_class.new(CAS_LOCATION_IDS.first)
 
       # this would usually be excluded as it's a bank holiday

@@ -62,7 +62,7 @@ RSpec.describe 'GET /api/v1/locations/{location_id}/bookable_slots' do
     expect(@json).to eq(
       [
         {
-          'date'  => '2017-05-31',
+          'date'  => '2017-05-30',
           'start' => BookableSlot::AM.start,
           'end'   => BookableSlot::AM.end
         },
