@@ -1,7 +1,4 @@
-require 'chromedriver/helper'
 require 'selenium/webdriver'
-
-Chromedriver.set_version('2.38')
 
 Capybara.register_driver :chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
