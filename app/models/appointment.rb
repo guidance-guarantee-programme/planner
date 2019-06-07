@@ -108,7 +108,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
 
   def self.for_sms_cancellation(number)
     pending
-      .order(created_at: :desc)
+      .order(:created_at)
       .find_by("REPLACE(phone, ' ', '') = :number", number: number)
   end
 
