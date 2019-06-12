@@ -12,10 +12,18 @@ RSpec.describe EmailDropNotificationJob, '#perform' do
   end
 
   context 'when booking manager(s) are found' do
-    before { create(:hackney_booking_manager) }
+    let!(:booking_manager) { create(:hackney_booking_manager, email: 'doh@example.com') }
 
     it 'fans out a notification job for each booking manager' do
       assert_enqueued_jobs(1) { subject }
+    end
+
+    context 'when the booking manager and customer email is the same' do
+      let(:booking_request) { create(:hackney_booking_request, email: 'doh@example.com') }
+
+      it 'does not fan out, thus avoiding an infinite loop of bounces' do
+        assert_no_enqueued_jobs { subject }
+      end
     end
   end
 
