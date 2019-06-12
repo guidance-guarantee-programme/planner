@@ -3,6 +3,9 @@ module MailGun
     skip_before_action :verify_authenticity_token
 
     def create
+      form = DropForm.new(drop_params)
+      form.create_activity
+
       head :ok
     end
 

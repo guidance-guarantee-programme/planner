@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'POST /mail_gun/drops' do
   scenario 'inbound hooks create activity entries' do
-    skip 'for now'
-
     perform_enqueued_jobs do
       with_a_configured_token('deadbeef') do
         given_a_hackney_booking_request
