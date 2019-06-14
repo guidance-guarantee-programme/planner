@@ -8,7 +8,11 @@ RSpec.describe SmsCancellationSuccessJob, '#perform' do
     expect(client).to receive(:send_sms).with(
       phone_number: '07715 930 444',
       template_id: SmsCancellationSuccessJob::TEMPLATE_ID,
-      reference: appointment.reference
+      reference: appointment.reference,
+      personalisation: {
+        date: '2:00pm, 20 Jun 2016',
+        location: 'Hackney'
+      }
     )
 
     described_class.new.perform(appointment)
