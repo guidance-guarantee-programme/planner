@@ -99,11 +99,11 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def self.needing_sms_reminder
-    pending.not_booked_today.with_mobile.where(proceeded_at: [day_range(2), day_range(7)])
+    pending.not_booked_today.with_mobile.where(proceeded_at: [day_range(3), day_range(7)])
   end
 
   def self.needing_reminder
-    not_booked_today.with_email.without_mobile.pending.where(proceeded_at: [day_range(2), day_range(7)])
+    not_booked_today.with_email.without_mobile.pending.where(proceeded_at: [day_range(3), day_range(7)])
   end
 
   def self.for_sms_cancellation(number)

@@ -20,7 +20,7 @@ RSpec.feature 'SMS appointment reminders' do
     @mobile = create(
       :appointment,
       phone: '07715930455',
-      proceeded_at: 2.days.from_now,
+      proceeded_at: 3.days.from_now,
       created_at: 1.day.ago,
       guider_id: 3
     )

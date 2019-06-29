@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Scheduled appointment reminders' do
-  scenario 'more than 48 hours before the appointment, it does not send a reminder' do
+  scenario 'more than 72 hours before the appointment, it does not send a reminder' do
     perform_enqueued_jobs do
       travel_to Time.zone.parse('2016-06-17 11:55') do
         given_an_unreminded_appointment_exists
@@ -12,9 +12,9 @@ RSpec.feature 'Scheduled appointment reminders' do
     end
   end
 
-  scenario 'within 48 hours of the appointment, it does send a reminder' do
+  scenario 'within 72 hours of the appointment, it does send a reminder' do
     perform_enqueued_jobs do
-      travel_to Time.zone.parse('2016-06-18 12:05') do
+      travel_to Time.zone.parse('2016-06-17 12:05') do
         given_an_unreminded_appointment_exists(phone: '02082524782')
         when_the_reminder_job_runs
         then_an_email_reminder_is_delivered
