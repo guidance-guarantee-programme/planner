@@ -1,12 +1,13 @@
-<% content_for(:page_title, t('service.title', page_title: "Confirm booking request at #{location.name}")) %>
+<% content_for(:page_title, t('service.title', page_title: "Confirm appointment at #{location.name}")) %>
 
 <div class="page-header">
   <ol class="breadcrumb">
-    <li><a href="<%= root_path %>">Booking requests</a></li>
+    <li><a href="<%= root_path %>">Planner</a></li>
+    <li><a href="<%= root_path %>">Appointments</a></li>
     <li class="active"><%= location.name %></li>
   </ol>
 
-  <h1>Confirm booking request at <%= location.name %></h1>
+  <h1>Confirm appointment at <%= location.name %></h1>
 </div>
 
 <%= form_for @booking, as: :booking, url: agent_booking_requests_path(location_id: location_id), layout: :basic do |f| %>
@@ -15,8 +16,6 @@
   <%= f.hidden_field :phone %>
   <%= f.hidden_field :memorable_word %>
   <%= f.hidden_field :first_choice_slot %>
-  <%= f.hidden_field :second_choice_slot %>
-  <%= f.hidden_field :third_choice_slot %>
   <%= f.hidden_field :date_of_birth %>
   <%= f.hidden_field :gdpr_consent %>
   <%= f.hidden_field :defined_contribution_pot_confirmed %>
@@ -36,7 +35,7 @@
     <div class="row">
       <div class="col-md-8">
         <p class="alert alert-warning">
-          This booking request has not yet been created.<br>Please check the details below and then click <b>Confirm booking request</b>.
+          This appointment has not yet been created.<br>Please check the details below and then click <b>Confirm appointment</b>.
         </p>
 
         <table class="table lead">
@@ -46,17 +45,9 @@
               <td><%= @booking.name %></td>
             </tr>
             <tr>
-              <td class="active"><b>Desired slot(s)</b></td>
+              <td class="active"><b>Desired slot</b></td>
               <td>
                 <span class="t-first-choice-slot"><%= @booking.first_choice_slot %></span>
-                <% unless @booking.realtime? %>
-                  <% if @booking.second_choice_slot %>
-                    <br><%= @booking.second_choice_slot %>
-                  <% end %>
-                  <% if @booking.third_choice_slot %>
-                    <br><%= @booking.third_choice_slot %>
-                  <% end %>
-                <% end %>
               </td>
             </tr>
           </tbody>
@@ -125,6 +116,6 @@
       </div>
     </div>
   </div>
-  <%= f.submit 'Confirm booking request', class: 'btn btn-default t-confirmation', data: { disable_with: 'Please wait...' } %>
-  <%= f.submit 'Edit booking request', name: :editing, class: 'btn btn-danger t-edit-booking' %>
+  <%= f.submit 'Confirm appointment', class: 'btn btn-default t-confirmation', data: { disable_with: 'Please wait...' } %>
+  <%= f.submit 'Edit appointment', name: :editing, class: 'btn btn-danger t-edit-booking' %>
 <% end %>

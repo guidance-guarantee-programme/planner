@@ -7,7 +7,7 @@ RSpec.feature 'Agent places a booking request' do
       given_the_user_identifies_as_an_agent
       and_bookable_slots_exist
       when_they_attempt_to_place_a_customer_booking_at_hackney
-      and_they_choose_several_slots
+      and_they_choose_a_slot
       and_they_provide_the_customer_details
       and_they_confirm_the_booking
       then_the_booking_is_placed
@@ -44,17 +44,13 @@ RSpec.feature 'Agent places a booking request' do
   def and_bookable_slots_exist
     create(:schedule) do |schedule|
       create(:bookable_slot, :am, date: '2017-11-17', schedule: schedule)
-      create(:bookable_slot, :pm, date: '2017-11-17', schedule: schedule)
-      create(:bookable_slot, :am, date: '2017-12-01', schedule: schedule)
     end
   end
 
-  def and_they_choose_several_slots
+  def and_they_choose_a_slot
     expect(@page).to be_displayed
 
     @page.first_choice_slot.select('Friday, 17 Nov - Morning')
-    @page.second_choice_slot.select('Friday, 17 Nov - Afternoon')
-    @page.third_choice_slot.select('Friday, 01 Dec - Morning')
   end
 
   def and_they_provide_the_customer_details
@@ -105,8 +101,6 @@ RSpec.feature 'Agent places a booking request' do
     )
 
     expect(@booking.primary_slot.date).to eq('2017-11-17'.to_date)
-    expect(@booking.secondary_slot.date).to eq('2017-11-17'.to_date)
-    expect(@booking.tertiary_slot.date).to eq('2017-12-01'.to_date)
   end
 
   def and_the_agent_sees_the_confirmation
