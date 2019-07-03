@@ -17,8 +17,6 @@ class AgentBookingForm # rubocop:disable ClassLength
     postcode
     where_you_heard
     first_choice_slot
-    second_choice_slot
-    third_choice_slot
     agent
     location_id
     booking_location_id
@@ -62,8 +60,6 @@ class AgentBookingForm # rubocop:disable ClassLength
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
       build_slot(booking, priority: 1, slot: first_choice_slot)
-      build_slot(booking, priority: 2, slot: second_choice_slot)
-      build_slot(booking, priority: 3, slot: third_choice_slot)
     end
   end
 
@@ -112,10 +108,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def earliest_slot_time
-    [first_choice_slot, second_choice_slot, third_choice_slot]
-      .reject(&:blank?)
-      .map(&:in_time_zone)
-      .min
+    first_choice_slot.in_time_zone
   end
 
   def to_attributes # rubocop:disable MethodLength, AbcSize

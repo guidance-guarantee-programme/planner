@@ -5,8 +5,6 @@ module Pages
     element :errors, '.t-errors'
 
     element :first_choice_slot, '.t-first-choice-slot'
-    element :second_choice_slot, '.t-second-choice-slot'
-    element :third_choice_slot, '.t-third-choice-slot'
 
     element :name, '.t-name'
     element :phone, '.t-phone'

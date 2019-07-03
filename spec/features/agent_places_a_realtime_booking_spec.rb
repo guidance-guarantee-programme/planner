@@ -36,10 +36,6 @@ RSpec.feature 'Agent places a realtime booking' do
   def and_they_choose_a_realtime_slot
     expect(@page).to be_displayed
     @page.first_choice_slot.select('Wednesday, 07 Nov - 9:00am')
-
-    # only the primary slot is presented when realtime
-    expect(@page).to have_no_second_choice_slot
-    expect(@page).to have_no_third_choice_slot
   end
 
   def and_they_provide_the_customer_details

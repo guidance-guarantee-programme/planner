@@ -39,26 +39,6 @@
             class: 'form-control t-first-choice-slot'
           %>
         </div>
-
-        <% unless realtime? %>
-        <div class="form-group col-md-4">
-          <%= f.label :second_choice_slot %>
-          <%= f.select :second_choice_slot,
-            grouped_options_for_select(@grouped_slots, @booking.second_choice_slot),
-            { include_blank: true },
-            class: 'form-control t-second-choice-slot'
-          %>
-        </div>
-
-        <div class="form-group col-md-4">
-          <%= f.label :third_choice_slot %>
-          <%= f.select :third_choice_slot,
-            grouped_options_for_select(@grouped_slots, @booking.third_choice_slot),
-            { include_blank: true },
-            class: 'form-control t-third-choice-slot'
-          %>
-        </div>
-        <% end %>
       </div>
     </div>
 
