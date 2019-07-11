@@ -40,12 +40,6 @@ class BookingRequest < ActiveRecord::Base
 
   alias reference to_param
 
-  scope :placed_by_agents, lambda {
-    includes(:slots, :agent)
-      .where.not(agent_id: nil)
-      .order(:created_at)
-  }
-
   def self.latest(email)
     where(email: email).order(:created_at).last
   end

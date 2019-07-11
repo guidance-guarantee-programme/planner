@@ -23,8 +23,8 @@ RSpec.feature 'Agent searches for booking requests' do
   def and_booking_requests_exist
     # these will be returned
     @bookings = create_list(:hackney_booking_request, 3, agent: User.first)
-    # this will be missing as it's not an agent booking
-    create(:hackney_booking_request, name: 'Mr Missing')
+    # this will also be returned now since they're not just agent bookings
+    create(:hackney_booking_request, name: 'Mr Present')
   end
 
   def when_they_visit_the_site
@@ -35,8 +35,8 @@ RSpec.feature 'Agent searches for booking requests' do
     @page = Pages::AgentBookingSearch.new
     expect(@page).to be_displayed
 
-    expect(@page).to have_booking_requests(count: 3)
-    expect(@page).to have_no_text('Mr Missing')
+    expect(@page).to have_booking_requests(count: 4)
+    expect(@page).to have_text('Mr Present')
   end
 
   def and_search_for_a_particular_booking_reference

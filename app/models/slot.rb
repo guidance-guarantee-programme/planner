@@ -40,6 +40,10 @@ class Slot < ActiveRecord::Base
     "#{formatted_date} - #{period}"
   end
 
+  def start_at
+    Time.zone.parse("#{date} #{from.dup.insert(2, ':')}")
+  end
+
   def formatted_date
     date.to_s(:gov_uk)
   end

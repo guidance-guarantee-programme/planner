@@ -1,11 +1,11 @@
-<% content_for(:page_title, t('service.title', page_title: 'Teleperformance booking requests')) %>
+<% content_for(:page_title, t('service.title', page_title: 'Teleperformance')) %>
 <div class="page-header">
   <ol class="breadcrumb">
     <li><%= link_to 'Planner', root_path %></li>
-    <li class="active">Teleperformance booking requests</li>
+    <li class="active">Teleperformance</li>
   </ol>
 
-  <h1>Teleperformance booking requests</h1>
+  <h1>Teleperformance</h1>
 </div>
 
 <div class="t-search filters">
@@ -75,9 +75,9 @@
                 <a href="https://www.pensionwise.gov.uk/locations/<%= booking_request.location_id %>"><%= safe_location_name(booking_request.location_id) %></a>
               </td>
               <td>
-                <%= booking_request.primary_slot %>
-                <% if booking_request.secondary_slot %><br><%= booking_request.secondary_slot %><% end %>
-                <% if booking_request.tertiary_slot  %><br><%= booking_request.tertiary_slot %><% end %>
+                <%= booking_request.primary_slot.start_at.to_s(:govuk_date) %>
+                <% if booking_request.secondary_slot %><br><%= booking_request.secondary_slot.start_at.to_s(:govuk_date) %><% end %>
+                <% if booking_request.tertiary_slot %><br><%= booking_request.tertiary_slot.start_at.to_s(:govuk_date) %><% end %>
               </td>
               <td>
                 <%= booking_request.reference %>
@@ -86,7 +86,7 @@
                 <%= booking_request.status.humanize %>
               </td>
               <td>
-                <%= booking_request.agent.name %>
+                <%= booking_request.agent&.name.presence || safe_location_name(booking_request.booking_location_id) %>
               </td>
             </tr>
           <% end %>

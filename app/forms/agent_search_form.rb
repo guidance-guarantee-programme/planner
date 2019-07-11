@@ -9,13 +9,13 @@ class AgentSearchForm
   attr_accessor :page
 
   def results # rubocop:disable Metrics/AbcSize
-    scope = BookingRequest.placed_by_agents
+    scope = BookingRequest.includes(:slots, :agent)
     scope = scope.where(id: reference) if reference.present?
     scope = scope.where('booking_requests.name ILIKE ?', "%#{name}%") if name.present?
     scope = scope.where(status: status) if status.present?
     scope = scope.where(created_at: date_range) if date_range
     scope = scope.where(agent_id: agent) if agent.present?
-    scope.page(page)
+    scope.reorder(created_at: :desc).page(page)
   end
 
   private
