@@ -28,6 +28,14 @@ RSpec.describe BookingManagerConfirmationJob, '#perform' do
     end
   end
 
+  context 'with organisation members that are not booking managers' do
+    before { create(:user, organisation_content_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
+
+    it 'raises an error' do
+      expect { subject }.to raise_error(BookingManagersNotFoundError)
+    end
+  end
+
   context 'when the booking has an appointment associated' do
     let(:booking_manager) { create(:hackney_booking_manager) }
 
