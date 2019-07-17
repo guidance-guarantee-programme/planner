@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where(disabled: false) }
 
+  scope :booking_managers, lambda { |booking_location_id|
+    active.where(organisation_content_id: booking_location_id).select(&:booking_manager?)
+  }
+
   def unfulfilled_booking_requests
     booking_requests
       .includes(:appointment)
