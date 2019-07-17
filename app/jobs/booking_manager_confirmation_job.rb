@@ -2,9 +2,7 @@ class BookingManagerConfirmationJob < ActiveJob::Base
   queue_as :default
 
   def perform(booking_request)
-    booking_managers = User.active.where(
-      organisation_content_id: booking_request.booking_location_id
-    ).select(&:booking_manager?)
+    booking_managers = User.booking_managers(booking_request.booking_location_id)
 
     raise BookingManagersNotFoundError if booking_managers.blank?
 
