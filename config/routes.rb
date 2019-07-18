@@ -65,13 +65,15 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: { format: :json } do
     namespace :v1 do
-      get '/locations/:location_id/bookable_slots',
-          to: 'bookable_slots#index',
-          as: :bookable_slots
+      get '/locations/:location_id/bookable_slots', to: 'bookable_slots#index', as: :bookable_slots
 
       resources :booking_requests, only: :create do
         patch :batch_reassign, on: :collection
       end
+    end
+
+    namespace :v2 do
+      get '/locations/:location_id/bookable_slots', to: 'bookable_slots#index', as: :bookable_slots
     end
   end
 
