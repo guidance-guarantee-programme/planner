@@ -32,7 +32,6 @@
         <h2 class="h3">Desired appointment</h2>
         <% @grouped_slots ||= slots_by_month(slots) %>
         <div class="form-group col-md-4">
-          <%= f.label :first_choice_slot %>
           <%= f.select :first_choice_slot,
             grouped_options_for_select(@grouped_slots, @booking.first_choice_slot),
             { include_blank: true },
