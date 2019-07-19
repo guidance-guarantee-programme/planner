@@ -21,4 +21,12 @@ RSpec.describe AppointmentMailActivity, '.from' do
       expect(subject.message).to eq('updated')
     end
   end
+
+  context 'when the appointment has been cancelled' do
+    before { allow(appointment).to receive(:cancelled?) { true } }
+
+    it 'sets the message correctly' do
+      expect(subject.message).to eq('cancelled')
+    end
+  end
 end

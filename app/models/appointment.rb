@@ -64,6 +64,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     status.starts_with?('cancelled')
   end
 
+  def newly_cancelled?
+    cancelled? && previous_changes.include?(:status)
+  end
+
   def cancel!
     without_auditing do
       transaction do

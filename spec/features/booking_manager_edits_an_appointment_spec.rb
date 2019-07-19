@@ -75,7 +75,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
         then_they_see_the_original_status
         when_they_modify_the_status
         then_the_status_is_updated
-        and_the_customer_is_not_notified
+        and_the_customer_is_notified
       end
     end
   end
@@ -273,7 +273,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def when_they_modify_the_status
-    @page.status.select('Completed')
+    @page.status.select('Cancelled By Customer')
     @page.submit.click
   end
 
@@ -281,7 +281,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
-    expect(@page.status.value).to eq 'completed'
+    expect(@page.status.value).to eq 'cancelled_by_customer'
   end
 
   def and_provides_invalid_information

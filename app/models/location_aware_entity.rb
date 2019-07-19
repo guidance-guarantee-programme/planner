@@ -6,6 +6,8 @@ class LocationAwareEntity < SimpleDelegator
     super(entity)
   end
 
+  delegate :online_booking_reply_to, to: :booking_location
+
   def online_booking_twilio_number
     actual_location&.online_booking_twilio_number.to_s.sub(/^\+44/, '0')
   end

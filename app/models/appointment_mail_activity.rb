@@ -1,8 +1,13 @@
 class AppointmentMailActivity < Activity
   def self.from(appointment)
-    create!(
-      booking_request: appointment.booking_request,
-      message: appointment.updated? ? 'updated' : 'booked'
-    )
+    message = if appointment.cancelled?
+                'cancelled'
+              elsif appointment.updated?
+                'updated'
+              else
+                'booked'
+              end
+
+    create!(booking_request: appointment.booking_request, message: message)
   end
 end

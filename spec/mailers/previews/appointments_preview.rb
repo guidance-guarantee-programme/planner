@@ -1,4 +1,8 @@
 class AppointmentsPreview < ActionMailer::Preview
+  def cancellation
+    Appointments.cancellation(Appointment.first || FactoryBot.create(:appointment))
+  end
+
   def customer
     Appointments.customer(
       FactoryBot.create(:appointment),

@@ -1,4 +1,16 @@
 class Appointments < ApplicationMailer
+  def cancellation(appointment)
+    @appointment = decorate(appointment)
+
+    mailgun_headers :appointment_cancellation
+
+    mail(
+      to: @appointment.email,
+      subject: 'Your Pension Wise Appointment Cancellation',
+      reply_to: @appointment.online_booking_reply_to
+    )
+  end
+
   def booking_manager_cancellation(booking_manager, appointment)
     @appointment = decorate(appointment)
 

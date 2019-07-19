@@ -60,10 +60,12 @@ class AppointmentsController < ApplicationController
   end
 
   def notify_customer(appointment)
-    return unless appointment.notify?
-
-    AppointmentChangeNotificationJob.perform_later(appointment)
-    PrintedConfirmationLetterJob.perform_later(appointment)
+    if appointment.notify?
+      AppointmentChangeNotificationJob.perform_later(appointment)
+      PrintedConfirmationLetterJob.perform_later(appointment)
+    elsif appointment.newly_cancelled?
+      AppointmentCancellationNotificationJob.perform_later(appointment)
+    end
   end
 
   def location_aware_appointment
