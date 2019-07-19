@@ -1,0 +1,53 @@
+<h2>We’ve cancelled your appointment</h2>
+
+<%= p do %>
+  Dear <%= @appointment.name %>,
+<% end %>
+
+<%= p do %>
+  We have cancelled the following appointment as requested:
+<% end %>
+
+<%= p do %>
+  Date:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Time:
+  <br>
+  <strong class="emphasize">
+    <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Appointment location:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.location_name %><br>
+    <% @appointment.address_lines.each do |line| %>
+      <%= line %><br>
+    <% end %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Reference number:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.reference %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  Email us if you didn’t want to cancel your appointment.
+<% end %>
+
+<%= p do %>
+  Full details of our privacy policy, including information on your rights in
+  relation to the data we hold can be found at pensionwise.gov.uk/privacy
+<% end %>

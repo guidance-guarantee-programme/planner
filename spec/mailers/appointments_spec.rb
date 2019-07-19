@@ -6,6 +6,31 @@ RSpec.describe Appointments do
   end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
+  describe 'Cancellation' do
+    before do
+      allow(appointment).to receive(:newly_cancelled?).and_return(true)
+    end
+
+    subject(:mail) { described_class.cancellation(appointment) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Your Pension Wise Appointment Cancellation')
+      expect(mail.to).to eq([appointment.email])
+      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+    end
+
+    describe 'rendering the body' do
+      let(:body) { subject.body.encoded }
+
+      it 'includes the appointment particulars' do
+        expect(body).to include(appointment.reference)
+        expect(body).to include('cancelled')
+      end
+    end
+  end
+
   describe 'SMS cancellation' do
     let(:booking_manager) { create(:hackney_booking_manager) }
 
