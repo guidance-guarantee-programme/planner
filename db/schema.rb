@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_08_28_142658) do
     t.string "county", default: "", null: false
     t.string "postcode", default: "", null: false
     t.string "gdpr_consent", default: "", null: false
+    t.string "pension_provider", default: "", null: false
   end
 
   create_table "organisation_lookups", force: :cascade do |t|
