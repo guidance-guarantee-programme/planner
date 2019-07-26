@@ -19,6 +19,10 @@ class AgentBookingDecorator < SimpleDelegator
     super ? 'Yes' : 'No'
   end
 
+  def pension_provider
+    PensionProvider[super]
+  end
+
   alias object __getobj__
 
   private

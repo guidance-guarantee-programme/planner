@@ -22,6 +22,7 @@ class AgentBookingForm # rubocop:disable ClassLength
     booking_location_id
     additional_info
     gdpr_consent
+    pension_provider
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -132,7 +133,8 @@ class AgentBookingForm # rubocop:disable ClassLength
       location_id: location_id,
       booking_location_id: booking_location_id,
       additional_info: additional_info,
-      gdpr_consent: gdpr_consent
+      gdpr_consent: gdpr_consent,
+      pension_provider: pension_provider.to_s
     }
   end
 
