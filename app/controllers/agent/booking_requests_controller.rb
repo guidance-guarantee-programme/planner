@@ -4,7 +4,7 @@ module Agent
 
     def index
       @search = AgentSearchForm.new(search_params)
-      @booking_requests = @search.results
+      @appointments = @search.results
     end
 
     def new

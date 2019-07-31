@@ -3,8 +3,9 @@ module Pages
     set_url '/agents/booking_requests'
 
     element :reference, '.t-reference'
+    element :customer, '.t-customer'
     element :submit, '.t-submit'
 
-    elements :booking_requests, '.t-booking-request'
+    elements :appointments, '.t-appointment'
   end
 end

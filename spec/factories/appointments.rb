@@ -16,5 +16,9 @@ FactoryBot.define do
       email { '' }
       association :booking_request, factory: :postal_booking_request
     end
+
+    trait :with_agent do
+      association :booking_request, factory: :agent_booking_request
+    end
   end
 end
