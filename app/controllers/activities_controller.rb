@@ -35,6 +35,10 @@ class ActivitiesController < ApplicationController
   end
 
   def booking_request
-    current_user.booking_requests.find(params[:booking_request_id])
+    if current_user.agent? || current_user.agent_manager?
+      BookingRequest.find(params[:booking_request_id])
+    else
+      current_user.booking_requests.find(params[:booking_request_id])
+    end
   end
 end
