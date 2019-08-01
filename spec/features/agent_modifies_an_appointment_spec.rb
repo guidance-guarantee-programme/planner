@@ -13,7 +13,8 @@ RSpec.feature 'Agent modifies an appointment' do
     given_the_user_identifies_as_an_agent do
       and_an_appointment_exists
       when_they_edit_the_appointment
-      then_the_appointment_is_modified
+      then_they_see_the_location
+      and_the_appointment_is_modified
       and_the_customer_is_notified
     end
   end
@@ -51,7 +52,11 @@ RSpec.feature 'Agent modifies an appointment' do
     @page.submit.click
   end
 
-  def then_the_appointment_is_modified
+  def then_they_see_the_location
+    expect(@page.location).to have_text('Hackney')
+  end
+
+  def and_the_appointment_is_modified
     expect(@page).to have_success
 
     @appointment.reload

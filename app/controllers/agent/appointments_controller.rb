@@ -1,15 +1,14 @@
 module Agent
   class AppointmentsController < Agent::ApplicationController
+    before_action :load_appointment
+
     def edit
-      @appointment = Appointment.find(params[:id])
-      @activities  = @appointment.activities
+      @activities = @appointment.activities
     end
 
     def update
-      @appointment = Appointment.find(params[:id])
-
       if @appointment.update(edit_appointment_params)
-        notify_customer(@appointment)
+        notify_customer(@appointment.entity)
 
         redirect_to edit_agent_appointment_path(@appointment),
                     success: 'The appointment was updated.'
@@ -21,6 +20,15 @@ module Agent
     end
 
     private
+
+    def load_appointment
+      @appointment = Appointment.find(params[:id])
+
+      @appointment = LocationAwareEntity.new(
+        entity: @appointment,
+        booking_location: BookingLocations.find(@appointment.location_id)
+      )
+    end
 
     def edit_appointment_params # rubocop:disable Metrics/MethodLength
       params
