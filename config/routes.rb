@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   namespace :agent, path: '/agents' do
     resources :booking_requests, only: :index, as: :search
+    resources :appointments, only: %i(edit update)
   end
 
   namespace :admin, path: '/admin' do

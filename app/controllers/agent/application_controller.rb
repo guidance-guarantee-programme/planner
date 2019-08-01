@@ -2,9 +2,11 @@ module Agent
   class ApplicationController < ActionController::Base
     include GDS::SSO::ControllerMethods
     include LogrageFilterer
+    include Pollable
 
     layout 'application'
     protect_from_forgery with: :exception
+    add_flash_types :success, :warning
 
     before_action do
       authorise_user!(any_of: [User::AGENT_PERMISSION, User::AGENT_MANAGER_PERMISSION])

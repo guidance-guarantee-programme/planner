@@ -35,5 +35,7 @@ module Planner
     config.action_mailer.default_url_options = { host: ENV['APPLICATION_HOST'] }
 
     config.mount_javascript_test_routes = false
+
+    config.action_view.prefix_partial_path_with_controller_namespace = false
   end
 end

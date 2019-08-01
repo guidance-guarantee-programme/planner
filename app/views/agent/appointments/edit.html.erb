@@ -1,0 +1,113 @@
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Planner</a></li>
+    <li class="active"><%= @appointment.name %></li>
+  </ol>
+
+  <h1>Manage appointment for <%= @appointment.name %> <small><%= @appointment.reference %></small></h1>
+</div>
+
+<%= render partial: 'activities/activity_feed', locals: {
+  activities: @activities,
+  booking_request: @appointment.booking_request
+} %>
+
+<div class="row">
+  <div class="col-md-4">
+    <h3 class="h4">Created at</h3>
+    <p class="lead">
+      <strong><%= @appointment.created_at.to_s(:govuk_date) %></strong>
+    </p>
+
+    <hr>
+    <h3 class="h4">Location</h3>
+    <p class="lead">
+      <strong>
+        <a href="https://www.pensionwise.gov.uk/locations/<%= @appointment.location_id %>" class="t-location-name">
+          <%= guard_missing_location(@appointment, :location_name) %>
+        </a>
+      </strong>
+    </p>
+
+    <% if @appointment.email? %>
+      <hr>
+      <%= button_to(
+            'Resend email confirmation',
+            booking_request_confirmation_path(@appointment.booking_request),
+            class: 'btn btn-default btn-block t-resend-confirmation',
+            data: { confirm: 'Are you sure?' }
+        )
+      %>
+    <% end %>
+  </div>
+
+  <%= form_for @appointment, url: agent_appointment_path(@appointment) do |f| %>
+    <div class="col-md-8 l-appointment-details">
+      <div class="well">
+        <% if @appointment.errors.any? %>
+          <div class="alert alert-danger t-errors" role="alert">
+            <h3 class="alert__heading h4">There's a problem</h3>
+            <ul>
+              <% @appointment.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="h3">Customer details</h2>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: 'form-control t-name' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.text_field :email, class: 'form-control t-email' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, class: 'form-control t-phone' %>
+            </div>
+            <div class="form-group">
+              <%= f.label :memorable_word %>
+              <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
+            </div>
+            <%= render partial: 'shared/date_of_birth_form_field', locals: { form: f } %>
+          </div>
+          <div class="col-md-6">
+            <h2 class="h3">Appointment details</h2>
+            <div class="form-group">
+              <%= f.label :additional_info %>
+              <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500 %>
+            </div>
+            <div class="form-group">
+              <p>Defined contribution pot confirmed?</p>
+              <%= f.label :defined_contribution_pot_confirmed, value: true, class: 'radio-inline' do %>
+                  <%= f.radio_button :defined_contribution_pot_confirmed, true, class: 't-defined-contribution-pot-confirmed-yes' %>
+                  Yes
+              <% end %>
+
+              <%= f.label :defined_contribution_pot_confirmed, value: false, class: 'radio-inline' do %>
+                <%= f.radio_button :defined_contribution_pot_confirmed, false, class: 't-defined-contribution-pot-confirmed-dont-know' %>
+                Don’t know
+              <% end %>
+            </div>
+            <div class="form-group">
+              <%= f.label :accessibility_requirements, class: 'checkbox-inline' do %>
+                <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <%= f.button class: 'btn btn-primary btn-block t-submit' do %>
+              Update appointment details for <%= @appointment.name %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
