@@ -1,8 +1,9 @@
 module Agent
   class ApplicationController < ActionController::Base
-    include GDS::SSO::ControllerMethods
-    include LogrageFilterer
     include Pollable
+    include LogrageFilterer
+    include BookingLocationable
+    include GDS::SSO::ControllerMethods
 
     layout 'application'
     protect_from_forgery with: :exception
@@ -29,9 +30,7 @@ module Agent
     end
 
     def booking_location
-      @booking_location ||= BookingLocationDecorator.new(
-        BookingLocations.find(location_id)
-      )
+      super(location_id: location_id)
     end
   end
 end

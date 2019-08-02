@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pollable
+  include BookingLocationable
 
   protect_from_forgery with: :exception
 
@@ -11,11 +12,4 @@ class ApplicationController < ActionController::Base
   before_action do
     authorise_user!(User::BOOKING_MANAGER_PERMISSION)
   end
-
-  def booking_location
-    @booking_location ||= BookingLocationDecorator.new(
-      BookingLocations.find(current_user.booking_location_id)
-    )
-  end
-  helper_method :booking_location
 end
