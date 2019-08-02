@@ -48,6 +48,7 @@ module Agent
     def notify_customer(appointment)
       return unless appointment.notify?
 
+      BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
       AppointmentChangeNotificationJob.perform_later(appointment)
       PrintedConfirmationLetterJob.perform_later(appointment)
     end

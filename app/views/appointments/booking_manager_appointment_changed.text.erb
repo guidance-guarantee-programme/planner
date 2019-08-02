@@ -1,0 +1,10 @@
+The appointment was changed by an agent
+
+Reference number:
+<%= @appointment.reference %>
+
+The following details were changed:
+
+<% @appointment.audits.last.audited_changes.keys.map(&:humanize).each do |key| %>
+* <%= key %>
+<% end %>

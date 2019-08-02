@@ -1,0 +1,19 @@
+<h2>The appointment was changed by an agent</h2>
+
+<%= p do %>
+  Reference number:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.reference %>
+  </strong>
+<% end %>
+
+<%= p do %>
+  The following details were changed:
+<% end %>
+
+<ul>
+  <% @appointment.audits.last.audited_changes.keys.map(&:humanize).each do |key| %>
+    <li><%= key %></li>
+  <% end %>
+</ul>

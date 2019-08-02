@@ -16,6 +16,7 @@ RSpec.feature 'Agent modifies an appointment' do
       then_they_see_the_location
       and_the_appointment_is_modified
       and_the_customer_is_notified
+      and_the_booking_managers_are_notified
     end
   end
 
@@ -66,5 +67,9 @@ RSpec.feature 'Agent modifies an appointment' do
 
   def and_the_customer_is_notified
     assert_enqueued_jobs 1, only: AppointmentChangeNotificationJob
+  end
+
+  def and_the_booking_managers_are_notified
+    assert_enqueued_jobs 1, only: BookingManagerAppointmentChangeNotificationJob
   end
 end
