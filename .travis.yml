@@ -4,6 +4,7 @@ addons:
   chrome: stable
 services:
 - redis-server
+- postgresql
 cache:
   bundler: true
   directories:
