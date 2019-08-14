@@ -65,7 +65,7 @@ class BookableSlot < ActiveRecord::Base
     start_at...end_at
   end
 
-  def validate_appointment_overlapping
+  def validate_appointment_overlapping # rubocop:disable AbcSize
     return unless guider_id? && date?
     return unless overlapping = Appointment.overlapping(guider_id: guider_id, proceeded_at: start_at).first
 
@@ -74,9 +74,11 @@ class BookableSlot < ActiveRecord::Base
     else
       errors.add(:base, 'overlaps an existing appointment in a different schedule')
     end
+
+    logger.info("Appointment overlaps: #{overlapping.location_id}, #{schedule.location_id}, #{start_at}")
   end
 
-  def validate_guider_overlapping
+  def validate_guider_overlapping # rubocop:disable AbcSize
     return unless guider_id?
     return unless overlapping = self.class.where(date: date, guider_id: guider_id).detect(&method(:overlaps?))
 
@@ -85,6 +87,8 @@ class BookableSlot < ActiveRecord::Base
     else
       errors.add(:base, 'overlaps with a slot in a different schedule')
     end
+
+    logger.info("Guider overlaps: #{overlapping.schedule_id}, #{schedule_id}, #{start_at}")
   end
 
   def validate_slot_allocation # rubocop:disable AbcSize
