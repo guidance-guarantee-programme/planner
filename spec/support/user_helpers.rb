@@ -8,6 +8,10 @@ module UserHelpers
     ENV['GDS_SSO_MOCK_INVALID'] = sso_env
   end
 
+  def given_the_user_identifies_as_an_agent_manager(&block)
+    given_the_user_identifies_as(:agent_manager, &block)
+  end
+
   def given_the_user_identifies_as_an_agent(&block)
     given_the_user_identifies_as(:agent, &block)
   end

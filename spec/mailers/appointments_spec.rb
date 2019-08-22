@@ -6,6 +6,32 @@ RSpec.describe Appointments do
   end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
+  describe 'Appointment changed' do
+    let(:appointment) { create(:appointment, proceeded_at: 3.weeks.from_now) }
+    let(:booking_manager) { create(:hackney_booking_manager) }
+
+    before { appointment.update(name: 'Bob Jones', email: 'bob@bob.com') }
+
+    subject(:mail) { described_class.booking_manager_appointment_changed(appointment, booking_manager) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Pension Wise Appointment Changed')
+      expect(mail.to).to eq([booking_manager.email])
+      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+    end
+
+    describe 'rendering the body' do
+      let(:body) { subject.body.encoded }
+
+      it 'includes the appointment particulars' do
+        expect(body).to include(appointment.reference)
+        expect(body).to include('Name', 'Email')
+      end
+    end
+  end
+
   describe 'Cancellation' do
     before do
       allow(appointment).to receive(:newly_cancelled?).and_return(true)
