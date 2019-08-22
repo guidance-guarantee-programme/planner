@@ -1,8 +1,16 @@
 require 'rails_helper'
 
-RSpec.feature 'Agent modifies an appointment' do
-  scenario 'Causing an error' do
+RSpec.feature 'Agent manager modifies an appointment' do
+  scenario 'Attempting to access as an agent' do
     given_the_user_identifies_as_an_agent do
+      and_an_appointment_exists
+      when_they_attempt_to_edit_an_appointment
+      then_they_are_not_granted_access
+    end
+  end
+
+  scenario 'Causing an error' do
+    given_the_user_identifies_as_an_agent_manager do
       and_an_appointment_exists
       when_they_blank_the_name_field
       then_they_see_an_error_message
@@ -10,7 +18,7 @@ RSpec.feature 'Agent modifies an appointment' do
   end
 
   scenario 'Successfully modifying an appointment' do
-    given_the_user_identifies_as_an_agent do
+    given_the_user_identifies_as_an_agent_manager do
       and_an_appointment_exists
       when_they_edit_the_appointment
       then_they_see_the_location
@@ -71,5 +79,14 @@ RSpec.feature 'Agent modifies an appointment' do
 
   def and_the_booking_managers_are_notified
     assert_enqueued_jobs 1, only: BookingManagerAppointmentChangeNotificationJob
+  end
+
+  def when_they_attempt_to_edit_an_appointment
+    @page = Pages::AgentEditAppointment.new
+    @page.load(id: @appointment.id)
+  end
+
+  def then_they_are_not_granted_access
+    expect(page.status_code).to eq(403)
   end
 end

@@ -1,5 +1,9 @@
 module Agent
   class AppointmentsController < Agent::ApplicationController
+    before_action do
+      authorise_user!(User::AGENT_MANAGER_PERMISSION)
+    end
+
     before_action :load_appointment
 
     def edit

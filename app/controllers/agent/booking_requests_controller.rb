@@ -2,6 +2,10 @@ module Agent
   class BookingRequestsController < Agent::ApplicationController
     include RealtimeProcessable
 
+    before_action do
+      authorise_user!(any_of: [User::AGENT_MANAGER_PERMISSION, User::AGENT_PERMISSION])
+    end
+
     def index
       @search = AgentSearchForm.new(search_params)
       @appointments = @search.results

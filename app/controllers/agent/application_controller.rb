@@ -9,10 +9,6 @@ module Agent
     protect_from_forgery with: :exception
     add_flash_types :success, :warning
 
-    before_action do
-      authorise_user!(any_of: [User::AGENT_PERMISSION, User::AGENT_MANAGER_PERMISSION])
-    end
-
     protected
 
     def location_id
