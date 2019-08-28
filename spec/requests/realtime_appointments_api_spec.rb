@@ -14,7 +14,7 @@ RSpec.describe 'GET /locations/{location_id}/realtime_appointments' do
   end
 
   def given_a_schedule_with_realtime_slots_exists
-    @slot = create(:bookable_slot, :realtime, date: '2018-11-07')
+    @slot = create(:bookable_slot, start_at: '2018-11-07 09:00')
   end
 
   def and_an_overlapping_realtime_appointment_exists

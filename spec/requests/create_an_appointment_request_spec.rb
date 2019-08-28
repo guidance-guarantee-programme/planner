@@ -49,7 +49,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
 
   def and_a_schedule_with_realtime_slots_exists
     @schedule = create(:schedule)
-    @slot     = create(:bookable_slot, :realtime, date: '2018-11-08', schedule: @schedule)
+    @slot     = create(:bookable_slot, start_at: '2018-11-08 09:00', schedule: @schedule)
   end
 
   def when_a_valid_booking_request_is_made

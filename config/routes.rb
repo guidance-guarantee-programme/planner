@@ -27,17 +27,9 @@ Rails.application.routes.draw do
     resource :confirmation, only: :create
   end
 
-  resources :schedules, only: %i(index new create) do
-    resources :bookable_slots, only: [] do
-      collection do
-        get 'edit'
-        put 'update'
-      end
-    end
-  end
+  resources :schedules, only: :index
 
   scope '/locations/:location_id' do
-    resources :bookable_slots, only: :index
     resources :realtime_bookable_slots, only: %w(index create destroy)
     resources :realtime_bookable_slot_copies, only: %w(new create) do
       post 'preview', on: :collection

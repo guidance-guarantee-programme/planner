@@ -70,7 +70,7 @@ RSpec.describe BookingRequest do
 
       context 'when a realtime slot is chosen' do
         before do
-          @available_slot  = create(:bookable_slot, :realtime, date: 4.days.from_now)
+          @available_slot  = create(:bookable_slot, start_at: '2018-11-09 09:00')
           @booking_request = build(:hackney_booking_request, number_of_slots: 0)
           @booking_request.slots.build(date: '2018-11-09', from: '0900', to: '1000', priority: 1)
         end

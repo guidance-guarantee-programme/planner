@@ -1,4 +1,4 @@
-class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
+class Schedule < ActiveRecord::Base
   SLOT_ATTRIBUTES = %i(
     monday_am
     monday_pm
@@ -12,7 +12,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
     friday_pm
   ).freeze
 
-  has_many :bookable_slots, -> { order(:date, :start) }
+  has_many :bookable_slots, -> { order(:start_at) }
 
   has_associated_audits
   audited on: :create
@@ -24,40 +24,21 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   def build_realtime_bookable_slot(start_at:, guider_id:)
     bookable_slots.build(
       guider_id: guider_id,
-      date: start_at.to_date,
-      start: start_at.strftime('%H%M'),
-      end: start_at.advance(hours: 1).strftime('%H%M')
+      start_at: start_at,
+      end_at: start_at.advance(hours: 1)
     )
   end
 
   def create_realtime_bookable_slot(start_at:, guider_id:)
     bookable_slots.create(
       guider_id: guider_id,
-      date: start_at.to_date,
-      start: start_at.strftime('%H%M'),
-      end: start_at.advance(hours: 1).strftime('%H%M')
+      start_at: start_at,
+      end_at: start_at.advance(hours: 1)
     )
-  end
-
-  def create_bookable_slot(date:, period:)
-    bookable_slots.create!(
-      date: date,
-      start: period.start,
-      end: period.end
-    )
-  end
-
-  def generate_bookable_slots!
-    BookableSlotGenerator.new(self).call
-  end
-
-  def create_bookable_slots(date:, am:, pm:)
-    create_bookable_slot(date: date, period: BookableSlot::AM) if am
-    create_bookable_slot(date: date, period: BookableSlot::PM) if pm
   end
 
   def bookable_slots_in_window(starting: grace_period.start, ending: grace_period.end)
-    bookable_slots.windowed(starting..ending)
+    bookable_slots.windowed(starting.beginning_of_day..ending.end_of_day)
   end
 
   def without_appointments(scoped = bookable_slots_in_window)
@@ -66,7 +47,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
         LEFT JOIN appointments ON
           appointments.guider_id = bookable_slots.guider_id
           AND (appointments.proceeded_at, interval '1 hour')
-          OVERLAPS (TO_TIMESTAMP(CONCAT(bookable_slots.date, ' ', bookable_slots.start), 'YYYY-MM-DD HH24MI'), interval '1 hour')
+          OVERLAPS (bookable_slots.start_at, interval '1 hour')
           AND NOT appointments.status IN (5, 6, 7)
       SQL
     ).where('appointments.proceeded_at IS NULL')
@@ -75,10 +56,10 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   def grouped_slots
     without_appointments
       .realtime
-      .select("date, TO_TIMESTAMP(CONCAT(date, ' ', start), 'YYYY-MM-DD HH24MI') as starting")
-      .reorder(:date, :starting)
+      .select('start_at::date as date, start_at')
+      .reorder(Arel.sql('start_at::date'), :start_at)
       .group_by(&:date)
-      .transform_values { |value| value.map(&:starting).uniq }
+      .transform_values { |value| value.map(&:start_at).uniq }
   end
 
   def unavailable?
@@ -96,27 +77,19 @@ class Schedule < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def first_available_slot_on
-    without_appointments.first&.date
+    without_appointments.first&.start_at
   end
 
   def self.allocates?(booking_request)
     schedule = current(booking_request.location_id)
 
-    schedule.without_appointments.find_by(
-      date: booking_request.primary_slot.date,
-      start: booking_request.primary_slot.from,
-      end: booking_request.primary_slot.to
-    )
+    schedule.without_appointments.find_by(start_at: booking_request.primary_slot.start_at)
   end
 
   def self.allocate_slot(appointment, slot_date_time)
     schedule = current(appointment.location_id)
 
-    schedule.without_appointments.find_by(
-      date: slot_date_time.to_date,
-      start: slot_date_time.strftime('%H%M'),
-      end: slot_date_time.advance(hours: 1).strftime('%H%M')
-    )
+    schedule.without_appointments.find_by(start_at: slot_date_time)
   end
 
   def self.current(location_id)
