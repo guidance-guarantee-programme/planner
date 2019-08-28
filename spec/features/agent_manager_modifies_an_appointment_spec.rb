@@ -28,6 +28,28 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
+  scenario 'Resending an email confirmation' do
+    given_the_user_identifies_as_an_agent_manager do
+      and_an_appointment_exists
+      when_they_view_the_appointment
+      and_resend_an_email_confirmation
+      then_the_email_confirmation_is_sent
+    end
+  end
+
+  def when_they_view_the_appointment
+    @page = Pages::AgentEditAppointment.new
+    @page.load(id: @appointment.id)
+  end
+
+  def and_resend_an_email_confirmation
+    @page.resend_confirmation.click
+  end
+
+  def then_the_email_confirmation_is_sent
+    expect(@page.success).to have_text('re-sent successfully')
+  end
+
   def when_they_blank_the_name_field
     @page = Pages::AgentEditAppointment.new
     @page.load(id: @appointment.id)

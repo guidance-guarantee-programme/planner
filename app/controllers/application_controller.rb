@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   include LogrageFilterer
 
-  before_action do
+  before_action :authorise!
+
+  protected
+
+  def authorise!
     authorise_user!(User::BOOKING_MANAGER_PERMISSION)
   end
 end
