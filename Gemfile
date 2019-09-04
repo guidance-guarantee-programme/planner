@@ -28,7 +28,6 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'govuk_admin_template'
   gem 'kaminari'
   gem 'momentjs-rails'
-  gem 'newrelic_rpm'
   gem 'notifications-ruby-client'
   gem 'oj'
   gem 'pg'
