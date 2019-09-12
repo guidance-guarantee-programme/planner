@@ -92,7 +92,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def and_there_is_a_realtime_appointment
-    @slot    = create(:bookable_slot, :realtime, date: '2018-11-15')
+    @slot    = create(:bookable_slot, start_at: '2018-11-15 09:00')
     @booking = build(:hackney_booking_request, number_of_slots: 0)
     @booking.slots.build(date: '2018-11-15', from: '0900', to: '1000', priority: 1)
 
@@ -100,7 +100,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def and_available_realtime_slots_exist
-    @slot = create(:bookable_slot, :realtime, date: '2018-11-16', guider_id: 2, schedule: @slot.schedule)
+    @slot = create(:bookable_slot, start_at: '2018-11-16 09:00', guider_id: 2, schedule: @slot.schedule)
   end
 
   def and_reschedules_the_appointment

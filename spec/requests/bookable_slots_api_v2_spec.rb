@@ -17,32 +17,30 @@ RSpec.describe 'GET /api/v2/locations/{location_id}/bookable_slots' do
     and_an_empty_array_is_serialized_as_json
   end
 
-  def given_a_location_with_a_schedule_exists # rubocop:disable AbcSize
+  def given_a_location_with_a_schedule_exists
     @schedule = create(:schedule).tap do |schedule|
       # the following realtime slots are deduplicated
-      create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now, guider_id: 2)
-      create(:bookable_slot, :realtime, schedule: schedule, date: 10.days.from_now)
+      create(:bookable_slot, schedule: schedule, start_at: '2017-06-05 09:00', guider_id: 2)
+      create(:bookable_slot, schedule: schedule, start_at: '2017-06-05 09:00')
       # excluded as it's for a pending appointment
       create_appointment_with_booking_slot(
         schedule: schedule,
-        date: 11.days.from_now,
+        start_at: '2017-06-06 09:00',
         guider_id: 3
       )
       # included as the underlying appointment is cancelled
       create_appointment_with_booking_slot(
         schedule: schedule,
-        date: 11.days.from_now,
+        start_at: '2017-06-06 09:00',
         guider_id: 4,
         status: :cancelled_by_customer
       )
       # excluded since an appointment overlaps the start/end
       @overlapping = create(
         :bookable_slot,
-        :realtime,
         schedule: schedule,
-        date: '2017-06-06',
-        start: '1330',
-        end: '1430'
+        start_at: '2017-06-06 13:30',
+        end_at: '2017-06-06 14:30'
       )
       create(:appointment, proceeded_at: @overlapping.start_at.advance(minutes: 30))
     end
@@ -77,10 +75,10 @@ RSpec.describe 'GET /api/v2/locations/{location_id}/bookable_slots' do
     expect(JSON.parse(response.body)).to eq({})
   end
 
-  def create_appointment_with_booking_slot(schedule:, date:, guider_id:, status: :pending)
-    slot    = create(:bookable_slot, :realtime, schedule: schedule, date: date, guider_id: guider_id)
+  def create_appointment_with_booking_slot(schedule:, start_at:, guider_id:, status: :pending)
+    slot    = create(:bookable_slot, schedule: schedule, start_at: start_at, guider_id: guider_id)
     booking = build(:hackney_booking_request, number_of_slots: 0)
-    booking.slots.build(date: date, from: '0900', to: '1000', priority: 1)
+    booking.slots.build(date: start_at.to_date, from: '0900', to: '1000', priority: 1)
 
     create(
       :appointment,

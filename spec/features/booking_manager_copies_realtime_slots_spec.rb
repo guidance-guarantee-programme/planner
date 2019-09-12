@@ -66,10 +66,10 @@ RSpec.feature 'Booking manager copies realtime slots for a guider', js: true do
   end
 
   def and_a_schedule_with_slots_exists
-    @slot = create(:bookable_slot, :realtime)
+    @slot = create(:bookable_slot)
 
     # this won't be overwritten by the copied slot as they overlap
-    create(:bookable_slot, :realtime, schedule: @slot.schedule, date: '2019-03-04', start: '0915')
+    create(:bookable_slot, schedule: @slot.schedule, start_at: '2019-03-04 09:15')
   end
 
   def when_they_view_realtime_availability

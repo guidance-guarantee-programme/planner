@@ -34,12 +34,12 @@ RSpec.feature 'Scheduled reporting summary' do
 
     # Limited availability
     create(:schedule, location_id: '377e27e1-8f38-437a-baa9-4e90ebd980e8') do |schedule|
-      create(:bookable_slot, :am, schedule: schedule, date: 1.week.from_now)
+      create(:bookable_slot, schedule: schedule, start_at: '2018-04-27 10:00')
     end
 
     # Only available after the 4 week window
     create(:schedule, location_id: '47b30a8f-d5f9-448e-a7ac-d5397a853e6a') do |schedule|
-      create(:bookable_slot, :am, schedule: schedule, date: 5.weeks.from_now)
+      create(:bookable_slot, schedule: schedule, start_at: '2018-05-25 10:00')
     end
   end
 

@@ -33,7 +33,7 @@ class Slot < ActiveRecord::Base
   end
 
   def morning?
-    BookableSlot::AM.am?(from)
+    from == '0900'
   end
 
   def to_s

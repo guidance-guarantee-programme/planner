@@ -18,7 +18,9 @@ class RealtimeBookableSlotCopyForm
   end
 
   def time_slots
-    schedule.bookable_slots.where(date: date, guider_id: guider_id)
+    schedule.bookable_slots.where(
+      start_at: date.to_date.beginning_of_day..date.to_date.end_of_day, guider_id: guider_id
+    )
   end
 
   def call(preview:) # rubocop:disable AbcSize, MethodLength

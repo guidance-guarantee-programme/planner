@@ -23,9 +23,9 @@ RSpec.feature 'Agent places a realtime booking' do
   end
 
   def and_available_realtime_slots_exist_within_the_booking_window
-    create(:bookable_slot, :realtime, date: '2018-11-07')
+    create(:bookable_slot, start_at: '2018-11-07 09:00', end_at: '2018-11-07 10:00')
     # a duplicate that gets deduplicated
-    create(:bookable_slot, :realtime, date: '2018-11-07', guider_id: 2)
+    create(:bookable_slot, start_at: '2018-11-07 09:00', end_at: '2018-11-07 10:00', guider_id: 2)
   end
 
   def when_they_attempt_to_place_a_booking_at_hackney

@@ -13,12 +13,12 @@ class BookableSlotSearch
       <<-SQL
       LEFT JOIN appointments ON
         appointments.guider_id = bookable_slots.guider_id
-        AND appointments.proceeded_at = TO_TIMESTAMP(CONCAT(bookable_slots.date, ' ', bookable_slots.start), 'YYYY-MM-DD HH24MI')
+        AND appointments.proceeded_at = bookable_slots.start_at
         AND NOT appointments.status IN (5, 6, 7)
       SQL
     )
 
-    scope = scope.where(date: date_range)
+    scope = scope.where(start_at: date_range)
     scope = scope.where(guider_id: guider) if guider.present?
     scope = scope.page(page).per(per_page)
     scope.select('bookable_slots.*, count(appointments.id) as appointment_count').group('bookable_slots.id')
@@ -28,9 +28,10 @@ class BookableSlotSearch
 
   def date_range
     if date.blank?
-      Date.current..2.years.from_now.to_date
+      Date.current.beginning_of_day..2.years.from_now
     else
-      Range.new(*date.split(' - ').map(&:to_date))
+      starts, ends = date.split(' - ').map(&:to_date)
+      starts.beginning_of_day..ends.end_of_day
     end
   end
 end

@@ -15,15 +15,15 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
 
   def and_a_schedule_exists_with_realtime_slots
     # this will be available
-    @slot = create(:bookable_slot, :realtime)
+    @slot = create(:bookable_slot)
 
     # this will not be displayed by default since it's before today
-    @hidden = create(:bookable_slot, :realtime, date: 3.days.ago.to_date, schedule: @slot.schedule)
+    @hidden = create(:bookable_slot, start_at: '2019-05-14 13:00', schedule: @slot.schedule)
 
     # this will be unavailable due to associated booking
     create_appointment_with_booking_slot(
       schedule: @slot.schedule,
-      date: 5.days.from_now,
+      start_at: '2019-05-21 10:00',
       guider_id: 1
     )
   end
@@ -56,10 +56,10 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     expect(@page).to have_slots(count: 1)
   end
 
-  def create_appointment_with_booking_slot(schedule:, date:, guider_id:, status: :pending)
-    slot    = create(:bookable_slot, :realtime, schedule: schedule, date: date, guider_id: guider_id)
+  def create_appointment_with_booking_slot(schedule:, start_at:, guider_id:, status: :pending)
+    slot    = create(:bookable_slot, schedule: schedule, start_at: start_at, guider_id: guider_id)
     booking = build(:hackney_booking_request, number_of_slots: 0)
-    booking.slots.build(date: date, from: '0900', to: '1000', priority: 1)
+    booking.slots.build(date: start_at.to_date, from: '1000', to: '1100', priority: 1)
 
     create(
       :appointment,

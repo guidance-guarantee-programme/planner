@@ -135,22 +135,16 @@ RSpec.feature 'Booking manager views schedules' do
     @page.load
   end
 
-  def then_they_see_the_first_page_of_schedules # rubocop:disable MethodLength, AbcSize
+  def then_they_see_the_first_page_of_schedules # rubocop:disable AbcSize
     expect(@page).to be_loaded
     expect(@page).to have_schedules(count: 10)
     expect(@page.pagination.first.current_page).to have_text('1')
 
     # the booking location
     expect(@page.schedules.first.location.text).to eq('Drumchapel')
-    expect(@page.schedules.first.manage['href']).to eq(
-      new_schedule_path(location_id: '0c686436-de02-4d92-8dc7-26c97bb7c5bb')
-    )
 
     # the first child location
     expect(@page.schedules.second.location.text).to eq('Aberdeen')
-    expect(@page.schedules.second.manage['href']).to eq(
-      new_schedule_path(location_id: 'c002c214-7a39-4ff2-b21f-a4f3b45b14a1')
-    )
   end
 
   def when_they_click_the_next_page_button
@@ -164,9 +158,6 @@ RSpec.feature 'Booking manager views schedules' do
 
     # the tenth child location
     expect(@page.schedules.first.location.text).to eq('Barrhead (East Renfrewshire)')
-    expect(@page.schedules.first.manage['href']).to eq(
-      new_schedule_path(location_id: 'f1b32460-99c4-4719-b6a8-e44b3d16a0c0')
-    )
   end
 
   def when_they_click_the_previous_page_button
@@ -184,9 +175,6 @@ RSpec.feature 'Booking manager views schedules' do
 
     # the eightieth  child location
     expect(@page.schedules.first.location.text).to eq('Uist')
-    expect(@page.schedules.first.manage['href']).to eq(
-      new_schedule_path(location_id: 'b88818f2-3ab9-4a04-a51a-e416a1af0ad3')
-    )
   end
 
   def when_they_click_the_first_page_button
