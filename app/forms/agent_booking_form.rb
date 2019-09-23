@@ -41,6 +41,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :defined_contribution_pot_confirmed, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
   validates :first_choice_slot, presence: true
+  validates :pension_provider, presence: true
   validate :validate_confirmation_details
   validate :validate_eligibility
 
