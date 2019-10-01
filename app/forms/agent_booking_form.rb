@@ -37,6 +37,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :phone, presence: true, format: /\A([\d+\-\s\+()]+)\z/
   validates :memorable_word, presence: true
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
+  validates :additional_info, presence: true, if: :accessibility_requirements
   validates :where_you_heard, presence: true
   validates :defined_contribution_pot_confirmed, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }

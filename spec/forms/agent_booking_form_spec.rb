@@ -31,6 +31,16 @@ RSpec.describe AgentBookingForm do
       expect(subject).to be_valid
     end
 
+    context 'when accessibility requirements were specified' do
+      it 'requires additional info' do
+        subject.accessibility_requirements = true
+        expect(subject).to be_invalid
+
+        subject.additional_info = 'Needs wheelchair access'
+        expect(subject).to be_valid
+      end
+    end
+
     context 'dob validation bug' do
       it 'requires a date of birth' do
         subject.date_of_birth = ''

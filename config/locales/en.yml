@@ -53,3 +53,7 @@ en:
               blank: must be given
             slots:
               blank: must be selected
+        agent_booking_form:
+          attributes:
+            additional_info:
+              blank: describe the accessibility adjustment the customer requires
