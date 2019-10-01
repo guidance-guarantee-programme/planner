@@ -28,6 +28,7 @@
   <%= f.hidden_field :county %>
   <%= f.hidden_field :postcode %>
   <%= f.hidden_field :additional_info %>
+  <%= f.hidden_field :pension_provider %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
 
@@ -104,6 +105,17 @@
             <tr>
               <td class="active" width="35%"><b>Additional info</b></td>
               <td><%= @booking.additional_info %></td>
+            </tr>
+          </tbody>
+        </table>
+        <% end %>
+
+        <% if @booking.pension_provider.present? %>
+        <table class="table lead">
+          <tbody>
+            <tr>
+              <td class="active" width="35%"><b>Pension provider</b></td>
+              <td><%= @booking.pension_provider %></td>
             </tr>
           </tbody>
         </table>

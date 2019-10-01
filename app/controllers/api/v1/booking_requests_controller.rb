@@ -73,6 +73,7 @@ module Api
           :placed_by_agent,
           :where_you_heard,
           :gdpr_consent,
+          :pension_provider,
           slots: %i(date from to priority)
         ).tap { |p| p[:slots_attributes] = p.delete(:slots) }
       end

@@ -17,6 +17,7 @@ module Pages
     element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
     element :where_you_heard, '.t-where-you-heard'
+    element :pension_provider, '.t-pension-provider'
 
     element :email, '.t-email'
     element :address_line_one, '.t-address-line-one'

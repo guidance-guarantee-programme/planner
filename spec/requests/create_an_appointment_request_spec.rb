@@ -69,6 +69,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
         'placed_by_agent' => true,
         'where_you_heard' => 1,
         'gdpr_consent' => 'yes',
+        'pension_provider' => 'aviva',
         'slots' => [
           {
             'date' => '2018-11-08',
@@ -117,7 +118,8 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       date_of_birth: 'Sun, 01 Jan 1950'.to_date,
       defined_contribution_pot_confirmed: true,
       accessibility_requirements: false,
-      additional_info: 'Additional Info'
+      additional_info: 'Additional Info',
+      pension_provider: 'aviva'
     )
   end
 

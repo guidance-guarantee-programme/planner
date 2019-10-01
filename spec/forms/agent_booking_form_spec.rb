@@ -21,7 +21,8 @@ RSpec.describe AgentBookingForm do
       where_you_heard: 1,
       gdpr_consent: 'yes',
       accessibility_requirements: false,
-      additional_info: ''
+      additional_info: '',
+      pension_provider: 'n/a'
     )
   end
 
