@@ -1,0 +1,98 @@
+<% content_for(:page_title, t('service.title', page_title: 'Teleperformance')) %>
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><%= link_to 'Planner', root_path %></li>
+    <li class="active">Teleperformance</li>
+  </ol>
+
+  <h1>Teleperformance</h1>
+</div>
+
+<div class="t-search filters">
+  <div class="panel panel-default">
+    <header class="panel-heading">
+      <%= form_for @search, url: agent_search_index_path, as: :search, method: :get, html: { class: 'inline form-inline' } do |f| %>
+        <ul class="nav nav-compact nav-pills filters__nav">
+          <li class="filters__item">
+            <%= f.label :reference, class: 'filters__label' %>
+            <%= f.text_field :reference, class: 't-reference form-control filters__form-control', placeholder: 'Reference' %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :name, class: 'filters__label' %>
+            <%= f.text_field :name, class: 't-customer form-control filters__form-control', placeholder: 'Name' %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :agent, class: 'filters__label' %><%= f.select :agent, agent_options, { include_blank: 'All Agents' }, { class: 'form-control filters__form-control t-agent' } %>
+          </li>
+          <li class="filters__item">
+            <%= f.label :date, 'Date', class: 'filters__label' %><%= f.text_field :date, class: 'js-date-range-picker t-date form-control filters__form-control', readonly: true %>
+          </li>
+          <li class="filters__item">
+           <%= f.button class: 't-submit btn btn-default filters__button' do %>
+             <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
+           <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </header>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <% if @appointments.empty? %>
+      <p class="no-content t-notice">No appointments.</p>
+    <% else %>
+      <%= paginate @appointments %>
+
+      <table class="table table-bordered">
+        <caption><span class="sr-only">Appointments</span></caption>
+        <thead>
+          <tr class="table-header">
+            <th>Requested</th>
+            <th>Customer name</th>
+            <th>Location</th>
+            <th>Date/time</th>
+            <th>Reference</th>
+            <th>Agent</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @appointments.each do |appointment| %>
+            <tr class="t-appointment">
+              <td>
+                <%= appointment.created_at.in_time_zone('London').to_s(:govuk_date) %>
+              </td>
+              <td>
+                <%= appointment.name %>
+              </td>
+              <td>
+                <a href="https://www.pensionwise.gov.uk/locations/<%= appointment.location_id %>"><%= safe_location_name(appointment.location_id) %></a>
+              </td>
+              <td>
+                <%= appointment.proceeded_at.to_s(:govuk_date) %>
+              </td>
+              <td>
+                <%= appointment.reference %>
+              </td>
+              <td>
+                <%= appointment.booking_request.agent&.name.presence || safe_location_name(appointment.booking_location_id) %>
+              </td>
+              <td>
+                <% if current_user.agent_manager? %>
+                  <%= link_to(edit_agent_appointment_path(appointment), title: 'Manage', class: 'btn btn-info t-edit') do %>
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    <span class="sr-only">Manage</span>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <%= paginate @appointments %>
+    <% end %>
+  </div>
+</div>

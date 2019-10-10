@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AgentBookingForm do
+RSpec.describe BookingManagerAppointmentForm do
   subject do
     described_class.new(
       location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
@@ -22,17 +22,27 @@ RSpec.describe AgentBookingForm do
       gdpr_consent: 'yes',
       accessibility_requirements: false,
       additional_info: '',
-      pension_provider: 'n/a'
+      scheduled: 'true'
     )
-  end
-
-  it 'is scheduled' do
-    expect(subject).to be_scheduled
   end
 
   describe 'validation' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
+    end
+
+    context 'when the appointment is on an adhoc basis' do
+      it 'requires the adhoc particulars' do
+        subject.scheduled = false
+        subject.first_choice_slot = ''
+
+        expect(subject).to be_invalid
+
+        subject.guider_id = 1
+        subject.ad_hoc_start_at = '2019-12-25 13:00:00 UTC'
+
+        expect(subject).to be_valid
+      end
     end
 
     context 'when accessibility requirements were specified' do
@@ -123,18 +133,18 @@ RSpec.describe AgentBookingForm do
     end
   end
 
-  describe 'create_booking!' do
+  describe 'create_appointment!' do
     it 'fails to create a booking if the age_range is incorrect' do
       subject.date_of_birth = '01/01/2000'
       subject.first_choice_slot = '2049-31-12-1300-1700'
-      expect { subject.create_booking! }.to raise_error(ArgumentError)
+      expect { subject.create_appointment! }.to raise_error(ArgumentError)
     end
 
     it 'creates a booking if the age range is 50-54' do
       subject.date_of_birth = '01/01/2000'
       subject.first_choice_slot = '2050-01-01-1300-1700'
 
-      expect(subject.create_booking!).to be_persisted
+      expect(subject.create_appointment!).to be_persisted
     end
   end
 end

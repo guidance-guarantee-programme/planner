@@ -3,6 +3,7 @@ class BookingRequest < ActiveRecord::Base
 
   include PostalAddressable
 
+  attr_accessor :guider_id
   attr_reader :allocated
 
   enum status: %i(

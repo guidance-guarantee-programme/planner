@@ -1,4 +1,4 @@
-class AgentBookingForm # rubocop:disable ClassLength
+class BookingManagerAppointmentForm # rubocop:disable ClassLength
   include ActiveModel::Model
 
   ATTRIBUTES = %i(
@@ -22,7 +22,9 @@ class AgentBookingForm # rubocop:disable ClassLength
     booking_location_id
     additional_info
     gdpr_consent
-    pension_provider
+    guider_id
+    ad_hoc_start_at
+    scheduled
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -41,13 +43,14 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :where_you_heard, presence: true
   validates :defined_contribution_pot_confirmed, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
-  validates :first_choice_slot, presence: true
-  validates :pension_provider, presence: true
+  validates :first_choice_slot, presence: true, if: :scheduled
+  validates :ad_hoc_start_at, presence: true, unless: :scheduled
+  validates :guider_id, presence: true, unless: :scheduled
   validate :validate_confirmation_details
   validate :validate_eligibility
 
   def scheduled
-    true
+    ActiveRecord::Type::Boolean.new.deserialize(@scheduled)
   end
   alias scheduled? scheduled
 
@@ -59,7 +62,7 @@ class AgentBookingForm # rubocop:disable ClassLength
     ActiveRecord::Type::Boolean.new.cast(@accessibility_requirements)
   end
 
-  def create_booking!
+  def create_appointment!
     booking_request.tap(&:save!)
   end
 
@@ -67,7 +70,9 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
-      build_slot(booking, priority: 1, slot: first_choice_slot)
+      slot = scheduled ? first_choice_slot : ad_hoc_start_at
+
+      build_slot(booking, priority: 1, slot: slot)
     end
   end
 
@@ -116,7 +121,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def earliest_slot_time
-    first_choice_slot.in_time_zone
+    scheduled ? first_choice_slot.in_time_zone : ad_hoc_start_at&.in_time_zone
   end
 
   def to_attributes # rubocop:disable MethodLength, AbcSize
@@ -141,7 +146,7 @@ class AgentBookingForm # rubocop:disable ClassLength
       booking_location_id: booking_location_id,
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
-      pension_provider: pension_provider.to_s
+      guider_id: scheduled ? '' : guider_id
     }
   end
 

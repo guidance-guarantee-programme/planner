@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0552525,
+          51.5461062
+        ]
+      },
+      "properties": {
+        "title": "Hackney",
+        "address": "300 Mare St\nHACKNEY\nLondon\nE8 1HE",
+        "booking_location_id": "",
+        "phone": "+442085256360",
+        "hours": "Monday to Friday, 9:30am to 5pm",
+        "online_booking_enabled": true,
+        "realtime": false
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "183080c6-642b-4b8f-96fd-891f5cd9f9c7",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.0552525,
+          51.5461062
+        ]
+      },
+      "properties": {
+        "title": "Dalston",
+        "address": "Dalston High Street\nDALSTON\nLondon\nE8 1HE",
+        "booking_location_id": "ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef",
+        "phone": "+442085256360",
+        "hours": "Monday to Friday, 9:30am to 5pm",
+        "online_booking_enabled": true,
+        "realtime": false
+      }
+    }
+  ]
+}

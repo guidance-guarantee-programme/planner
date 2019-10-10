@@ -1,6 +1,10 @@
 class AgentBookingDecorator < SimpleDelegator
   def first_choice_slot
-    slot_text(super)
+    if scheduled
+      slot_text(super)
+    else
+      Time.zone.parse(ad_hoc_start_at).to_s(:govuk_date)
+    end
   end
 
   def second_choice_slot

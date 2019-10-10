@@ -80,10 +80,18 @@ class Schedule < ActiveRecord::Base
     without_appointments.first&.start_at
   end
 
-  def self.allocates?(booking_request)
+  def self.allocates?(booking_request) # rubocop:disable AbcSize
     schedule = current(booking_request.location_id)
 
-    schedule.without_appointments.find_by(start_at: booking_request.primary_slot.start_at)
+    if booking_request.guider_id.present?
+      schedule.without_appointments.find_or_create_by(
+        start_at: booking_request.primary_slot.start_at,
+        end_at: booking_request.primary_slot.end_at,
+        guider_id: booking_request.guider_id
+      )
+    else
+      schedule.without_appointments.find_by(start_at: booking_request.primary_slot.start_at)
+    end
   end
 
   def self.allocate_slot(appointment, slot_date_time)

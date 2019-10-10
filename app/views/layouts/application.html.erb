@@ -30,6 +30,9 @@
   <% end %>
   <% if current_user.booking_manager? %>
   <li>
+    <%= link_to 'Book', locations_path %>
+  </li>
+  <li>
     <%= link_to 'Booking Requests', booking_requests_path %>
   </li>
   <li>
