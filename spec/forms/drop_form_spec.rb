@@ -39,6 +39,20 @@ RSpec.describe DropForm, '#create_activity' do
   end
 
   context 'when the signature is verified' do
+    DropForm::INTERESTING_MESSAGE_TYPES.each do |message_type|
+      it "is valid with #{message_type}" do
+        params['message_type'] = message_type
+
+        expect(subject).to be_valid
+      end
+    end
+
+    it 'only cares about customer message types' do
+      params['message_type'] = 'sms_appointment_cancellation'
+
+      expect(subject).not_to be_valid
+    end
+
     it 'requires a booking request' do
       params['recipient'] = 'meh@example.com'
 
