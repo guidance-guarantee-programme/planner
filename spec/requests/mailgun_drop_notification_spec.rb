@@ -35,6 +35,7 @@ RSpec.describe 'POST /mail_gun/drops' do
   def when_mail_gun_posts_a_drop_notification
     post mail_gun_drops_path, params: {
       'event' => 'dropped',
+      'message_type' => 'customer_booking_request',
       'recipient' => 'morty@example.com',
       'description' => 'the reasoning',
       'environment' => 'production',

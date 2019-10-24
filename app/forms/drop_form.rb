@@ -5,6 +5,14 @@ TokenVerificationFailure = Class.new(StandardError)
 class DropForm
   include ActiveModel::Model
 
+  INTERESTING_MESSAGE_TYPES = %w(
+    appointment_modified
+    appointment_confirmation
+    appointment_reminder
+    appointment_cancellation
+    customer_booking_request
+  ).freeze
+
   attr_accessor :event
   attr_accessor :recipient
   attr_accessor :description
@@ -21,6 +29,7 @@ class DropForm
   validates :booking_request, presence: true
   validates :environment, inclusion: { in: %w(production) }
   validates :online_booking, inclusion: { in: %w(True) }
+  validates :message_type, inclusion: { in: INTERESTING_MESSAGE_TYPES }
 
   def create_activity
     return unless valid?
