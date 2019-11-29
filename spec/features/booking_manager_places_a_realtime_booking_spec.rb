@@ -71,7 +71,7 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
 
     @page.ad_hoc_calendar.set(true)
     @page.guider.select('Ben Lovell')
-    @page.ad_hoc_start_at.set('29/11/2019 13:00')
+    @page.ad_hoc_start_at.set('2019-11-29 13:00')
   end
 
   def and_they_provide_the_customer_details

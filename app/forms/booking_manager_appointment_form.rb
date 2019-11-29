@@ -43,11 +43,12 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
   validates :where_you_heard, presence: true
   validates :defined_contribution_pot_confirmed, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
-  validates :first_choice_slot, presence: true, if: :scheduled
-  validates :ad_hoc_start_at, presence: true, unless: :scheduled
-  validates :guider_id, presence: true, unless: :scheduled
+  validates :first_choice_slot, presence: true, if: :scheduled?
+  validates :ad_hoc_start_at, presence: true, unless: :scheduled?
+  validates :guider_id, presence: true, unless: :scheduled?
   validate :validate_confirmation_details
   validate :validate_eligibility
+  validate :validate_guider_availability, unless: :scheduled?
 
   def scheduled
     ActiveRecord::Type::Boolean.new.deserialize(@scheduled)
@@ -94,6 +95,16 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
   def validate_confirmation_details
     unless address? || email_provided? # rubocop:disable GuardClause
       errors.add(:base, 'Please supply either an email or confirmation address')
+    end
+  end
+
+  def validate_guider_availability
+    return unless guider_id.present? && ad_hoc_start_at.present?
+
+    if Appointment.overlaps?(
+      guider_id: guider_id, proceeded_at: ad_hoc_start_at, location_id: location_id
+    )
+      errors.add(:guider_id, 'is already booked with an overlapping appointment')
     end
   end
 

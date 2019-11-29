@@ -32,16 +32,29 @@ RSpec.describe BookingManagerAppointmentForm do
     end
 
     context 'when the appointment is on an adhoc basis' do
-      it 'requires the adhoc particulars' do
+      before do
         subject.scheduled = false
         subject.first_choice_slot = ''
+      end
 
+      it 'requires the adhoc particulars' do
         expect(subject).to be_invalid
 
         subject.guider_id = 1
         subject.ad_hoc_start_at = '2019-12-25 13:00:00 UTC'
 
         expect(subject).to be_valid
+      end
+
+      it 'does not permit overlaps' do
+        subject.guider_id = 1
+        subject.ad_hoc_start_at = '2019-12-25 13:00:00 UTC'
+
+        expect(subject).to be_valid
+
+        create(:appointment, proceeded_at: '2019-12-25 13:00:00 UTC')
+
+        expect(subject).to be_invalid
       end
     end
 
