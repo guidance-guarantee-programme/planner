@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   resources :schedules, only: :index
 
+  resources :locations, only: :index
+
   scope '/locations/:location_id' do
     resources :realtime_bookable_slots, only: %w(index create destroy)
     resources :realtime_bookable_slot_copies, only: %w(new create) do
@@ -48,6 +50,12 @@ Rails.application.routes.draw do
   namespace :agent, path: '/agents' do
     resources :booking_requests, only: :index, as: :search
     resources :appointments, only: %i(edit update)
+  end
+
+  namespace :booking_manager, path: '/locations/:location_id' do
+    resources :appointments, only: %i(new create show) do
+      post 'preview', on: :collection
+    end
   end
 
   namespace :admin, path: '/admin' do

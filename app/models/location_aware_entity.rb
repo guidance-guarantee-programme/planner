@@ -17,7 +17,7 @@ class LocationAwareEntity < SimpleDelegator
   end
 
   def guider_name
-    return '' unless respond_to?(:guider_id)
+    return '' unless respond_to?(:guider_id) && guider_id
 
     booking_location.guider_name_for(guider_id)
   end

@@ -1,9 +1,9 @@
-//= require jquery
 //= require moment
 //= require fullcalendar
 //= require fullcalendar-scheduler
 //= require alertify
 //= require bootstrap-daterangepicker
+//= require eonasdan-bootstrap-datetimepicker
 //= require mailgun-validator-jquery
 //= require growl
 //= require pusher

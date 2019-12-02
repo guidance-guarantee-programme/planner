@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-daterangepicker'
+  gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
   gem 'rails-assets-fullcalendar', '3.9.0'
   gem 'rails-assets-fullcalendar-scheduler', '1.9.4'
   gem 'rails-assets-growl'
@@ -16,7 +17,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'active_model_serializers'
   gem 'alertifyjs-rails'
   gem 'audited'
-  gem 'booking_locations'
+  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations'
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
   gem 'email_validator', '1.6.0'
@@ -32,10 +33,13 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'oj'
   gem 'pg'
   gem 'plek'
+  gem 'postcodes_io'
   gem 'puma'
   gem 'pusher'
   gem 'rails', '~> 5.2.0'
   gem 'rails-observers'
+  gem 'rgeo'
+  gem 'rgeo-geojson'
   gem 'sassc-rails'
   gem 'sidekiq'
   gem 'sinatra', require: false

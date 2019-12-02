@@ -1,4 +1,8 @@
 module ScheduleHelper
+  def availability_label(slots)
+    slots.empty? ? 'No available slots' : true
+  end
+
   def copy_modal_configuration
     date = 1.day.from_now.strftime('%d/%m/%Y')
 

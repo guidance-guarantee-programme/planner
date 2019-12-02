@@ -26,6 +26,7 @@ RSpec.configure do |config|
 
   config.include UserHelpers
   config.include TimeHelpers
+  config.include PostcodeHelpers
   config.include ActiveSupport::Testing::TimeHelpers
   config.include ActiveJob::TestHelper
 

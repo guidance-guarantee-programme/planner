@@ -1,0 +1,36 @@
+<% content_for(:page_title, t('service.title', page_title: "Appointment confirmed at #{location.name}")) %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Planner</a></li>
+    <li><a href="<%= root_path %>">Appointments</a></li>
+    <li class="active"><%= location.name %></li>
+  </ol>
+
+  <h1>Appointment confirmed at <%= location.name %></h1>
+</div>
+<p>
+Your reference number is <%= @appointment.reference %> and your appointment will
+last around 45 to 60 minutes. I have sent a confirmation <%=
+confirmation_type(@appointment) %> which will contain all the information you need
+and will help you prepare for your appointment.
+</p>
+
+<p>
+To make the most of your appointment we recommend that you find out the
+following:
+  <ul>
+    <li>how much is in your pension pot(s)</li>
+    <li>an estimate of your State Pension</li>
+  </ul>
+</p>
+
+<hr>
+
+<h3 class="bold-large">Have you already got this information?</h3>
+
+<p>
+<strong>NO ESTIMATE OF STATE PENSION</strong> - You can check your State
+Pension online at https://www.gov.uk/future-pension-centre or call the Future
+Pension Centre on 0800 731 0175 to ask for a statement.
+</p>

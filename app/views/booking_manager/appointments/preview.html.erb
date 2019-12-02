@@ -1,0 +1,132 @@
+<% content_for(:page_title, t('service.title', page_title: "Confirm appointment at #{location.name}")) %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Planner</a></li>
+    <li><a href="<%= root_path %>">Appointments</a></li>
+    <li class="active"><%= location.name %></li>
+  </ol>
+
+  <h1>Confirm appointment at <%= location.name %></h1>
+</div>
+
+<%= form_for @appointment, as: :appointment, url: booking_manager_appointments_path(location_id: location_id), layout: :basic do |f| %>
+  <%= f.hidden_field :name %>
+  <%= f.hidden_field :email %>
+  <%= f.hidden_field :phone %>
+  <%= f.hidden_field :memorable_word %>
+  <%= f.hidden_field :first_choice_slot %>
+  <%= f.hidden_field :date_of_birth %>
+  <%= f.hidden_field :gdpr_consent %>
+  <%= f.hidden_field :defined_contribution_pot_confirmed %>
+  <%= f.hidden_field :where_you_heard %>
+  <%= f.hidden_field :accessibility_requirements %>
+  <%= f.hidden_field :address_line_one %>
+  <%= f.hidden_field :address_line_two %>
+  <%= f.hidden_field :address_line_three %>
+  <%= f.hidden_field :town %>
+  <%= f.hidden_field :county %>
+  <%= f.hidden_field :postcode %>
+  <%= f.hidden_field :additional_info %>
+  <%= f.hidden_field :scheduled %>
+  <%= f.hidden_field :ad_hoc_start_at %>
+  <%= f.hidden_field :guider_id %>
+
+  <% @appointment = AgentBookingDecorator.new(@appointment) %>
+
+  <div class="t-preview booking-preview">
+    <div class="row">
+      <div class="col-md-8">
+        <p class="alert alert-warning">
+          This appointment has not yet been created.<br>Please check the details below and then click <b>Confirm appointment</b>.
+        </p>
+
+        <table class="table lead">
+          <tbody>
+            <tr>
+              <td class="active" width="35%"><b>Customer name</b></td>
+              <td><%= @appointment.name %></td>
+            </tr>
+            <tr>
+              <td class="active"><b>Desired slot</b></td>
+              <td>
+                <span class="t-first-choice-slot"><%= @appointment.first_choice_slot %></span>
+              </td>
+            </tr>
+            <% unless @appointment.scheduled? %>
+            <tr>
+              <td class="active"><b>Guider</b></td>
+              <td>
+                <span class="t-guider"><%= booking_location.guider_name_for(@appointment.guider_id.to_i) %></span>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <table class="table lead">
+          <tbody>
+            <tr>
+              <td class="active" width="35%"><b>Date of birth</b></td>
+              <td><%= @appointment.date_of_birth %></td>
+            </tr>
+            <% if @appointment.email.present? %>
+            <tr>
+              <td class="active"><b>Email</b></td>
+              <td><%= @appointment.email %></td>
+            </tr>
+            <% end %>
+            <tr>
+              <td class="active"><b>Phone</b></td>
+              <td><%= @appointment.phone %></td>
+            </tr>
+            <tr>
+              <td class="active"><b>Memorable word</b></td>
+              <td><%= @appointment.memorable_word %></td>
+            </tr>
+            <tr>
+              <td class="active"><b>You need help or an adjustment to access our service</b></td>
+              <td><%= @appointment.accessibility_requirements %></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <% if @appointment.address? %>
+        <table class="table lead">
+          <tbody>
+            <tr>
+              <td class="active" width="35%"><b>Confirmation address</b></td>
+              <td>
+                <%= @appointment.address_line_one %><br>
+                <% if @appointment.address_line_two.present? %><%= @appointment.address_line_two %><br><% end %>
+                <% if @appointment.address_line_three.present? %><%= @appointment.address_line_three %><br><% end %>
+                <%= @appointment.town %><br>
+                <% if @appointment.county.present? %><%= @appointment.county %><br><% end %>
+                <%= @appointment.postcode %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <% end %>
+
+        <% if @appointment.additional_info.present? %>
+        <table class="table lead">
+          <tbody>
+            <tr>
+              <td class="active" width="35%"><b>Additional info</b></td>
+              <td><%= @appointment.additional_info %></td>
+            </tr>
+          </tbody>
+        </table>
+        <% end %>
+
+        <p class="alert alert-warning">
+          Full details on our privacy policy, including the customers rights in
+          regards to their personal data, can be found on the Pension Wise website
+        </p>
+      </div>
+    </div>
+  </div>
+  <%= f.submit 'Confirm appointment', class: 'btn btn-default t-confirmation', data: { disable_with: 'Please wait...' } %>
+  <%= f.submit 'Edit appointment', name: :editing, class: 'btn btn-danger t-edit-booking' %>
+<% end %>
