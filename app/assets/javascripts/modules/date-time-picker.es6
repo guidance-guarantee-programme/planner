@@ -5,7 +5,7 @@
     start(el) {
       this.$el = el;
       this.config = {
-        format: 'DD/MM/YYYY h:mm a',
+        format: 'YYYY-MM-DD HH:mm',
         stepping: 5,
         useCurrent: false,
         daysOfWeekDisabled: [0],
