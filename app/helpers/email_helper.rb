@@ -1,4 +1,11 @@
 module EmailHelper
+  def mailgun_validation_config
+    {
+      'email-validation': 'true',
+      api_key: ENV.fetch('MAILGUN_VALIDATION_KEY') { 'pubkey-a7219986d35043ba4f5ad6563ea0628a' }
+    }
+  end
+
   def p(&block) # rubocop:disable Metrics/MethodLength
     content_tag(
       :p,
