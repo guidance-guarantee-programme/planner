@@ -293,7 +293,6 @@ GEM
     rails-assets-growl (1.3.5)
       rails-assets-jquery
     rails-assets-jquery (3.4.1)
-    rails-assets-mailgun-validator-jquery (0.0.3)
     rails-assets-moment (2.24.0)
     rails-assets-pusher (4.3.1)
     rails-dom-testing (2.0.3)
@@ -487,7 +486,6 @@ DEPENDENCIES
   rails-assets-fullcalendar (= 3.9.0)!
   rails-assets-fullcalendar-scheduler (= 1.9.4)!
   rails-assets-growl!
-  rails-assets-mailgun-validator-jquery (= 0.0.3)!
   rails-assets-pusher!
   rails-observers!
   rails_12factor!

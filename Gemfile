@@ -9,7 +9,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-fullcalendar', '3.9.0'
   gem 'rails-assets-fullcalendar-scheduler', '1.9.4'
   gem 'rails-assets-growl'
-  gem 'rails-assets-mailgun-validator-jquery', '0.0.3'
   gem 'rails-assets-pusher'
 end
 
