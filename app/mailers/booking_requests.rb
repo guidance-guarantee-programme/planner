@@ -16,7 +16,8 @@ class BookingRequests < ApplicationMailer
     name = booking_request_or_appointment.model_name.human
 
     mailgun_headers('booking_manager_booking_request')
-    mail to: booking_manager.email, subject: "Pension Wise #{name.titleize}"
+    mail to: booking_manager.email,
+         subject: "Pension Wise #{name.titleize}" + accessibility_banner(@booking_request_or_appointment)
   end
 
   def email_failure(booking_request, booking_manager)
@@ -28,6 +29,10 @@ class BookingRequests < ApplicationMailer
   end
 
   private
+
+  def accessibility_banner(entity)
+    entity.accessibility_requirements? ? ' (Accessibility Adjustment)' : ''
+  end
 
   def decorate(booking_request_or_appointment)
     booking_location = BookingLocations.find(booking_request_or_appointment.location_id)
