@@ -6,7 +6,12 @@ RSpec.describe BookingRequests do
   let(:booking_location) { BookingLocations.find(booking_location_id) }
   let(:actual_location) { booking_location.location_for(location_id) }
   let(:booking_request) do
-    create(:booking_request, location_id: location_id, booking_location_id: booking_location_id)
+    create(
+      :booking_request,
+      location_id: location_id,
+      booking_location_id: booking_location_id,
+      accessibility_requirements: false
+    )
   end
 
   describe 'Customer notification' do
@@ -79,6 +84,16 @@ RSpec.describe BookingRequests do
         expect(subject.body.encoded).to include('View the appointment')
         expect(subject.body.encoded).to include("/appointments/#{booking_request.id}/edit")
         expect(subject.body.encoded).to include('Guider: Ben Lovell') # guider
+      end
+    end
+
+    context 'for an appointment requiring accessibility adjustment' do
+      let(:booking_request) { create(:appointment, accessibility_requirements: true) }
+
+      it 'renders the accessibility adjustment particulars' do
+        expect(mail.subject).to eq('Pension Wise Appointment (Accessibility Adjustment)')
+
+        expect(subject.body.encoded).to include('The customer has indicated they require help')
       end
     end
   end
