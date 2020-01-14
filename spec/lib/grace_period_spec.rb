@@ -1,15 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe GracePeriod do
+  it 'is correct for PWNI' do
+    @lookup = create(:organisation_lookup, :pwni)
+
+    travel_to '2020-03-13'.to_date do
+      pwni = described_class.new(@lookup.location_id)
+
+      # jumps past the 17th which is a holiday
+      expect(pwni.start).to eq('2020-03-18'.to_date)
+    end
+  end
+
   it 'is correct for CAS' do
-    travel_to '2019-12-31'.to_date do
-      cas = described_class.new(CAS_LOCATION_IDS.first)
+    @lookup = create(:organisation_lookup, :cas)
 
-      # this would usually be excluded as it's a bank holiday
-      expect(cas.start).to eq('2020-01-03'.to_date)
+    travel_to '2020-04-08'.to_date do
+      cas = described_class.new(@lookup.location_id)
 
-      # the bank holiday is excluded for non-CAS
-      expect(described_class.new('another-location-id').start).to eq('2020-01-02'.to_date)
+      # jumps past the 10th which is a holiday and the following weekend
+      expect(cas.start).to eq('2020-04-13'.to_date)
     end
   end
 end

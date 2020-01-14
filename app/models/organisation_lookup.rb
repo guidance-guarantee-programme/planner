@@ -8,4 +8,16 @@ class OrganisationLookup < ActiveRecord::Base
       end
     end
   end
+
+  def self.cas_location_ids
+    for_organisation('cas')
+  end
+
+  def self.pwni_location_ids
+    for_organisation('nicab')
+  end
+
+  def self.for_organisation(*organisations)
+    where(organisation: organisations).pluck(:location_id)
+  end
 end

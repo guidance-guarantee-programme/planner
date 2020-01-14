@@ -19,6 +19,6 @@ class GracePeriod
   attr_reader :location_id
 
   def exclusions
-    @exclusions ||= Exclusions.new(location_id)
+    Exclusions.new(location_id)
   end
 end
