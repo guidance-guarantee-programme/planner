@@ -14,6 +14,19 @@
 </div>
 <% end %>
 
+<% if @appointment_form.duplicates? %>
+  <div class="alert alert-warning t-duplicates" role="alert">
+    <p>
+      This appointment may be a duplicate of:
+    </p>
+    <ul class="list-inline">
+      <% @appointment_form.duplicates.each do |reference, appointment_id| %>
+        <li><%= link_to reference, edit_appointment_path(id: appointment_id), class: 't-duplicate', target: '_blank' %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Planner</a></li>

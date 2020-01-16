@@ -44,6 +44,8 @@ module Pages
     element :error_summary, '.t-errors'
     element :success, '.alert-success'
 
+    elements :duplicates, '.t-duplicate'
+
     section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
 
     section :rescheduling_modal, '.t-rescheduling-modal' do
