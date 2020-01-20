@@ -20,5 +20,12 @@ FactoryBot.define do
     trait :with_agent do
       association :booking_request, factory: :agent_booking_request
     end
+
+    trait :taunton_booking_location do
+      guider_id { 2 }
+      location_id { '13e12f95-f709-4536-b6ee-8d7a735ddf9f' }
+
+      association :booking_request, factory: :taunton_child_booking_request
+    end
   end
 end
