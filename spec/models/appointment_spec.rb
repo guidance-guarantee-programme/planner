@@ -3,6 +3,46 @@ require 'rails_helper'
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment) }
 
+  describe '#duplicates' do
+    it 'matches the current booking location' do
+      appointment = create(:appointment)
+
+      # doesn't match the booking location
+      create(:appointment, :taunton_booking_location)
+      expect(appointment).not_to be_duplicates
+
+      # matches the booking location
+      inside = create(:appointment, guider_id: 3)
+      expect(inside).to be_duplicates
+    end
+
+    it 'matches name' do
+      appointment = create(:appointment, :with_agent, name: 'Ben L', email: '', phone: '0121 444 555')
+      create(:appointment, name: 'Ben L', email: 'ben@ben.com', phone: '0131 333 444', guider_id: 2)
+
+      expect(appointment).to be_duplicates
+    end
+
+    it 'matches emails only when present' do
+      appointment = create(:appointment, :with_agent, name: 'Ben L', email: '', phone: '0121 444 555')
+      other = create(:appointment, :with_agent, name: 'Ben J', email: '', phone: '0131 333 444', guider_id: 2)
+
+      expect(appointment).not_to be_duplicates
+
+      appointment.update(email: 'ben@example.com')
+      other.update(email: 'ben@example.com')
+
+      expect(appointment).to be_duplicates
+    end
+
+    it 'matches phone' do
+      appointment = create(:appointment, :with_agent, name: 'Ben L', email: '', phone: '0131 333 444')
+      create(:appointment, :with_agent, name: 'Ben J', email: '', phone: '0131 333 444', guider_id: 2)
+
+      expect(appointment).to be_duplicates
+    end
+  end
+
   describe '.needing_reminder' do
     context 'with an appointment 7 days in the future' do
       it 'is included correctly based on its status' do
