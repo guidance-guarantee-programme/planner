@@ -41,6 +41,17 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Appointment with duplicates' do
+    travel_to '2016-01-01' do # ensure appointment has not elapsed
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_an_appointment
+        and_the_appointment_is_duplicated
+        when_the_booking_manager_edits_the_appointment
+        then_they_see_the_duplicate
+      end
+    end
+  end
+
   scenario 'Successfully editing an Appointment' do
     perform_enqueued_jobs do
       travel_to '2016-01-01' do # ensure appointment has not elapsed
@@ -179,6 +190,22 @@ RSpec.feature 'Booking Manager edits an Appointment' do
       :appointment,
       booking_request: build(:hackney_booking_request, number_of_slots: 3)
     )
+  end
+
+  def and_the_appointment_is_duplicated
+    @duplicate = create(
+      :appointment,
+      guider_id: 2,
+      booking_request: build(:hackney_booking_request, number_of_slots: 1)
+    )
+  end
+
+  def then_they_see_the_duplicate
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    expect(@page).to have_duplicates
+    expect(@page.duplicates.first).to have_text(@duplicate.reference)
   end
 
   def when_the_booking_manager_edits_the_appointment

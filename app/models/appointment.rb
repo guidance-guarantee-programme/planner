@@ -42,6 +42,21 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   scope :without_mobile, -> { where.not("phone like '07%'") }
   scope :with_email, -> { where.not(email: '') }
 
+  def duplicates # rubocop:disable AbcSize
+    scope = self.class.where.not(id: id).includes(:booking_request)
+
+    @duplicates ||= scope.where(booking_requests: { booking_location_id: booking_location_id })
+                         .where(name: name)
+                         .or(scope.where(email: email))
+                         .or(scope.where(phone: phone))
+                         .order('booking_requests.id')
+                         .pluck('booking_requests.id', :id)
+  end
+
+  def duplicates?
+    duplicates.size.positive?
+  end
+
   def process!(by)
     return if processed_at?
 
