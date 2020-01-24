@@ -33,6 +33,16 @@
   </strong>
 <% end %>
 
+<% if @appointment.accessibility_information.present? %>
+  <%= p do %>
+  Access:
+  <br>
+  <strong class="emphasize">
+    <%= @appointment.accessibility_information %>
+  </strong>
+  <% end %>
+<% end %>
+
 <%= p do %>
   Guidance specialist:
   <br>

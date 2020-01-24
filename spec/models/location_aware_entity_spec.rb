@@ -37,10 +37,17 @@ RSpec.describe LocationAwareEntity do
 
   context 'when decorating an Appointment' do
     let(:booking_location) { instance_double(BookingLocations::Location) }
+    let(:actual_location) { instance_double(BookingLocations::Location, accessibility_information: 'Broken lift') }
     let(:appointment) { instance_double(Appointment, location_id: 'deadbeef', guider_id: 1) }
 
     subject do
       described_class.new(booking_location: booking_location, entity: appointment)
+    end
+
+    it 'returns access information' do
+      allow(booking_location).to receive(:location_for).and_return(actual_location)
+
+      expect(subject.accessibility_information).to eq('Broken lift')
     end
 
     describe '#guider_name' do
