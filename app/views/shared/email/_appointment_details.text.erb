@@ -13,6 +13,11 @@ Appointment location:
 <%= line %>
 <% end %>
 
+<% if @appointment.accessibility_information.present? %>
+Access:
+<%= @appointment.accessibility_information %>
+
+<% end %>
 Guidance specialist:
 <%= @appointment.guider_name.split.first %>
 
