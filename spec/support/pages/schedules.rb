@@ -2,6 +2,8 @@ module Pages
   class Schedules < SitePrism::Page
     set_url '/schedules'
 
+    element :success, '.alert-success'
+
     sections :pagination, '.pagination' do
       element :first_page, 'li.first a'
       element :previous_page, 'li.prev a'
@@ -13,6 +15,7 @@ module Pages
     sections :schedules, '.t-schedule' do
       element :location, '.t-location'
       element :realtime_availability, '.t-realtime-availability'
+      element :clear_future_slots, '.t-clear-future-slots'
     end
   end
 end

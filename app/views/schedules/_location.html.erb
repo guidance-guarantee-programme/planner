@@ -4,5 +4,17 @@
   </td>
   <td>
     <%= realtime_availability_button(location) %>
+    <% if current_user.administrator? %>
+      <%= link_to(
+            future_realtime_bookable_slots_path(location_id: location.id),
+            title: 'Delete future slots',
+            class: 'btn btn-danger t-clear-future-slots',
+            method: :delete,
+            data: { confirm: 'Are you sure you want to delete all future slots - this action is irrecoverable?' }
+      ) do %>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        <span class="sr-only">Delete future slots</span>
+      <% end %>
+    <% end %>
   </td>
 </tr>

@@ -32,7 +32,9 @@ Rails.application.routes.draw do
   resources :locations, only: :index
 
   scope '/locations/:location_id' do
-    resources :realtime_bookable_slots, only: %w(index create destroy)
+    resources :realtime_bookable_slots, only: %w(index create destroy) do
+      delete 'future', on: :collection
+    end
     resources :realtime_bookable_slot_copies, only: %w(new create) do
       post 'preview', on: :collection
     end
