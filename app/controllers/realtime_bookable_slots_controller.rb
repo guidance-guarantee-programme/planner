@@ -38,6 +38,16 @@ class RealtimeBookableSlotsController < ApplicationController
     end
   end
 
+  def future
+    @schedule
+      .bookable_slots
+      .realtime
+      .where('start_at >= ?', Time.current.beginning_of_day)
+      .destroy_all
+
+    redirect_back fallback_location: schedules_path, success: 'The schedule was successfully cleared'
+  end
+
   private
 
   def load_window

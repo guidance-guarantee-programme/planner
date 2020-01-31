@@ -27,6 +27,8 @@ RSpec.feature 'Booking manager manages realtime availability' do
 
   def and_choose_to_edit_the_realtime_availability
     expect(@page).to have_schedules
+    # hidden from non-administrator roles
+    expect(@page.schedules.first).to have_no_clear_future_slots
     # Hackney
     @page.schedules.first.realtime_availability.click
   end
