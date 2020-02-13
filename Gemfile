@@ -35,6 +35,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'postcodes_io'
   gem 'puma'
   gem 'pusher'
+  gem 'rack-cors'
   gem 'rails', '~> 5.2.0'
   gem 'rails-observers'
   gem 'rgeo'
