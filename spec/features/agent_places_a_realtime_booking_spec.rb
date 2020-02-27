@@ -49,7 +49,6 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.memorable_word.set('spaceships')
     @page.date_of_birth.set('01/01/1950')
     @page.accessibility_requirements.set(true)
-    @page.defined_contribution_pot_confirmed_yes.set(true)
     @page.gdpr_consent_yes.set(true)
     @page.where_you_heard.select('Other')
     @page.email.set('summer@example.com')

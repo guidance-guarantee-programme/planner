@@ -9,7 +9,6 @@ RSpec.describe AgentBookingForm do
       email: 'rick@example.com',
       phone: '0208 252 4777',
       date_of_birth: '01/01/1950',
-      defined_contribution_pot_confirmed: true,
       memorable_word: 'couch',
       first_choice_slot: '2017-01-01-1300-1700',
       address_line_one: '1 Main Street',

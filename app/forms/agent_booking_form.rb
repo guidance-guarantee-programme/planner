@@ -8,7 +8,6 @@ class AgentBookingForm # rubocop:disable ClassLength
     date_of_birth
     memorable_word
     accessibility_requirements
-    defined_contribution_pot_confirmed
     address_line_one
     address_line_two
     address_line_three
@@ -39,7 +38,6 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :additional_info, presence: true, if: :accessibility_requirements
   validates :where_you_heard, presence: true
-  validates :defined_contribution_pot_confirmed, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
   validates :first_choice_slot, presence: true
   validates :pension_provider, presence: true
@@ -128,7 +126,7 @@ class AgentBookingForm # rubocop:disable ClassLength
       age_range: age_range,
       memorable_word: memorable_word,
       accessibility_requirements: accessibility_requirements,
-      defined_contribution_pot_confirmed: defined_contribution_pot_confirmed,
+      defined_contribution_pot_confirmed: true,
       address_line_one: address_line_one,
       address_line_two: address_line_two,
       address_line_three: address_line_three,
