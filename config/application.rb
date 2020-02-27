@@ -37,5 +37,12 @@ module Planner
     config.mount_javascript_test_routes = false
 
     config.action_view.prefix_partial_path_with_controller_namespace = false
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '/api/v1/searches', headers: :any, methods: %i(get options)
+      end
+    end
   end
 end
