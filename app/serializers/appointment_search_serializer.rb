@@ -7,4 +7,8 @@ class AppointmentSearchSerializer < ActiveModel::Serializer
   attribute :url do
     edit_appointment_url(object)
   end
+
+  attribute :application do
+    GovukAdminTemplate::Config.app_title
+  end
 end
