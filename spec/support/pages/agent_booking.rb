@@ -14,8 +14,6 @@ module Pages
     element :gdpr_consent_yes, '.t-gdpr-consent-yes'
     element :gdpr_consent_no, '.t-gdpr-consent-no'
     element :gdpr_consent_no_response, '.t-gdpr-consent-no-response'
-    element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
-    element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
     element :where_you_heard, '.t-where-you-heard'
     element :pension_provider, '.t-pension-provider'
 
