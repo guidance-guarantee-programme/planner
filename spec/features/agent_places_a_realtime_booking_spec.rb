@@ -6,7 +6,6 @@ RSpec.feature 'Agent places a realtime booking' do
     travel_to '2018-11-03 13:00' do
       given_the_user_identifies_as_an_agent
       and_available_realtime_slots_exist_within_the_booking_window
-      and_pension_providers_are_configured
       when_they_attempt_to_place_a_booking_at_hackney
       and_they_choose_a_realtime_slot
       and_they_provide_the_customer_details
@@ -27,10 +26,6 @@ RSpec.feature 'Agent places a realtime booking' do
     create(:bookable_slot, start_at: '2018-11-07 09:00', end_at: '2018-11-07 10:00')
     # a duplicate that gets deduplicated
     create(:bookable_slot, start_at: '2018-11-07 09:00', end_at: '2018-11-07 10:00', guider_id: 2)
-  end
-
-  def and_pension_providers_are_configured
-    allow(PensionProvider).to receive(:all).and_return('aviva' => 'Aviva')
   end
 
   def when_they_attempt_to_place_a_booking_at_hackney
@@ -57,7 +52,6 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
-    @page.pension_provider.select('Aviva')
   end
 
   def and_they_confirm_the_booking
@@ -66,7 +60,6 @@ RSpec.feature 'Agent places a realtime booking' do
     @page = Pages::AgentBookingPreview.new
     expect(@page).to be_displayed
     expect(@page.first_choice_slot).to have_text('7 November 2018 - 09:00')
-    expect(@page).to have_text('Aviva')
 
     @page.confirmation.click
   end
@@ -89,7 +82,7 @@ RSpec.feature 'Agent places a realtime booking' do
       age_range: '55-plus',
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
-      pension_provider: 'aviva'
+      pension_provider: ''
     )
   end
 

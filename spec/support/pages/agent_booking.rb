@@ -15,7 +15,6 @@ module Pages
     element :gdpr_consent_no, '.t-gdpr-consent-no'
     element :gdpr_consent_no_response, '.t-gdpr-consent-no-response'
     element :where_you_heard, '.t-where-you-heard'
-    element :pension_provider, '.t-pension-provider'
 
     element :email, '.t-email'
     element :address_line_one, '.t-address-line-one'

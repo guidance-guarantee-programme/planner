@@ -156,17 +156,6 @@
             class: 't-where-you-heard form-control'
           %>
         </div>
-        <div class="form-group">
-          <%= f.label :pension_provider do %>
-            Pension provider <span class="alert-danger">(required for final nudge trial only)</span>
-          <% end %>
-          <%= f.select :pension_provider,
-            options_for_select(PensionProvider.all.invert.to_a, @booking.pension_provider),
-            { include_blank: true},
-            class: 't-pension-provider form-control'
-          %>
-          <span class="help-block">Otherwise select <i>Not Applicable</i></span>
-        </div>
       </div>
     </div>
   </div>
