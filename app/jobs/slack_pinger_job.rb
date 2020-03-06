@@ -10,7 +10,7 @@ class SlackPingerJob < ActiveJob::Base
     actual_location  = booking_location.name_for(booking_request_or_appointment.location_id)
 
     hook = WebHook.new(hook_uri)
-    hook.call(payload(actual_location, booking_request_or_appointment))
+    hook.call(payload(actual_location))
   end
 
   private
@@ -19,13 +19,11 @@ class SlackPingerJob < ActiveJob::Base
     ENV['BOOKING_REQUESTS_SLACK_PINGER_URI']
   end
 
-  def payload(actual_location, booking_request_or_appointment)
-    pension_provider = PensionProvider[booking_request_or_appointment]
-
+  def payload(actual_location)
     {
       username: 'frank',
       channel: '#online-bookings',
-      text: ":zap: #{actual_location} #{pension_provider} :zap:",
+      text: ":zap: #{actual_location} :zap:",
       icon_emoji: ':frank:'
     }
   end
