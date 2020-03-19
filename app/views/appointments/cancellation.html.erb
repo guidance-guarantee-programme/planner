@@ -1,8 +1,20 @@
-<%= p do %>
-  If you've cancelled due to the ongoing response to coronavirus you can still <a href="https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f">explore your pension options</a>.
-<% end %>
-
 <h2>We’ve cancelled your appointment</h2>
+
+<% if @appointment.cancelled_by_pension_wise? %>
+  <%= p do %>
+    The ongoing response to coronavirus has affected the delivery of appointments. As a result we have cancelled your forthcoming face-to-face appointment.
+  <% end %>
+  <%= p do %>
+    You may have received a phone call to confirm this. However, if we have not been able to reach you this is the first notification you may be receiving.
+  <% end %>
+  <%= p do %>
+    You can <a href="https://www.pensionwise.gov.uk/en/book-phone">book a phone appointment</a> or <a href="https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f">explore your options</a> using our online tool. 
+  <% end %>
+<% else %>
+  <%= p do %>
+    If you've cancelled due to the ongoing response to coronavirus you can still <a href="https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f">explore your options</a>.
+  <% end %>
+<% end %>
 
 <%= p do %>
   Dear <%= @appointment.name %>,
