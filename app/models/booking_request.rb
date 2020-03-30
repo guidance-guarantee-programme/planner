@@ -41,6 +41,12 @@ class BookingRequest < ActiveRecord::Base
 
   alias reference to_param
 
+  def self.for_redaction
+    where
+      .not(name: 'redacted')
+      .where('created_at < ?', 2.years.ago.beginning_of_day)
+  end
+
   def self.latest(email)
     where(email: email).order(:created_at).last
   end
