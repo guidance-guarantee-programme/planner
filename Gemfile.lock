@@ -65,6 +65,17 @@ GEM
       activerecord (>= 4.0, < 5.3)
     autoprefixer-rails (9.6.0)
       execjs
+    azure-core (0.1.15)
+      faraday (~> 0.9)
+      faraday_middleware (~> 0.10)
+      nokogiri (~> 1.6)
+    azure-storage-blob (1.1.0)
+      azure-core (~> 0.1.13)
+      azure-storage-common (~> 1.0)
+      nokogiri (~> 1.6, >= 1.6.8)
+    azure-storage-common (1.1.0)
+      azure-core (~> 0.1.13)
+      nokogiri (~> 1.6, >= 1.6.8)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -240,6 +251,10 @@ GEM
       websocket-driver (>= 0.2.0)
     postcodes_io (0.3.0)
       excon (~> 0.39)
+    postgres-copy (1.4.1)
+      activerecord (>= 5.1)
+      pg (>= 0.17)
+      responders
     powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -338,6 +353,9 @@ GEM
     regexp_parser (1.5.1)
     request_store (1.4.1)
       rack (>= 1.4)
+    responders (3.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rgeo (2.1.1)
     rgeo-geojson (2.1.1)
       rgeo (>= 1.0.0)
@@ -452,6 +470,7 @@ DEPENDENCIES
   active_model_serializers!
   alertifyjs-rails!
   audited!
+  azure-storage-blob!
   booking_locations!
   bootsnap!
   bootstrap-kaminari-views!
@@ -478,6 +497,7 @@ DEPENDENCIES
   plek!
   poltergeist!
   postcodes_io!
+  postgres-copy!
   pry-byebug!
   puma!
   pusher!
