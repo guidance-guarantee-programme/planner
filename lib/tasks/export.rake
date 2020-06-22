@@ -18,6 +18,23 @@ namespace :export do # rubocop:disable BlockLength
     export_to_azure_blob('MAPS_PWBLZ_PLANNERREPSUM_', ReportingSummary)
   end
 
+  desc 'Export status CSV data to blob storage for lookups'
+  task statuses: :environment do
+    rows = ['id,name']
+
+    Appointment.statuses.each { |key, value| rows << "#{value},#{key}" }
+
+    client = Azure::Storage::Blob::BlobService.create_from_connection_string(
+      ENV.fetch('AZURE_CONNECTION_STRING')
+    )
+
+    client.create_block_blob(
+      'pw-prd-data',
+      "MAPS_PWBLZ_PLANNERSTATUS_#{Time.current.strftime('%Y%m%d%H%M%S')}.csv",
+      rows.join("\n")
+    )
+  end
+
   def export_to_azure_blob(key, model_class)
     model_class.public_send(:acts_as_copy_target)
 
