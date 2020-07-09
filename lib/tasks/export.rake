@@ -30,15 +30,21 @@ namespace :export do # rubocop:disable BlockLength
 
     client.create_block_blob(
       'pw-prd-data',
-      "MAPS_PWBLZ_PLANNERSTATUS_#{Time.current.strftime('%Y%m%d%H%M%S')}.csv",
+      "/To_Be_Processed/MAPS_PWBLZ_PLANNERSTATUS_#{Time.current.strftime('%Y%m%d%H%M%S')}.csv",
       rows.join("\n")
     )
   end
 
-  def export_to_azure_blob(key, model_class)
+  def export_to_azure_blob(key, model_class) # rubocop:disable MethodLength
+    from_timestamp = ENV.fetch('FROM') { 3.months.ago }
+
     model_class.public_send(:acts_as_copy_target)
 
-    data = model_class.select(QUERIES[key]).order(:created_at).copy_to_string
+    data = model_class
+           .where('created_at >= ? or updated_at >= ?', from_timestamp, from_timestamp)
+           .select(QUERIES[key])
+           .order(:created_at)
+           .copy_to_string
 
     client = Azure::Storage::Blob::BlobService.create_from_connection_string(
       ENV.fetch('AZURE_CONNECTION_STRING')
@@ -46,7 +52,7 @@ namespace :export do # rubocop:disable BlockLength
 
     client.create_block_blob(
       'pw-prd-data',
-      "#{key}#{Time.current.strftime('%Y%m%d%H%M%S')}.csv",
+      "/To_Be_Processed/#{key}#{Time.current.strftime('%Y%m%d%H%M%S')}.csv",
       data
     )
   end
