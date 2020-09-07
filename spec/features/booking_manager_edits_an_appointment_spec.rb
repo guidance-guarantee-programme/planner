@@ -23,6 +23,17 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Altering consent on an appointment', js: true do
+    travel_to '2018-11-11 13:00' do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_a_realtime_appointment
+        when_the_booking_manager_edits_the_appointment
+        and_alters_the_customer_research_consent
+        then_the_appointment_consent_is_updated
+      end
+    end
+  end
+
   scenario 'Resending the appointment confirmation', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment
@@ -123,6 +134,22 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
     @page.rescheduling_modal.slot.select('Friday, 16 Nov - 9:00am')
     @page.rescheduling_modal.reschedule.click
+  end
+
+  def and_alters_the_customer_research_consent
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    @page.consent.click
+    @page.wait_until_consent_modal_visible
+
+    @page.consent_modal.consent_yes.set(true)
+    @page.consent_modal.update.click
+  end
+
+  def then_the_appointment_consent_is_updated
+    @page.wait_until_consent_modal_invisible
+    expect(@page).to have_text('The customer research consent was updated')
   end
 
   def then_the_appointment_is_rescheduled

@@ -18,6 +18,7 @@ module Pages
     element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
     element :gdpr_consent, '.t-gdpr-consent'
+    element :consent, '.t-consent-button'
 
     element :date, '.t-date'
     element :time_hour, '#appointment_proceeded_at_4i'
@@ -51,6 +52,13 @@ module Pages
     section :rescheduling_modal, '.t-rescheduling-modal' do
       element :slot, '.t-slot'
       element :reschedule, '.t-reschedule'
+    end
+
+    section :consent_modal, '.t-consent-modal' do
+      element :consent_yes, '.t-consent-yes'
+      element :consent_no, '.t-consent-no'
+      element :consent_no_response, '.t-consent-no-response'
+      element :update, '.t-consent'
     end
   end
 end
