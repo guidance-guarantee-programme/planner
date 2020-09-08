@@ -1,0 +1,37 @@
+<div class="modal <%= 'fade' unless Rails.env.test? %> js-consent-modal t-consent-modal" tabindex="-1" role="dialog" aria-labelledby="consent-modal">
+  <div class="modal-dialog" role="document">
+    <%= form_for booking_request, method: :patch, url: booking_request_consent_path(booking_request) do |f| %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 id="consent-modal" class="modal-title">Change customer research consent</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <p>Customer research consent</p>
+          <%= f.label :gdpr_consent, value: 'yes', class: 'radio-inline' do %>
+              <%= f.radio_button :gdpr_consent, 'yes', class: 't-consent-yes' %>
+              Yes
+          <% end %>
+
+          <%= f.label :gdpr_consent, value: 'no', class: 'radio-inline' do %>
+              <%= f.radio_button :gdpr_consent, 'no', class: 't-consent-no' %>
+              No
+          <% end %>
+
+          <%= f.label :gdpr_consent, value: '', class: 'radio-inline' do %>
+              <%= f.radio_button :gdpr_consent, '', class: 't-consent-no-response' %>
+              No response
+          <% end %>
+        </div>
+
+        <%= f.button 'Update customer research consent', class: 'btn btn-primary btn-block t-consent' %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<button type="button" class="btn btn-default btn-block consent-btn js-consent-button t-consent-button">
+  Change customer research consent
+</button>

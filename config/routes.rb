@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     resource :postal_address, only: %i(edit update)
 
     resource :confirmation, only: :create
+
+    resource :consent, only: :update
   end
 
   resources :schedules, only: :index
