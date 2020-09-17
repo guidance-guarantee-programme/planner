@@ -1,5 +1,9 @@
 class WhereYouHeard
   OPTIONS = {
+    '19' => 'Media - Pensions Awareness Day',
+    '20' => 'Media - Leaving planning retirement finances to two years before retirement',
+    '21' => 'Money and Pensions Service Webinar on Pensions Awareness Day website',
+    '22' => 'Virtual 121 sessions on Pensions Awareness Day website',
     '1'  => 'An employer',
     '2'  => 'A Pension Provider',
     '3'  => 'Internet search',
