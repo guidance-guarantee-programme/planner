@@ -7,7 +7,7 @@ GIT
       globalid
 
 GEM
-  remote: https://rails-assets.org/
+  remote: http://insecure.rails-assets.org/
   remote: https://rubygems.org/
   specs:
     actioncable (5.2.3)
