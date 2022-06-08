@@ -40,6 +40,8 @@ module Pages
     element :edit_postal_address, '.t-edit-postal-address'
 
     element :status, '.t-status'
+    element :secondary_status, '.t-secondary-status'
+    elements :secondary_status_options, '.t-secondary-status > option:not(:empty)'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'

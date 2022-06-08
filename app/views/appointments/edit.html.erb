@@ -236,7 +236,14 @@
             <div class="form-group">
               <div class="well appointment-status-well">
                 <%= f.label :status, 'Appointment status' %>
-                <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
+                <%= f.select :status,
+                  friendly_options(Appointment.statuses),
+                  options = {}, {
+                    class: 'form-control t-status',
+                    data: { module: 'secondary-status', options: Appointment::SECONDARY_STATUSES.to_json, 'initial-secondary-status' => @appointment_form.secondary_status }
+                } %>
+
+                <%= f.select(:secondary_status, [], {}, { class: 't-secondary-status form-control js-secondary-status', data: { 'no-tracking' => true }}) %>
               </div>
             </div>
           </div>
