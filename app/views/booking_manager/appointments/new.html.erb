@@ -94,6 +94,11 @@
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Do you need an adjustment to access our service?
         <% end %>
         </div>
+        <div class="form-group">
+          <%= f.label :recording_consent, class: 'checkbox-inline' do %>
+            <%= f.check_box :recording_consent, class: 't-recording-consent' %> Appointment recording consent?
+          <% end %>
+        </div>
         <hr>
 
         <h2 class="h3">Eligibility</h2>

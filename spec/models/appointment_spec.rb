@@ -50,7 +50,7 @@ RSpec.describe Appointment do
 
         expect(described_class.needing_reminder).to include(appointment)
 
-        appointment.update(status: :cancelled_by_customer)
+        appointment.update(status: :cancelled_by_customer_sms)
 
         expect(described_class.needing_reminder).to be_empty
       end

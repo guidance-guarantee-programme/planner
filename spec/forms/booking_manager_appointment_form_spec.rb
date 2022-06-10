@@ -22,7 +22,8 @@ RSpec.describe BookingManagerAppointmentForm do
       gdpr_consent: 'yes',
       accessibility_requirements: false,
       additional_info: '',
-      scheduled: 'true'
+      scheduled: 'true',
+      recording_consent: true
     )
   end
 

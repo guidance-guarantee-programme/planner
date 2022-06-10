@@ -12,7 +12,8 @@ class AppointmentMapper
       location_id: appointment_form.location_id,
       proceeded_at: Time.zone.parse("#{appointment_form.date} #{appointment_form.time.strftime('%H:%M')}"),
       booking_request_id: appointment_form.reference,
-      additional_info: appointment_form.additional_info
+      additional_info: appointment_form.additional_info,
+      recording_consent: appointment_form.recording_consent
     }
   end
 end

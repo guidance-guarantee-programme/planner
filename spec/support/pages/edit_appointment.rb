@@ -19,6 +19,7 @@ module Pages
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
     element :gdpr_consent, '.t-gdpr-consent'
     element :consent, '.t-consent-button'
+    element :recording_consent, '.t-recording-consent'
 
     element :date, '.t-date'
     element :time_hour, '#appointment_proceeded_at_4i'

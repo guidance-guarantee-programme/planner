@@ -25,6 +25,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
     guider_id
     ad_hoc_start_at
     scheduled
+    recording_consent
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -46,6 +47,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
   validates :first_choice_slot, presence: true, if: :scheduled?
   validates :ad_hoc_start_at, presence: true, unless: :scheduled?
   validates :guider_id, presence: true, unless: :scheduled?
+  validates :recording_consent, presence: true
   validate :validate_confirmation_details
   validate :validate_eligibility
   validate :validate_guider_availability, unless: :scheduled?
@@ -61,6 +63,10 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
 
   def accessibility_requirements
     ActiveRecord::Type::Boolean.new.cast(@accessibility_requirements)
+  end
+
+  def recording_consent
+    ActiveRecord::Type::Boolean.new.cast(@recording_consent)
   end
 
   def create_appointment!
@@ -157,7 +163,8 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
       booking_location_id: booking_location_id,
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
-      guider_id: scheduled ? '' : guider_id
+      guider_id: scheduled ? '' : guider_id,
+      recording_consent: recording_consent
     }
   end
 

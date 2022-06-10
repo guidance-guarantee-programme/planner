@@ -291,6 +291,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.time_hour.select('15')
     @page.time_minute.select('15')
     @page.guider.select('Bob Johnson')
+    @page.recording_consent.set(true)
 
     @page.submit.click
   end
@@ -304,6 +305,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.time_hour.value).to eq '15'
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
+    expect(@page.recording_consent).to be_checked
   end
 
   def and_the_customer_is_notified

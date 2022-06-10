@@ -52,6 +52,7 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
+    @page.recording_consent.set(true)
   end
 
   def and_they_confirm_the_booking
@@ -82,7 +83,8 @@ RSpec.feature 'Agent places a realtime booking' do
       age_range: '55-plus',
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
-      pension_provider: ''
+      pension_provider: '',
+      recording_consent: true
     )
   end
 

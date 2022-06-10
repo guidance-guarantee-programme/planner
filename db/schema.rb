@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_08_125347) do
+ActiveRecord::Schema.define(version: 2022_06_09_144700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_125347) do
     t.string "additional_info", limit: 500, default: "", null: false
     t.datetime "processed_at"
     t.string "secondary_status", default: "", null: false
+    t.boolean "recording_consent", default: false, null: false
     t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id"
     t.index ["guider_id", "proceeded_at"], name: "index_appointments_on_guider_id_and_proceeded_at"
     t.index ["location_id"], name: "index_appointments_on_location_id"
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(version: 2022_06_08_125347) do
     t.string "postcode", default: "", null: false
     t.string "gdpr_consent", default: "", null: false
     t.string "pension_provider", default: "", null: false
+    t.boolean "recording_consent", default: false, null: false
   end
 
   create_table "organisation_lookups", force: :cascade do |t|

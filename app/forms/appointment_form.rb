@@ -14,6 +14,7 @@ class AppointmentForm # rubocop:disable ClassLength
     address?
     consent
     email?
+    recording_consent
   ).freeze
 
   validates :name, presence: true
@@ -92,6 +93,10 @@ class AppointmentForm # rubocop:disable ClassLength
 
   def accessibility_requirements
     @accessibility_requirements ||= location_aware_booking_request.accessibility_requirements
+  end
+
+  def recording_consent
+    @recording_consent ||= location_aware_booking_request.recording_consent
   end
 
   private

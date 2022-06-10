@@ -18,7 +18,7 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
     end
   end
 
-  scenario 'Successfully placing a scheduled realtime booking' do
+  scenario 'Successfully placing a scheduled realtime booking', js: true do
     travel_to '2018-11-03 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
         and_available_realtime_slots_exist_within_the_booking_window
@@ -89,6 +89,7 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
+    @page.recording_consent.set(true)
   end
 
   def and_they_confirm_the_booking
@@ -130,7 +131,8 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
       postcode: 'RG1 1AA',
       age_range: '55-plus',
       additional_info: 'Other notes',
-      gdpr_consent: 'yes'
+      gdpr_consent: 'yes',
+      recording_consent: true
     )
   end
 
