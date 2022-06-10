@@ -74,6 +74,11 @@
             <%= f.check_box :recording_consent, class: 't-recording-consent' %> Appointment recording consent?
           <% end %>
         </div>
+        <div class="form-group">
+          <%= f.label :nudged, class: 'checkbox-inline' do %>
+            <%= f.check_box :nudged, class: 't-nudged' %> Stronger Nudge signposting?
+          <% end %>
+        </div>
         <hr>
 
         <h2 class="h3">Eligibility</h2>

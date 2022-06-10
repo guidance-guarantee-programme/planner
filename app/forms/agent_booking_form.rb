@@ -22,6 +22,7 @@ class AgentBookingForm # rubocop:disable ClassLength
     additional_info
     gdpr_consent
     recording_consent
+    nudged
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -40,7 +41,6 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :where_you_heard, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
   validates :first_choice_slot, presence: true
-  validates :recording_consent, presence: true
 
   validate :validate_confirmation_details
   validate :validate_eligibility
@@ -60,6 +60,10 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   def recording_consent
     ActiveRecord::Type::Boolean.new.cast(@recording_consent)
+  end
+
+  def nudged
+    ActiveRecord::Type::Boolean.new.cast(@nudged)
   end
 
   def create_booking!
@@ -144,7 +148,8 @@ class AgentBookingForm # rubocop:disable ClassLength
       booking_location_id: booking_location_id,
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
-      recording_consent: recording_consent
+      recording_consent: recording_consent,
+      nudged: nudged
     }
   end
 
