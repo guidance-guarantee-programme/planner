@@ -58,18 +58,4 @@
   Email us if you didn’t want to cancel your appointment.
 <% end %>
 
-<%= h2 do %>
-  What’s MoneyHelper?
-<% end %>
-
-<%= p do %>
-  MoneyHelper is a government backed organisation that provides free and
-  impartial guidance on your money and pensions. Our service is designed to
-  support you in making your own informed decisions based on your circumstances.
-  Further information can be found at <a href="https://www.moneyhelper.org.uk/about-us">moneyhelper.org.uk/about-us</a>.
-<% end %>
-
-<%= p do %>
-  Full details of our privacy policy, including information on your rights in
-  relation to the data we hold can be found at <a href="https://www.moneyhelper.org.uk/privacy">moneyhelper.org.uk/privacy</a>.
-<% end %>
+<%= render 'shared/email/money_helper' %>

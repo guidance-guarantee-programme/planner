@@ -1,6 +1,6 @@
-<h1 style="color: #0B0C0C !important;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-weight: 700;font-size: 20px;line-height: 1.111111111;padding: 15px 0;">
+<%= h2 do %>
   Appointment reminder
-</h1>
+<% end %>
 
 <%= p do %>
   Dear <%= @appointment.name %>,
@@ -16,8 +16,6 @@
   Call <%= @appointment.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
 <% end %>
 
-<%= p do %>
-  Full details of our privacy policy, including information on your rights in relation to the data we hold can be found at <a href="https://www.pensionwise.gov.uk/en/privacy/">https://www.pensionwise.gov.uk/en/privacy</a>.
-<% end %>
-
 <%= render 'shared/email/preparing_for_appointment' %>
+
+<%= render '/shared/email/money_helper' %>
