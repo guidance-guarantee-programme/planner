@@ -1,12 +1,12 @@
-<h2 style="color: #0B0C0C !important;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-weight: 700;font-size: 18px;line-height: 1.111111111;padding: 15px 0;">
+<%= h2 do %>
   Preparing for your appointment
-</h2>
+<% end %>
 
 <%= p do %>
   To make the most of your appointment it would be helpful if you know:
 <% end %>
 
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin-top: 15px;margin-bottom: 15px;font-size: 16px;line-height: 1.315789474;">
+<%= ul do %>
   <li>
     <%= p do %>
       what type(s) of pension you have? – ask your pension provider whether you have a defined contribution or a defined benefit pension if you are unsure
@@ -19,7 +19,7 @@
   </li>
   <li>
     <%= p do %>
-      an estimate of your State Pension — call the Future Pension Centre on 0800 731 0175 for a State Pension statement
+      an estimate of your State Pension — call the Future Pension Centre on <strong>0800 731 0175</strong> or <a href="https://www.gov.uk/check-state-pension">use the online service</a> for a State Pension statement
     <% end %>
   </li>
   <li>
@@ -27,13 +27,13 @@
       if your pension pot contains any special features, eg a guaranteed annuity rate or a guaranteed pot value at a certain time — ask your provider
     <% end %>
   </li>
-</ul>
+<% end %>
 
 <%= p do %>
   Think about your financial circumstances in general and plans for retirement, eg:
 <% end %>
 
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin-top: 15px;margin-bottom: 15px;font-size: 16px;line-height: 1.315789474;">
+<%= ul do %>
   <li>
     <%= p do %>
       sources of income like salary, state benefits, savings and investments
@@ -54,23 +54,14 @@
       if you want a fixed or flexible income in retirement
     <% end %>
   </li>
-</ul>
-
-<h2 style="color: #0B0C0C !important;font-family: Helvetica, Arial, sans-serif;margin: 15px 0;font-weight: 700;font-size: 18px;line-height: 1.111111111;padding: 15px 0;">
-  Coronavirus (COVID-19)
-</h2>
-
-<%= p do %>
-  Coronavirus (COVID-19) is a new illness that can affect your lungs and airways. If you think you might have coronavirus or you've been in close contact with someone who has it:
 <% end %>
 
-<ul style="color: #0B0C0C;font-family: Helvetica, Arial, sans-serif;margin-top: 15px;margin-bottom: 15px;font-size: 16px;line-height: 1.315789474;">
-  <li>stay at home and avoid close contact with other people</li>
-  <li>do not go to a GP surgery, pharmacy or hospital</li>
-  <li>use the <a href="https://111.nhs.uk/covid-19">NHS 111 online coronavirus service</a> to find out what to do next. The 111 coronavirus service will tell you if you need to continue to stay at home (self-isolate) or if you need medical help</li>
-  <li>if you've recently travelled abroad, see the <a href="https://www.nhs.uk/conditions/coronavirus-covid-19/">coronavirus advice for travellers</a></li>
-</ul>
+<%= h2 do %>
+  Pension scams
+<% end %>
 
 <%= p do %>
-  Further information is available at <a href="https://nhs.uk/coronavirus">nhs.uk/coronavirus</a>.
+  Pension scams are on the increase in the UK. A lifetime’s savings can be lost
+  in moments. More information on scams can be found at
+  <a href="https://www.moneyhelper.org.uk/scams">moneyhelper.org.uk/scams</a>.
 <% end %>
