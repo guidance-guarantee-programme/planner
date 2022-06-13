@@ -32,21 +32,6 @@ RSpec.describe Appointments do
     end
   end
 
-  describe 'Cancelled by Pension Wise' do
-    before do
-      allow(appointment).to receive(:newly_cancelled?).and_return(true)
-      allow(appointment).to receive(:cancelled_by_pension_wise?).and_return(true)
-    end
-
-    subject(:mail) { described_class.cancellation(appointment) }
-
-    let(:body) { subject.body.encoded }
-
-    it 'includes the coronavirus booking information' do
-      expect(body).to include('book a phone appointment')
-    end
-  end
-
   describe 'Cancellation' do
     before do
       allow(appointment).to receive(:newly_cancelled?).and_return(true)

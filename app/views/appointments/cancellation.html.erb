@@ -1,27 +1,22 @@
-<h2>We’ve cancelled your appointment</h2>
-
-<% if @appointment.cancelled_by_pension_wise? %>
-  <%= p do %>
-    The ongoing response to coronavirus has affected the delivery of appointments. As a result we have cancelled your forthcoming face-to-face appointment.
-  <% end %>
-  <%= p do %>
-    You may have received a phone call to confirm this. However, if we have not been able to reach you this is the first notification you may be receiving.
-  <% end %>
-  <%= p do %>
-    You can <a href="https://www.pensionwise.gov.uk/en/book-phone">book a phone appointment</a> or <a href="https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f">explore your options</a> using our online tool. 
-  <% end %>
-<% else %>
-  <%= p do %>
-    If you've cancelled due to the ongoing response to coronavirus you can still <a href="https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f">explore your options</a>.
-  <% end %>
+<%= h2 do %>
+  We’ve cancelled your appointment
 <% end %>
 
 <%= p do %>
   Dear <%= @appointment.name %>,
 <% end %>
 
-<%= p do %>
-  We have cancelled the following appointment as requested:
+<% if @appointment.cancelled_by_pension_wise? %>
+  <%= p do %>
+    We have cancelled the following appointment due to unforeseen circumstances. We apologise for any inconvenience this may cause.
+  <% end %>
+  <%= p do %>
+    If we have not contacted you already, we will offer you a new date for your appointment within 1 working day.
+  <% end %>
+<% else %>
+  <%= p do %>
+    We have cancelled the following appointment as requested:
+  <% end %>
 <% end %>
 
 <%= p do %>
@@ -63,7 +58,18 @@
   Email us if you didn’t want to cancel your appointment.
 <% end %>
 
+<%= h2 do %>
+  What’s MoneyHelper?
+<% end %>
+
+<%= p do %>
+  MoneyHelper is a government backed organisation that provides free and
+  impartial guidance on your money and pensions. Our service is designed to
+  support you in making your own informed decisions based on your circumstances.
+  Further information can be found at <a href="https://www.moneyhelper.org.uk/about-us">moneyhelper.org.uk/about-us</a>.
+<% end %>
+
 <%= p do %>
   Full details of our privacy policy, including information on your rights in
-  relation to the data we hold can be found at pensionwise.gov.uk/privacy
+  relation to the data we hold can be found at <a href="https://www.moneyhelper.org.uk/privacy">moneyhelper.org.uk/privacy</a>.
 <% end %>
