@@ -2,6 +2,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Agent places a realtime booking' do
+  scenario 'Seeing a descriptive failure message when unauthorised' do
+    travel_to '2018-11-03 13:00' do
+      given_the_user_identifies_as_a_resource_manager
+      and_available_realtime_slots_exist_within_the_booking_window
+      when_they_attempt_to_place_a_booking_at_hackney
+      then_they_are_told_they_cannot_be_authorised
+    end
+  end
+
   scenario 'Successfully placing a realtime booking/appointment' do
     travel_to '2018-11-03 13:00' do
       given_the_user_identifies_as_an_agent
@@ -18,8 +27,16 @@ RSpec.feature 'Agent places a realtime booking' do
     end
   end
 
+  def given_the_user_identifies_as_a_resource_manager
+    create(:booking_manager)
+  end
+
   def given_the_user_identifies_as_an_agent
     create(:agent)
+  end
+
+  def then_they_are_told_they_cannot_be_authorised
+    expect(@page).to have_text('Please contact your Delivery Manager or MaPS')
   end
 
   def and_available_realtime_slots_exist_within_the_booking_window

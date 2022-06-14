@@ -6,6 +6,10 @@ module Agent
       authorise_user!(any_of: [User::AGENT_MANAGER_PERMISSION, User::AGENT_PERMISSION])
     end
 
+    rescue_from GDS::SSO::ControllerMethods::PermissionDeniedException do |e|
+      render 'unauthorised', status: :forbidden, locals: { message: e.message }
+    end
+
     def index
       @search = AgentSearchForm.new(search_params)
       @appointments = @search.results
