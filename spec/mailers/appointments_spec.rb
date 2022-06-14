@@ -19,7 +19,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Pension Wise Appointment Changed')
       expect(mail.to).to eq([booking_manager.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -44,7 +44,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment Cancellation')
       expect(mail.to).to eq([appointment.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -69,7 +69,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Pension Wise Appointment SMS Cancellation')
       expect(mail.to).to eq([booking_manager.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -91,7 +91,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment Reminder')
       expect(mail.to).to eq([appointment.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
       expect(mail.reply_to).to eq(['dave@example.com'])
     end
 
@@ -129,7 +129,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment')
       expect(mail.to).to eq([appointment.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
       expect(mail.reply_to).to eq(['dave@example.com'])
     end
 
