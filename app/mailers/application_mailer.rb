@@ -5,7 +5,7 @@ class ApplicationMailer < ActionMailer::Base
 
   helper :email
 
-  default from: 'Pension Wise Appointments <appointments@pensionwise.gov.uk>'
+  default from: 'Pension Wise Appointments <appointments.pensionwise@moneyhelper.org.uk>'
 
   layout 'mailer'
 end

@@ -46,6 +46,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'sassc-rails'
   gem 'sidekiq'
   gem 'sinatra', require: false
+  gem 'sprockets', '3.7.2'
   gem 'sprockets-es6'
   gem 'uglifier', '>= 1.3.0'
   gem 'uk_postcode'

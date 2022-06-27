@@ -37,8 +37,10 @@ class AuditPresenter < SimpleDelegator
 
   attr_reader :booking_location
 
-  def format(key, value) # rubocop:disable Metrics/MethodLength
+  def format(key, value) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
     case key
+    when 'secondary_status'
+      Appointment::SECONDARY_STATUSES.values.reduce(&:merge)[value] || '-'
     when 'guider_id'
       booking_location.guider_name_for(value.to_i)
     when 'location_id'

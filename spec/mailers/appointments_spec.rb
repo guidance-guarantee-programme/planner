@@ -19,7 +19,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Pension Wise Appointment Changed')
       expect(mail.to).to eq([booking_manager.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -29,21 +29,6 @@ RSpec.describe Appointments do
         expect(body).to include(appointment.reference)
         expect(body).to include('Name', 'Email')
       end
-    end
-  end
-
-  describe 'Cancelled by Pension Wise' do
-    before do
-      allow(appointment).to receive(:newly_cancelled?).and_return(true)
-      allow(appointment).to receive(:cancelled_by_pension_wise?).and_return(true)
-    end
-
-    subject(:mail) { described_class.cancellation(appointment) }
-
-    let(:body) { subject.body.encoded }
-
-    it 'includes the coronavirus booking information' do
-      expect(body).to include('book a phone appointment')
     end
   end
 
@@ -59,7 +44,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment Cancellation')
       expect(mail.to).to eq([appointment.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -84,7 +69,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Pension Wise Appointment SMS Cancellation')
       expect(mail.to).to eq([booking_manager.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -106,7 +91,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment Reminder')
       expect(mail.to).to eq([appointment.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
       expect(mail.reply_to).to eq(['dave@example.com'])
     end
 
@@ -144,7 +129,7 @@ RSpec.describe Appointments do
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Pension Wise Appointment')
       expect(mail.to).to eq([appointment.email])
-      expect(mail.from).to eq(['appointments@pensionwise.gov.uk'])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
       expect(mail.reply_to).to eq(['dave@example.com'])
     end
 

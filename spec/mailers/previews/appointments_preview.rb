@@ -22,7 +22,7 @@ class AppointmentsPreview < ActionMailer::Preview
 
   def reminder
     Appointments.reminder(
-      FactoryBot.create(:appointment),
+      Appointment.first,
       booking_location
     )
   end

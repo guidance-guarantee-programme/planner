@@ -19,6 +19,7 @@ module Pages
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
     element :gdpr_consent, '.t-gdpr-consent'
     element :consent, '.t-consent-button'
+    element :recording_consent, '.t-recording-consent'
 
     element :date, '.t-date'
     element :time_hour, '#appointment_proceeded_at_4i'
@@ -40,6 +41,8 @@ module Pages
     element :edit_postal_address, '.t-edit-postal-address'
 
     element :status, '.t-status'
+    element :secondary_status, '.t-secondary-status'
+    elements :secondary_status_options, '.t-secondary-status > option:not(:empty)'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'

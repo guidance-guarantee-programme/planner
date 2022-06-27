@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Appointment do
-  subject { build_stubbed(:appointment) }
+  subject { build_stubbed(:appointment, current_user: build_stubbed(:agent)) }
 
   describe '#duplicates' do
     it 'matches the current booking location' do
@@ -50,7 +50,7 @@ RSpec.describe Appointment do
 
         expect(described_class.needing_reminder).to include(appointment)
 
-        appointment.update(status: :cancelled_by_customer)
+        appointment.update(status: :cancelled_by_customer_sms)
 
         expect(described_class.needing_reminder).to be_empty
       end
@@ -204,6 +204,49 @@ RSpec.describe Appointment do
   describe 'validation' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
+    end
+
+    context 'when the status would require a secondary status' do
+      before { subject.created_at = Time.current }
+
+      context 'when the appointment is past the cut-off date' do
+        before do
+          allow(ENV).to receive(:fetch).with('SECONDARY_STATUS_CUT_OFF').and_return(2.days.ago.to_s)
+        end
+
+        it 'is invalid' do
+          subject.status = :incomplete_other
+          expect(subject).to be_invalid
+
+          subject.secondary_status = '0' # technological issue
+          expect(subject).to be_valid
+
+          subject.secondary_status = '10' # belongs to ineligible pension type
+          expect(subject).to be_invalid
+        end
+
+        context 'when the current user is an agent' do
+          it 'disallows certain secondary statuses' do
+            subject.current_user = build_stubbed(:agent)
+
+            subject.status = :cancelled_by_customer
+            subject.secondary_status = '15' # Cancelled prior to appointment
+            expect(subject).to be_valid
+
+            subject.secondary_status = '17' # Customer forgot
+            expect(subject).to be_invalid
+          end
+        end
+      end
+
+      context 'when it is not past the cut-off date' do
+        it 'is not required' do
+          allow(ENV).to receive(:fetch).with('SECONDARY_STATUS_CUT_OFF').and_return(2.days.from_now.to_s)
+
+          subject.status = :incomplete_other
+          expect(subject).to be_valid
+        end
+      end
     end
 
     %i(name email phone guider_id location_id proceeded_at).each do |attribute|

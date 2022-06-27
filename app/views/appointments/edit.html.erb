@@ -59,8 +59,7 @@
 
 <div class="row">
   <div class="col-md-4">
-    <h2 class="h3">Requested appointment</h2>
-    <p>The customer has requested the following time slots, in order of preference.</p>
+    <h2 class="h3">Booked appointment</h2>
 
     <div class="is-chosen SlotPicker--selected" data-module="rescheduling-modal">
       <div class="SlotPicker-choice is-chosen">
@@ -198,6 +197,11 @@
                 <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Accessibility requirements?
               <% end %>
             </div>
+            <div class="form-group">
+              <%= f.label :recording_consent, class: 'checkbox-inline' do %>
+                <%= f.check_box :recording_consent, class: 't-recording-consent' %> Appointment recording consent?
+              <% end %>
+            </div>
           </div>
           <div class="col-md-6">
             <h2 class="h3">Appointment details</h2>
@@ -236,7 +240,14 @@
             <div class="form-group">
               <div class="well appointment-status-well">
                 <%= f.label :status, 'Appointment status' %>
-                <%= f.select :status, friendly_options(Appointment.statuses), options = {}, { class: 'form-control t-status' } %>
+                <%= f.select :status,
+                  friendly_options(Appointment.statuses),
+                  options = {}, {
+                    class: 'form-control t-status',
+                    data: { module: 'secondary-status', options: Appointment::SECONDARY_STATUSES.to_json, 'initial-secondary-status' => @appointment_form.secondary_status }
+                } %>
+
+                <%= f.select(:secondary_status, [], {}, { class: 't-secondary-status form-control js-secondary-status', data: { 'no-tracking' => true }}) %>
               </div>
             </div>
           </div>

@@ -89,7 +89,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
-  scenario 'Update the status of an Appointment' do
+  scenario 'Update the status of an Appointment', js: true do
     perform_enqueued_jobs do
       given_the_user_identifies_as_hackneys_booking_manager do
         and_there_is_an_appointment
@@ -291,6 +291,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.time_hour.select('15')
     @page.time_minute.select('15')
     @page.guider.select('Bob Johnson')
+    @page.recording_consent.set(true)
 
     @page.submit.click
   end
@@ -304,6 +305,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.time_hour.value).to eq '15'
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
+    expect(@page.recording_consent).to be_checked
   end
 
   def and_the_customer_is_notified
@@ -328,6 +330,8 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def when_they_modify_the_status
     @page.status.select('Cancelled By Customer')
+    @page.wait_until_secondary_status_options_visible
+    @page.secondary_status.select('Cancelled prior to appointment')
     @page.submit.click
   end
 
@@ -336,6 +340,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page).to be_displayed
 
     expect(@page.status.value).to eq 'cancelled_by_customer'
+    expect(@page.secondary_status.value). to eq '15'
   end
 
   def and_provides_invalid_information

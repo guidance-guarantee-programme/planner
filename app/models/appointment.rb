@@ -3,6 +3,40 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
 
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
 
+  AGENT_PERMITTED_SECONDARY = '15'.freeze
+  SECONDARY_STATUSES = {
+    'incomplete_other' => {
+      '0' => 'Technological issue',
+      '1' => 'Guider issue',
+      '2' => 'Customer issue',
+      '3' => 'Customer had accessibility requirement',
+      '4' => 'Customer believed Pension Wise was mandatory',
+      '5' => 'Customer wanted specific questions answered',
+      '6' => 'Customer did not want to hear all payment options',
+      '7' => 'Customer wanted advice not guidance',
+      '8' => 'Customer behaviour',
+      '9' => 'Other'
+    },
+    'ineligible_pension_type' => {
+      '10' => 'DB pension only and not considering transferring',
+      '11' => 'Annuity in payment only',
+      '12' => 'State pension only',
+      '13' => 'Overseas pension only',
+      '14' => 'S32 – No GMP Excess'
+    },
+    'cancelled_by_customer' => {
+      '15' => 'Cancelled prior to appointment',
+      '16' => 'Inconvenient time',
+      '17' => 'Customer forgot',
+      '18' => 'Customer changed their mind',
+      '19' => 'Customer not sufficiently prepared to undertake the call',
+      '20' => 'Customer did not agree with data protection policy',
+      '21' => 'Duplicate appointment booked by customer',
+      '22' => 'Customer driving whilst having appointment',
+      '23' => 'Third-party consent not received'
+    }
+  }.freeze
+
   enum status: %i(
     pending
     completed
@@ -36,11 +70,14 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   validates :guider_id, presence: true
   validate  :validate_proceeded_at
   validate  :validate_guider_availability
+  validate  :validate_secondary_status
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
   scope :with_mobile, -> { where("phone like '07%'") }
   scope :without_mobile, -> { where.not("phone like '07%'") }
   scope :with_email, -> { where.not(email: '') }
+
+  attr_accessor :current_user
 
   def duplicates # rubocop:disable AbcSize
     scope = self.class.joins(:booking_request)
@@ -194,6 +231,22 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
       guider_id: guider_id, proceeded_at: proceeded_at, id: id, location_id: location_id
     )
       errors.add(:guider_id, 'is already booked with an overlapping appointment')
+    end
+  end
+
+  def validate_secondary_status # rubocop:disable AbcSize, PerceivedComplexity, CyclomaticComplexity, MethodLength
+    return unless created_at && created_at > Time.zone.parse(
+      ENV.fetch('SECONDARY_STATUS_CUT_OFF') { '2022-06-08 09:00' }
+    )
+
+    if matches = SECONDARY_STATUSES[status] # rubocop:disable GuardClause
+      unless matches.key?(secondary_status)
+        return errors.add(:secondary_status, 'must be provided for the chosen status')
+      end
+
+      if current_user.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
+        errors.add(:secondary_status, "Contact centre agents should only select 'Cancelled prior to appointment'")
+      end
     end
   end
 end

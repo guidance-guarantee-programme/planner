@@ -1,3 +1,7 @@
 .appointment-status-well {
   background: $appointment-status-well-background-color;
+
+  select:last-of-type {
+    margin-top: 5px;
+  }
 }

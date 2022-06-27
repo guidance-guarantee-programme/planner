@@ -20,7 +20,9 @@ RSpec.describe AgentBookingForm do
       where_you_heard: 1,
       gdpr_consent: 'yes',
       accessibility_requirements: false,
-      additional_info: ''
+      additional_info: '',
+      recording_consent: true,
+      nudged: true
     )
   end
 

@@ -50,11 +50,11 @@ module ScheduleHelper
   def bookable_slots_button(location)
     link_to(
       realtime_bookable_slots_path(location_id: location.id),
-      title: 'Modify realtime availability',
+      title: 'Modify availability',
       class: 'btn btn-info t-realtime-availability'
     ) do
       content_tag(:span, '', class: 'glyphicon glyphicon-time', 'aria-hidden' => 'true') +
-        content_tag(:span, 'Modify realtime availability', class: 'sr-only')
+        content_tag(:span, 'Modify availability', class: 'sr-only')
     end
   end
 

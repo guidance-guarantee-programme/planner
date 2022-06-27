@@ -1,19 +1,14 @@
-<% if @appointment.cancelled_by_pension_wise? %>
-The ongoing response to coronavirus has affected the delivery of appointments. As a result we have cancelled your forthcoming face-to-face appointment.
-
-You may have received a phone call to confirm this. However, if we have not been able to reach you this is the first notification you may be receiving.
-
-You can book a phone appointment [1] or explore your options [2] using our online tool. 
-
-[1] https://www.pensionwise.gov.uk/en/book-phone
-[2] https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f
-<% else %>
-If you've cancelled due to the ongoing response to coronavirus you can still <a href="https://www.pensionwise.gov.uk/en/explore-your-options?utm_source=cancellation&utm_medium=email&utm_campaign=f2f">explore your options</a>.
-<% end %>
+We've cancelled your appointment
 
 Dear <%= @appointment.name %>,
 
-We have cancelled the following appointment as requested.
+<% if @appointment.cancelled_by_pension_wise? %>
+We have cancelled the following appointment due to unforeseen circumstances. We apologise for any inconvenience this may cause.
+
+If we have not contacted you already, we will offer you a new date for your appointment within 1 working day.
+<% else %>
+We have cancelled the following appointment as requested:
+<% end %>
 
 Date:
 <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
@@ -32,4 +27,4 @@ Reference number:
 
 Email us if you didn’t want to cancel your appointment.
 
-Full details of our privacy policy, including information on your rights in relation to the data we hold can be found at pensionwise.gov.uk/privacy
+<%= render '/shared/email/money_helper' %>

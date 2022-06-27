@@ -27,6 +27,8 @@
   <%= f.hidden_field :county %>
   <%= f.hidden_field :postcode %>
   <%= f.hidden_field :additional_info %>
+  <%= f.hidden_field :recording_consent %>
+  <%= f.hidden_field :nudged %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
 
@@ -110,7 +112,7 @@
 
         <p class="alert alert-warning">
           Full details on our privacy policy, including the customers rights in
-          regards to their personal data, can be found on the Pension Wise website
+          regards to their personal data, can be found on the MoneyHelper website
         </p>
       </div>
     </div>

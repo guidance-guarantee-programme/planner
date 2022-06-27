@@ -114,8 +114,10 @@ class AppointmentsController < ApplicationController
         :location_id,
         :additional_info,
         :proceeded_at,
-        :status
-      )
+        :status,
+        :secondary_status,
+        :recording_consent
+      ).merge(current_user: current_user)
   end
 
   def munge_time_params!
