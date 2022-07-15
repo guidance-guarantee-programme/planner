@@ -1,0 +1,29 @@
+<% content_for(:page_title, t('service.title', page_title: 'Calendar')) %>
+
+<div class="page-header">
+  <ol class="breadcrumb">
+    <li><a href="<%= root_path %>">Planner</a></li>
+    <li class="active">Calendar</li>
+  </ol>
+</div>
+
+<div id="resource-calendar-filter" class="resource-calendar-filter hide">
+  <%= label_tag(:filter_guiders, 'Filter by guider') %>
+  <%=
+    select_tag(
+      :filter_guiders,
+      options_for_select(guider_options(booking_location, include_inactive: false)),
+      multiple: 'multiple',
+      class: 't-users',
+      data: { module: 'advanced-select', placeholder: 'Guider' }
+    )
+  %>
+</div>
+
+<div
+  class="js-calendar-reload-on-events t-calendar"
+  data-module="my-appointments-calendar"
+  data-default-date="<%= Time.zone.now.rfc3339 %>"
+  data-guiders-path="<%= guiders_path(location_id: current_user.booking_location_id) %>"
+  data-filter-select-id="filter_guiders"
+></div>

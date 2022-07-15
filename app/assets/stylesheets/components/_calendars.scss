@@ -1,6 +1,8 @@
 $calendar-loading-view-background: transparentize($color-white, .2);
 $calendar-appointment-cancelled-background: lighten($color-medium-carmine, 20%);
 $calendar-bookable-slot-background: darken($color-green, 60%);
+$calendar-filter-box-shadow: transparentize($color-black, .825);
+$calendar-filter-arrow-border: transparentize($color-black, .8);
 
 $guider-row-height: 110px;
 
@@ -101,3 +103,46 @@ th {
 .resource-link {
   cursor: pointer;
 }
+
+.resource-calendar-filter {
+  background: $color-white;
+  border-radius: 4px;
+  border: 1px solid $color-silver;
+  box-shadow: 0 6px 12px $calendar-filter-box-shadow;
+  margin-bottom: 10px;
+  padding: 1em;
+  position: absolute;
+  z-index: 100;
+  width: 600px;
+
+  &::before,
+  &::after {
+    border-bottom-color: $calendar-filter-arrow-border;
+    content: "";
+    display: inline-block;
+    position: absolute;
+  }
+
+  &::before {
+    left: 160px;
+    top: -7px;
+    border-right: 7px solid transparent;
+    border-left: 7px solid transparent;
+    border-bottom: 7px solid $color-silver;
+  }
+
+  &::after {
+    left: 161px;
+    top: -6px;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid $color-white;
+    border-left: 6px solid transparent;
+  }
+}
+
+// scss-lint:disable ImportantRule
+.select2-container,
+.select2-search__field {
+  width: 100% !important;
+}
+// scss-lint:enable ImportantRule
