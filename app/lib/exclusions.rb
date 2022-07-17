@@ -1,7 +1,7 @@
 class Exclusions
-  CAS_HOLIDAYS   = %w(10/04/2020 25/12/2020 28/12/2020).map(&:to_date).freeze
-  PWNI_HOLIDAYS  = %w(17/03/2020 10/04/2020 13/04/2020 08/05/2020 25/05/2020 31/08/2020 25/12/2020 28/12/2020).map(&:to_date).freeze # rubocop:disable LineLength
-  CITA_HOLIDAYS  = %w(10/04/2020 13/04/2020 08/05/2020 25/05/2020 31/08/2020 25/12/2020 28/12/2020).map(&:to_date).freeze # rubocop:disable LineLength
+  CAS_HOLIDAYS   = [].freeze
+  PWNI_HOLIDAYS  = %w(2022-08-29).map(&:to_date).freeze
+  CITA_HOLIDAYS  = %w(2022-08-29).map(&:to_date).freeze
 
   def initialize(location_id)
     @location_id = location_id
