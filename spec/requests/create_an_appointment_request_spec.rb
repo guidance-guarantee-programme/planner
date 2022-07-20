@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'POST /api/v1/booking_requests' do
   scenario 'creating a valid appointment from a realtime slot' do
-    travel_to '2018-11-05 13:00' do
+    travel_to '2018-11-01 13:00' do
       perform_enqueued_jobs do
         given_the_client_identifies_as_pension_wise
         and_the_hackney_booking_manager_exists

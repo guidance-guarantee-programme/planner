@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Booking manager views realtime bookable slot list' do
   scenario 'Viewing for a particular location' do
     given_the_user_identifies_as_hackneys_booking_manager do
-      travel_to '2019-05-17 13:00 UTC' do
+      travel_to '2019-05-10 13:00 UTC' do
         and_a_schedule_exists_with_realtime_slots
         when_they_view_the_list
         then_they_see_the_slots
@@ -16,9 +16,6 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
   def and_a_schedule_exists_with_realtime_slots
     # this will be available
     @slot = create(:bookable_slot)
-
-    # this will not be displayed by default since it's before today
-    @hidden = create(:bookable_slot, start_at: '2019-05-14 13:00', schedule: @slot.schedule)
 
     # this will be unavailable due to associated booking
     create_appointment_with_booking_slot(
@@ -38,10 +35,10 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     expect(@page).to have_slots(count: 2)
 
     @page.slots.first.tap do |slot|
-      expect(slot.start_at).to have_text('9:00am, 17 May 2019')
+      expect(slot.start_at).to have_text('9:00am, 10 May 2019')
       expect(slot.guider).to have_text('Ben Lovell')
       expect(slot.available).to have_text('Yes')
-      expect(slot.created_at).to have_text('2:00pm, 17 May 2019')
+      expect(slot.created_at).to have_text('2:00pm, 10 May 2019')
     end
 
     expect(@page.slots.last.available).to have_text('No')

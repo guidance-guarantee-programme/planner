@@ -19,7 +19,7 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
   end
 
   scenario 'Successfully placing a scheduled realtime booking', js: true do
-    travel_to '2018-11-03 13:00' do
+    travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
         and_available_realtime_slots_exist_within_the_booking_window
         when_they_search_with_a_hackney_postcode

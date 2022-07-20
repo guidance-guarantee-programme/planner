@@ -8,7 +8,7 @@ RSpec.describe GracePeriod do
       pwni = described_class.new(@lookup.location_id)
 
       # jumps past the holiday
-      expect(pwni.start).to eq('2022-08-30'.to_date)
+      expect(pwni.start).to eq('2022-08-31'.to_date)
     end
   end
 
@@ -19,7 +19,7 @@ RSpec.describe GracePeriod do
       cas = described_class.new(@lookup.location_id)
 
       # lands on an English/Welsh bank holiday
-      expect(cas.start).to eq('2022-08-29'.to_date)
+      expect(cas.start).to eq('2022-08-31'.to_date)
     end
   end
 end
