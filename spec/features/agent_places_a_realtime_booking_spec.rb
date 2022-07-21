@@ -12,7 +12,7 @@ RSpec.feature 'Agent places a realtime booking' do
   end
 
   scenario 'Successfully placing a realtime booking/appointment' do
-    travel_to '2018-11-03 13:00' do
+    travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_an_agent
       and_available_realtime_slots_exist_within_the_booking_window
       when_they_attempt_to_place_a_booking_at_hackney

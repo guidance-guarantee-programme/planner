@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'GET /locations/{location_id}/realtime_appointments' do
   scenario 'Returns a list of realtime appointments in the given timeframe' do
-    travel_to '2018-11-03 13:00' do
+    travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
         given_a_schedule_with_realtime_slots_exists
         and_an_overlapping_realtime_appointment_exists
