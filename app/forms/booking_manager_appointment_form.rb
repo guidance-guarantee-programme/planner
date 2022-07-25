@@ -47,7 +47,6 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
   validates :first_choice_slot, presence: true, if: :scheduled?
   validates :ad_hoc_start_at, presence: true, unless: :scheduled?
   validates :guider_id, presence: true, unless: :scheduled?
-  validates :recording_consent, presence: true
   validate :validate_confirmation_details
   validate :validate_eligibility
   validate :validate_guider_availability, unless: :scheduled?
