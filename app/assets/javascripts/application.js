@@ -7,6 +7,8 @@
 //= require growl
 //= require pusher
 //= require planner-base
+//= require qTip2
+//= require select2
 //= require_tree .
 
 PWPlanner.poller.init();

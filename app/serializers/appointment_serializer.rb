@@ -23,4 +23,12 @@ class AppointmentSerializer < ActiveModel::Serializer
   attribute :url do
     edit_appointment_path(object)
   end
+
+  attribute :location do
+    @booking_location = BookingLocationDecorator.new(
+      BookingLocations.find(object.location_id)
+    )
+
+    @booking_location.name_for(object.location_id)
+  end
 end

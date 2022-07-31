@@ -11,6 +11,7 @@ source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-fullcalendar-scheduler', '1.9.4'
   gem 'rails-assets-growl'
   gem 'rails-assets-pusher'
+  gem 'rails-assets-qTip2'
 end
 
 source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
@@ -25,6 +26,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'faraday'
   gem 'faraday-conductivity'
   gem 'faraday_middleware'
+  gem 'font-awesome-rails'
   gem 'foreman'
   gem 'gds-sso'
   gem 'govuk_admin_template'
@@ -44,6 +46,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'rgeo'
   gem 'rgeo-geojson'
   gem 'sassc-rails'
+  gem 'select2-rails'
   gem 'sidekiq'
   gem 'sinatra', require: false
   gem 'sprockets', '3.7.2'

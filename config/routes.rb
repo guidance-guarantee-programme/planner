@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :drops, only: :create
   end
 
+  resources :my_appointments, only: :index
+
   resources :users, only: :update
 
   resources :appointments, only: %i(index edit update) do

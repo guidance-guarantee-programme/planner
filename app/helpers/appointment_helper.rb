@@ -19,9 +19,12 @@ module AppointmentHelper
     statuses.map { |k, _| [k.titleize, k] }.to_h
   end
 
-  def guider_options(booking_location)
-    booking_location.guiders.map do |guider|
+  def guider_options(booking_location, include_inactive: true)
+    guiders = booking_location.guiders.map do |guider|
       [guider['name'], guider['id']]
     end.sort_by(&:first)
+
+    guiders = guiders.reject { |tuple| tuple.first.starts_with?('[INACTIVE]') } unless include_inactive
+    guiders
   end
 end
