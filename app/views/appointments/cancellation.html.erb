@@ -1,5 +1,9 @@
 <%= h2 do %>
+  <% if @appointment.hrh_bank_holiday? %>
+  Due to the passing of Her Majesty the Queen and as a mark of respect, we will be closed 19th Sept. Please rebook your appointment. We apologise for any inconvenience
+  <% else %>
   We’ve cancelled your appointment
+  <% end %>
 <% end %>
 
 <%= p do %>

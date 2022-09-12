@@ -55,6 +55,15 @@ RSpec.describe Appointments do
         expect(body).to include('cancelled')
 
         expect(body).not_to include('book a phone appointment')
+        expect(body).not_to include('Her Majesty')
+      end
+
+      context 'when the appointment occurs on the HRH bank holiday' do
+        it 'includes the temporary messaging' do
+          appointment.proceeded_at = Time.zone.parse('2022-09-19 13:00')
+
+          expect(body).to include('Her Majesty')
+        end
       end
     end
   end
