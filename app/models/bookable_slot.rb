@@ -56,7 +56,7 @@ class BookableSlot < ActiveRecord::Base
     return unless schedule
 
     errors.add(:base, 'cannot occur on this date as it is a listed exclusion') if Exclusions
-                                                                                  .new(schedule.location_id)
+                                                                                  .new
                                                                                   .include?(start_at.to_date)
   end
 end
