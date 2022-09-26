@@ -5,6 +5,7 @@
   </ol>
 
   <h1>Manage appointment for <%= @appointment.name %> <small><%= @appointment.reference %></small></h1>
+  <h3 class="t-booking-location"><%= @appointment.booking_location_name %></h3>
 </div>
 
 <%= render partial: 'activities/activity_feed', locals: {

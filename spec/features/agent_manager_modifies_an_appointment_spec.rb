@@ -84,6 +84,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
   end
 
   def then_they_see_the_location
+    expect(@page.booking_location).to have_text('Hackney')
     expect(@page.location).to have_text('Hackney')
   end
 
