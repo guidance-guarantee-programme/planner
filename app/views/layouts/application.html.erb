@@ -74,6 +74,14 @@
   <% end %>
 <% end %>
 
+<% unless Rails.env.test? %>
+  <% content_for :content do %>
+    <p class="alert alert-warning"><strong>Notice:</strong> we are currently experiencing difficulties delivering email to <strong>btinternet.com</strong> addresses.</p>
+
+    <%= yield %>
+  <% end %>
+<% end %>
+
 <% content_for :body_end do %>
   <%= javascript_include_tag 'application' %>
   <%= pusher_setup %>
