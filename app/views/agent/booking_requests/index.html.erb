@@ -2,10 +2,10 @@
 <div class="page-header">
   <ol class="breadcrumb">
     <li><%= link_to 'Planner', root_path %></li>
-    <li class="active">Teleperformance</li>
+    <li class="active">Pension Wise contact centre</li>
   </ol>
 
-  <h1>Teleperformance</h1>
+  <h1>Pension Wise contact centre</h1>
 </div>
 
 <div class="t-search filters">
@@ -49,21 +49,18 @@
         <caption><span class="sr-only">Appointments</span></caption>
         <thead>
           <tr class="table-header">
-            <th>Requested</th>
             <th>Customer name</th>
             <th>Location</th>
             <th>Date/time</th>
             <th>Reference</th>
             <th>Agent</th>
+            <th>Status</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <% @appointments.each do |appointment| %>
             <tr class="t-appointment">
-              <td>
-                <%= appointment.created_at.in_time_zone('London').to_s(:govuk_date) %>
-              </td>
               <td>
                 <%= appointment.name %>
               </td>
@@ -78,6 +75,9 @@
               </td>
               <td>
                 <%= appointment.booking_request.agent&.name.presence || safe_location_name(appointment.booking_location_id) %>
+              </td>
+              <td>
+                <%= appointment.status.titleize %>
               </td>
               <td>
                 <% if current_user.agent_manager? %>

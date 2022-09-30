@@ -13,6 +13,10 @@ class LocationAwareEntity < SimpleDelegator
     actual_location&.online_booking_twilio_number.to_s.sub(/^\+44/, '0')
   end
 
+  def booking_location_name # rubocop:disable Rails/Delegate
+    booking_location.name
+  end
+
   def location_name
     actual_location.name
   end

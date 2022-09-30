@@ -5,6 +5,7 @@
   </ol>
 
   <h1>Manage appointment for <%= @appointment.name %> <small><%= @appointment.reference %></small></h1>
+  <h3 class="t-booking-location"><%= @appointment.booking_location_name %> <small><%= @appointment.status.titleize %></small></h3>
 </div>
 
 <%= render partial: 'activities/activity_feed', locals: {
@@ -14,6 +15,12 @@
 
 <div class="row">
   <div class="col-md-4">
+    <h3 class="h4">Booked appointment</h3>
+    <p class="lead">
+      <strong><%= @appointment.proceeded_at.to_s(:govuk_date) %></strong>
+    </p>
+
+    <hr>
     <h3 class="h4">Created at</h3>
     <p class="lead">
       <strong><%= @appointment.created_at.to_s(:govuk_date) %></strong>
