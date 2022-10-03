@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_10_113015) do
+ActiveRecord::Schema.define(version: 2022_10_03_074952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,16 @@ ActiveRecord::Schema.define(version: 2022_06_10_113015) do
     t.string "pension_provider", default: "", null: false
     t.boolean "recording_consent", default: false, null: false
     t.boolean "nudged", default: false, null: false
+  end
+
+  create_table "guider_lookups", force: :cascade do |t|
+    t.integer "guider_id", null: false
+    t.string "name", null: false
+    t.string "booking_location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_location_id"], name: "index_guider_lookups_on_booking_location_id"
+    t.index ["guider_id"], name: "index_guider_lookups_on_guider_id"
   end
 
   create_table "organisation_lookups", force: :cascade do |t|
