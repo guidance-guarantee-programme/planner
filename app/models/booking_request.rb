@@ -1,5 +1,5 @@
 class BookingRequest < ActiveRecord::Base
-  PERMITTED_AGE_RANGES = %w(50-54 55-plus).freeze
+  PERMITTED_AGE_RANGES = %w(under-50 50-54 55-plus).freeze
 
   include PostalAddressable
 

@@ -85,12 +85,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   end
 
   def validate_eligibility
-    unless %r{\d{1,2}\/\d{1,2}\/\d{4}}.match?(date_of_birth) || parsed_date_of_birth.blank?
-      errors.add(:date_of_birth, 'must be formatted eg 01/01/1950')
-      return
-    end
-
-    errors.add(:base, 'Must be aged 50 or over to be eligible') if age < 50
+    errors.add(:date_of_birth, 'must be formatted eg 01/01/1950') if parsed_date_of_birth.blank?
   end
 
   def validate_confirmation_details
