@@ -10,7 +10,7 @@ RSpec.describe BookableSlot do
   it 'does not allows slots to be created during exclusions' do
     slot = build(:bookable_slot)
 
-    Exclusions.new.holidays.each do |exclusion|
+    Exclusions::HOLIDAYS.each do |exclusion|
       slot.start_at = exclusion.to_date.end_of_day
 
       expect(slot).to be_invalid
