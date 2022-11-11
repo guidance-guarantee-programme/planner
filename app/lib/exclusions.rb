@@ -1,7 +1,5 @@
 class Exclusions
-  delegate :include?, to: :holidays
+  HOLIDAYS = %w(2022-12-26 2022-12-27 2023-01-02).map(&:to_date)
 
-  def holidays
-    ['2022-09-19'.to_date]
-  end
+  delegate :include?, to: :HOLIDAYS
 end
