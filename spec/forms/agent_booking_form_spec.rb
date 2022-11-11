@@ -35,6 +35,11 @@ RSpec.describe AgentBookingForm do
       expect(subject).to be_valid
     end
 
+    it 'requires GDPR consent to be specified' do
+      subject.gdpr_consent = ''
+      expect(subject).to be_invalid
+    end
+
     context 'when accessibility requirements were specified' do
       it 'requires additional info' do
         subject.accessibility_requirements = true

@@ -39,7 +39,7 @@ class AgentBookingForm # rubocop:disable ClassLength
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :additional_info, presence: true, if: :accessibility_requirements
   validates :where_you_heard, presence: true
-  validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
+  validates :gdpr_consent, inclusion: { in: %w(yes no) }
   validates :first_choice_slot, presence: true
 
   validate :validate_confirmation_details
