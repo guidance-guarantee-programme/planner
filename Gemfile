@@ -70,7 +70,6 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   end
 
   group :test do
-    gem 'coveralls', require: false
     gem 'database_cleaner'
     gem 'launchy'
     gem 'phantomjs'
