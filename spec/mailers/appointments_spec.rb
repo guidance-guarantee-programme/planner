@@ -16,8 +16,26 @@ RSpec.describe Appointments do
 
     it_behaves_like 'mailgun identified email'
 
+    context 'when it is a regular update' do
+      it 'subject includes `changed`' do
+        expect(mail.subject).to eq('Pension Wise Appointment Changed')
+      end
+    end
+
+    context 'when it is a cancellation' do
+      it 'subject includes `cancelled`' do
+        appointment.current_user = build(:agent)
+        # cancelled prior to appointment
+        appointment.update_attributes(
+          status: :cancelled_by_customer,
+          secondary_status: Appointment::AGENT_PERMITTED_SECONDARY
+        )
+
+        expect(mail.subject).to eq('Pension Wise Appointment Cancelled')
+      end
+    end
+
     it 'renders the headers' do
-      expect(mail.subject).to eq('Pension Wise Appointment Changed')
       expect(mail.to).to eq([booking_manager.email])
       expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end

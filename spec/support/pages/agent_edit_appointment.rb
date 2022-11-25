@@ -19,6 +19,7 @@ module Pages
 
     element :submit, '.t-submit'
     element :resend_confirmation, '.t-resend-confirmation'
+    element :cancel, '.t-cancel'
 
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'

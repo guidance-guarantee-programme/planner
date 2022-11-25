@@ -132,6 +132,13 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     end
   end
 
+  def cancel_by_agent!(agent)
+    self.current_user = agent
+    self.status = :cancelled_by_customer
+    self.secondary_status = AGENT_PERMITTED_SECONDARY # cancelled prior to appointment
+    save
+  end
+
   def updated?
     audits.present?
   end

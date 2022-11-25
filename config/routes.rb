@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: :update
 
   resources :appointments, only: %i(index edit update) do
+    resource :cancel, only: :create
     resource :process, only: :create
     resources :changes, only: :index
 

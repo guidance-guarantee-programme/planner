@@ -4,7 +4,7 @@ class Appointments < ApplicationMailer
 
     mailgun_headers :booking_manager_appointment_changed
 
-    mail(to: booking_manager.email, subject: 'Pension Wise Appointment Changed')
+    mail(to: booking_manager.email, subject: appointment_changed_subject(appointment))
   end
 
   def cancellation(appointment)
@@ -52,6 +52,18 @@ class Appointments < ApplicationMailer
   end
 
   private
+
+  def appointment_changed_subject(appointment)
+    subject = 'Pension Wise Appointment'
+
+    suffix = if appointment.cancelled?
+               'Cancelled'
+             else
+               'Changed'
+             end
+
+    "#{subject} #{suffix}"
+  end
 
   def decorate(appointment, booking_location = nil)
     booking_location ||= BookingLocations.find(appointment.location_id)
