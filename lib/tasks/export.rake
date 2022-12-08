@@ -1,6 +1,7 @@
 namespace :export do # rubocop:disable BlockLength
   QUERIES = {
-    'MAPS_PWBLZ_PLANNERAPPOINT_' => 'id, booking_request_id, guider_id, proceeded_at, status, created_at, updated_at',
+    'MAPS_PWBLZ_PLANNERAPPOINT_' => 'id, booking_request_id, guider_id, proceeded_at, status, created_at, updated_at,
+                                     nudged',
     'MAPS_PWBLZ_PLANNERBKSLT_'   => 'id, schedule_id, guider_id, start_at, end_at, created_at, updated_at',
     'MAPS_PWBLZ_PLANNERBKREQ_'   => 'id, agent_id, pension_provider, where_you_heard, gdpr_consent, booking_location_id,
                                      defined_contribution_pot_confirmed, age_range, created_at, updated_at',
