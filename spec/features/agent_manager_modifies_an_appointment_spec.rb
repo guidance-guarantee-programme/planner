@@ -17,7 +17,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
-  scenario 'Successfully modifying an appointment' do
+  scenario 'Successfully modifying an appointment', js: true do
     given_the_user_identifies_as_an_agent_manager do
       and_an_appointment_exists
       when_they_edit_the_appointment
@@ -25,6 +25,8 @@ RSpec.feature 'Agent manager modifies an appointment' do
       and_the_appointment_is_modified
       and_the_customer_is_notified
       and_the_booking_managers_are_notified
+      when_they_leave_an_activity_update
+      then_the_activity_update_is_created
     end
   end
 
@@ -35,6 +37,17 @@ RSpec.feature 'Agent manager modifies an appointment' do
       and_resend_an_email_confirmation
       then_the_email_confirmation_is_sent
     end
+  end
+
+  def when_they_leave_an_activity_update
+    @page.activity_feed.message.set 'This is an update.'
+    @page.activity_feed.submit.click
+  end
+
+  def then_the_activity_update_is_created
+    @page.activity_feed.wait_until_activities_visible
+
+    expect(@appointment.activities.first).to be_a(MessageActivity)
   end
 
   def when_they_view_the_appointment
