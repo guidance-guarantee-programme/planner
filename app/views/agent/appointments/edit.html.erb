@@ -4,6 +4,7 @@
     <li class="active"><%= @appointment.name %></li>
   </ol>
 
+
   <h1>Manage appointment for <%= @appointment.name %> <small><%= @appointment.reference %></small></h1>
   <h3 class="t-booking-location"><%= @appointment.booking_location_name %> <small><%= @appointment.status.titleize %></small></h3>
 </div>
@@ -19,6 +20,14 @@
     <p class="lead">
       <strong><%= @appointment.proceeded_at.to_s(:govuk_date) %></strong>
     </p>
+
+    <% if @appointment.agent_id? %>
+    <hr>
+    <h3 class="h4">Agent</h3>
+    <p class="lead">
+      <strong><%= @appointment.agent.name %></strong>
+    </p>
+    <% end %>
 
     <hr>
     <h3 class="h4">Created at</h3>
