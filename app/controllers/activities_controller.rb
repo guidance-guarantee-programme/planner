@@ -17,6 +17,14 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  protected
+
+  def authorise!
+    authorise_user!(
+      any_of: [User::BOOKING_MANAGER_PERMISSION, User::AGENT_PERMISSION, User::AGENT_MANAGER_PERMISSION]
+    )
+  end
+
   private
 
   def message_params
