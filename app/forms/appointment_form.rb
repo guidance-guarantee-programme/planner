@@ -104,6 +104,10 @@ class AppointmentForm # rubocop:disable ClassLength
     @nudged ||= location_aware_booking_request.nudged
   end
 
+  def third_party
+    @third_party ||= location_aware_booking_request.third_party
+  end
+
   private
 
   def validate_guider_availability

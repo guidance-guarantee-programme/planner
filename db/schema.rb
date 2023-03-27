@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_27_143228) do
+ActiveRecord::Schema.define(version: 2023_03_27_145802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2023_03_27_143228) do
     t.string "secondary_status", default: "", null: false
     t.boolean "recording_consent", default: false, null: false
     t.boolean "nudged", default: false, null: false
+    t.boolean "third_party", default: false, null: false
     t.index ["booking_request_id"], name: "index_appointments_on_booking_request_id"
     t.index ["guider_id", "proceeded_at"], name: "index_appointments_on_guider_id_and_proceeded_at"
     t.index ["location_id"], name: "index_appointments_on_location_id"

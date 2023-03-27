@@ -14,7 +14,8 @@ class AppointmentMapper
       booking_request_id: appointment_form.reference,
       additional_info: appointment_form.additional_info,
       recording_consent: appointment_form.recording_consent,
-      nudged: appointment_form.nudged
+      nudged: appointment_form.nudged,
+      third_party: appointment_form.third_party
     }
   end
 end
