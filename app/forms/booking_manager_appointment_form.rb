@@ -26,6 +26,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
     ad_hoc_start_at
     scheduled
     recording_consent
+    third_party
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -66,6 +67,10 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
 
   def recording_consent
     ActiveRecord::Type::Boolean.new.cast(@recording_consent)
+  end
+
+  def third_party
+    ActiveRecord::Type::Boolean.new.cast(@third_party)
   end
 
   def create_appointment!
@@ -163,7 +168,8 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
       guider_id: scheduled ? '' : guider_id,
-      recording_consent: recording_consent
+      recording_consent: recording_consent,
+      third_party: third_party
     }
   end
 

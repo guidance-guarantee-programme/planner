@@ -116,7 +116,8 @@ class AppointmentsController < ApplicationController
         :proceeded_at,
         :status,
         :secondary_status,
-        :recording_consent
+        :recording_consent,
+        :third_party
       ).merge(current_user: current_user)
   end
 
