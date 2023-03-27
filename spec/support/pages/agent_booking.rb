@@ -27,6 +27,7 @@ module Pages
     element :additional_info, '.t-additional-info'
     element :recording_consent, '.t-recording-consent'
     element :nudged, '.t-nudged'
+    element :third_party, '.t-third-party'
 
     element :preview, '.t-preview'
   end

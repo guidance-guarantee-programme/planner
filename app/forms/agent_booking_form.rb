@@ -23,6 +23,7 @@ class AgentBookingForm # rubocop:disable ClassLength
     gdpr_consent
     recording_consent
     nudged
+    third_party
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -64,6 +65,10 @@ class AgentBookingForm # rubocop:disable ClassLength
 
   def nudged
     ActiveRecord::Type::Boolean.new.cast(@nudged)
+  end
+
+  def third_party
+    ActiveRecord::Type::Boolean.new.cast(@third_party)
   end
 
   def create_booking!
@@ -144,7 +149,8 @@ class AgentBookingForm # rubocop:disable ClassLength
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
       recording_consent: recording_consent,
-      nudged: nudged
+      nudged: nudged,
+      third_party: third_party
     }
   end
 
