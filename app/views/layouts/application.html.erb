@@ -43,7 +43,7 @@
   </li>
   <% end %>
 
-  <% if current_user.administrator? %>
+  <% if current_user.administrator? || current_user.org_admin? %>
     <li class="dropdown quick-search t-quick-search" data-module="quick-search">
       <a href="#" class="dropdown-toggle js-quick-search-button" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
         <span class="sr-only">Find an appointment by reference</span>
@@ -61,9 +61,7 @@
         </form>
       </div>
     </li>
-  <% end %>
 
-  <% if current_user.administrator? || current_user.org_admin? %>
     <%= form_for current_user, html: { class: 'navbar-form navbar-right js-location-form' } do |f| %>
       <div class="form-group">
         <%= f.select :organisation_content_id,
