@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   PENSION_WISE_API_PERMISSION = 'pension_wise_api_user'
   BOOKING_MANAGER_PERMISSION  = 'booking_manager'
   ADMINISTRATOR_PERMISSION    = 'administrator'
+  ORG_ADMIN_PERMISSION        = 'org_admin'
   AGENT_PERMISSION            = 'agent'
   AGENT_MANAGER_PERMISSION    = 'agent_manager'
 
@@ -49,5 +50,9 @@ class User < ActiveRecord::Base
 
   def agent_manager?
     has_permission?(AGENT_MANAGER_PERMISSION)
+  end
+
+  def org_admin?
+    has_permission?(ORG_ADMIN_PERMISSION)
   end
 end
