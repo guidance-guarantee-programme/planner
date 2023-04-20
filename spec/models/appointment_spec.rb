@@ -237,6 +237,16 @@ RSpec.describe Appointment do
             expect(subject).to be_invalid
           end
         end
+
+        context 'when the current user is not present' do
+          it 'allows any secondary statuses' do
+            subject.current_user = nil
+
+            subject.status = :cancelled_by_customer
+            subject.secondary_status = '17' # Customer forgot
+            expect(subject).to be_valid
+          end
+        end
       end
 
       context 'when it is not past the cut-off date' do
