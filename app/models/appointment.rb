@@ -255,7 +255,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
         return errors.add(:secondary_status, 'must be provided for the chosen status')
       end
 
-      if current_user.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
+      if current_user&.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
         errors.add(:secondary_status, "Contact centre agents should only select 'Cancelled prior to appointment'")
       end
     end
