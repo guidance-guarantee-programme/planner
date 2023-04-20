@@ -24,6 +24,15 @@ module UserHelpers
     given_the_user_identifies_as(:hackney_booking_manager, &block)
   end
 
+  def given_the_user_identifies_as_an_organisation_admin
+    @user = create(:org_admin)
+    GDS::SSO.test_user = @user
+
+    yield
+  ensure
+    GDS::SSO.test_user = nil
+  end
+
   def given_the_user_identifies_as(factory_name)
     @user = create(factory_name)
     GDS::SSO.test_user = @user

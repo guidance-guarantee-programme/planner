@@ -18,6 +18,14 @@ RSpec.feature 'Viewing Booking Requests' do
     end
   end
 
+  scenario 'Organisation admins can change their location' do
+    given_the_user_identifies_as_an_organisation_admin do
+      when_they_visit_the_site
+      then_they_are_told_to_select_their_location
+      then_they_see_the_administrative_location_choices
+    end
+  end
+
   scenario 'Bookings Manager views their Booking Requests' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_are_booking_requests_for_their_location
@@ -43,6 +51,13 @@ RSpec.feature 'Viewing Booking Requests' do
       when_they_filter_by_location
       then_they_are_shown_the_booking_request_matching_the_location
     end
+  end
+
+  def then_they_are_told_to_select_their_location
+    @page = Pages::BookingRequests.new
+
+    expect(@page).to be_displayed
+    expect(@page).to have_booking_location_banner
   end
 
   def and_they_have_a_booking_with_multiple_slots

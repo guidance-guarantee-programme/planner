@@ -26,5 +26,7 @@ module Pages
       element :title, '.growl-title'
       element :message, '.growl-message'
     end
+
+    element :booking_location_banner, '.t-booking-location-banner'
   end
 end

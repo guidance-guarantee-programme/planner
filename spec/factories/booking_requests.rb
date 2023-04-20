@@ -54,6 +54,11 @@ FactoryBot.define do
       location_id { '7f916cf6-d2bd-4bcc-90dc-594207c8b1f4' }
     end
 
+    factory :drumchapel_booking_request do
+      booking_location_id { '0c686436-de02-4d92-8dc7-26c97bb7c5bb' }
+      location_id { '0c686436-de02-4d92-8dc7-26c97bb7c5bb' }
+    end
+
     factory :postal_booking_request do
       booking_location_id { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }
       location_id { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }

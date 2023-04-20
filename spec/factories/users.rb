@@ -30,6 +30,11 @@ FactoryBot.define do
       organisation_content_id { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }
     end
 
+    factory :org_admin do
+      permissions { [User::ORG_ADMIN_PERMISSION, User::BOOKING_MANAGER_PERMISSION] }
+      organisation_content_id { SecureRandom.uuid } # random so it's not assigned
+    end
+
     factory :hackney_administrator, parent: :hackney_booking_manager do
       permissions do
         [

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action do
-    authorise_user!(User::ADMINISTRATOR_PERMISSION)
+    authorise_user!(any_of: [User::ADMINISTRATOR_PERMISSION, User::ORG_ADMIN_PERMISSION])
   end
 
   def update
