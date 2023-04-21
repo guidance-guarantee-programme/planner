@@ -90,6 +90,7 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.recording_consent.set(true)
+    @page.third_party.set(true)
   end
 
   def and_they_confirm_the_booking
@@ -132,7 +133,8 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
       age_range: '55-plus',
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
-      recording_consent: true
+      recording_consent: true,
+      third_party: true
     )
   end
 

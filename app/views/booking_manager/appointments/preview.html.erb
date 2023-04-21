@@ -32,6 +32,7 @@
   <%= f.hidden_field :ad_hoc_start_at %>
   <%= f.hidden_field :guider_id %>
   <%= f.hidden_field :recording_consent %>
+  <%= f.hidden_field :third_party %>
 
   <% @appointment = AgentBookingDecorator.new(@appointment) %>
 
@@ -88,6 +89,10 @@
             <tr>
               <td class="active"><b>You need help or an adjustment to access our service</b></td>
               <td><%= @appointment.accessibility_requirements %></td>
+            </tr>
+            <tr>
+              <td class="active"><b>Third party appointment</b></td>
+              <td><%= @appointment.third_party %></td>
             </tr>
           </tbody>
         </table>

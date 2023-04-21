@@ -71,6 +71,7 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.additional_info.set('Other notes')
     @page.recording_consent.set(true)
     @page.nudged.set(true)
+    @page.third_party.set(true)
   end
 
   def and_they_confirm_the_booking
@@ -103,7 +104,8 @@ RSpec.feature 'Agent places a realtime booking' do
       gdpr_consent: 'yes',
       pension_provider: '',
       recording_consent: true,
-      nudged: true
+      nudged: true,
+      third_party: true
     )
   end
 

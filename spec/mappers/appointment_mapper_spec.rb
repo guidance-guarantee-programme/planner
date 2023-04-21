@@ -39,7 +39,8 @@ RSpec.describe AppointmentMapper, '.map' do
       accessibility_requirements: appointment_form.accessibility_requirements,
       additional_info: appointment_form.additional_info,
       recording_consent: false,
-      nudged: false
+      nudged: false,
+      third_party: false
     )
   end
 end

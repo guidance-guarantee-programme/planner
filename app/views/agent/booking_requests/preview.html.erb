@@ -29,6 +29,7 @@
   <%= f.hidden_field :additional_info %>
   <%= f.hidden_field :recording_consent %>
   <%= f.hidden_field :nudged %>
+  <%= f.hidden_field :third_party %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
 
@@ -77,6 +78,10 @@
             <tr>
               <td class="active"><b>You need help or an adjustment to access our service</b></td>
               <td><%= @booking.accessibility_requirements %></td>
+            </tr>
+            <tr>
+              <td class="active"><b>Third party appointment?</b></td>
+              <td><%= @booking.third_party %></td>
             </tr>
           </tbody>
         </table>

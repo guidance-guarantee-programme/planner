@@ -33,6 +33,7 @@ module Pages
     element :country, '.t-country'
     element :additional_info, '.t-additional-info'
     element :recording_consent, '.t-recording-consent'
+    element :third_party, '.t-third-party'
 
     element :preview, '.t-preview'
   end

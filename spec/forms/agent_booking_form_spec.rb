@@ -22,7 +22,8 @@ RSpec.describe AgentBookingForm do
       accessibility_requirements: false,
       additional_info: '',
       recording_consent: true,
-      nudged: true
+      nudged: true,
+      third_party: true
     )
   end
 
