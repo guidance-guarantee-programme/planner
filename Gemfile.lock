@@ -61,8 +61,9 @@ GEM
     alertifyjs-rails (1.11.2)
     arel (9.0.0)
     ast (2.4.0)
-    audited (4.8.0)
-      activerecord (>= 4.0, < 5.3)
+    audited (5.3.3)
+      activerecord (>= 5.0, < 7.1)
+      request_store (~> 1.2)
     autoprefixer-rails (9.6.0)
       execjs
     azure-core (0.1.15)
