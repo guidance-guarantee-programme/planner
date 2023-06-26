@@ -33,7 +33,16 @@ module Pages
     element :country, '.t-country'
     element :additional_info, '.t-additional-info'
     element :recording_consent, '.t-recording-consent'
+
     element :third_party, '.t-third-party'
+    element :data_subject_name, '.t-data-subject-name'
+    element :data_subject_date_of_birth, '.t-data-subject-date-of-birth'
+    element :data_subject_consent_obtained, '.t-data-subject-consent-obtained'
+    element :power_of_attorney, '.t-power-of-attorney'
+    element :printed_consent_form_required, '.t-printed-consent-form-required'
+    element :printed_consent_form_postcode_lookup, '.t-printed-consent-form-postcode-lookup'
+    element :email_consent_form_required, '.t-email-consent-form-required'
+    element :email_consent, '.t-email-consent'
 
     element :preview, '.t-preview'
   end

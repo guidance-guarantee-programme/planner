@@ -73,5 +73,18 @@ FactoryBot.define do
       agent
       email { '' }
     end
+
+    factory :third_party_consent_form_booking_request do
+      third_party { true }
+      data_subject_name { 'Daisy Smith' }
+      data_subject_date_of_birth { '1975-01-01' }
+      printed_consent_form_required { true }
+      consent_address_line_one { '1 Some Street' }
+      consent_address_line_two { 'Some Place' }
+      consent_address_line_three { 'Somewhere' }
+      consent_town { 'Some Town' }
+      consent_county { 'Some County' }
+      consent_postcode { 'SS1 1SS' }
+    end
   end
 end

@@ -1,6 +1,6 @@
 require 'notifications/client'
 
-class SmsJobBase < ActiveJob::Base
+class NotifyJobBase < ActiveJob::Base
   queue_as :default
 
   rescue_from(Notifications::Client::RequestError) do |exception|
@@ -9,8 +9,8 @@ class SmsJobBase < ActiveJob::Base
 
   protected
 
-  def sms_client
-    @sms_client ||= Notifications::Client.new(api_key)
+  def client
+    @client ||= Notifications::Client.new(api_key)
   end
 
   def api_key

@@ -219,7 +219,14 @@ RSpec.feature 'Fulfiling Booking Requests' do
   def and_the_customer_is_notified
     expect(ActionMailer::Base.deliveries.count).to eq(1)
 
-    assert_performed_jobs(2, only: [AppointmentChangeNotificationJob, PrintedConfirmationLetterJob])
+    assert_performed_jobs(
+      3,
+      only: [
+        AppointmentChangeNotificationJob,
+        PrintedConfirmationLetterJob,
+        PrintedThirdPartyConsentFormJob
+      ]
+    )
   end
 
   def and_the_booking_request_has_associated_audit_activity

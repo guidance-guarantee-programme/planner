@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_27_145802) do
+ActiveRecord::Schema.define(version: 2023_06_20_192527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,19 @@ ActiveRecord::Schema.define(version: 2023_03_27_145802) do
     t.boolean "recording_consent", default: false, null: false
     t.boolean "nudged", default: false, null: false
     t.boolean "third_party", default: false, null: false
+    t.boolean "data_subject_consent_obtained", default: false, null: false
+    t.boolean "printed_consent_form_required", default: false, null: false
+    t.boolean "power_of_attorney", default: false, null: false
+    t.boolean "email_consent_form_required", default: false, null: false
+    t.string "data_subject_name", default: "", null: false
+    t.string "consent_address_line_one", default: "", null: false
+    t.string "consent_address_line_two", default: "", null: false
+    t.string "consent_address_line_three", default: "", null: false
+    t.string "consent_town", default: "", null: false
+    t.string "consent_county", default: "", null: false
+    t.string "consent_postcode", default: "", null: false
+    t.string "email_consent", default: "", null: false
+    t.date "data_subject_date_of_birth"
   end
 
   create_table "guider_lookups", force: :cascade do |t|

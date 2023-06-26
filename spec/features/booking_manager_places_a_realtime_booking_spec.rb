@@ -1,7 +1,7 @@
 # rubocop:disable MethodLength, AbcSize
 require 'rails_helper'
 
-RSpec.feature 'Booking manager places a realtime booking', javascript: true do
+RSpec.feature 'Booking manager places a realtime booking', js: true do
   scenario 'Successfully placing an adhoc realtime booking' do
     travel_to '2019-11-28 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
@@ -91,6 +91,14 @@ RSpec.feature 'Booking manager places a realtime booking', javascript: true do
     @page.additional_info.set('Other notes')
     @page.recording_consent.set(true)
     @page.third_party.set(true)
+
+    @page.wait_until_data_subject_name_visible
+    @page.data_subject_name.set('Bob Bobson')
+    @page.data_subject_date_of_birth.set('02/02/1980')
+    @page.data_subject_date_of_birth.send_keys(:return) # close date picker
+    @page.email_consent_form_required.set(true)
+    @page.wait_until_email_consent_visible
+    @page.email_consent.set('bob@example.com')
   end
 
   def and_they_confirm_the_booking

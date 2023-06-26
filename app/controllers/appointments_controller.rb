@@ -63,6 +63,7 @@ class AppointmentsController < ApplicationController
     if appointment.notify?
       AppointmentChangeNotificationJob.perform_later(appointment)
       PrintedConfirmationLetterJob.perform_later(appointment)
+      PrintedThirdPartyConsentFormJob.perform_later(appointment)
     elsif appointment.newly_cancelled?
       AppointmentCancellationNotificationJob.perform_later(appointment)
     end
