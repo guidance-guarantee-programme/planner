@@ -20,6 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  activerecord:
+    attributes:
+      appointment/booking_request:
+        data_subject_name: 'Name'
+        data_subject_date_of_birth: 'Date of birth'
+        email_consent: 'Email consent'
+        printed_consent_form_required: 'Printed consent form required'
+        third_party: 'Third party'
+        email_consent_form_required: 'Email consent form required'
+
   booking_request:
     accessibility_requirements:
       is_true: "Requested, please discuss with customer"

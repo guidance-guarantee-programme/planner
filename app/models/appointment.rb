@@ -56,6 +56,8 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   belongs_to :booking_request
   has_many :status_transitions
 
+  accepts_nested_attributes_for :booking_request, update_only: true
+
   has_one_attached :generated_consent_form
 
   delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, :agent, to: :booking_request

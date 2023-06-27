@@ -220,10 +220,12 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(ActionMailer::Base.deliveries.count).to eq(1)
 
     assert_performed_jobs(
-      2,
+      4,
       only: [
         AppointmentChangeNotificationJob,
-        PrintedConfirmationLetterJob
+        PrintedConfirmationLetterJob,
+        PrintedThirdPartyConsentFormJob,
+        EmailThirdPartyConsentFormJob
       ]
     )
   end

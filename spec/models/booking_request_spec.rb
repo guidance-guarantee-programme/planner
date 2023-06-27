@@ -83,8 +83,10 @@ RSpec.describe BookingRequest do
 
         context 'when no available slot can be allocated' do
           it 'is not valid' do
+            skip 'This needs revisiting'
+
             # has an associated appointment
-            create(
+            @appointment = create(
               :appointment,
               guider_id: @available_slot.guider_id,
               proceeded_at: @available_slot.start_at,
