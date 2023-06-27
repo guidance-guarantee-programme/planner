@@ -158,7 +158,15 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(2, only: [PrintedConfirmationLetterJob, AppointmentChangeNotificationJob])
+    assert_enqueued_jobs(
+      4,
+      only: [
+        PrintedConfirmationLetterJob,
+        AppointmentChangeNotificationJob,
+        PrintedThirdPartyConsentFormJob,
+        EmailThirdPartyConsentFormJob
+      ]
+    )
   end
 
   def and_the_booking_manager_is_notified

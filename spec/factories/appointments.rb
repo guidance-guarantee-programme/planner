@@ -42,5 +42,9 @@ FactoryBot.define do
     trait :third_party_consent_form_requested do
       association :booking_request, factory: :third_party_consent_form_booking_request
     end
+
+    trait :third_party_email_consent_form_requested do
+      association :booking_request, factory: :third_party_email_consent_form_booking_request
+    end
   end
 end

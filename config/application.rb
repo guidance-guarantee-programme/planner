@@ -8,6 +8,7 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie'
+require 'active_storage/engine'
 require 'sprockets/railtie'
 require 'sprockets/es6'
 # require "rails/test_unit/railtie"

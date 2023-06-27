@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resource :process, only: :create
     resources :changes, only: :index
 
-    resource :reschedule, only: :create
+    resource :reschedule, only: %w(create show)
   end
 
   resources :booking_requests, only: %i(index update) do
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
     resource :confirmation, only: :create
 
-    resource :consent, only: :update
+    resource :consent, only: %i(update show)
   end
 
   resources :schedules, only: :index

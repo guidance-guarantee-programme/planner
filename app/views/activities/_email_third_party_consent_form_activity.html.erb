@@ -1,0 +1,5 @@
+<li class="activity-feed__item t-activity" id="activity-<%= email_third_party_consent_form_activity.id %>">
+  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+  <strong>The system</strong> sent an email third party <%= link_to 'consent form', booking_request_consent_path(email_third_party_consent_form_activity.booking_request) %>
+  <span class="activity-feed__date"><%= timestamp(email_third_party_consent_form_activity.created_at) %></span>
+</li>

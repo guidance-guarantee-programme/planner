@@ -261,6 +261,7 @@ GEM
       pg (>= 0.17)
       responders
     powerpack (0.1.2)
+    princely (2.1.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -507,6 +508,7 @@ DEPENDENCIES
   poltergeist!
   postcodes_io!
   postgres-copy!
+  princely!
   pry-byebug!
   puma!
   pusher!

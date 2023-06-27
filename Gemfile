@@ -40,6 +40,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'plek'
   gem 'postcodes_io'
   gem 'postgres-copy'
+  gem 'princely'
   gem 'puma'
   gem 'pusher'
   gem 'rack-cors'

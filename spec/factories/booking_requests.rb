@@ -86,5 +86,13 @@ FactoryBot.define do
       consent_county { 'Some County' }
       consent_postcode { 'SS1 1SS' }
     end
+
+    factory :third_party_email_consent_form_booking_request do
+      third_party { true }
+      data_subject_name { 'Daisy Smith' }
+      data_subject_date_of_birth { '1975-01-01' }
+      email_consent_form_required { true }
+      email_consent { 'daisy@example.com' }
+    end
   end
 end
