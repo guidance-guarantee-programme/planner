@@ -7,5 +7,9 @@ module Sections
 
     element :further_activities, '.t-further-activities'
     element :hidden_activities, '.t-hidden-activities'
+
+    def stop_polling!
+      page.execute_script('window.PWPlanner.poller.stop();')
+    end
   end
 end

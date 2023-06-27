@@ -9,9 +9,9 @@
 //= require planner-base
 //= require qTip2
 //= require select2
+//= require jquery.postcodes/dist/postcodes.js
 //= require_tree .
 
 PWPlanner.poller.init();
 PWPlanner.dateRangePicker.init();
 PWPlanner.dateTimePicker.init();
-PWPlanner.postcodeLookup.init();

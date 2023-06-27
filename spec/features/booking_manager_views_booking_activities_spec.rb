@@ -93,6 +93,9 @@ RSpec.feature 'Booking Manager views Booking / Appointment Activities', js: true
   def then_it_appears_dynamically
     expect(@page).to have_text(@activity.owner_name)
     expect(@page).to have_text(@activity.message)
+
+    # stop polling for activities to avoid timing issue with database cleaning
+    @page.activity_feed.stop_polling!
   end
 
   def with_configured_polling(milliseconds:)
