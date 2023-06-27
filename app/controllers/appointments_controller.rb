@@ -63,11 +63,12 @@ class AppointmentsController < ApplicationController
     if appointment.notify?
       AppointmentChangeNotificationJob.perform_later(appointment)
       PrintedConfirmationLetterJob.perform_later(appointment)
-      PrintedThirdPartyConsentFormJob.perform_later(appointment)
-      EmailThirdPartyConsentFormJob.perform_later(appointment)
     elsif appointment.newly_cancelled?
       AppointmentCancellationNotificationJob.perform_later(appointment)
     end
+
+    PrintedThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_printed_consent?
+    EmailThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_email_consent?
   end
 
   def location_aware_appointment
