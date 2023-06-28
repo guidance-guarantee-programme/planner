@@ -11,6 +11,7 @@
 </div>
 
 <%= form_for @booking,
+    layout: :basic,
     url: preview_agent_booking_requests_path(location_id: location_id),
     as: :booking do |f|
 %>
@@ -34,7 +35,7 @@
         <div class="form-group col-md-4">
           <%= f.select :first_choice_slot,
             grouped_options_for_select(@grouped_slots, @booking.first_choice_slot),
-            { include_blank: true },
+            { include_blank: true, use_label: false },
             class: 'form-control t-first-choice-slot'
           %>
         </div>
@@ -44,52 +45,76 @@
     <hr>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6" data-module="checkbox-toggle">
         <h2 class="h3">Customer details</h2>
-        <div class="form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, class: 'form-control t-name' %>
+        <%= f.text_field :name, class: 'form-control t-name' %>
+        <%= f.text_field :phone, class: 'form-control t-phone', help: 'We will use this to send an SMS appointment reminder by 8am - 72 hours before the appointment. Customers can cancel appointments via SMS' %>
+        <%= f.text_field :email, class: 'form-control t-email', help: 'OK <em>(name)</em>, I am going to repeat this to you phonetically as we will send your appointment confirmation by email and I want to ensure you receive this'.html_safe %>
+        <%= f.text_field :memorable_word, class: 'form-control t-memorable-word', help: 'We use this each time the customer is called.' %>
+        <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?' %>
+        <%= f.check_box :recording_consent, class: 't-recording-consent', label: 'Appointment recording consent?' %>
+        <%= f.check_box :nudged, class: 't-nudged', label: 'Stronger Nudge signposting?' %>
+        <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
+
+        <div id="consent">
+          <p><strong>This appointment will be delivered to a third party on behalf of the data subject:</strong></p>
+          <div class="form-group">
+            <%= f.text_field :data_subject_name, autocomplete: false, class: 't-data-subject-name', label: required_label('Name'), placeholder: 'Name' %>
+            <%= f.text_field(
+                :data_subject_date_of_birth,
+                label: required_label('Date of birth'),
+                class: 'form-control input-md-2 t-data-subject-date-of-birth js-date-time-picker',
+                placeholder: 'eg 01/01/1950',
+                data: {
+                  config: {
+                    showDropdowns: true,
+                    autoUpdateInput: false,
+                    minDate: '01/01/1920',
+                    maxDate: '01/01/1976',
+                    locale: { format: 'DD/MM/YYYY' }
+                  }
+                }
+              )
+            %>
+          </div>
+
+          <%= f.check_box :data_subject_consent_obtained, class: 't-data-subject-consent-obtained' %>
+          <%= f.check_box :power_of_attorney, class: 't-power-of-attorney' %>
+
+          <%= f.check_box :email_consent_form_required, class: 't-email-consent-form-required', data: { target: 'email-consent' } %>
+          <div id="email-consent">
+            <%= f.text_field :email_consent, autocomplete: 'off', class: 't-email-consent', label: 'Consent email', placeholder: 'A consent form is sent to this email' %>
+          </div>
+
+          <%= f.check_box :printed_consent_form_required, class: 't-printed-consent-form-required', data: { target: 'printed-consent' } %>
+          <div id="printed-consent">
+            <h2 class="h4" data-module="postcode-lookup"
+                           data-postcode-api-key="<%= postcode_api_key %>"
+                           data-lookup-input="#consent-postcode-lookup-input"
+                           data-lookup-button="#consent-postcode-lookup-button"
+                           data-results-container="#consent-postcode-lookup-results-container"
+                           data-output-field-prefix="#booking_consent"
+                           >Printed consent form address</h2>
+            <div class="form-group form-inline postcode-lookup" id="consent-postcode-lookup">
+              <label for="appointment_summary_lookup">Postcode or address to search for</label><br>
+              <input class="form-control input-md-3 add-right-margin t-printed-consent-form-postcode-lookup" placeholder="Enter postcode or address" type="text" id="consent-postcode-lookup-input" />
+              <button class="btn btn-success btn-sm" onclick="return false" id="consent-postcode-lookup-button">Find UK address</button>
+            </div>
+            <div class="form-group form-inline" id="consent-postcode-lookup-results-container"></div>
+
+            <%= f.text_field :consent_address_line_one, autocomplete: 'off', class: 't-consent-address-line-one', label: 'Building and street', placeholder: 'Address line one' %>
+            <%= f.text_field :consent_address_line_two, autocomplete: 'off', class: 't-consent-address-line-two', use_label: false, placeholder: 'Address line two' %>
+            <%= f.text_field :consent_address_line_three, autocomplete: 'off', class: 't-consent-address-line-three', use_label: false, placeholder: 'Address line three' %>
+            <%= f.text_field :consent_town, autocomplete: 'off', class: 't-consent-town', label: 'Town', placeholder: 'Town' %>
+            <%= f.text_field :consent_county, autocomplete: 'off', class: 't-consent-county', label: 'County (optional)', placeholder: 'County' %>
+            <%= f.text_field :consent_postcode, autocomplete: 'off', class: 't-consent-postcode', label: 'Postcode', placeholder: 'Postcode' %>
+          </div>
         </div>
-        <div class="form-group">
-          <%= f.label :phone %>
-          <%= f.text_field :phone, class: 'form-control t-phone' %>
-          <div class="help-block">We will use this to send an SMS appointment reminder by 8am - 72 hours before the appointment. Customers can cancel appointments via SMS.</div>
-        </div>
-        <div class="form-group">
-          <%= f.label :email %>
-          <%= f.text_field :email, class: 'form-control t-email' %>
-          <div class="help-block">OK <em>(name)</em>, I am going to repeat this to you phonetically as we will send your appointment confirmation by email and I want to ensure you receive this.</div>
-        </div>
-        <div class="form-group">
-          <%= f.label :memorable_word %>
-          <%= f.text_field :memorable_word, class: 'form-control t-memorable-word' %>
-          <div class="help-block">We use this each time the customer is called.</div>
-        </div>
-        <div class="form-group">
-          <%= f.label :accessibility_requirements, class: 'checkbox-inline checkbox-inline--accessibility' do %>
-            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements' %> Do you require an adjustment to access our service?
-        <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.label :recording_consent, class: 'checkbox-inline' do %>
-            <%= f.check_box :recording_consent, class: 't-recording-consent' %> Appointment recording consent?
-          <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.label :nudged, class: 'checkbox-inline' do %>
-            <%= f.check_box :nudged, class: 't-nudged' %> Stronger Nudge signposting?
-          <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.label :third_party, class: 'checkbox-inline' do %>
-            <%= f.check_box :third_party, class: 't-third-party' %> Third party appointment?
-          <% end %>
-        </div>
+
         <hr>
 
         <h2 class="h3">Eligibility</h2>
         <div class="form-group">
-          <%= f.label :date_of_birth %>
           <%= f.text_field(
               :date_of_birth,
               class: 'form-control input-md-2 t-date-of-birth js-date-time-picker',
@@ -112,71 +137,48 @@
         <h2 class="h3">Research</h2>
         <div class="form-group">
           <p><strong>Customer research consent</strong></p>
-
-          <%= f.label :gdpr_consent, value: 'yes', class: 'radio-inline' do %>
-            <%= f.radio_button :gdpr_consent, 'yes', class: 't-gdpr-consent-yes' %>
-            Yes
-          <% end %>
-          <%= f.label :gdpr_consent, value: 'no', class: 'radio-inline' do %>
-            <%= f.radio_button :gdpr_consent, 'no', class: 't-gdpr-consent-no' %>
-            No
-          <% end %>
+          <%= f.radio_button :gdpr_consent, 'yes', label: 'Yes', class: 't-gdpr-consent-yes' %>
+          <%= f.radio_button :gdpr_consent, 'no', label: 'No', class: 't-gdpr-consent-no' %>
         </div>
 
       </div>
       <div class="col-md-6">
-        <h2 class="h3" id="postal-address-heading" data-postcode-api-key="<%= postcode_api_key %>">Confirmation address <small>(required if no email address)</small></h2>
-        <div class="form-group">
-          <%= f.label :address_line_one do %>
-            Building and street <span class="sr-only">line one</span>
-          <% end %>
-          <%= f.text_field :address_line_one, class: 'form-control t-address-line-one' %>
+        <h2 class="h3" data-module="postcode-lookup"
+                       data-postcode-api-key="<%= postcode_api_key %>"
+                       data-lookup-input="#postcode-lookup-input"
+                       data-lookup-button="#postcode-lookup-button"
+                       data-results-container="#postcode-lookup-results-container"
+                       data-output-field-prefix="#booking"
+                       >Confirmation address <small>(required if no email address)</small></h2>
+        <div class="form-group form-inline postcode-lookup" id="postcode-lookup">
+          <label for="appointment_summary_lookup">Postcode or address to search for</label><br>
+          <input class="form-control input-md-3 add-right-margin t-postcode-lookup" placeholder="Enter postcode or address" type="text" id="postcode-lookup-input" />
+          <button class="btn btn-success btn-sm" onclick="return false" id="postcode-lookup-button">Find UK address</button>
         </div>
-        <div class="form-group">
-          <%= f.label :address_line_two, class: 'sr-only' %>
-          <%= f.text_field :address_line_two, class: 'form-control t-address-line-two' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :address_line_three, class: 'sr-only' %>
-          <%= f.text_field :address_line_three, class: 'form-control t-address-line-three' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :town %>
-          <%= f.text_field :town, class: 'form-control t-town' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :county, 'County (optional)' %>
-          <%= f.text_field :county, class: 'form-control t-county' %>
-        </div>
-        <div class="form-group">
-          <%= f.label :postcode %>
-          <%= f.text_field :postcode, class: 'form-control t-postcode' %>
-        </div>
+        <div class="form-group form-inline" id="postcode-lookup-results-container"></div>
+
+        <%= f.text_field :address_line_one, label: required_label('Building and street'), class: 'form-control t-address-line-one' %>
+        <%= f.text_field :address_line_two, use_label: false, class: 'form-control t-address-line-two' %>
+        <%= f.text_field :address_line_three, use_label: false, class: 'form-control t-address-line-three' %>
+        <%= f.text_field :town, class: 'form-control t-town' %>
+        <%= f.text_field :county, label: 'County (optional)', class: 'form-control t-county' %>
+        <%= f.text_field :postcode, class: 'form-control t-postcode' %>
 
         <hr>
         <h2 class="h3">Additional information</h2>
-        <div class="form-group">
-          <%= f.label :additional_info, 'Notes' %>
-          <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500 %>
-          <div class="help-block">eg accessibility adjustments</div>
-        </div>
-        <div class="form-group">
-          <%= f.label :where_you_heard, 'Where did you first hear of Pension Wise?' %>
-          <%= f.select :where_you_heard,
-            options_for_select(WhereYouHeard::OPTIONS.invert.to_a, @booking.where_you_heard),
-            { include_blank: true},
-            class: 't-where-you-heard form-control'
-          %>
-        </div>
+        <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500, label: 'Notes', help: 'eg accessibility adjustments' %>
+        <%= f.select :where_you_heard,
+          options_for_select(WhereYouHeard::OPTIONS.invert.to_a, @booking.where_you_heard),
+          { include_blank: true, label: 'Where did you first hear of Pension Wise?' },
+          class: 't-where-you-heard form-control'
+        %>
       </div>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <%= f.button class: 'btn btn-primary btn-block t-preview' do %>
-      Preview appointment at <%= location.name %>
-    <% end %>
+    <%= f.button "Preview appointment at #{location.name}", class: 't-preview btn-block', context: :primary %>
   </div>
 </div>
 <% end %>
