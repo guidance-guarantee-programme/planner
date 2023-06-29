@@ -29,7 +29,7 @@
 
 <%= p do %>
   If you did not ask a third party to discuss your pension options with Pension
-  Wise email <a href="mailto:<%= @appointment.online_booking_reply_to %><%= @appointment.online_booking_reply_to %></a>.
+  Wise email <a href="mailto:<%= @appointment.online_booking_reply_to %>"><%= @appointment.online_booking_reply_to %></a>.
 <% end %>
 
 <%= render 'shared/email/money_helper' %>
