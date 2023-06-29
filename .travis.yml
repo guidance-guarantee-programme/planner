@@ -2,6 +2,9 @@ sudo: false
 language: ruby
 addons:
   chrome: stable
+env:
+  global:
+  - PATH=$PWD/bin:$PATH
 services:
 - redis-server
 - postgresql
@@ -18,6 +21,9 @@ before_install:
 - gem update --system
 - gem install bundler
 before_script:
+- "[ -d .downloads ] || mkdir .downloads"
+- "(cd .downloads; [ -d prince-9.0r5-linux-amd64-static ] || curl -s https://www.princexml.com/download/prince-9.0r5-linux-amd64-static.tar.gz | tar xzf -)"
+- echo $PWD | ./.downloads/prince-9.0r5-linux-amd64-static/install.sh
 - npm install
 - bundle exec rake db:create db:migrate RAILS_ENV=test
 branches:
