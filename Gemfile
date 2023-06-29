@@ -83,6 +83,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   end
 
   group :staging, :production do
+    gem 'aws-sdk-s3', require: false
     gem 'lograge'
     gem 'rails_12factor'
     gem 'redis-rails', require: false
