@@ -93,6 +93,25 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @page.additional_information.set('Blah, blah, blah.')
     @page.defined_contribution_pot_confirmed_dont_know.set(true)
 
+    @page.third_party.set(true)
+
+    @page.wait_until_data_subject_name_visible
+    @page.data_subject_name.set('Bob Bobson')
+    @page.data_subject_date_of_birth.set('02/02/1980')
+    @page.data_subject_date_of_birth.send_keys(:return) # close date picker
+    @page.email_consent_form_required.set(true)
+    @page.wait_until_email_consent_visible
+    @page.email_consent.set('bob@example.com')
+
+    @page.printed_consent_form_required.set(true)
+    @page.wait_until_consent_address_line_one_visible
+    @page.consent_address_line_one.set('1 Some Street')
+    @page.consent_address_line_two.set('Some Road')
+    @page.consent_address_line_three.set('Some Place')
+    @page.consent_address_town.set('Some Town')
+    @page.consent_address_county.set('Some County')
+    @page.consent_address_postcode.set('RM10 7BB')
+
     @page.submit.click
   end
 
@@ -110,7 +129,14 @@ RSpec.feature 'Agent manager modifies an appointment' do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs 1, only: AppointmentChangeNotificationJob
+    assert_enqueued_jobs(
+      3,
+      only: [
+        AppointmentChangeNotificationJob,
+        PrintedThirdPartyConsentFormJob,
+        EmailThirdPartyConsentFormJob
+      ]
+    )
   end
 
   def and_the_booking_managers_are_notified
