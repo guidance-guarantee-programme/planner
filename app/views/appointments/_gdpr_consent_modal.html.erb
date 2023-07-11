@@ -20,7 +20,7 @@
           <% end %>
 
           <%= f.label :gdpr_consent, value: '', class: 'radio-inline' do %>
-              <%= f.radio_button :gdpr_consent, '', class: 't-consent-no-response' %>
+              <%= f.radio_button :gdpr_consent, '', class: 't-consent-no-response', disabled: true %>
               No response
           <% end %>
         </div>
