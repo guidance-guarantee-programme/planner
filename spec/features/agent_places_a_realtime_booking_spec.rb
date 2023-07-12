@@ -125,7 +125,7 @@ RSpec.feature 'Agent places a realtime booking' do
       nudged: true,
       third_party: true,
       data_subject_name: 'Bob Bobson',
-      data_subject_date_of_birth: '02/02/1980'.to_date,
+      data_subject_date_of_birth: '02/02/1980',
       email_consent_form_required: true,
       email_consent: 'bob@example.com',
       printed_consent_form_required: true,

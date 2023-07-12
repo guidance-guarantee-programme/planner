@@ -93,6 +93,10 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
     [address_line_one, town, postcode].all?(&:present?)
   end
 
+  def data_subject_date_of_birth
+    super&.strftime('%d/%m/%Y')
+  end
+
   private
 
   def validate_slots
