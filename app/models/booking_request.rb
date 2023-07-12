@@ -51,6 +51,8 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
   has_one_attached :data_subject_consent_evidence
   has_one_attached :power_of_attorney_evidence
 
+  before_validation :purge_conditional_third_party_data, on: :update
+
   alias reference to_param
 
   def self.for_redaction
@@ -98,6 +100,34 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   private
+
+  def purge_conditional_third_party_data # rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity
+    purge_third_party_data if third_party_changed? && !third_party?
+    purge_printed_consent_data if printed_consent_form_required_changed? && !printed_consent_form_required?
+
+    self.email_consent = '' if email_consent_form_required_changed? && !email_consent_form_required?
+
+    power_of_attorney_evidence.purge if power_of_attorney_changed? && !power_of_attorney?
+    data_subject_consent_evidence.purge if data_subject_consent_obtained_changed? && !data_subject_consent_obtained?
+  end
+
+  def purge_third_party_data
+    self.data_subject_name = ''
+    self.data_subject_date_of_birth = nil
+    self.printed_consent_form_required = false
+    self.email_consent_form_required = false
+    self.power_of_attorney = false
+    self.data_subject_consent_obtained = false
+  end
+
+  def purge_printed_consent_data
+    self.consent_address_line_one = ''
+    self.consent_address_line_two = ''
+    self.consent_address_line_three = ''
+    self.consent_town = ''
+    self.consent_county = ''
+    self.consent_postcode = ''
+  end
 
   def validate_slots
     errors.add(:slots, 'you must provide at least one slot') if slots.empty?

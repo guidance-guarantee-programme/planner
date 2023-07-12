@@ -52,6 +52,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   before_save :calculate_statistics, if: :proceeded_at_changed?
   before_create :track_status
   before_update :track_status_transition
+  before_validation :purge_third_party, on: :update
 
   belongs_to :booking_request
   has_many :status_transitions
@@ -218,6 +219,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   private
+
+  def purge_third_party
+    booking_request.third_party = false if third_party_changed? && !third_party?
+  end
 
   def track_status
     status_transitions << StatusTransition.new(status: status)
