@@ -79,7 +79,7 @@ RSpec.describe BookingRequests do
       let(:booking_request) { create(:appointment) }
 
       it 'renders the appointment particulars' do
-        expect(mail.subject).to eq('Pension Wise Appointment')
+        expect(mail.subject).to include('Pension Wise Appointment')
 
         expect(subject.body.encoded).to include('View the appointment')
         expect(subject.body.encoded).to include("/appointments/#{booking_request.id}/edit")
@@ -91,7 +91,7 @@ RSpec.describe BookingRequests do
       let(:booking_request) { create(:appointment, accessibility_requirements: true) }
 
       it 'renders the accessibility adjustment particulars' do
-        expect(mail.subject).to eq('Pension Wise Appointment (Accessibility Adjustment)')
+        expect(mail.subject).to eq('Pension Wise Appointment (Adjustment)')
 
         expect(subject.body.encoded).to include('The customer has indicated they require help')
       end

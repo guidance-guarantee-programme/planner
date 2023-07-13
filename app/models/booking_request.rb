@@ -95,6 +95,10 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
     [address_line_one, town, postcode].all?(&:present?)
   end
 
+  def adjustment?
+    accessibility_requirements? || third_party?
+  end
+
   def data_subject_date_of_birth
     super&.strftime('%d/%m/%Y')
   end
