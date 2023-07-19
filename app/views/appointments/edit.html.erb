@@ -1,4 +1,4 @@
-<% content_for(:page_tmtioncontle, t('servce.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
+<% content_for(:page_title, t('service.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
 
 <% unless @appointment_form.defined_contribution_pot_confirmed %>
 <div class="alert alert-warning" role="alert">
@@ -9,7 +9,7 @@
 <% if @appointment_form.agent %>
 <div class="alert alert-warning" role="alert">
   <p>
-  This booking was placed by <strong><%= @appointment_form.agent.name %></strong> on behalf of the customer.
+  This appointment was placed by <strong><%= @appointment_form.agent.name %></strong> on behalf of the customer.
   </p>
 </div>
 <% end %>
@@ -25,6 +25,14 @@
       <% end %>
     </ul>
   </div>
+<% end %>
+
+<% if @appointment_form.third_party? %>
+<div class="alert alert-warning" role="alert">
+  <p>
+  This appointment will be delivered to a <strong>third party</strong> on behalf of the data subject.
+  </p>
+</div>
 <% end %>
 
 <div class="page-header">

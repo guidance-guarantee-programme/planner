@@ -1,3 +1,11 @@
+<% if @appointment.third_party? %>
+<div class="alert alert-warning" role="alert">
+  <p>
+  This appointment will be delivered to a <strong>third party</strong> on behalf of the data subject.
+  </p>
+</div>
+<% end %>
+
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Planner</a></li>
