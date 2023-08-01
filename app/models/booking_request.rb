@@ -37,8 +37,8 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
 
   validates :email_consent, presence: true, email: true, if: :email_consent_form_required?
-  validates :data_subject_name, presence: true, if: :third_party?
-  validates :data_subject_date_of_birth, presence: true, if: :third_party?
+  validates :data_subject_name, presence: true, if: :validate_third_party?
+  validates :data_subject_date_of_birth, presence: true, if: :validate_third_party?
 
   validate :validate_printed_consent_form_address
   validate :validate_consent_type
@@ -142,13 +142,13 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def validate_printed_consent_form_address
-    return unless third_party? && printed_consent_form_required?
+    return unless validate_third_party? && printed_consent_form_required?
 
     errors.add(:printed_consent_form_required, 'must supply a valid address') unless printed_consent_address?
   end
 
   def validate_power_of_attorney_or_consent
-    return unless third_party?
+    return unless validate_third_party?
 
     if printed_consent_form_required? && power_of_attorney?
       errors.add(:printed_consent_form_required, 'cannot be checked when power of attorney is specified')
@@ -160,7 +160,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def validate_consent_type
-    return unless third_party?
+    return unless validate_third_party?
 
     if power_of_attorney? && data_subject_consent_obtained? # rubocop:disable GuardClause
       errors.add(
@@ -174,6 +174,12 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
     unless /.+@.+\..+/.match?(email_consent.to_s) # rubocop:disable Style/GuardClause
       errors.add(:email_consent, 'must be valid')
     end
+  end
+
+  def validate_third_party?
+    return unless third_party?
+
+    created_at && created_at > Time.zone.parse(ENV.fetch('THIRD_PARTY_CUT_OFF') { '2023-07-31 08:00:00' })
   end
 
   def printed_consent_address?

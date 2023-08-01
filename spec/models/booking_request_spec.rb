@@ -160,6 +160,17 @@ RSpec.describe BookingRequest do
       end
     end
 
+    context 'when created before the default third-party validation cut-off' do
+      it 'does not enforce the third party attributes' do
+        @booking = create(:third_party_data_subject_consent_booking_request, created_at: 3.weeks.ago)
+
+        @booking.data_subject_name = ''
+        @booking.data_subject_date_of_birth = nil
+
+        expect(@booking).to be_valid
+      end
+    end
+
     describe 'allocation of slots' do
       before { travel_to('2018-11-05 13:00') }
       after { travel_back }
