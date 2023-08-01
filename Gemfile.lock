@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/eventmachine/eventmachine.git
+  revision: 42374129ab73c799688e4f5483e9872e7f175bed
+  specs:
+    eventmachine (1.3.0.dev.1)
+
+GIT
   remote: https://github.com/guidance-guarantee-programme/booking_locations.git
   revision: 1486c95a18fece326f39f01c3fe60e36816f9d8c
   specs:
@@ -56,7 +62,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.8.1)
+    addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     alertifyjs-rails (1.11.2)
     arel (9.0.0)
@@ -80,8 +86,8 @@ GEM
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
-    bootsnap (1.4.4)
-      msgpack (~> 1.0)
+    bootsnap (1.16.0)
+      msgpack (~> 1.2)
     bootstrap-kaminari-views (0.0.5)
       kaminari (>= 0.13)
       rails (>= 3.1)
@@ -122,13 +128,12 @@ GEM
       http_parser.rb (>= 0.6.0)
     em-socksify (0.3.2)
       eventmachine (>= 1.0.0.beta.4)
-    em-websocket (0.5.1)
+    em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
+      http_parser.rb (~> 0)
     email_validator (1.6.0)
       activemodel
     erubi (1.12.0)
-    eventmachine (1.2.7)
     excon (0.72.0)
     execjs (2.7.0)
     factory_bot (5.0.2)
@@ -164,7 +169,7 @@ GEM
       rails (>= 3.2.0)
     hashdiff (0.4.0)
     hashie (5.0.0)
-    http_parser.rb (0.6.0)
+    http_parser.rb (0.8.0)
     httpclient (2.8.3)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
@@ -209,8 +214,8 @@ GEM
     minitest (5.18.0)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
-    msgpack (1.2.10)
-    multi_json (1.13.1)
+    msgpack (1.7.2)
+    multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     mustermann (2.0.2)
@@ -259,21 +264,21 @@ GEM
     pry-byebug (3.7.0)
       byebug (~> 11.0)
       pry (~> 0.10)
-    public_suffix (5.0.0)
+    public_suffix (5.0.3)
     puma (4.3.12)
       nio4r (~> 2.0)
     pusher (1.3.2)
       httpclient (~> 2.7)
       multi_json (~> 1.0)
       pusher-signature (~> 0.1.8)
-    pusher-fake (1.12.0)
+    pusher-fake (4.2.0)
       em-http-request (~> 1.1)
       em-websocket (~> 0.5)
       multi_json (~> 1.6)
-      thin (~> 1.5)
+      thin (~> 1)
     pusher-signature (0.1.8)
     racc (1.6.2)
-    rack (2.2.7)
+    rack (2.2.8)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-protection (2.2.3)
@@ -428,7 +433,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    thin (1.8.1)
+    thin (1.8.2)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
@@ -477,6 +482,7 @@ DEPENDENCIES
   capybara!
   database_cleaner!
   email_validator (= 1.6.0)!
+  eventmachine!
   factory_bot_rails!
   faraday!
   faraday-conductivity!
@@ -532,7 +538,7 @@ DEPENDENCIES
   working_hours!
 
 RUBY VERSION
-   ruby 2.6.6p146
+   ruby 2.7.7p221
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

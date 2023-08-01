@@ -13,8 +13,6 @@ if %w(development test).include?(ENV.fetch('RAILS_ENV'))
     cache_dir: 'tmp/cache',
     development_mode: true,
     load_path_cache: true,
-    autoload_paths_cache: true,
-    disable_trace: false,
     compile_cache_iseq: DARWIN,
     compile_cache_yaml: DARWIN
   )
