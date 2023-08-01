@@ -33,7 +33,8 @@ RSpec.describe 'GET /api/v2/locations/{location_id}/bookable_slots' do
         schedule: schedule,
         start_at: '2017-06-06 09:00',
         guider_id: 4,
-        status: :cancelled_by_customer
+        status: :cancelled_by_customer,
+        secondary_status: '15'
       )
       # excluded since an appointment overlaps the start/end
       @overlapping = create(
@@ -75,7 +76,7 @@ RSpec.describe 'GET /api/v2/locations/{location_id}/bookable_slots' do
     expect(JSON.parse(response.body)).to eq({})
   end
 
-  def create_appointment_with_booking_slot(schedule:, start_at:, guider_id:, status: :pending)
+  def create_appointment_with_booking_slot(schedule:, start_at:, guider_id:, status: :pending, secondary_status: '')
     slot    = create(:bookable_slot, schedule: schedule, start_at: start_at, guider_id: guider_id)
     booking = build(:hackney_booking_request, number_of_slots: 0)
     booking.slots.build(date: start_at.to_date, from: '0900', to: '1000', priority: 1)
@@ -85,7 +86,8 @@ RSpec.describe 'GET /api/v2/locations/{location_id}/bookable_slots' do
       booking_request: booking,
       guider_id: guider_id,
       proceeded_at: slot.start_at,
-      status: status
+      status: status,
+      secondary_status: secondary_status
     )
   end
 end
