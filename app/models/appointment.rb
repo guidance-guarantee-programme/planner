@@ -52,13 +52,18 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   before_save :calculate_statistics, if: :proceeded_at_changed?
   before_create :track_status
   before_update :track_status_transition
+  before_validation :purge_third_party, on: :update
 
   belongs_to :booking_request
   has_many :status_transitions
 
+  accepts_nested_attributes_for :booking_request, update_only: true
+
+  has_one_attached :generated_consent_form
+
   delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, :agent, to: :booking_request
   delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
-  delegate :pension_provider, to: :booking_request
+  delegate :pension_provider, :adjustment?, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true, unless: :agent_id?
@@ -120,6 +125,18 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
 
   def newly_cancelled?
     cancelled? && previous_changes.include?(:status)
+  end
+
+  def notify_email_consent?
+    return unless pending? && booking_request.email_consent_form_required?
+
+    booking_request.previous_changes.include?(:email_consent_form_required)
+  end
+
+  def notify_printed_consent?
+    return unless pending? && booking_request.printed_consent_form_required?
+
+    booking_request.previous_changes.include?(:printed_consent_form_required)
   end
 
   def cancel!
@@ -202,6 +219,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   private
+
+  def purge_third_party
+    booking_request.third_party = false if third_party_changed? && !third_party?
+  end
 
   def track_status
     status_transitions << StatusTransition.new(status: status)

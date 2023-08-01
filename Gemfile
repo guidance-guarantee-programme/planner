@@ -19,6 +19,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'alertifyjs-rails'
   gem 'audited'
   gem 'azure-storage-blob'
+  gem 'bh'
   gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations'
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
@@ -39,6 +40,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'plek'
   gem 'postcodes_io'
   gem 'postgres-copy'
+  gem 'princely'
   gem 'puma'
   gem 'pusher'
   gem 'rack-cors'
@@ -81,6 +83,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   end
 
   group :staging, :production do
+    gem 'aws-sdk-s3', require: false
     gem 'lograge'
     gem 'rails_12factor'
     gem 'redis-rails', require: false

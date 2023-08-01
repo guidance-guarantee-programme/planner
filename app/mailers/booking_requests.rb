@@ -17,7 +17,7 @@ class BookingRequests < ApplicationMailer
 
     mailgun_headers('booking_manager_booking_request')
     mail to: booking_manager.email,
-         subject: "Pension Wise #{name.titleize}" + accessibility_banner(@booking_request_or_appointment)
+         subject: "Pension Wise #{name.titleize}" + adjustment_banner(@booking_request_or_appointment)
   end
 
   def email_failure(booking_request, booking_manager)
@@ -30,8 +30,8 @@ class BookingRequests < ApplicationMailer
 
   private
 
-  def accessibility_banner(entity)
-    entity.accessibility_requirements? ? ' (Accessibility Adjustment)' : ''
+  def adjustment_banner(entity)
+    entity.adjustment? ? ' (Adjustment)' : ''
   end
 
   def decorate(booking_request_or_appointment)

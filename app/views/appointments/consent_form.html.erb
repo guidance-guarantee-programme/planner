@@ -1,0 +1,35 @@
+<%= h2 do %>
+  Booking reference number: <%= @appointment.reference %>
+<% end %>
+
+<%= p do %>
+  Dear customer,
+<% end %>
+
+<%= p do %>
+  Pension Wise is a government backed service which offers free and impartial
+  guidance about your defined contribution pension options. We don’t recommend
+  any products or tell you what to do with your money.
+<% end %>
+
+<%= p do %>
+  A third party has asked to book a Pension Wise appointment to discuss your
+  pension payment options. We need your authority to deliver a Pension Wise
+  appointment to them on your behalf.
+<% end %>
+
+<%= p do %>
+  Please complete the third party consent form and follow the return
+  instructions:
+<% end %>
+
+<%= p do %>
+  <%= link_to 'Download the consent form', booking_request_consent_url(@appointment.booking_request) %>
+<% end %>
+
+<%= p do %>
+  If you did not ask a third party to discuss your pension options with Pension
+  Wise email <a href="mailto:<%= @appointment.online_booking_reply_to %>"><%= @appointment.online_booking_reply_to %></a>.
+<% end %>
+
+<%= render 'shared/email/money_helper' %>

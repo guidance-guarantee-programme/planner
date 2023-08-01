@@ -11,7 +11,7 @@ RSpec.feature 'Agent places a realtime booking' do
     end
   end
 
-  scenario 'Successfully placing a realtime booking/appointment' do
+  scenario 'Successfully placing a realtime booking/appointment', js: true do
     travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_an_agent
       and_available_realtime_slots_exist_within_the_booking_window
@@ -71,7 +71,25 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.additional_info.set('Other notes')
     @page.recording_consent.set(true)
     @page.nudged.set(true)
+
     @page.third_party.set(true)
+    @page.wait_until_data_subject_name_visible
+    @page.data_subject_name.set('Bob Bobson')
+    @page.data_subject_date_of_birth.set('02/02/1980')
+    @page.data_subject_date_of_birth.send_keys(:return) # close date picker
+
+    @page.email_consent_form_required.set(true)
+    @page.wait_until_email_consent_visible
+    @page.email_consent.set('bob@example.com')
+
+    @page.printed_consent_form_required.set(true)
+    @page.wait_until_consent_address_line_one_visible
+    @page.consent_address_line_one.set('1 Some Street')
+    @page.consent_address_line_two.set('Some Road')
+    @page.consent_address_line_three.set('Some Place')
+    @page.consent_address_town.set('Some Town')
+    @page.consent_address_county.set('Some County')
+    @page.consent_address_postcode.set('RM10 7BB')
   end
 
   def and_they_confirm_the_booking
@@ -105,7 +123,13 @@ RSpec.feature 'Agent places a realtime booking' do
       pension_provider: '',
       recording_consent: true,
       nudged: true,
-      third_party: true
+      third_party: true,
+      data_subject_name: 'Bob Bobson',
+      data_subject_date_of_birth: '02/02/1980',
+      email_consent_form_required: true,
+      email_consent: 'bob@example.com',
+      printed_consent_form_required: true,
+      consent_address_line_one: '1 Some Street'
     )
   end
 
@@ -123,7 +147,15 @@ RSpec.feature 'Agent places a realtime booking' do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(2, only: [PrintedConfirmationLetterJob, AppointmentChangeNotificationJob])
+    assert_enqueued_jobs(
+      4,
+      only: [
+        PrintedConfirmationLetterJob,
+        AppointmentChangeNotificationJob,
+        PrintedThirdPartyConsentFormJob,
+        EmailThirdPartyConsentFormJob
+      ]
+    )
   end
 
   def and_the_booking_manager_is_notified

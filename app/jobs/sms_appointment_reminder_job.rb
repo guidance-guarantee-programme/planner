@@ -1,4 +1,4 @@
-class SmsAppointmentReminderJob < SmsJobBase
+class SmsAppointmentReminderJob < NotifyJobBase
   TEMPLATE_ID = '443d8862-3c3c-438d-8fe6-6a3e1aa539eb'.freeze
 
   def perform(appointment)
@@ -17,7 +17,7 @@ class SmsAppointmentReminderJob < SmsJobBase
   private
 
   def send_sms_reminder(appointment)
-    sms_client.send_sms(
+    client.send_sms(
       phone_number: appointment.phone,
       template_id: TEMPLATE_ID,
       reference: appointment.reference,

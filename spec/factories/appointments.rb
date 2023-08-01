@@ -34,5 +34,17 @@ FactoryBot.define do
 
       association :booking_request, factory: :drumchapel_booking_request
     end
+
+    trait :third_party_booking do
+      third_party { true }
+    end
+
+    trait :third_party_consent_form_requested do
+      association :booking_request, factory: :third_party_consent_form_booking_request
+    end
+
+    trait :third_party_email_consent_form_requested do
+      association :booking_request, factory: :third_party_email_consent_form_booking_request
+    end
   end
 end

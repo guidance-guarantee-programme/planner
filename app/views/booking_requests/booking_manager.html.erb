@@ -8,6 +8,12 @@
   <% end %>
 <% end %>
 
+<% if @booking_request_or_appointment.third_party? %>
+  <%= p do %>
+    <strong>The customer has indicated they are attending an appointment on behalf of an individual</strong>
+  <% end %>
+<% end %>
+
 <%= p do %>
   Reference: <%= @booking_request_or_appointment.reference %>
 <% end %>

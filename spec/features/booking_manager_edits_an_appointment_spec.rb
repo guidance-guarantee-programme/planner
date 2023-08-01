@@ -63,7 +63,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
-  scenario 'Successfully editing an Appointment' do
+  scenario 'Successfully editing an Appointment', js: true do
     perform_enqueued_jobs do
       travel_to '2016-01-01' do # ensure appointment has not elapsed
         given_the_user_identifies_as_hackneys_booking_manager do
@@ -73,7 +73,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
           and_they_see_the_requested_slots
           when_they_modify_the_appointment_details
           then_the_appointment_is_updated
-          and_the_customer_is_notified
+          and_the_customer_is_notified_correctly
           and_the_booking_request_has_associated_audit_and_mail_activity
         end
       end
@@ -292,6 +292,24 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.time_minute.select('15')
     @page.guider.select('Bob Johnson')
     @page.recording_consent.set(true)
+    @page.third_party.set(true)
+
+    @page.wait_until_data_subject_name_visible
+    @page.data_subject_name.set('Bob Bobson')
+    @page.data_subject_date_of_birth.set('02/02/1980')
+    @page.data_subject_date_of_birth.send_keys(:return) # close date picker
+    @page.email_consent_form_required.set(true)
+    @page.wait_until_email_consent_visible
+    @page.email_consent.set('bob@example.com')
+
+    @page.printed_consent_form_required.set(true)
+    @page.wait_until_consent_address_line_one_visible
+    @page.consent_address_line_one.set('1 Some Street')
+    @page.consent_address_line_two.set('Some Road')
+    @page.consent_address_line_three.set('Some Place')
+    @page.consent_address_town.set('Some Town')
+    @page.consent_address_county.set('Some County')
+    @page.consent_address_postcode.set('RM10 7BB')
 
     @page.submit.click
   end
@@ -306,10 +324,20 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
     expect(@page.recording_consent).to be_checked
+    expect(@page.email_consent_form_required).to be_checked
+    expect(@page.printed_consent_form_required).to be_checked
   end
 
   def and_the_customer_is_notified
     expect(ActionMailer::Base.deliveries.count).to eq(1)
+    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise Appointment Cancellation')
+  end
+
+  def and_the_customer_is_notified_correctly
+    expect(ActionMailer::Base.deliveries.map(&:subject)).to include(
+      'Your Pension Wise Appointment',
+      'Pension Wise Third Party Consent Form'
+    )
   end
 
   def and_the_customer_is_not_notified
@@ -317,8 +345,12 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def and_the_booking_request_has_associated_audit_and_mail_activity
-    expect(@booking_request.activities.count).to eq(2)
-    expect(@booking_request.activities.map(&:class)).to include(AppointmentMailActivity, AuditActivity)
+    expect(@booking_request.activities.count).to eq(3)
+    expect(@booking_request.activities.map(&:class)).to include(
+      AppointmentMailActivity,
+      AuditActivity,
+      EmailThirdPartyConsentFormActivity
+    )
   end
 
   def then_they_see_the_original_status

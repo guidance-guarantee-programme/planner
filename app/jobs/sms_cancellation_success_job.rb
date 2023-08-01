@@ -1,4 +1,4 @@
-class SmsCancellationSuccessJob < SmsJobBase
+class SmsCancellationSuccessJob < NotifyJobBase
   TEMPLATE_ID = '1cbd533d-4cae-40a6-a2b5-339af96b3c58'.freeze
 
   def perform(appointment)
@@ -15,7 +15,7 @@ class SmsCancellationSuccessJob < SmsJobBase
   private
 
   def send_sms(appointment)
-    sms_client.send_sms(
+    client.send_sms(
       phone_number: appointment.phone,
       template_id: TEMPLATE_ID,
       reference: appointment.reference,

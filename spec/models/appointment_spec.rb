@@ -3,6 +3,18 @@ require 'rails_helper'
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment, current_user: build_stubbed(:agent)) }
 
+  context 'removing the third party flag' do
+    it 'also removes third party from the booking' do
+      appointment = build_stubbed(:appointment, :third_party_booking, :third_party_consent_form_requested)
+
+      appointment.third_party = false
+
+      appointment.validate
+
+      expect(appointment.booking_request).not_to be_third_party
+    end
+  end
+
   describe '#duplicates' do
     it 'matches the current booking location' do
       appointment = create(:appointment)

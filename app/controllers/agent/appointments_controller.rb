@@ -45,16 +45,38 @@ module Agent
           :accessibility_requirements,
           :memorable_word,
           :date_of_birth,
-          :additional_info
+          :additional_info,
+          :third_party,
+          booking_request_attributes: %i(
+            id
+            data_subject_name
+            data_subject_date_of_birth
+            data_subject_consent_obtained
+            data_subject_consent_evidence
+            power_of_attorney_evidence
+            power_of_attorney
+            email_consent_form_required
+            email_consent
+            printed_consent_form_required
+            consent_address_line_one
+            consent_address_line_two
+            consent_address_line_three
+            consent_town
+            consent_county
+            consent_postcode
+          )
         )
     end
 
     def notify_customer(appointment)
-      return unless appointment.notify?
+      if appointment.notify?
+        BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
+        AppointmentChangeNotificationJob.perform_later(appointment)
+        PrintedConfirmationLetterJob.perform_later(appointment)
+      end
 
-      BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
-      AppointmentChangeNotificationJob.perform_later(appointment)
-      PrintedConfirmationLetterJob.perform_later(appointment)
+      PrintedThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_printed_consent?
+      EmailThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_email_consent?
     end
   end
 end
