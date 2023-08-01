@@ -23,6 +23,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
   gem 'email_validator', '1.6.0'
+  gem 'eventmachine', github: 'eventmachine/eventmachine'
   gem 'faraday'
   gem 'faraday-conductivity'
   gem 'faraday_middleware'
