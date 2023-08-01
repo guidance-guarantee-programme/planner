@@ -245,11 +245,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     end
   end
 
-  def validate_secondary_status # rubocop:disable AbcSize, PerceivedComplexity, CyclomaticComplexity, MethodLength
-    return unless created_at && created_at > Time.zone.parse(
-      ENV.fetch('SECONDARY_STATUS_CUT_OFF') { '2022-06-08 09:00' }
-    )
-
+  def validate_secondary_status
     if matches = SECONDARY_STATUSES[status] # rubocop:disable GuardClause
       unless matches.key?(secondary_status)
         return errors.add(:secondary_status, 'must be provided for the chosen status')
