@@ -28,7 +28,7 @@ class DropForm
   validates :signature, presence: true
   validates :booking_request, presence: true
   validates :environment, inclusion: { in: %w(production) }
-  validates :online_booking, inclusion: { in: %w(True) }
+  validates :online_booking, inclusion: { in: [true] }
   validates :message_type, inclusion: { in: INTERESTING_MESSAGE_TYPES }
 
   def create_activity
