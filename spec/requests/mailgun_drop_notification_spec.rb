@@ -33,17 +33,28 @@ RSpec.describe 'POST /mail_gun/drops' do
   end
 
   def when_mail_gun_posts_a_drop_notification
-    post mail_gun_drops_path, params: {
-      'event' => 'dropped',
-      'message_type' => 'customer_booking_request',
-      'recipient' => 'morty@example.com',
-      'description' => 'the reasoning',
-      'environment' => 'production',
-      'online_booking' => 'True',
-      'timestamp' => '1474638633',
-      'token' => 'secret',
-      'signature' => 'abf02bef01e803bea52213cb092a31dc2174f63bcc2382ba25732f4c84e084c1'
+    payload = {
+      "signature": {
+        "token": 'secret',
+        "timestamp": '1474638633',
+        "signature": 'abf02bef01e803bea52213cb092a31dc2174f63bcc2382ba25732f4c84e084c1'
+      },
+      "event-data": {
+        "event": 'dropped',
+        "delivery-status": {
+          "message": '',
+          "description": 'the reasoning'
+        },
+        "recipient": 'morty@example.com',
+        "user-variables": {
+          "online_booking": true,
+          "message_type": 'customer_booking_request',
+          "environment": 'production'
+        }
+      }
     }
+
+    post mail_gun_drops_path, params: payload, as: :json
   end
 
   def then_an_activity_is_created

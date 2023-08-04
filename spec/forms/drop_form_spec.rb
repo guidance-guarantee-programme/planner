@@ -9,7 +9,7 @@ RSpec.describe DropForm, '#create_activity' do
       'description' => 'the reasoning',
       'message_type' => 'customer_booking_request',
       'environment' => 'production',
-      'online_booking' => 'True',
+      'online_booking' => true,
       'timestamp' => '1474638633',
       'token' => 'secret',
       'signature' => 'abf02bef01e803bea52213cb092a31dc2174f63bcc2382ba25732f4c84e084c1'
