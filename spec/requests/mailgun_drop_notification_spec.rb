@@ -42,6 +42,7 @@ RSpec.describe 'POST /mail_gun/drops' do
       "event-data": {
         "event": 'dropped',
         "delivery-status": {
+          "message": '',
           "description": 'the reasoning'
         },
         "recipient": 'morty@example.com',

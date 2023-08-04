@@ -14,10 +14,13 @@ module MailGun
     def drop_params # rubocop:disable Metrics/MethodLength, AbcSize
       event_data = params['event-data']
 
+      description = event_data['delivery-status'][:description].presence ||
+                    event_data['delivery-status'][:message].presence
+
       {
         event: event_data[:event],
         recipient: event_data[:recipient],
-        description: event_data['delivery-status'][:description],
+        description: description,
         message_type: event_data['user-variables'][:message_type],
         environment: event_data['user-variables'][:environment],
         online_booking: event_data['user-variables'][:online_booking],
