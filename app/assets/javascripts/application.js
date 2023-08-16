@@ -14,4 +14,8 @@
 
 PWPlanner.poller.init();
 PWPlanner.dateRangePicker.init();
-PWPlanner.dateTimePicker.init();
+
+$('.js-date-time-picker').each(function() {
+  var $component = $(this);
+  new PWPlanner.dateTimePicker.init($component); // jshint ignore:line
+});
