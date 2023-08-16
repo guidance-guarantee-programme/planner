@@ -2,8 +2,8 @@
   'use strict';
 
   var dateTimePicker = {
-    init: function() {
-      this.$picker = $('.js-date-time-picker');
+    init: function(elem) {
+      this.$picker = elem;
       this.config = $.extend(
         true,
         {
@@ -17,10 +17,7 @@
       )
 
       this.$picker.daterangepicker(this.config);
-      this.bindEvents();
-    },
 
-    bindEvents: function() {
       if (this.config.autoUpdateInput == false) {
         this.$picker.bind('apply.daterangepicker', {
           config: this.config,

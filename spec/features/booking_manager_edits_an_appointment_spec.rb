@@ -259,7 +259,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     # ensure Hackney is pre-selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
 
-    expect(@page.date.value).to eq('20 June 2016')
+    expect(@page.date.value).to eq('20/06/2016')
     expect(@page.time_hour.value).to eq('14')
     expect(@page.time_minute.value).to eq('00')
   end
@@ -287,7 +287,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.year_of_birth.set('1945')
     @page.defined_contribution_pot_confirmed_dont_know.set true
     @page.accessibility_requirements.set(false)
-    @page.date.set('21 June 2016')
+    @page.date.set('21/06/2016')
     @page.time_hour.select('15')
     @page.time_minute.select('15')
     @page.guider.select('Bob Johnson')
@@ -319,7 +319,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page).to be_displayed
 
     expect(@page.name.value).to eq 'Bob Jones'
-    expect(@page.date.value).to eq '21 June 2016'
+    expect(@page.date.value).to eq '21/06/2016'
     expect(@page.time_hour.value).to eq '15'
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
