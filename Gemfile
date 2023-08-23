@@ -78,7 +78,6 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'phantomjs'
     gem 'poltergeist'
     gem 'selenium-webdriver'
-    gem 'webdrivers'
     gem 'webmock'
   end
 
