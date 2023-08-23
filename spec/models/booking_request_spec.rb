@@ -162,7 +162,10 @@ RSpec.describe BookingRequest do
 
     context 'when created before the default third-party validation cut-off' do
       it 'does not enforce the third party attributes' do
-        @booking = create(:third_party_data_subject_consent_booking_request, created_at: 3.weeks.ago)
+        @booking = create(
+          :third_party_data_subject_consent_booking_request,
+          created_at: Time.zone.parse('2023-07-30 01:00:00')
+        )
 
         @booking.data_subject_name = ''
         @booking.data_subject_date_of_birth = nil
