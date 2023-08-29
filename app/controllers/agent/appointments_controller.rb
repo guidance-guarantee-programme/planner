@@ -64,6 +64,7 @@ module Agent
             consent_town
             consent_county
             consent_postcode
+            bsl_video
           )
         )
     end

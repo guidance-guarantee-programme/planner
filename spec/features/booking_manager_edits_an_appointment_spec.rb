@@ -317,7 +317,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.submit.click
   end
 
-  def then_the_appointment_is_updated # rubocop:disable MethodLength
+  def then_the_appointment_is_updated # rubocop:disable Metrics/MethodLength
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
