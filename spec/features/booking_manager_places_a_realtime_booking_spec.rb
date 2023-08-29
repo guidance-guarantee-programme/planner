@@ -92,6 +92,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.recording_consent.set(true)
+    @page.bsl_video.set(true)
     @page.third_party.set(true)
 
     @page.wait_until_data_subject_name_visible
@@ -144,7 +145,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       recording_consent: true,
-      third_party: true
+      third_party: true,
+      bsl_video: true
     )
   end
 

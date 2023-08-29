@@ -23,6 +23,10 @@ class AgentBookingDecorator < SimpleDelegator
     super ? 'Yes' : 'No'
   end
 
+  def bsl_video
+    super ? 'Yes' : 'No'
+  end
+
   def third_party
     super ? 'Yes' : 'No'
   end

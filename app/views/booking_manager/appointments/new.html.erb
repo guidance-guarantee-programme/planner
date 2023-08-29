@@ -61,6 +61,7 @@
 
           <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: location.accessibility_information %>
           <%= f.check_box :recording_consent, class: 't-recording-consent', label: 'Appointment recording consent?' %>
+          <%= f.check_box :bsl_video, class: 't-bsl-video', label: 'BSL video appointment?' %>
 
           <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
           <div id="consent">

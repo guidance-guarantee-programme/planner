@@ -25,6 +25,7 @@ RSpec.describe BookingManagerAppointmentForm do
       scheduled: 'true',
       recording_consent: true,
       third_party: false,
+      bsl_video: false,
       data_subject_consent_obtained: false,
       printed_consent_form_required: false,
       power_of_attorney: false,
