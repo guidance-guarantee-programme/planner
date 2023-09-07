@@ -32,6 +32,8 @@ RSpec.describe AuditActivity do
         booking_request_id: @appointment.booking_request.id,
         message: 'name, email, phone, bsl video'
       )
+
+      expect(subject.changed_attributes).to eq(['name', 'email', 'phone', 'bsl video'])
     end
   end
 end

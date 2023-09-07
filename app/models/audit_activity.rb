@@ -6,4 +6,8 @@ class AuditActivity < Activity
       booking_request_id: booking_request.id
     )
   end
+
+  def changed_attributes
+    message.split(', ')
+  end
 end

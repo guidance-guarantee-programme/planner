@@ -169,6 +169,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     previous_changes[:status] && pending?
   end
 
+  def latest_audit_activity
+    activities.where(type: 'AuditActivity').order(created_at: :desc).first
+  end
+
   def hrh_bank_holiday?
     proceeded_at.to_date == '2022-09-19'.to_date
   end

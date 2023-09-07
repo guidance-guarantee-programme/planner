@@ -61,7 +61,7 @@ RSpec.describe Appointments do
 
       it 'includes the appointment particulars' do
         expect(body).to include(appointment.reference)
-        expect(body).to include('Name', 'Email')
+        expect(body).to include('<li>name</li>', '<li>email</li>')
       end
     end
   end
