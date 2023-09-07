@@ -165,7 +165,7 @@ RSpec.describe Appointment do
         guider_id: '3'
       )
 
-      expect(original.audits).to be_present
+      expect(original.own_and_associated_audits).to be_present
       expect(original).to be_updated
     end
 
@@ -179,10 +179,21 @@ RSpec.describe Appointment do
         fulfilment_window_seconds: 1
       )
 
-      expect(original.audits).to be_empty
+      expect(original.own_and_associated_audits).to be_empty
     end
 
     describe '#notify?' do
+      context 'when an associated `BookingRequest` attribute is altered' do
+        before { travel_to '2016-01-01 13:00' }
+        after { travel_back }
+
+        it 'returns true' do
+          original.update!(booking_request_attributes: { bsl_video: true })
+
+          expect(original).to be_notify
+        end
+      end
+
       context 'when the status was changed' do
         it 'handles correctly' do
           travel_to '2016-01-01 13:00' do

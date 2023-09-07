@@ -15,7 +15,7 @@
 <% end %>
 
 <%= ul do %>
-  <% @appointment.audits.last.audited_changes.keys.map(&:humanize).each do |key| %>
+  <% @appointment.own_and_associated_audits.last.audited_changes.keys.map(&:humanize).each do |key| %>
     <li><%= key %></li>
   <% end %>
 <% end %>

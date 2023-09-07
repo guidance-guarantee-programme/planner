@@ -2,6 +2,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   include PostalAddressable
 
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
+  has_associated_audits
 
   AGENT_PERMITTED_SECONDARY = '15'.freeze
   SECONDARY_STATUSES = {
@@ -157,12 +158,13 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def updated?
-    audits.present?
+    own_and_associated_audits.present?
   end
 
-  def notify?
-    return if previous_changes.none? || proceeded_at.past?
+  def notify? # rubocop:disable AbcSize, CyclomaticComplexity
+    return if (previous_changes.none? && booking_request.previous_changes.none?) || proceeded_at.past?
     return true if previous_changes.exclude?(:status)
+    return true if booking_request.previous_changes.exclude?(:updated_at)
 
     previous_changes[:status] && pending?
   end
@@ -234,7 +236,23 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def after_audit
-    AuditActivity.from(audits.last, booking_request)
+    last_audit = own_and_associated_audits.order(created_at: :desc).first
+    combined   = combined_audits(last_audit)
+
+    AuditActivity.from(
+      last_audit,
+      combined,
+      booking_request
+    )
+  end
+
+  def combined_audits(source)
+    return source.audited_changes unless source.request_uuid?
+
+    own_and_associated_audits
+      .where(request_uuid: source.request_uuid)
+      .pluck(:audited_changes)
+      .reduce(&:merge)
   end
 
   def calculate_fulfilment_time

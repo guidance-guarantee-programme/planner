@@ -1,8 +1,8 @@
 class AuditActivity < Activity
-  def self.from(audit, booking_request)
+  def self.from(audit, audited_changes, booking_request)
     create!(
       user_id: audit.user_id,
-      message: audit.audited_changes.keys.map(&:humanize).to_sentence.downcase,
+      message: audited_changes.keys.map(&:humanize).join(', ').downcase,
       booking_request_id: booking_request.id
     )
   end

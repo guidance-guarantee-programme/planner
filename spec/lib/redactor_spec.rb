@@ -59,7 +59,7 @@ RSpec.describe Redactor do
         additional_info: 'redacted'
       )
 
-      expect(appointment.audits).to be_empty
+      expect(appointment.own_and_associated_audits).to be_empty
     end
   end
 end

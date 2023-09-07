@@ -5,6 +5,6 @@ Reference number:
 
 The following details were changed:
 
-<% @appointment.audits.last.audited_changes.keys.map(&:humanize).each do |key| %>
+<% @appointment.own_and_associated_audits.last.audited_changes.keys.map(&:humanize).each do |key| %>
 * <%= key %>
 <% end %>
