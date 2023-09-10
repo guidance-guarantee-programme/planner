@@ -6,6 +6,18 @@ RSpec.describe Appointments do
   end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
+  describe 'BSL customer exit poll' do
+    let(:appointment) { build_stubbed(:appointment, :bsl_video, status: :completed) }
+
+    subject(:mail) { described_class.bsl_customer_exit_poll(appointment, hackney) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'includes the feedback link' do
+      expect(subject.body.encoded).to include('actiondeafness.org.uk/feedback-form')
+    end
+  end
+
   describe 'Customer email consent form' do
     let(:appointment) { build_stubbed(:appointment, :third_party_booking, :third_party_email_consent_form_requested) }
 

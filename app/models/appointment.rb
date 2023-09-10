@@ -4,6 +4,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
   has_associated_audits
 
+  CAS_BOOKING_LOCATION_ID   = '0c686436-de02-4d92-8dc7-26c97bb7c5bb'.freeze
   AGENT_PERMITTED_SECONDARY = '15'.freeze
   SECONDARY_STATUSES = {
     'incomplete_other' => {
@@ -126,6 +127,14 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   def newly_cancelled?
     cancelled? && previous_changes.include?(:status)
+  end
+
+  def bsl_newly_completed?
+    !cas? && bsl_video? && completed? && previous_changes.include?(:status)
+  end
+
+  def cas?
+    booking_location_id == CAS_BOOKING_LOCATION_ID
   end
 
   def notify_email_consent?
