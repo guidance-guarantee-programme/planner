@@ -28,8 +28,8 @@ FactoryBot.define do
       end
     end
 
-    factory :bsl_video_booking_request do
-      bsl_video { true }
+    factory :bsl_booking_request do
+      bsl { true }
     end
 
     factory :agent_booking_request do

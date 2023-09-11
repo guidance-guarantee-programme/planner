@@ -33,7 +33,7 @@ module Pages
     element :country, '.t-country'
     element :additional_info, '.t-additional-info'
     element :recording_consent, '.t-recording-consent'
-    element :bsl_video, '.t-bsl-video'
+    element :bsl, '.t-bsl-video'
 
     element :third_party, '.t-third-party'
     element :data_subject_name, '.t-data-subject-name'

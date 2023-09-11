@@ -7,7 +7,7 @@ RSpec.describe Appointments do
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
   describe 'BSL customer exit poll' do
-    let(:appointment) { build_stubbed(:appointment, :bsl_video, status: :completed) }
+    let(:appointment) { build_stubbed(:appointment, :bsl, status: :completed) }
 
     subject(:mail) { described_class.bsl_customer_exit_poll(appointment, hackney) }
 

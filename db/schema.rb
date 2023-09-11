@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 2023_09_19_102601) do
     t.string "consent_postcode", default: "", null: false
     t.string "email_consent", default: "", null: false
     t.date "data_subject_date_of_birth"
-    t.boolean "bsl_video", default: false, null: false
+    t.boolean "bsl", default: false, null: false
   end
 
   create_table "guider_lookups", force: :cascade do |t|

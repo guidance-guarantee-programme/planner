@@ -1,6 +1,6 @@
 Dear <%= @appointment.name %>,
 
-You recently had a Pension Wise BSL video appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>.
+You recently had a Pension Wise BSL appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>.
 We'd appreciate your feedback on the interpreter service you received. You also have the option of sending video feedback: https://actiondeafness.org.uk/feedback-form/
 
 <%= render 'shared/email/money_helper' %>

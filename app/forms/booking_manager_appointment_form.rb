@@ -26,7 +26,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     ad_hoc_start_at
     scheduled
     recording_consent
-    bsl_video
+    bsl
     third_party
     data_subject_name
     data_subject_date_of_birth
@@ -82,7 +82,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     printed_consent_form_required
     power_of_attorney
     data_subject_consent_obtained
-    bsl_video
+    bsl
   ).freeze
 
   BOOLEAN_ATTRS.each do |boolean_attr|
@@ -231,7 +231,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       gdpr_consent: gdpr_consent,
       guider_id: scheduled ? '' : guider_id,
       recording_consent: recording_consent,
-      bsl_video: bsl_video,
+      bsl: bsl,
       third_party: third_party,
       data_subject_name: data_subject_name,
       data_subject_date_of_birth: data_subject_date_of_birth,

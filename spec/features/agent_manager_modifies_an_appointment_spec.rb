@@ -92,7 +92,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @page.accessibility_requirements.set(true)
     @page.additional_information.set('Blah, blah, blah.')
     @page.defined_contribution_pot_confirmed_dont_know.set(true)
-    @page.bsl_video.set(true)
+    @page.bsl.set(true)
 
     @page.third_party.set(true)
 
@@ -127,7 +127,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @appointment.reload
 
     expect(@appointment.name).to include('Ben Lovell')
-    expect(@appointment).to be_bsl_video
+    expect(@appointment).to be_bsl
   end
 
   def and_the_customer_is_notified

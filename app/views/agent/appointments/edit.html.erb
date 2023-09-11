@@ -111,7 +111,7 @@
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Accessibility requirements?', help: @appointment.accessibility_information %>
 
             <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
-            <%= booking_subform.check_box :bsl_video, class: 't-bsl-video', label: 'BSL video appointment?' %>
+            <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
             <div id="consent">
               <p><strong>This appointment will be delivered to a third party on behalf of the data subject:</strong></p>

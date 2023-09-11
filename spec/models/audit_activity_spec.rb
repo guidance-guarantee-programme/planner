@@ -12,7 +12,7 @@ RSpec.describe AuditActivity do
           email: 'dj@dj.com',
           phone: '07715 930 455',
           booking_request_attributes: {
-            bsl_video: true
+            bsl: true
           }
         )
       end
@@ -30,10 +30,10 @@ RSpec.describe AuditActivity do
       expect(subject).to have_attributes(
         user_id: audit.user_id,
         booking_request_id: @appointment.booking_request.id,
-        message: 'name, email, phone, bsl video'
+        message: 'name, email, phone, bsl'
       )
 
-      expect(subject.changed_attributes).to eq(['name', 'email', 'phone', 'bsl video'])
+      expect(subject.changed_attributes).to eq(%w(name email phone bsl))
     end
   end
 end

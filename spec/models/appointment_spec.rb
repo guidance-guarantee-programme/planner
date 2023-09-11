@@ -188,7 +188,7 @@ RSpec.describe Appointment do
         after { travel_back }
 
         it 'returns true' do
-          original.update!(booking_request_attributes: { bsl_video: true })
+          original.update!(booking_request_attributes: { bsl: true })
 
           expect(original).to be_notify
         end

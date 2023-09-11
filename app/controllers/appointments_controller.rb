@@ -139,7 +139,7 @@ class AppointmentsController < ApplicationController
           consent_town
           consent_county
           consent_postcode
-          bsl_video
+          bsl
         )
       ).merge(current_user: current_user)
   end
