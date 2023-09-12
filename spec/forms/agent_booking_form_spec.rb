@@ -23,6 +23,7 @@ RSpec.describe AgentBookingForm do
       additional_info: '',
       recording_consent: true,
       nudged: true,
+      bsl: true,
       third_party: false,
       data_subject_consent_obtained: false,
       printed_consent_form_required: false,

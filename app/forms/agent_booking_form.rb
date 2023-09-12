@@ -23,6 +23,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     gdpr_consent
     recording_consent
     nudged
+    bsl
     third_party
     data_subject_name
     data_subject_date_of_birth
@@ -71,6 +72,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   alias scheduled? scheduled
 
   BOOLEAN_ATTRS = %i(
+    bsl
     nudged
     accessibility_requirements
     recording_consent
@@ -210,6 +212,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
       gdpr_consent: gdpr_consent,
       recording_consent: recording_consent,
       nudged: nudged,
+      bsl: bsl,
       third_party: third_party,
       data_subject_name: data_subject_name,
       data_subject_date_of_birth: data_subject_date_of_birth,
