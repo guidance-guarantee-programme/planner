@@ -16,7 +16,7 @@ cache:
   - tmp/cache/assets/test
   - vendor/assets/bower_components
 node_js:
-- '0.10'
+- '16.20.2'
 before_install:
 - gem update --system
 - gem install bundler
@@ -25,6 +25,8 @@ before_script:
 - "(cd .downloads; [ -d prince-9.0r5-linux-amd64-static ] || curl -s https://www.princexml.com/download/prince-9.0r5-linux-amd64-static.tar.gz | tar xzf -)"
 - echo $PWD | ./.downloads/prince-9.0r5-linux-amd64-static/install.sh
 - npm install
+- npx @puppeteer/browsers install chromedriver@116.0.5845.96 --path $PWD/bin
+- export PATH=$PWD/bin/chromedriver/linux-116.0.5845.96/chromedriver-linux64:$PATH
 - bundle exec rake db:create db:migrate RAILS_ENV=test
 branches:
   except:
