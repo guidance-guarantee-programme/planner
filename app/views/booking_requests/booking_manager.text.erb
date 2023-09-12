@@ -8,6 +8,10 @@ The customer has indicated they require help or an accessibility adjustment to a
 The customer has indicated they are attending an appointment on behalf of an individual
 <% end %>
 
+<% if @booking_request_or_appointment.bsl? %>
+The customer has requested a BSL appointment
+<% end %>
+
 Reference: <%= @booking_request_or_appointment.reference %>
 <% if @booking_request_or_appointment.guider_name.present? %>
 Guider: <%= @booking_request_or_appointment.guider_name %>

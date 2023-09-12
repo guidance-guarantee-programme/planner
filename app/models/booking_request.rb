@@ -98,7 +98,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def adjustment?
-    accessibility_requirements? || third_party?
+    accessibility_requirements? || third_party? || bsl?
   end
 
   def data_subject_date_of_birth
