@@ -108,7 +108,7 @@
             </div>
             <hr>
 
-            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Accessibility requirements?' %>
+            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Accessibility requirements?', help: @appointment.accessibility_information %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
 
             <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>

@@ -245,6 +245,8 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
+    expect(@page).to have_text('Access via the lift is currently unavailable')
+
     expect(@page.name.value).to eq(@appointment.name)
     expect(@page.email.value).to eq(@appointment.email)
     expect(@page.phone.value).to eq(@appointment.phone)

@@ -75,6 +75,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def and_they_provide_the_customer_details
+    expect(@page).to have_text('Access via the lift is currently unavailable')
+
     @page.name.set('Summer Sanchez')
     @page.phone.set('07715 930 444')
     @page.memorable_word.set('spaceships')
