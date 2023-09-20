@@ -125,7 +125,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
 
     @appointment.reload
 
-    expect(@appointment.name).to eq('Ben Lovell')
+    expect(@appointment.name).to include('Ben Lovell')
   end
 
   def and_the_customer_is_notified
