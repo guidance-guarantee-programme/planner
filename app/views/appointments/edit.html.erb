@@ -185,7 +185,7 @@
             </div>
 
             <hr>
-            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?' %>
+            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: @appointment_form.accessibility_information %>
             <%= f.check_box :recording_consent, class: 't-recording-consent', label: 'Appointment recording consent?' %>
 
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
