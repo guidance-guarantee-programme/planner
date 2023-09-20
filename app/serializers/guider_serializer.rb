@@ -10,6 +10,6 @@ class GuiderSerializer < ActiveModel::Serializer
   end
 
   def read_attribute_for_serialization(key)
-    object[key.to_s]
+    object.public_send(key)
   end
 end

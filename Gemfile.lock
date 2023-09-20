@@ -6,10 +6,10 @@ GIT
 
 GIT
   remote: https://github.com/guidance-guarantee-programme/booking_locations.git
-  revision: cd2f15cf8afe62889c5d7df4d9b4b4ecb5c615b5
-  ref: cd2f15cf
+  revision: da911411aa9e8c458e978993ca962d58ebe8624b
+  ref: da91141
   specs:
-    booking_locations (0.28.0)
+    booking_locations (0.29.0)
       activesupport (>= 4)
       globalid
 

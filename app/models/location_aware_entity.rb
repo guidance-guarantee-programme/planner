@@ -31,6 +31,10 @@ class LocationAwareEntity < SimpleDelegator
     actual_location.address.split(', ')
   end
 
+  def self.model_name
+    OpenStruct.new(name: 'LocationAwareEntity')
+  end
+
   alias entity __getobj__
 
   private

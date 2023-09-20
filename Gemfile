@@ -20,7 +20,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'audited'
   gem 'azure-storage-blob'
   gem 'bh'
-  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: 'cd2f15cf'
+  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: 'da91141'
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
   gem 'email_validator', '1.6.0'
