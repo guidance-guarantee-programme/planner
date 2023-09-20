@@ -15,6 +15,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-qTip2'
 end
 
+source 'https://rubygems.org'
+
 gem 'active_model_serializers'
 gem 'alertifyjs-rails'
 gem 'audited'
