@@ -204,7 +204,7 @@ GEM
       jquery-rails (~> 4.3.1)
       plek (>= 2.1.0)
       rails (>= 3.2.0)
-    hashdiff (0.4.0)
+    hashdiff (1.0.1)
     hashie (5.0.0)
     http_parser.rb (0.8.0)
     httpclient (2.8.3)
