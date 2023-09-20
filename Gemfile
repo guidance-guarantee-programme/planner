@@ -87,5 +87,4 @@ group :staging, :production do
   gem 'aws-sdk-s3', require: false
   gem 'lograge'
   gem 'rails_12factor'
-  gem 'redis-rails', require: false
 end
