@@ -50,7 +50,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'rgeo-geojson'
   gem 'sassc-rails'
   gem 'select2-rails'
-  gem 'sidekiq'
+  gem 'sidekiq', '~> 6'
   gem 'sinatra', require: false
   gem 'sprockets', '3.7.2'
   gem 'sprockets-es6'
