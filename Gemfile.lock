@@ -398,6 +398,8 @@ GEM
       uri
     nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
+      racc (~> 1.4)
     notifications-ruby-client (5.1.1)
       jwt (>= 1.5, < 3)
     oj (3.16.1)
@@ -525,6 +527,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   active_model_serializers
