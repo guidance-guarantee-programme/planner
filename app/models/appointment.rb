@@ -215,7 +215,8 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   def self.overlapping(guider_id:, proceeded_at:, id: nil)
     where(guider_id: guider_id)
       .where("(proceeded_at, interval '1 hour') overlaps (?, interval '1 hour')", proceeded_at)
-      .where.not(status: [5, 6, 7], id: id)
+      .where.not(status: [5, 6, 7])
+      .where.not(id: id)
   end
 
   private
