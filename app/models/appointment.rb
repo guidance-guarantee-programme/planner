@@ -1,4 +1,4 @@
-class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
+class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   include PostalAddressable
 
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
@@ -84,7 +84,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
 
   attr_accessor :current_user
 
-  def duplicates # rubocop:disable AbcSize
+  def duplicates # rubocop:disable Metrics/AbcSize
     scope = self.class.joins(:booking_request)
                 .where(booking_requests: { booking_location_id: booking_location_id })
                 .where.not(id: id)
@@ -104,7 +104,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
     return if processed_at?
 
     transaction do
-      touch(:processed_at) # rubocop:disable SkipsModelValidations
+      touch(:processed_at) # rubocop:disable Rails/SkipsModelValidations
 
       ProcessedActivity.from!(user: by, appointment: self)
     end
@@ -142,7 +142,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   def cancel!
     without_auditing do
       transaction do
-        update_attribute(:status, :cancelled_by_customer_sms) # rubocop:disable SkipsModelValidations
+        update_attribute(:status, :cancelled_by_customer_sms) # rubocop:disable Rails/SkipsModelValidations
 
         SmsCancellationActivity.from(self)
       end
@@ -268,7 +268,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def validate_secondary_status
-    if matches = SECONDARY_STATUSES[status] # rubocop:disable GuardClause
+    if matches = SECONDARY_STATUSES[status]
       unless matches.key?(secondary_status)
         return errors.add(:secondary_status, 'must be provided for the chosen status')
       end

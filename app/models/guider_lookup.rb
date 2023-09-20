@@ -1,5 +1,5 @@
 class GuiderLookup < ActiveRecord::Base
-  def self.populate # rubocop:disable MethodLength
+  def self.populate # rubocop:disable Metrics/MethodLength
     BookingRequest.distinct.pluck(:booking_location_id).each do |booking_location_id|
       if location = BookingLocations.find(booking_location_id)
         location.guiders.each do |guider|

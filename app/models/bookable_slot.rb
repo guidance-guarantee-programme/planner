@@ -20,7 +20,7 @@ class BookableSlot < ActiveRecord::Base
 
   private
 
-  def validate_appointment_overlapping # rubocop:disable AbcSize
+  def validate_appointment_overlapping # rubocop:disable Metrics/AbcSize
     return unless guider_id? && start_at?
     return unless overlapping = Appointment.overlapping(guider_id: guider_id, proceeded_at: start_at).first
 
@@ -33,7 +33,7 @@ class BookableSlot < ActiveRecord::Base
     logger.info("Appointment overlaps: #{overlapping.location_id}, #{schedule.location_id}, #{start_at}")
   end
 
-  def validate_guider_overlapping # rubocop:disable AbcSize
+  def validate_guider_overlapping # rubocop:disable Metrics/AbcSize
     return unless guider_id?
     return unless overlapping = self.class.where(
       "(start_at, interval '1 hour') overlaps (?, interval '1 hour')", start_at

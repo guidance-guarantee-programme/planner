@@ -100,7 +100,7 @@ RSpec.describe PusherHelper do
     end
   end
 
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
   describe '#pusher_module_tag' do
     it 'returns a <div> tag with the correct attributes' do
       expect(helper.pusher_module_tag).to eq %(
@@ -108,7 +108,7 @@ RSpec.describe PusherHelper do
       ).strip
     end
   end
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
 
   describe '#pusher_script_tag' do
     let(:javascript) { 'Pusher.instance = new Pusher("pusher_key", { cluster: "eu", encrypted: true });' }

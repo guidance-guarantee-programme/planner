@@ -1,4 +1,4 @@
-class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
+class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   PERMITTED_AGE_RANGES = %w(under-50 50-54 55-plus).freeze
 
   include PostalAddressable
@@ -105,7 +105,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
 
   private
 
-  def purge_conditional_third_party_data # rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity
+  def purge_conditional_third_party_data # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     purge_third_party_data if third_party_changed? && !third_party?
     purge_printed_consent_data if printed_consent_form_required_changed? && !printed_consent_form_required?
 
@@ -154,7 +154,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
       errors.add(:printed_consent_form_required, 'cannot be checked when power of attorney is specified')
     end
 
-    if email_consent_form_required? && power_of_attorney? # rubocop:disable GuardClause
+    if email_consent_form_required? && power_of_attorney? # rubocop:disable Style/GuardClause
       errors.add(:email_consent_form_required, 'cannot be checked when power of attorney is specified')
     end
   end
@@ -162,7 +162,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable ClassLength
   def validate_consent_type
     return unless validate_third_party?
 
-    if power_of_attorney? && data_subject_consent_obtained? # rubocop:disable GuardClause
+    if power_of_attorney? && data_subject_consent_obtained? # rubocop:disable Style/GuardClause
       errors.add(
         :third_party,
         "you may only specify 'data subject consent obtained', 'power of attorney' or neither"

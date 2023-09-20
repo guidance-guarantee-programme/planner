@@ -79,7 +79,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @appointment = create(:appointment, proceeded_at: 3.weeks.from_now)
   end
 
-  def when_they_edit_the_appointment # rubocop:disable MethodLength, AbcSize
+  def when_they_edit_the_appointment # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     @page = Pages::AgentEditAppointment.new
     @page.load(id: @appointment.id)
 

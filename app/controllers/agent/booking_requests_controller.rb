@@ -83,7 +83,7 @@ module Agent
       params[:editing].nil?
     end
 
-    def search_params # rubocop:disable MethodLength
+    def search_params # rubocop:disable Metrics/MethodLength
       params
         .fetch(:search, {})
         .permit(
