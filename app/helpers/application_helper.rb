@@ -14,9 +14,9 @@ module ApplicationHelper
     content_tag(:span, 'Missing', title: object.try(:location_id))
   end
 
-  def paginate(objects, options = {})
+  def paginate(objects, **options)
     options.reverse_merge!(theme: 'twitter-bootstrap-3')
-    super(objects, options)
+    super(objects, **options)
   end
 
   def booking_location_options(current_user)
