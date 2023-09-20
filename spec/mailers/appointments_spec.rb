@@ -42,7 +42,7 @@ RSpec.describe Appointments do
       it 'subject includes `cancelled`' do
         appointment.current_user = build(:agent)
         # cancelled prior to appointment
-        appointment.update_attributes(
+        appointment.update(
           status: :cancelled_by_customer,
           secondary_status: Appointment::AGENT_PERMITTED_SECONDARY
         )
