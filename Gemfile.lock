@@ -151,8 +151,8 @@ GEM
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
     cookiejar (0.3.3)
-    crack (0.4.3)
-      safe_yaml (~> 1.0.0)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     daemons (1.4.1)
     database_cleaner (1.7.0)
@@ -449,7 +449,6 @@ GEM
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
-    safe_yaml (1.0.5)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -507,8 +506,8 @@ GEM
       rack (>= 2.0.9)
     warden-oauth2 (0.0.1)
       warden
-    webmock (3.6.0)
-      addressable (>= 2.3.6)
+    webmock (3.19.1)
+      addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.9)
