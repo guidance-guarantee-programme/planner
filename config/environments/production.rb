@@ -72,7 +72,8 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, {
-    url: "#{ENV['REDIS_URL']}/0/cache",
+    url: ENV['REDIS_URL'],
+    db: 0,
     ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
   }
 
