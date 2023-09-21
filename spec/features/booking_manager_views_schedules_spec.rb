@@ -22,13 +22,13 @@ RSpec.feature 'Booking manager views schedules' do
     given_the_user_identifies_as(:drumchapel_booking_manager, &block)
   end
 
-  def and_a_large_number_of_schedules_exist # rubocop:disable MethodLength
+  def and_a_large_number_of_schedules_exist # rubocop:disable Metrics/MethodLength
     stub_api = Class.new do
       def get(id)
         yield locations[id]
       end
 
-      def locations # rubocop:disable MethodLength
+      def locations # rubocop:disable Metrics/MethodLength
         {
           '0c686436-de02-4d92-8dc7-26c97bb7c5bb' => {
             'uid' => '0c686436-de02-4d92-8dc7-26c97bb7c5bb',
@@ -135,7 +135,7 @@ RSpec.feature 'Booking manager views schedules' do
     @page.load
   end
 
-  def then_they_see_the_first_page_of_schedules # rubocop:disable AbcSize
+  def then_they_see_the_first_page_of_schedules # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
     expect(@page).to have_schedules(count: 10)
     expect(@page.pagination.first.current_page).to have_text('1')
@@ -151,7 +151,7 @@ RSpec.feature 'Booking manager views schedules' do
     @page.pagination.first.next_page.click
   end
 
-  def then_they_see_the_second_page_of_schedules # rubocop:disable AbcSize
+  def then_they_see_the_second_page_of_schedules # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
     expect(@page).to have_schedules(count: 10)
     expect(@page.pagination.first.current_page).to have_text('2')
@@ -168,7 +168,7 @@ RSpec.feature 'Booking manager views schedules' do
     @page.pagination.first.last_page.click
   end
 
-  def then_they_see_the_last_page_of_schedules # rubocop:disable AbcSize
+  def then_they_see_the_last_page_of_schedules # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
     expect(@page).to have_schedules(count: 3)
     expect(@page.pagination.first.current_page).to have_text('9')

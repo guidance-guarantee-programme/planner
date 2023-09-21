@@ -30,7 +30,7 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     @page.load(location_id: @slot.schedule.location_id)
   end
 
-  def then_they_see_the_slots # rubocop:disable AbcSize
+  def then_they_see_the_slots # rubocop:disable Metrics/AbcSize
     expect(@page).to be_displayed
     expect(@page).to have_slots(count: 2)
 

@@ -60,7 +60,7 @@ RSpec.feature 'Booking manager views appointments' do
     expect(@page).to have_appointments(count: 1)
   end
 
-  def and_there_are_matching_appointments_for_their_location # rubocop:disable MethodLength
+  def and_there_are_matching_appointments_for_their_location # rubocop:disable Metrics/MethodLength
     @found_by_location = create(
       :appointment,
       name: 'Dalston Dave',

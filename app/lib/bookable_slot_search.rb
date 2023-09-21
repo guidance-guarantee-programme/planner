@@ -7,7 +7,7 @@ class BookableSlotSearch
   attr_accessor :page
   attr_accessor :per_page
 
-  def results # rubocop:disable AbcSize, MethodLength
+  def results # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     scope = Schedule.current(location.id).bookable_slots.realtime
     scope = scope.joins(
       <<-SQL

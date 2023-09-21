@@ -9,3 +9,5 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
+
+Selenium::WebDriver.logger.level = :warn

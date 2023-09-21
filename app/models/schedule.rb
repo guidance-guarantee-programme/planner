@@ -80,7 +80,7 @@ class Schedule < ActiveRecord::Base
     without_appointments.first&.start_at
   end
 
-  def self.allocates?(booking_request) # rubocop:disable AbcSize
+  def self.allocates?(booking_request) # rubocop:disable Metrics/AbcSize
     schedule = current(booking_request.location_id)
 
     if booking_request.guider_id.present?

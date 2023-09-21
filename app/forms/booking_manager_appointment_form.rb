@@ -1,4 +1,4 @@
-class BookingManagerAppointmentForm # rubocop:disable ClassLength
+class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   include ActiveModel::Model
 
   ATTRIBUTES = %i(
@@ -113,7 +113,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
       errors.add(:printed_consent_form_required, 'cannot be checked when power of attorney is specified')
     end
 
-    if email_consent_form_required? && power_of_attorney? # rubocop:disable GuardClause
+    if email_consent_form_required? && power_of_attorney? # rubocop:disable Style/GuardClause
       errors.add(:email_consent_form_required, 'cannot be checked when power of attorney is specified')
     end
   end
@@ -121,7 +121,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
   def validate_consent_type
     return unless third_party?
 
-    if power_of_attorney? && data_subject_consent_obtained? # rubocop:disable GuardClause
+    if power_of_attorney? && data_subject_consent_obtained? # rubocop:disable Style/GuardClause
       errors.add(
         :third_party,
         "you may only specify 'data subject consent obtained', 'power of attorney' or neither"
@@ -163,7 +163,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
   end
 
   def validate_confirmation_details
-    unless address? || email_provided? # rubocop:disable GuardClause
+    unless address? || email_provided? # rubocop:disable Style/GuardClause
       errors.add(:base, 'Please supply either an email or confirmation address')
     end
   end
@@ -205,7 +205,7 @@ class BookingManagerAppointmentForm # rubocop:disable ClassLength
     scheduled ? first_choice_slot.in_time_zone : ad_hoc_start_at&.in_time_zone
   end
 
-  def to_attributes # rubocop:disable MethodLength, AbcSize
+  def to_attributes # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     {
       name: name,
       email: email,

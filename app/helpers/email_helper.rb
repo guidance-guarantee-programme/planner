@@ -13,7 +13,7 @@ module EmailHelper
     )
   end
 
-  def h2(&block) # rubocop:disable MethodLength
+  def h2(&block) # rubocop:disable Metrics/MethodLength
     content_tag(
       :h2,
       capture(&block),
@@ -29,7 +29,7 @@ module EmailHelper
     )
   end
 
-  def ul(&block) # rubocop:disable MethodLength
+  def ul(&block) # rubocop:disable Metrics/MethodLength
     content_tag(
       :ul,
       capture(&block),

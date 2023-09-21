@@ -1,4 +1,4 @@
-class AppointmentForm # rubocop:disable ClassLength
+class AppointmentForm # rubocop:disable Metrics/ClassLength
   include ActiveModel::Model
   include PostalAddressable
 

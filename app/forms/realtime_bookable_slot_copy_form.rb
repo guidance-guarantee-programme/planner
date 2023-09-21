@@ -23,7 +23,7 @@ class RealtimeBookableSlotCopyForm
     )
   end
 
-  def call(preview:) # rubocop:disable AbcSize, MethodLength
+  def call(preview:) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     return if invalid?
 
     good = []

@@ -1,5 +1,7 @@
 ruby IO.read('.ruby-version').strip
 
+source 'https://rubygems.org'
+
 # force Bundler to use SSL
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -10,6 +12,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-fullcalendar', '3.9.0'
   gem 'rails-assets-fullcalendar-scheduler', '1.9.4'
   gem 'rails-assets-growl'
+  gem 'rails-assets-moment'
   gem 'rails-assets-pusher'
   gem 'rails-assets-qTip2'
 end
@@ -20,7 +23,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'audited'
   gem 'azure-storage-blob'
   gem 'bh'
-  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: 'cd2f15cf'
+  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: 'da91141'
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
   gem 'email_validator', '1.6.0'
@@ -34,6 +37,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'govuk_admin_template'
   gem 'kaminari'
   gem 'momentjs-rails'
+  gem 'net-http'
   gem 'notifications-ruby-client'
   gem 'oj'
   gem 'pg'
@@ -42,9 +46,9 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'postgres-copy'
   gem 'princely'
   gem 'puma'
-  gem 'pusher'
+  gem 'pusher', '1.3.2'
   gem 'rack-cors'
-  gem 'rails', '~> 5.2.0'
+  gem 'rails', '~> 6.0'
   gem 'rails-observers'
   gem 'rgeo'
   gem 'rgeo-geojson'
@@ -63,13 +67,14 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'capybara'
     gem 'factory_bot_rails'
     gem 'pry-byebug'
-    gem 'pusher-fake'
+    gem 'pusher-fake', '4.2.0'
     gem 'rspec-rails'
     gem 'site_prism'
   end
 
   group :development do
-    gem 'rubocop', '~> 0.47.1', require: false
+    gem 'rubocop', require: false
+    gem 'rubocop-rails', require: false
   end
 
   group :test do
@@ -85,6 +90,5 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'aws-sdk-s3', require: false
     gem 'lograge'
     gem 'rails_12factor'
-    gem 'redis-rails', require: false
   end
 end

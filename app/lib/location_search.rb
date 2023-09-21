@@ -8,7 +8,7 @@ class LocationSearch
 
   validates :postcode, postcode: true, if: -> { postcode.present? }
 
-  def results # rubocop:disable AbcSize
+  def results # rubocop:disable Metrics/AbcSize
     return [] unless postcode.present? && valid?
 
     start_point = point(geocoded_postcode)

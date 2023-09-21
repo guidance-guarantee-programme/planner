@@ -1,4 +1,4 @@
-namespace :export do # rubocop:disable BlockLength
+namespace :export do # rubocop:disable Metrics/BlockLength
   QUERIES = {
     'MAPS_PWBLZ_PLANNERAPPOINT_' => 'id, booking_request_id, guider_id, proceeded_at, status, created_at, updated_at,
                                      nudged',
@@ -36,7 +36,7 @@ namespace :export do # rubocop:disable BlockLength
     )
   end
 
-  def export_to_azure_blob(key, model_class) # rubocop:disable MethodLength
+  def export_to_azure_blob(key, model_class) # rubocop:disable Metrics/MethodLength
     from_timestamp = ENV.fetch('FROM') { 3.months.ago }
 
     model_class.public_send(:acts_as_copy_target)

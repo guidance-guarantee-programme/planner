@@ -5,7 +5,7 @@ class PrintedConfirmationPresenter
     @appointment = LocationAwareEntity.new(entity: appointment, booking_location: booking_location)
   end
 
-  def to_h # rubocop:disable MethodLength, AbcSize
+  def to_h # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     {
       reference: reference,
       date: date,

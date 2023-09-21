@@ -3,7 +3,7 @@ class PrintedThirdPartyConsentFormPresenter
     @appointment = appointment
   end
 
-  def to_h # rubocop:disable MethodLength
+  def to_h # rubocop:disable Metrics/MethodLength
     booking_request = appointment.booking_request
 
     {

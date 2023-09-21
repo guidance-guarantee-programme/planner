@@ -64,7 +64,7 @@ RSpec.feature 'Viewing Booking Requests' do
     @booking_request = create(:hackney_booking_request, number_of_slots: 3)
   end
 
-  def then_they_see_the_correct_slot_ordering # rubocop:disable AbcSize
+  def then_they_see_the_correct_slot_ordering # rubocop:disable Metrics/AbcSize
     @page   = Pages::BookingRequests.new
     booking = @page.booking_requests.first
 

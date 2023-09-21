@@ -19,7 +19,7 @@ Bundler.require(*Rails.groups)
 
 module Planner
   class Application < Rails::Application
-    config.load_defaults 5.2
+    config.load_defaults 6.0
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -31,6 +31,10 @@ module Planner
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.active_record.yaml_column_permitted_classes = [
+      Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone, ActiveSupport::HashWithIndifferentAccess
+    ]
 
     # default options for booking manager confirmation
     config.action_mailer.default_url_options = { host: ENV['APPLICATION_HOST'] }

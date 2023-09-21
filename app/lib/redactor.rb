@@ -48,7 +48,7 @@ class Redactor
     )
   end
 
-  def booking_attributes # rubocop:disable MethodLength
+  def booking_attributes # rubocop:disable Metrics/MethodLength
     {
       name: 'redacted',
       email: 'redacted@example.com',
