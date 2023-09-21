@@ -50,6 +50,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'rack-cors'
   gem 'rails', '~> 6.0'
   gem 'rails-observers'
+  gem 'redis'
   gem 'rgeo'
   gem 'rgeo-geojson'
   gem 'sassc-rails'
