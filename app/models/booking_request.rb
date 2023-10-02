@@ -20,6 +20,8 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   has_many :activities, -> { order('created_at DESC') }, dependent: :destroy
 
+  audited on: :update, associated_with: :appointment
+
   accepts_nested_attributes_for :slots, limit: 3, allow_destroy: false
 
   validates :name, presence: true
@@ -96,7 +98,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def adjustment?
-    accessibility_requirements? || third_party?
+    accessibility_requirements? || third_party? || bsl?
   end
 
   def data_subject_date_of_birth

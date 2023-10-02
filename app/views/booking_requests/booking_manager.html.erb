@@ -14,6 +14,12 @@
   <% end %>
 <% end %>
 
+<% if @booking_request_or_appointment.bsl? %>
+  <%= p do %>
+    <strong>The customer has requested a BSL appointment</strong>
+  <% end %>
+<% end %>
+
 <%= p do %>
   Reference: <%= @booking_request_or_appointment.reference %>
 <% end %>

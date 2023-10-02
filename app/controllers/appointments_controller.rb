@@ -67,6 +67,7 @@ class AppointmentsController < ApplicationController
       AppointmentCancellationNotificationJob.perform_later(appointment)
     end
 
+    BslCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment) if appointment.bsl_newly_completed?
     PrintedThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_printed_consent?
     EmailThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_email_consent?
   end
@@ -138,6 +139,7 @@ class AppointmentsController < ApplicationController
           consent_town
           consent_county
           consent_postcode
+          bsl
         )
       ).merge(current_user: current_user)
   end

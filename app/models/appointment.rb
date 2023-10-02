@@ -2,7 +2,9 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   include PostalAddressable
 
   audited on: :update, except: %i(fulfilment_time_seconds fulfilment_window_seconds)
+  has_associated_audits
 
+  CAS_BOOKING_LOCATION_ID   = '0c686436-de02-4d92-8dc7-26c97bb7c5bb'.freeze
   AGENT_PERMITTED_SECONDARY = '15'.freeze
   SECONDARY_STATUSES = {
     'incomplete_other' => {
@@ -63,7 +65,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, :agent, to: :booking_request
   delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
-  delegate :pension_provider, :adjustment?, to: :booking_request
+  delegate :pension_provider, :adjustment?, :bsl?, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true, unless: :agent_id?
@@ -127,6 +129,14 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     cancelled? && previous_changes.include?(:status)
   end
 
+  def bsl_newly_completed?
+    !cas? && bsl? && completed? && previous_changes.include?(:status)
+  end
+
+  def cas?
+    booking_location_id == CAS_BOOKING_LOCATION_ID
+  end
+
   def notify_email_consent?
     return unless pending? && booking_request.email_consent_form_required?
 
@@ -157,14 +167,19 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def updated?
-    audits.present?
+    own_and_associated_audits.present?
   end
 
   def notify?
-    return if previous_changes.none? || proceeded_at.past?
+    return if (previous_changes.none? && booking_request.previous_changes.none?) || proceeded_at.past?
     return true if previous_changes.exclude?(:status)
+    return true if booking_request.previous_changes.exclude?(:updated_at)
 
     previous_changes[:status] && pending?
+  end
+
+  def latest_audit_activity
+    activities.where(type: 'AuditActivity').order(created_at: :desc).first
   end
 
   def hrh_bank_holiday?
@@ -234,7 +249,23 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def after_audit
-    AuditActivity.from(audits.last, booking_request)
+    last_audit = own_and_associated_audits.order(created_at: :desc).first
+    combined   = combined_audits(last_audit)
+
+    AuditActivity.from(
+      last_audit,
+      combined,
+      booking_request
+    )
+  end
+
+  def combined_audits(source)
+    return source.audited_changes unless source.request_uuid?
+
+    own_and_associated_audits
+      .where(request_uuid: source.request_uuid)
+      .pluck(:audited_changes)
+      .reduce(&:merge)
   end
 
   def calculate_fulfilment_time

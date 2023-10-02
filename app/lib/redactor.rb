@@ -32,7 +32,7 @@ class Redactor
     appointment.without_auditing do
       appointment.assign_attributes(appointment_attributes)
       appointment.save(validate: false)
-      appointment.audits.delete_all
+      appointment.own_and_associated_audits.delete_all
     end
   end
 

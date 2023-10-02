@@ -28,6 +28,10 @@ FactoryBot.define do
       end
     end
 
+    factory :bsl_booking_request do
+      bsl { true }
+    end
+
     factory :agent_booking_request do
       agent
       booking_location_id { 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef' }

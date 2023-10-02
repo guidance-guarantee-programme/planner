@@ -16,6 +16,7 @@ module Pages
     element :additional_information, '.t-additional-info'
     element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
+    element :bsl, '.t-bsl-video'
 
     element :third_party, '.t-third-party'
     element :data_subject_name, '.t-data-subject-name'

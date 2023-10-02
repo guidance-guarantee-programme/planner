@@ -1,6 +1,6 @@
 class ChangesController < ApplicationController
   def index
-    @audits = AuditPresenter.wrap(appointment.audits.reverse, booking_location(appointment))
+    @audits = AuditPresenter.wrap(appointment.own_and_associated_audits.reverse, booking_location(appointment))
   end
 
   private
