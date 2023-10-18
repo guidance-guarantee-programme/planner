@@ -225,12 +225,6 @@ Style/AccessorGrouping:
     - 'app/lib/bookable_slot_search.rb'
     - 'app/lib/location_search.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/EmptyLiteral:
-  Exclude:
-    - 'spec/forms/appointment_form_spec.rb'
-
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
 Style/ExpandPathArguments:

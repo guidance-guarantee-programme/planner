@@ -10,7 +10,7 @@ RSpec.describe AppointmentForm do
       booking_location: hackney
     )
   end
-  let(:params) { Hash.new }
+  let(:params) { {} }
 
   subject { described_class.new(booking_request, params) }
 
