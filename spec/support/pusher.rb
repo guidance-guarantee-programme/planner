@@ -12,9 +12,7 @@ RSpec.configure do |config|
       state = nil
 
       Timeout.timeout(5) do
-        until state == 'connected'
-          state = page.evaluate_script('Pusher.instance.connection.state')
-        end
+        state = page.evaluate_script('Pusher.instance.connection.state') until state == 'connected'
       end
 
       state

@@ -305,10 +305,3 @@ Style/StringConcatenation:
   Exclude:
     - 'app/helpers/application_helper.rb'
     - 'app/models/drop_activity.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/WhileUntilModifier:
-  Exclude:
-    - 'spec/support/pusher.rb'
-
