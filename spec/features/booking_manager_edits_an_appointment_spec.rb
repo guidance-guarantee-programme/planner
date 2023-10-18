@@ -376,7 +376,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page).to be_displayed
 
     expect(@page.status.value).to eq 'cancelled_by_customer'
-    expect(@page.secondary_status.value). to eq '15'
+    expect(@page.secondary_status.value).to eq '15'
   end
 
   def and_provides_invalid_information

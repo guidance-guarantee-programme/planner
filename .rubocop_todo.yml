@@ -33,12 +33,6 @@ Layout/HashAlignment:
     - 'spec/requests/create_an_appointment_request_spec.rb'
     - 'spec/requests/realtime_appointments_api_spec.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceAroundMethodCallOperator:
-  Exclude:
-    - 'spec/features/booking_manager_edits_an_appointment_spec.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: enums
