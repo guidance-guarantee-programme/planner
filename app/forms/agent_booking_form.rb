@@ -49,7 +49,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   validates :location_id, presence: true
   validates :email, presence: true, email: true, allow_blank: true
   validates :postcode, postcode: true, allow_blank: true
-  validates :phone, presence: true, format: /\A([\d+\-\s\+()]+)\z/
+  validates :phone, presence: true, format: /\A([\d+\-\s+()]+)\z/
   validates :memorable_word, presence: true
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :additional_info, presence: true, if: :accessibility_requirements

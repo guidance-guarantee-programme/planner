@@ -52,7 +52,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   validates :location_id, presence: true
   validates :email, presence: true, email: true, allow_blank: true
   validates :postcode, postcode: true, allow_blank: true
-  validates :phone, presence: true, format: /\A([\d+\-\s\+()]+)\z/
+  validates :phone, presence: true, format: /\A([\d+\-\s+()]+)\z/
   validates :memorable_word, presence: true
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :additional_info, presence: true, if: :accessibility_requirements
@@ -156,7 +156,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   end
 
   def validate_eligibility
-    unless %r{\d{1,2}\/\d{1,2}\/\d{4}}.match?(date_of_birth) || parsed_date_of_birth.blank?
+    unless %r{\d{1,2}/\d{1,2}/\d{4}}.match?(date_of_birth) || parsed_date_of_birth.blank?
       errors.add(:date_of_birth, 'must be formatted eg 01/01/1950')
       return
     end

@@ -282,13 +282,6 @@ Style/RedundantBegin:
   Exclude:
     - 'spec/forms/drop_form_spec.rb'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'app/forms/agent_booking_form.rb'
-    - 'app/forms/booking_manager_appointment_form.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
