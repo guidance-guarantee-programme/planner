@@ -63,7 +63,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def unavailable?
-    without_appointments.size.zero?
+    without_appointments.empty?
   end
 
   def available?

@@ -312,8 +312,3 @@ Style/WhileUntilModifier:
   Exclude:
     - 'spec/support/pusher.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'app/models/schedule.rb'
