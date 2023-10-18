@@ -263,11 +263,10 @@ Style/GuardClause:
 Style/HashSyntax:
   Enabled: false
 
-# Offense count: 2
+# Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/IfUnlessModifier:
   Exclude:
-    - 'app/controllers/schedules_controller.rb'
     - 'app/forms/drop_form.rb'
 
 # Offense count: 45
