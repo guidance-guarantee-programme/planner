@@ -1,15 +1,8 @@
 class AppointmentsSearchForm
   include ActiveModel::Model
 
-  attr_accessor :page
-  attr_accessor :search_term
-  attr_accessor :status
-  attr_accessor :location
-  attr_accessor :guider
-  attr_accessor :current_user
-  attr_accessor :appointment_date
-  attr_accessor :processed
-  attr_accessor :dc_pot_confirmed
+  attr_accessor :page, :search_term, :status, :location, :guider, :current_user, :appointment_date,
+                :processed, :dc_pot_confirmed
 
   def results # rubocop:disable Metrics/AbcSize
     scope = current_user.appointments.includes(booking_request: :slots)

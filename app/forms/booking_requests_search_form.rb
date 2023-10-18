@@ -1,13 +1,7 @@
 class BookingRequestsSearchForm
   include ActiveModel::Model
 
-  attr_accessor :reference
-  attr_accessor :name
-  attr_accessor :status
-  attr_accessor :location
-
-  attr_accessor :current_user
-  attr_accessor :page
+  attr_accessor :reference, :name, :status, :location, :current_user, :page
 
   def initialize(params = {})
     params[:status] ||= BookingRequest.statuses.first

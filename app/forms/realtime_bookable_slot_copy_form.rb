@@ -1,13 +1,7 @@
 class RealtimeBookableSlotCopyForm
   include ActiveModel::Model
 
-  attr_accessor :guider_id
-  attr_accessor :date
-  attr_accessor :day_ids
-  attr_accessor :slots
-  attr_accessor :date_range
-  attr_accessor :location_id
-  attr_accessor :booking_location
+  attr_accessor :guider_id, :date, :day_ids, :slots, :date_range, :location_id, :booking_location
 
   validates :slots, presence: true
   validates :day_ids, presence: true

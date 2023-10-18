@@ -13,15 +13,8 @@ class DropForm
     customer_booking_request
   ).freeze
 
-  attr_accessor :event
-  attr_accessor :recipient
-  attr_accessor :description
-  attr_accessor :message_type
-  attr_accessor :environment
-  attr_accessor :online_booking
-  attr_accessor :timestamp
-  attr_accessor :token
-  attr_accessor :signature
+  attr_accessor :event, :recipient, :description, :message_type, :environment, :online_booking,
+                :timestamp, :token, :signature
 
   validates :timestamp, presence: true
   validates :token, presence: true

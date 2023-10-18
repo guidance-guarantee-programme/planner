@@ -209,22 +209,6 @@ Rails/UnknownEnv:
     - 'config/initializers/booking_locations.rb'
     - 'config/initializers/govuk_admin_template.rb'
 
-# Offense count: 58
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: separated, grouped
-Style/AccessorGrouping:
-  Exclude:
-    - 'app/forms/agent_search_form.rb'
-    - 'app/forms/appointment_form.rb'
-    - 'app/forms/appointments_search_form.rb'
-    - 'app/forms/booking_requests_search_form.rb'
-    - 'app/forms/drop_form.rb'
-    - 'app/forms/realtime_bookable_slot_copy_form.rb'
-    - 'app/forms/sms_cancellation.rb'
-    - 'app/lib/bookable_slot_search.rb'
-    - 'app/lib/location_search.rb'
-
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
 Style/ExpandPathArguments:

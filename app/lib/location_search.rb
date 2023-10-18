@@ -3,8 +3,7 @@ class LocationSearch
 
   METRES_PER_MILE = 1609.344
 
-  attr_accessor :postcode
-  attr_accessor :booking_location
+  attr_accessor :postcode, :booking_location
 
   validates :postcode, postcode: true, if: -> { postcode.present? }
 
