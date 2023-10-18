@@ -14,12 +14,6 @@ Layout/BeginEndAlignment:
   Exclude:
     - 'app/lib/booking_locationable.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'app/models/user.rb'
-
 # Offense count: 40
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowMultipleStyles, EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.
