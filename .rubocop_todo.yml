@@ -297,11 +297,3 @@ Style/RescueStandardError:
   Exclude:
     - 'app/helpers/application_helper.rb'
     - 'app/lib/geocoder.rb'
-
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: Mode.
-Style/StringConcatenation:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/drop_activity.rb'

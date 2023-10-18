@@ -9,6 +9,6 @@ class DropActivity < Activity
   def self.message_from(message_type)
     return '' unless message_type
 
-    message_type.humanize.downcase + ' - '
+    "#{message_type.humanize.downcase} - "
   end
 end
