@@ -45,14 +45,11 @@ class DropForm
     @booking_request ||= BookingRequest.latest(recipient)
   end
 
-  # rubocop:disable Style/GuardClause
   def verify_token!
     digest = OpenSSL::Digest::SHA256.new
     data   = timestamp + token
 
-    unless signature == OpenSSL::HMAC.hexdigest(digest, api_token, data)
-      raise TokenVerificationFailure
-    end
+    raise TokenVerificationFailure unless signature == OpenSSL::HMAC.hexdigest(digest, api_token, data)
   end
 
   def api_token
