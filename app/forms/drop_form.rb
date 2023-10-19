@@ -46,7 +46,7 @@ class DropForm
   end
 
   def verify_token!
-    digest = OpenSSL::Digest::SHA256.new
+    digest = OpenSSL::Digest.new('SHA256')
     data   = timestamp + token
 
     raise TokenVerificationFailure unless signature == OpenSSL::HMAC.hexdigest(digest, api_token, data)
