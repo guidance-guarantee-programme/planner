@@ -38,3 +38,15 @@ Metrics/BlockLength:
 
 Style/PercentLiteralDelimiters:
   Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Exclude:
+    - 'Rakefile'
+    - 'config.ru'
+    - 'config/application.rb'
+    - 'config/boot.rb'
+    - 'config/environment.rb'
+    - 'spec/rails_helper.rb'

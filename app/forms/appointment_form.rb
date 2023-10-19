@@ -38,8 +38,9 @@ class AppointmentForm # rubocop:disable Metrics/ClassLength
   attr_reader :location_aware_booking_request, :time
   alias booking_request location_aware_booking_request
 
-  attr_accessor :name, :email, :phone, :defined_contribution_pot_confirmed, :accessibility_requirements,
-                :memorable_word, :date_of_birth, :guider_id, :location_id, :date, :additional_info
+  attr_writer :name, :email, :phone, :memorable_word, :accessibility_requirements, :location_id, :additional_info
+
+  attr_accessor :defined_contribution_pot_confirmed, :date_of_birth, :guider_id, :date
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 
