@@ -34,7 +34,7 @@ class AppointmentsSearchForm
   end
 
   def search_term_scope(scope)
-    return scope unless search_term.present?
+    return scope if search_term.blank?
 
     if /\A\d+\Z/.match?(search_term)
       scope.where(booking_request_id: search_term)
@@ -44,7 +44,7 @@ class AppointmentsSearchForm
   end
 
   def date_range
-    return unless appointment_date.present?
+    return if appointment_date.blank?
 
     first, last = appointment_date.split(' - ').map(&:to_date)
 

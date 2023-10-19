@@ -281,7 +281,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def validate_proceeded_at
-    errors.add(:proceeded_at, 'must be present') unless proceeded_at.present?
+    errors.add(:proceeded_at, 'must be present') if proceeded_at.blank?
 
     Time.zone.parse(proceeded_at.to_s)
   rescue ArgumentError

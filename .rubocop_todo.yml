@@ -88,15 +88,6 @@ Rails/ApplicationRecord:
     - 'app/models/status_transition.rb'
     - 'app/models/user.rb'
 
-# Offense count: 4
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: NilOrEmpty, NotPresent, UnlessPresent.
-Rails/Blank:
-  Exclude:
-    - 'app/forms/appointments_search_form.rb'
-    - 'app/jobs/email_drop_notification_job.rb'
-    - 'app/models/appointment.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: Include.

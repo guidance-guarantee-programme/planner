@@ -4,7 +4,7 @@ class EmailDropNotificationJob < ActiveJob::Base
   def perform(booking_request)
     booking_managers = User.booking_managers(booking_request.booking_location_id)
 
-    raise BookingManagersNotFoundError unless booking_managers.present?
+    raise BookingManagersNotFoundError if booking_managers.blank?
 
     return if booking_managers.pluck(:email).include?(booking_request.email)
 
