@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe AppointmentMapper, '.map' do
   let(:appointment_params) do
     {
-      'guider_id'   => '1',
+      'guider_id' => '1',
       'location_id' => 'deadbeef-e3cf-45cd-a8ff-9ba827b8e7ef',
-      'date'        => '2016-01-01',
-      'time(4i)'    => '13',
-      'time(5i)'    => '00',
+      'date' => '2016-01-01',
+      'time(4i)' => '13',
+      'time(5i)' => '00',
       'date_of_birth' => '1950-01-01',
       'memorable_word' => 'spaceship',
       'accessibility_requirements' => '1',

@@ -89,9 +89,9 @@ RSpec.describe 'POST /api/v1/booking_requests' do
 
   def and_the_appointment_details_are_serialized
     expect(JSON.parse(response.body)).to eq(
-      'reference'    => Appointment.last.reference,
+      'reference' => Appointment.last.reference,
       'proceeded_at' => '2018-11-08T09:00:00.000Z',
-      'location'     => 'Hackney'
+      'location' => 'Hackney'
     )
   end
 
@@ -111,7 +111,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       phone: '0208 252 4729',
       guider_id: 1,
       location_id: 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
-      proceeded_at:  Time.zone.parse('2018-11-08 09:00'),
+      proceeded_at: Time.zone.parse('2018-11-08 09:00'),
       status: 'pending',
       memorable_word: 'science',
       date_of_birth: 'Sun, 01 Jan 1950'.to_date,

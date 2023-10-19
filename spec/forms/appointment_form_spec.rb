@@ -17,16 +17,16 @@ RSpec.describe AppointmentForm do
   describe 'validation' do
     let(:params) do
       {
-        'guider_id'   => 1,
+        'guider_id' => 1,
         'location_id' => 'ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef',
-        'date'        => '2016-06-21',
-        'time(4i)'    => '13',
-        'time(5i)'    => '00',
-        'name'        => 'Mick Smith',
-        'email'       => 'mick@example.com',
-        'phone'       => '01189 889 889',
+        'date' => '2016-06-21',
+        'time(4i)' => '13',
+        'time(5i)' => '00',
+        'name' => 'Mick Smith',
+        'email' => 'mick@example.com',
+        'phone' => '01189 889 889',
         'memorable_word' => 'snoopy',
-        'date_of_birth'  => '1950-01-01',
+        'date_of_birth' => '1950-01-01',
         'accessibility_requirements' => '1',
         'defined_contribution_pot_confirmed' => 'true'
       }

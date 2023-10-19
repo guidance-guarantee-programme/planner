@@ -22,7 +22,7 @@ module Api
       def batch_reassign
         BatchBookingRequestReassignment.new(
           booking_location_id: params[:booking_location_id],
-          location_id:         params[:location_id]
+          location_id: params[:location_id]
         ).call
 
         head :no_content
