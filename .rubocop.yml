@@ -35,3 +35,6 @@ Style/EmptyMethod:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Style/PercentLiteralDelimiters:
+  Enabled: false

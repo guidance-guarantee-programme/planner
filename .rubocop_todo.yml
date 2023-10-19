@@ -229,17 +229,6 @@ Style/IfUnlessModifier:
   Exclude:
     - 'app/forms/drop_form.rb'
 
-# Offense count: 45
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
-  Exclude:
-    - 'spec/forms/drop_form_spec.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
