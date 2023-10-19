@@ -10,7 +10,7 @@ class Geocoder
 
   def self.perform_lookup(postcode)
     Postcodes::IO.new.lookup(postcode)
-  rescue
+  rescue StandardError
     raise FailedLookup
   end
 end

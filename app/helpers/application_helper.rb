@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def guard_missing_location(object, attribute)
     object.public_send(attribute)
-  rescue
+  rescue StandardError
     content_tag(:span, 'Missing', title: object.try(:location_id))
   end
 

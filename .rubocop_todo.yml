@@ -158,11 +158,3 @@ Style/GuardClause:
   Exclude:
     - 'app/models/appointment.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/lib/geocoder.rb'
