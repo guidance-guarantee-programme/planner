@@ -13,7 +13,7 @@ class Slot < ActiveRecord::Base
   validate :validate_from_before_to
 
   def self.from(priority:, slot:)
-    date, from, to = if SLOT_REGEX === slot # rubocop:disable Style/CaseEquality
+    date, from, to = if SLOT_REGEX === slot
                        slot.match(SLOT_REGEX).captures
                      else
                        starting = Time.zone.parse(slot)

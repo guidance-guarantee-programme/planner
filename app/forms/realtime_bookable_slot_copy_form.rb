@@ -25,7 +25,7 @@ class RealtimeBookableSlotCopyForm
 
     dates.select { |day| day_ids.include?(day.wday.to_s) }.each do |date|
       slots.map(&:to_time).each do |time|
-        start_at = date.to_time.change(hour: time.hour, min: time.min) # rubocop:disable Rails/Date
+        start_at = date.to_time.change(hour: time.hour, min: time.min)
 
         create_slot(start_at, good, bad, preview)
       end
