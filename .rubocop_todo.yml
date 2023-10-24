@@ -26,31 +26,6 @@ Naming/VariableNumber:
     - 'spec/requests/create_an_appointment_request_spec.rb'
     - 'spec/requests/reassign_bookings_to_new_booking_locations_api_spec.rb'
 
-# Offense count: 6
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/ApplicationController:
-  Exclude:
-    - 'app/controllers/api/v1/booking_requests_controller.rb'
-    - 'app/controllers/api/v1/searches_controller.rb'
-    - 'app/controllers/api/v2/bookable_slots_controller.rb'
-    - 'app/controllers/home_controller.rb'
-    - 'app/controllers/mail_gun/drops_controller.rb'
-    - 'app/controllers/sms_cancellations_controller.rb'
-
-# Offense count: 17
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/ApplicationJob:
-  Enabled: false
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/EnumHash:
-  Exclude:
-    - 'app/models/appointment.rb'
-    - 'app/models/booking_request.rb'
-
 # Offense count: 4
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb

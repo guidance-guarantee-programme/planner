@@ -6,11 +6,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   attr_accessor :guider_id
   attr_reader :allocated
 
-  enum status: %i(
-    active
-    awaiting_customer_feedback
-    hidden
-  )
+  enum status: { :active => 0, :awaiting_customer_feedback => 1, :hidden => 2 }
 
   belongs_to :agent, class_name: 'User', optional: true
 

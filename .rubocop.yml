@@ -64,3 +64,15 @@ Rails/ApplicationRecord:
     - 'app/models/slot.rb'
     - 'app/models/status_transition.rb'
     - 'app/models/user.rb'
+    
+Rails/ApplicationController:
+  Exclude:
+    - 'app/controllers/api/v1/booking_requests_controller.rb'
+    - 'app/controllers/api/v1/searches_controller.rb'
+    - 'app/controllers/api/v2/bookable_slots_controller.rb'
+    - 'app/controllers/home_controller.rb'
+    - 'app/controllers/mail_gun/drops_controller.rb'
+    - 'app/controllers/sms_cancellations_controller.rb'
+
+Rails/ApplicationJob:
+  Enabled: false

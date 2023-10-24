@@ -39,17 +39,9 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     }
   }.freeze
 
-  enum status: %i(
-    pending
-    completed
-    no_show
-    ineligible_age
-    ineligible_pension_type
-    cancelled_by_customer
-    cancelled_by_pension_wise
-    cancelled_by_customer_sms
-    incomplete_other
-  )
+  enum status: { :pending => 0, :completed => 1, :no_show => 2, :ineligible_age => 3, :ineligible_pension_type => 4,
+                 :cancelled_by_customer => 5, :cancelled_by_pension_wise => 6, :cancelled_by_customer_sms => 7,
+                 :incomplete_other => 8 }
 
   before_save :calculate_statistics, if: :proceeded_at_changed?
   before_create :track_status
