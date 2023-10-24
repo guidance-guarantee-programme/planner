@@ -166,3 +166,4 @@ RSpec.feature 'Agent places a realtime booking' do
     assert_enqueued_jobs(1, only: BookingManagerConfirmationJob)
   end
 end
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize

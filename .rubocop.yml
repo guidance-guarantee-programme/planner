@@ -50,3 +50,17 @@ Style/ExpandPathArguments:
     - 'config/boot.rb'
     - 'config/environment.rb'
     - 'spec/rails_helper.rb'
+
+Rails/ApplicationRecord:
+  Exclude:
+    - 'app/models/activity.rb'
+    - 'app/models/appointment.rb'
+    - 'app/models/bookable_slot.rb'
+    - 'app/models/booking_request.rb'
+    - 'app/models/guider_lookup.rb'
+    - 'app/models/organisation_lookup.rb'
+    - 'app/models/reporting_summary.rb'
+    - 'app/models/schedule.rb'
+    - 'app/models/slot.rb'
+    - 'app/models/status_transition.rb'
+    - 'app/models/user.rb'

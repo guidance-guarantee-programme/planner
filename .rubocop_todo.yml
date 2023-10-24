@@ -6,20 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 9
-# Configuration parameters: MaximumRangeSize.
-Lint/MissingCopEnableDirective:
-  Exclude:
-    - 'app/controllers/appointments_controller.rb'
-    - 'app/forms/drop_form.rb'
-    - 'config/routes.rb'
-    - 'spec/factories/bookable_slots.rb'
-    - 'spec/features/agent_places_a_realtime_booking_spec.rb'
-    - 'spec/features/booking_manager_edits_an_appointment_spec.rb'
-    - 'spec/features/booking_manager_fulfils_booking_request_spec.rb'
-    - 'spec/features/booking_manager_places_a_realtime_booking_spec.rb'
-    - 'spec/support/custom_matchers.rb'
-
 # Offense count: 5
 # This cop supports safe autocorrection (--autocorrect).
 Lint/RedundantCopDisableDirective:
@@ -71,22 +57,6 @@ Rails/ApplicationController:
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Rails/ApplicationJob:
   Enabled: false
-
-# Offense count: 11
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/ApplicationRecord:
-  Exclude:
-    - 'app/models/activity.rb'
-    - 'app/models/appointment.rb'
-    - 'app/models/bookable_slot.rb'
-    - 'app/models/booking_request.rb'
-    - 'app/models/guider_lookup.rb'
-    - 'app/models/organisation_lookup.rb'
-    - 'app/models/reporting_summary.rb'
-    - 'app/models/schedule.rb'
-    - 'app/models/slot.rb'
-    - 'app/models/status_transition.rb'
-    - 'app/models/user.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).

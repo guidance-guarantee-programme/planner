@@ -7,3 +7,4 @@ FactoryBot.define do
     end_at { start_at.to_time.advance(hour: 1) }
   end
 end
+# rubocop:enable Rails/Date

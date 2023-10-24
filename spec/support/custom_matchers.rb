@@ -30,3 +30,4 @@ RSpec::Matchers.define :have_value do |value|
     "Expected the field '#{actual[:name]}' not to have value '#{value}', but it did"
   end
 end
+# rubocop:enable Style/CaseEquality

@@ -395,3 +395,4 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page).to have_errors
   end
 end
+# rubocop:enable Metrics/AbcSize

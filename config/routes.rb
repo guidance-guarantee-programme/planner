@@ -86,3 +86,4 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq', constraints: AuthenticatedUser.new
 end
+# rubocop:enable Metrics/BlockLength
