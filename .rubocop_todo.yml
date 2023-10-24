@@ -12,12 +12,6 @@ Lint/ScriptPermission:
   Exclude:
     - 'config/puma.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Lint/UselessMethodDefinition:
-  Exclude:
-    - 'app/forms/edit_appointment_form.rb'
-
 # Offense count: 31
 # Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers, AllowedPatterns.
 # SupportedStyles: snake_case, normalcase, non_integer
