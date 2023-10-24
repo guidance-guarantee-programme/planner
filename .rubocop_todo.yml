@@ -12,20 +12,6 @@ Lint/ScriptPermission:
   Exclude:
     - 'config/puma.rb'
 
-# Offense count: 31
-# Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers, AllowedPatterns.
-# SupportedStyles: snake_case, normalcase, non_integer
-# AllowedIdentifiers: capture3, iso8601, rfc1123_date, rfc822, rfc2822, rfc3339, x86_64
-Naming/VariableNumber:
-  Exclude:
-    - 'app/presenters/printed_confirmation_presenter.rb'
-    - 'app/presenters/printed_third_party_consent_form_presenter.rb'
-    - 'spec/jobs/printed_confirmation_letter_job_spec.rb'
-    - 'spec/jobs/printed_third_party_consent_form_job_spec.rb'
-    - 'spec/requests/create_a_booking_request_spec.rb'
-    - 'spec/requests/create_an_appointment_request_spec.rb'
-    - 'spec/requests/reassign_bookings_to_new_booking_locations_api_spec.rb'
-
 # Offense count: 4
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb
@@ -43,14 +29,6 @@ Rails/InverseOf:
     - 'app/models/booking_request.rb'
     - 'app/models/schedule.rb'
     - 'app/models/user.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: Include.
-# Include: **/Rakefile, **/*.rake
-Rails/RakeEnvironment:
-  Exclude:
-    - 'lib/tasks/analyse_javascript.rake'
 
 # Offense count: 2
 # Configuration parameters: Severity, Environments.
