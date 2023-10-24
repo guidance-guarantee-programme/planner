@@ -105,7 +105,7 @@ FactoryBot.define do
       data_subject_date_of_birth { '1975-01-01' }
       power_of_attorney { true }
       power_of_attorney_evidence do
-        Rack::Test::UploadedFile.new(Rails.root.join('spec', 'fixtures', 'evidence.pdf'), 'application/pdf')
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/evidence.pdf'), 'application/pdf')
       end
     end
 
@@ -115,7 +115,7 @@ FactoryBot.define do
       data_subject_date_of_birth { '1975-01-01' }
       data_subject_consent_obtained { true }
       data_subject_consent_evidence do
-        Rack::Test::UploadedFile.new(Rails.root.join('spec', 'fixtures', 'evidence.pdf'), 'application/pdf')
+        Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/evidence.pdf'), 'application/pdf')
       end
     end
   end

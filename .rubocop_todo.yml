@@ -57,17 +57,6 @@ Rails/EnumHash:
     - 'app/models/appointment.rb'
     - 'app/models/booking_request.rb'
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: slashes, arguments
-Rails/FilePath:
-  Exclude:
-    - 'config/initializers/assets.rb'
-    - 'spec/factories/booking_requests.rb'
-    - 'spec/rails_helper.rb'
-    - 'spec/support/postcode_helpers.rb'
-
 # Offense count: 4
 # Configuration parameters: Include.
 # Include: app/models/**/*.rb
@@ -108,4 +97,3 @@ Rails/UnknownEnv:
 Style/GuardClause:
   Exclude:
     - 'app/models/appointment.rb'
-
