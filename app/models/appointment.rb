@@ -291,14 +291,11 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def validate_secondary_status
-    if matches = SECONDARY_STATUSES[status]
-      unless matches.key?(secondary_status)
-        return errors.add(:secondary_status, 'must be provided for the chosen status')
-      end
+    return unless matches = SECONDARY_STATUSES[status]
+    return errors.add(:secondary_status, 'must be provided for the chosen status') unless matches.key?(secondary_status)
 
-      if current_user&.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
-        errors.add(:secondary_status, "Contact centre agents should only select 'Cancelled prior to appointment'")
-      end
-    end
+    return unless current_user&.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
+
+    errors.add(:secondary_status, "Contact centre agents should only select 'Cancelled prior to appointment'")
   end
 end

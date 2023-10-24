@@ -37,10 +37,3 @@ Rails/UnknownEnv:
   Exclude:
     - 'config/initializers/booking_locations.rb'
     - 'config/initializers/govuk_admin_template.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: MinBodyLength, AllowConsecutiveConditionals.
-Style/GuardClause:
-  Exclude:
-    - 'app/models/appointment.rb'
