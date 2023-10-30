@@ -1,5 +1,3 @@
-#!/usr/bin/env puma
-
 rack_env = ENV.fetch('RACK_ENV', 'development')
 
 rackup      DefaultRackup if defined?(DefaultRackup)
