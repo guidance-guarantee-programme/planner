@@ -12,7 +12,7 @@ class Schedule < ActiveRecord::Base
     friday_pm
   ).freeze
 
-  has_many :bookable_slots, -> { order(:start_at) }
+  has_many :bookable_slots, -> { order(:start_at) }, dependent: :destroy
 
   has_associated_audits
   audited on: :create

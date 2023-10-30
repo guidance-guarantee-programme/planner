@@ -12,12 +12,16 @@ class User < ActiveRecord::Base
 
   serialize :permissions, Array
 
-  has_many :agent_bookings, class_name: 'BookingRequest', foreign_key: :agent_id
+  has_many :agent_bookings,
+           class_name: 'BookingRequest',
+           foreign_key: :agent_id,
+           dependent: :destroy
 
   has_many :booking_requests,
            -> { order(:created_at) },
            primary_key: :organisation_content_id,
-           foreign_key: :booking_location_id
+           foreign_key: :booking_location_id,
+           dependent: :destroy
 
   has_many :appointments,
            -> { order(proceeded_at: :desc).includes(:booking_request) },

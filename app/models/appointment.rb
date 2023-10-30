@@ -49,7 +49,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   before_validation :purge_third_party, on: :update
 
   belongs_to :booking_request
-  has_many :status_transitions
+  has_many :status_transitions, dependent: :destroy
 
   accepts_nested_attributes_for :booking_request, update_only: true
 
