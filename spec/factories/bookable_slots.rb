@@ -1,4 +1,3 @@
-# rubocop:disable Rails/Date
 FactoryBot.define do
   factory :bookable_slot do
     schedule

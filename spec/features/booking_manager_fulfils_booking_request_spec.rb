@@ -303,3 +303,4 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@booking_request.activities[2]).to be_a(ActivationActivity)
   end
 end
+# rubocop:enable Metrics/AbcSize

@@ -36,9 +36,7 @@ class SchedulesController < ApplicationController
     total_pages  = calculate_total_pages(locations)
     current_page = page_param
 
-    unless (1..total_pages).cover?(current_page)
-      raise PageRangeError, 'Page number out of range'
-    end
+    raise PageRangeError, 'Page number out of range' unless (1..total_pages).cover?(current_page)
 
     offset = calculate_offset(current_page)
 

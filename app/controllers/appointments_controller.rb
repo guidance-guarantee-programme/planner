@@ -42,7 +42,8 @@ class AppointmentsController < ApplicationController
 
   private
 
-  def search_params # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
+  def search_params
     params
       .fetch(:search, {})
       .permit(
@@ -58,6 +59,7 @@ class AppointmentsController < ApplicationController
         page: params[:page]
       )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def notify_customer(appointment)
     if appointment.notify?
@@ -101,7 +103,8 @@ class AppointmentsController < ApplicationController
     )
   end
 
-  def edit_appointment_params # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
+  def edit_appointment_params
     munge_time_params!
 
     params
@@ -143,6 +146,7 @@ class AppointmentsController < ApplicationController
         )
       ).merge(current_user: current_user)
   end
+  # rubocop:enable Metrics/MethodLength
 
   def munge_time_params!
     appointment_params = params[:appointment]
@@ -153,7 +157,8 @@ class AppointmentsController < ApplicationController
     appointment_params[:proceeded_at] += " #{hour}:#{minute}" if hour && minute
   end
 
-  def appointment_params # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
+  def appointment_params
     params
       .fetch(:appointment, {})
       .permit(
@@ -171,4 +176,6 @@ class AppointmentsController < ApplicationController
         :additional_info
       )
   end
+  # rubocop:enable Metrics/MethodLength
 end
+# rubocop:enable Metrics/ClassLength

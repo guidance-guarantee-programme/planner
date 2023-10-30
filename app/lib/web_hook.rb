@@ -27,7 +27,7 @@ class WebHook
     {
       url: hook_uri,
       request: {
-        timeout:      Integer(ENV.fetch('WEB_HOOK_TIMEOUT', 2)),
+        timeout: Integer(ENV.fetch('WEB_HOOK_TIMEOUT', 2)),
         open_timeout: Integer(ENV.fetch('WEB_HOOK_OPEN_TIMEOUT', 2))
       }
     }

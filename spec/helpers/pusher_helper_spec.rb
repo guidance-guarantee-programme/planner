@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe PusherHelper do
-  module CurrentUser
-    def current_user
-      @current_user ||= FactoryBot.build_stubbed(:hackney_booking_manager)
-    end
+module CurrentUser
+  def current_user
+    @current_user ||= FactoryBot.build_stubbed(:hackney_booking_manager)
   end
+end
 
+RSpec.describe PusherHelper do
   before do
     helper.extend(CurrentUser)
   end

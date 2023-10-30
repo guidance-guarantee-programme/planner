@@ -4,10 +4,6 @@ class EditAppointmentForm < SimpleDelegator
   delegate :realtime?, :primary_slot, :secondary_slot, :tertiary_slot, :agent, :consent, to: :booking_request
   delegate :power_of_attorney_evidence, :data_subject_consent_evidence, to: :booking_request
 
-  def initialize(location_aware_appointment)
-    super
-  end
-
   def update(attributes)
     assign_attributes(attributes)
 

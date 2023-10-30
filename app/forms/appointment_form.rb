@@ -35,21 +35,13 @@ class AppointmentForm # rubocop:disable Metrics/ClassLength
   validate :validate_not_with_an_existing_booking_request
   validate :validate_guider_availability
 
-  attr_reader :location_aware_booking_request
-  attr_reader :time
+  attr_reader :location_aware_booking_request, :time
   alias booking_request location_aware_booking_request
 
-  attr_accessor :name
-  attr_accessor :email
-  attr_accessor :phone
-  attr_accessor :defined_contribution_pot_confirmed
-  attr_accessor :accessibility_requirements
-  attr_accessor :memorable_word
-  attr_accessor :date_of_birth
-  attr_accessor :guider_id
-  attr_accessor :location_id
-  attr_accessor :date
-  attr_accessor :additional_info
+  attr_writer :name, :email, :phone, :memorable_word, :accessibility_requirements, :location_id,
+              :additional_info, :defined_contribution_pot_confirmed
+
+  attr_accessor :date_of_birth, :guider_id, :date
 
   delegate(*BOOKING_REQUEST_ATTRIBUTES, to: :location_aware_booking_request)
 

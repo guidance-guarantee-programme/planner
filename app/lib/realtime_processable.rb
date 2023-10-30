@@ -16,9 +16,9 @@ module RealtimeProcessable
   def fulfil_appointment(booking_request)
     AppointmentForm.new(
       location_aware_booking_request(booking_request),
-      'date'      => booking_request.allocated.start_at.to_date.to_s,
-      'time(4i)'  => booking_request.allocated.start_at.strftime('%H'),
-      'time(5i)'  => booking_request.allocated.start_at.strftime('%M'),
+      'date' => booking_request.allocated.start_at.to_date.to_s,
+      'time(4i)' => booking_request.allocated.start_at.strftime('%H'),
+      'time(5i)' => booking_request.allocated.start_at.strftime('%M'),
       'guider_id' => booking_request.allocated.guider_id
     )
   end

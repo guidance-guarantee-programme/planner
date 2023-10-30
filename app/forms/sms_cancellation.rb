@@ -1,8 +1,7 @@
 class SmsCancellation
   include ActiveModel::Model
 
-  attr_accessor :source_number
-  attr_accessor :message
+  attr_accessor :source_number, :message
 
   validates :source_number, presence: true
   validates :message, presence: true, format: { with: /\A'?cancel'?/i }

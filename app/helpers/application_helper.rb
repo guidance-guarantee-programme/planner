@@ -1,6 +1,6 @@
 module ApplicationHelper
   def booking_journey_path
-    Plek.find('www') + '/en/book-face-to-face'
+    "#{Plek.find('www')}/en/book-face-to-face"
   end
 
   def safe_location_name(location_id)
@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def guard_missing_location(object, attribute)
     object.public_send(attribute)
-  rescue
+  rescue StandardError
     content_tag(:span, 'Missing', title: object.try(:location_id))
   end
 

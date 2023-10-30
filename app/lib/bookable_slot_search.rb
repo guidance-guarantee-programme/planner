@@ -1,11 +1,7 @@
 class BookableSlotSearch
   include ActiveModel::Model
 
-  attr_accessor :date
-  attr_accessor :location
-  attr_accessor :guider
-  attr_accessor :page
-  attr_accessor :per_page
+  attr_accessor :date, :location, :guider, :page, :per_page
 
   def results # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     scope = Schedule.current(location.id).bookable_slots.realtime

@@ -24,7 +24,7 @@ class AuditPresenter < SimpleDelegator
 
       memo[field] = {
         before: format(key, before),
-        after:  format(key, after)
+        after: format(key, after)
       }
     end
   end

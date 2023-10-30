@@ -12,7 +12,7 @@ class Schedule < ActiveRecord::Base
     friday_pm
   ).freeze
 
-  has_many :bookable_slots, -> { order(:start_at) }
+  has_many :bookable_slots, -> { order(:start_at) }, dependent: :destroy
 
   has_associated_audits
   audited on: :create
@@ -63,7 +63,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def unavailable?
-    without_appointments.size.zero?
+    without_appointments.empty?
   end
 
   def available?
@@ -80,7 +80,7 @@ class Schedule < ActiveRecord::Base
     without_appointments.first&.start_at
   end
 
-  def self.allocates?(booking_request) # rubocop:disable Metrics/AbcSize
+  def self.allocates?(booking_request)
     schedule = current(booking_request.location_id)
 
     if booking_request.guider_id.present?

@@ -1,15 +1,8 @@
 class AppointmentsSearchForm
   include ActiveModel::Model
 
-  attr_accessor :page
-  attr_accessor :search_term
-  attr_accessor :status
-  attr_accessor :location
-  attr_accessor :guider
-  attr_accessor :current_user
-  attr_accessor :appointment_date
-  attr_accessor :processed
-  attr_accessor :dc_pot_confirmed
+  attr_accessor :page, :search_term, :status, :location, :guider, :current_user, :appointment_date,
+                :processed, :dc_pot_confirmed
 
   def results # rubocop:disable Metrics/AbcSize
     scope = current_user.appointments.includes(booking_request: :slots)
@@ -41,7 +34,7 @@ class AppointmentsSearchForm
   end
 
   def search_term_scope(scope)
-    return scope unless search_term.present?
+    return scope if search_term.blank?
 
     if /\A\d+\Z/.match?(search_term)
       scope.where(booking_request_id: search_term)
@@ -51,7 +44,7 @@ class AppointmentsSearchForm
   end
 
   def date_range
-    return unless appointment_date.present?
+    return if appointment_date.blank?
 
     first, last = appointment_date.split(' - ').map(&:to_date)
 

@@ -3,12 +3,12 @@ module BookingLocationable
 
   def booking_location(location_id: current_user.booking_location_id)
     @booking_location ||= begin
-                            booking_location = BookingLocations.find(location_id)
+      booking_location = BookingLocations.find(location_id)
 
-                            raise BookingLocationNotFound unless booking_location
+      raise BookingLocationNotFound unless booking_location
 
-                            BookingLocationDecorator.new(booking_location)
-                          end
+      BookingLocationDecorator.new(booking_location)
+    end
   end
 
   def self.included(base)

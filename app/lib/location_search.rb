@@ -3,12 +3,11 @@ class LocationSearch
 
   METRES_PER_MILE = 1609.344
 
-  attr_accessor :postcode
-  attr_accessor :booking_location
+  attr_accessor :postcode, :booking_location
 
   validates :postcode, postcode: true, if: -> { postcode.present? }
 
-  def results # rubocop:disable Metrics/AbcSize
+  def results
     return [] unless postcode.present? && valid?
 
     start_point = point(geocoded_postcode)

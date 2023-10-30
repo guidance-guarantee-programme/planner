@@ -1,11 +1,7 @@
 class AgentSearchForm
   include ActiveModel::Model
 
-  attr_accessor :reference
-  attr_accessor :name
-  attr_accessor :date
-  attr_accessor :agent
-  attr_accessor :page
+  attr_accessor :reference, :name, :date, :agent, :page
 
   def results # rubocop:disable Metrics/AbcSize
     scope = Appointment.includes(booking_request: :agent)

@@ -35,3 +35,65 @@ Style/EmptyMethod:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Exclude:
+    - 'Rakefile'
+    - 'config.ru'
+    - 'config/application.rb'
+    - 'config/boot.rb'
+    - 'config/environment.rb'
+    - 'spec/rails_helper.rb'
+
+Naming/VariableNumber:
+  Exclude:
+    - 'app/presenters/printed_confirmation_presenter.rb'
+    - 'app/presenters/printed_third_party_consent_form_presenter.rb'
+    - 'spec/jobs/printed_confirmation_letter_job_spec.rb'
+    - 'spec/jobs/printed_third_party_consent_form_job_spec.rb'
+    - 'spec/requests/create_a_booking_request_spec.rb'
+    - 'spec/requests/create_an_appointment_request_spec.rb'
+    - 'spec/requests/reassign_bookings_to_new_booking_locations_api_spec.rb'
+
+Rails/ApplicationRecord:
+  Exclude:
+    - 'app/models/activity.rb'
+    - 'app/models/appointment.rb'
+    - 'app/models/bookable_slot.rb'
+    - 'app/models/booking_request.rb'
+    - 'app/models/guider_lookup.rb'
+    - 'app/models/organisation_lookup.rb'
+    - 'app/models/reporting_summary.rb'
+    - 'app/models/schedule.rb'
+    - 'app/models/slot.rb'
+    - 'app/models/status_transition.rb'
+    - 'app/models/user.rb'
+    
+Rails/ApplicationController:
+  Exclude:
+    - 'app/controllers/api/v1/booking_requests_controller.rb'
+    - 'app/controllers/api/v1/searches_controller.rb'
+    - 'app/controllers/api/v2/bookable_slots_controller.rb'
+    - 'app/controllers/home_controller.rb'
+    - 'app/controllers/mail_gun/drops_controller.rb'
+    - 'app/controllers/sms_cancellations_controller.rb'
+
+Rails/ApplicationJob:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Exclude:
+    - 'config/initializers/booking_locations.rb'
+    - 'config/initializers/govuk_admin_template.rb'
+
+Rails/InverseOf:
+  Exclude:
+    - 'app/models/booking_request.rb'
+    - 'app/models/schedule.rb'
+    - 'app/models/user.rb'

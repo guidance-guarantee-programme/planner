@@ -4,21 +4,11 @@
 Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.paths << Rails.root.join(
-  'vendor',
-  'assets',
-  'bower_components',
-  'moj.slot-picker',
-  'dist',
-  'stylesheets',
-  'images'
+  'vendor/assets/bower_components/moj.slot-picker/dist/stylesheets/images'
 )
 
 Rails.application.config.assets.paths << Rails.root.join(
-  'vendor',
-  'assets',
-  'bower_components',
-  'moj.slot-picker',
-  'vendor'
+  'vendor/assets/bower_components/moj.slot-picker/vendor'
 )
 
 Rails.application.config.assets.precompile << 'moj.slot-picker/dist/stylesheets/**/*.png'

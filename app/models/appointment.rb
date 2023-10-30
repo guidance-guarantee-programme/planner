@@ -39,17 +39,9 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     }
   }.freeze
 
-  enum status: %i(
-    pending
-    completed
-    no_show
-    ineligible_age
-    ineligible_pension_type
-    cancelled_by_customer
-    cancelled_by_pension_wise
-    cancelled_by_customer_sms
-    incomplete_other
-  )
+  enum status: { :pending => 0, :completed => 1, :no_show => 2, :ineligible_age => 3, :ineligible_pension_type => 4,
+                 :cancelled_by_customer => 5, :cancelled_by_pension_wise => 6, :cancelled_by_customer_sms => 7,
+                 :incomplete_other => 8 }
 
   before_save :calculate_statistics, if: :proceeded_at_changed?
   before_create :track_status
@@ -57,7 +49,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   before_validation :purge_third_party, on: :update
 
   belongs_to :booking_request
-  has_many :status_transitions
+  has_many :status_transitions, dependent: :destroy
 
   accepts_nested_attributes_for :booking_request, update_only: true
 
@@ -281,7 +273,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def validate_proceeded_at
-    errors.add(:proceeded_at, 'must be present') unless proceeded_at.present?
+    errors.add(:proceeded_at, 'must be present') if proceeded_at.blank?
 
     Time.zone.parse(proceeded_at.to_s)
   rescue ArgumentError
@@ -299,14 +291,11 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def validate_secondary_status
-    if matches = SECONDARY_STATUSES[status]
-      unless matches.key?(secondary_status)
-        return errors.add(:secondary_status, 'must be provided for the chosen status')
-      end
+    return unless matches = SECONDARY_STATUSES[status]
+    return errors.add(:secondary_status, 'must be provided for the chosen status') unless matches.key?(secondary_status)
 
-      if current_user&.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
-        errors.add(:secondary_status, "Contact centre agents should only select 'Cancelled prior to appointment'")
-      end
-    end
+    return unless current_user&.agent? && cancelled_by_customer? && secondary_status != AGENT_PERMITTED_SECONDARY
+
+    errors.add(:secondary_status, "Contact centre agents should only select 'Cancelled prior to appointment'")
   end
 end
