@@ -91,3 +91,9 @@ Rails/UnknownEnv:
   Exclude:
     - 'config/initializers/booking_locations.rb'
     - 'config/initializers/govuk_admin_template.rb'
+
+Rails/InverseOf:
+  Exclude:
+    - 'app/models/booking_request.rb'
+    - 'app/models/schedule.rb'
+    - 'app/models/user.rb'
