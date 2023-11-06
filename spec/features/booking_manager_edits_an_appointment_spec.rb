@@ -102,6 +102,32 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Cancelling an appointment triggers the correct email', js: true do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      and_cancels_for_the_customer
+      then_the_customer_receives_the_cancellation_email
+    end
+  end
+
+  def and_cancels_for_the_customer
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    @page.status.select('Cancelled By Customer')
+    @page.wait_until_secondary_status_options_visible
+    @page.secondary_status.select('Customer changed their mind')
+
+    @page.submit.click
+  end
+
+  def then_the_customer_receives_the_cancellation_email
+    expect(@page).to have_success
+
+    assert_enqueued_jobs(1, only: AppointmentCancellationNotificationJob)
+  end
+
   def and_processes_the_appointment
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
