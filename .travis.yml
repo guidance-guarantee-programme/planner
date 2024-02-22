@@ -25,8 +25,8 @@ before_script:
 - "(cd .downloads; [ -d prince-9.0r5-linux-amd64-static ] || curl -s https://www.princexml.com/download/prince-9.0r5-linux-amd64-static.tar.gz | tar xzf -)"
 - echo $PWD | ./.downloads/prince-9.0r5-linux-amd64-static/install.sh
 - npm install
-- npx @puppeteer/browsers install chromedriver@119.0.6045.105 --path $PWD/bin
-- export PATH=$PWD/bin/chromedriver/linux-119.0.6045.105/chromedriver-linux64:$PATH
+- npx @puppeteer/browsers install chromedriver@121.0.6167.85 --path $PWD/bin
+- export PATH=$PWD/bin/chromedriver/linux-121.0.6167.85/chromedriver-linux64:$PATH
 - bundle exec rake db:create db:migrate RAILS_ENV=test
 branches:
   except:
