@@ -5,6 +5,7 @@
   class MyAppointmentsCalendar extends CompanyCalendar {
     start(el) {
       this.config = {
+        titleFormat: 'dddd, Do MMMM',
         header: {
           right: 'fullscreen sort filter today jumpToDate prev,next'
         },
