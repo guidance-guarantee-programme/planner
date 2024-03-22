@@ -26,4 +26,14 @@ RSpec.describe AppointmentSearch do
       expect(described_class.new('bleh@exam').call).to eq([@other])
     end
   end
+
+  context 'with a consent name or email' do
+    it 'returns the matching results' do
+      @appointment = create(:appointment, :third_party_consent_form_requested)
+      expect(described_class.new('Daisy').call).to eq([@appointment])
+
+      @other = create(:appointment, :third_party_email_consent_form_requested, guider_id: 2)
+      expect(described_class.new('daisy@exam').call).to eq([@other])
+    end
+  end
 end
