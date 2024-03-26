@@ -171,7 +171,7 @@
 
               <%= booking_subform.check_box :email_consent_form_required, class: 't-email-consent-form-required', data: { target: 'email-consent' } %>
               <div id="email-consent">
-                <%= booking_subform.text_field :email_consent, autocomplete: 'off', class: 't-email-consent', label: 'Consent email', placeholder: 'A consent form is sent to this email' %>
+                <%= booking_subform.email_field :email_consent, autocomplete: 'off', class: 't-email-consent', label: 'Consent email', placeholder: 'A consent form is sent to this email' %>
               </div>
 
               <%= booking_subform.check_box :printed_consent_form_required, class: 't-printed-consent-form-required', data: { target: 'printed-consent' } %>

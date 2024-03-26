@@ -84,7 +84,7 @@
 
           <%= f.check_box :email_consent_form_required, class: 't-email-consent-form-required', data: { target: 'email-consent' } %>
           <div id="email-consent">
-            <%= f.text_field :email_consent, autocomplete: 'off', class: 't-email-consent', label: 'Consent email', placeholder: 'A consent form is sent to this email' %>
+            <%= f.email_field :email_consent, autocomplete: 'off', class: 't-email-consent', label: 'Consent email', placeholder: 'A consent form is sent to this email' %>
           </div>
 
           <%= f.check_box :printed_consent_form_required, class: 't-printed-consent-form-required', data: { target: 'printed-consent' } %>
