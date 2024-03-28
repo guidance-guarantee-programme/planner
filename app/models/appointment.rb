@@ -163,9 +163,9 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def notify?
-    return if (previous_changes.none? && booking_request.previous_changes.none?) || proceeded_at.past?
-    return true if previous_changes.exclude?(:status)
-    return true if booking_request.previous_changes.exclude?(:updated_at)
+    return false if proceeded_at.past?
+    return true  if previous_changes.any? && previous_changes.exclude?(:status)
+    return true  if booking_request.previous_changes.any? && booking_request.previous_changes.exclude?(:updated_at)
 
     previous_changes[:status] && pending?
   end
