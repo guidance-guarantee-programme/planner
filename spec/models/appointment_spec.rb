@@ -202,6 +202,9 @@ RSpec.describe Appointment do
 
             original.update(status: :pending)
             expect(original).to be_notify
+
+            original.update(status: :no_show)
+            expect(original).to_not be_notify
           end
         end
 
