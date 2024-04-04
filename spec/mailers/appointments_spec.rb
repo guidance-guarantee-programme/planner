@@ -18,6 +18,27 @@ RSpec.describe Appointments do
     end
   end
 
+  describe 'Missed appointment' do
+    subject(:mail) { described_class.missed(appointment) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Your Pension Wise Appointment')
+      expect(mail.to).to eq([appointment.email])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
+    end
+
+    describe 'rendering the body' do
+      let(:body) { subject.body.encoded }
+
+      it 'includes the appointment particulars' do
+        expect(body).to include(appointment.reference)
+        expect(body).to include('missed your Pension Wise appointment')
+      end
+    end
+  end
+
   describe 'Customer email consent form' do
     let(:appointment) { build_stubbed(:appointment, :third_party_booking, :third_party_email_consent_form_requested) }
 

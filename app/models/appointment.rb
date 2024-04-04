@@ -117,6 +117,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     status.starts_with?('cancelled')
   end
 
+  def newly_missed?
+    no_show? && previous_changes.include?(:status)
+  end
+
   def newly_cancelled?
     cancelled? && previous_changes.include?(:status)
   end

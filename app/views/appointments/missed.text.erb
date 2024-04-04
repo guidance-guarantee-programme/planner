@@ -1,0 +1,20 @@
+Missed appointment
+
+Dear <%= @appointment.name %>,
+
+Our records show that you missed your Pension Wise appointment which was scheduled for:
+
+Date: <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
+Time: <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
+
+Appointment location:
+<%= @appointment.location_name %>
+<% @appointment.address_lines.each do |line| %>
+  <%= line %>
+<% end %>
+
+Reference number: <%= @appointment.reference %>
+
+Email us if you want to rebook your appointment.
+
+<%= render 'shared/email/money_helper' %>
