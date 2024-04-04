@@ -61,9 +61,11 @@ class AppointmentsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength
 
-  def notify_customer(appointment)
+  def notify_customer(appointment) # rubocop:disable Metrics/MethodLength
     if appointment.newly_cancelled?
       AppointmentCancellationNotificationJob.perform_later(appointment)
+    elsif appointment.newly_missed?
+      AppointmentMissedNotificationJob.perform_later(appointment)
     elsif appointment.notify?
       AppointmentChangeNotificationJob.perform_later(appointment)
       PrintedConfirmationLetterJob.perform_later(appointment)
