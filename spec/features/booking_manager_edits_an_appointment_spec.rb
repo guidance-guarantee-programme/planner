@@ -319,7 +319,6 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.time_hour.select('15')
     @page.time_minute.select('15')
     @page.guider.select('Bob Johnson')
-    @page.recording_consent.set(true)
     @page.bsl.set(true)
     @page.third_party.set(true)
 
@@ -343,7 +342,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.submit.click
   end
 
-  def then_the_appointment_is_updated # rubocop:disable Metrics/MethodLength
+  def then_the_appointment_is_updated
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
@@ -352,7 +351,6 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.time_hour.value).to eq '15'
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
-    expect(@page.recording_consent).to be_checked
     expect(@page.email_consent_form_required).to be_checked
     expect(@page.printed_consent_form_required).to be_checked
     expect(@page.bsl).to be_checked

@@ -25,7 +25,6 @@ module Pages
     element :postcode, '.t-postcode'
     element :country, '.t-country'
     element :additional_info, '.t-additional-info'
-    element :recording_consent, '.t-recording-consent'
     element :nudged, '.t-nudged'
     element :bsl, '.t-bsl-video'
     element :third_party, '.t-third-party'

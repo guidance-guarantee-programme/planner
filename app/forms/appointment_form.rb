@@ -14,7 +14,6 @@ class AppointmentForm # rubocop:disable Metrics/ClassLength
     address?
     consent
     email?
-    recording_consent
     nudged
   ).freeze
 
@@ -86,10 +85,6 @@ class AppointmentForm # rubocop:disable Metrics/ClassLength
 
   def accessibility_requirements
     @accessibility_requirements ||= location_aware_booking_request.accessibility_requirements
-  end
-
-  def recording_consent
-    @recording_consent ||= location_aware_booking_request.recording_consent
   end
 
   def nudged
