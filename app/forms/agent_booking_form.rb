@@ -21,7 +21,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     booking_location_id
     additional_info
     gdpr_consent
-    recording_consent
     nudged
     bsl
     third_party
@@ -75,7 +74,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     bsl
     nudged
     accessibility_requirements
-    recording_consent
     third_party
     email_consent_form_required
     printed_consent_form_required
@@ -210,7 +208,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
       booking_location_id: booking_location_id,
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
-      recording_consent: recording_consent,
       nudged: nudged,
       bsl: bsl,
       third_party: third_party,

@@ -25,7 +25,6 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     guider_id
     ad_hoc_start_at
     scheduled
-    recording_consent
     bsl
     third_party
     data_subject_name
@@ -76,7 +75,6 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   BOOLEAN_ATTRS = %i(
     scheduled
     accessibility_requirements
-    recording_consent
     third_party
     email_consent_form_required
     printed_consent_form_required
@@ -230,7 +228,6 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       additional_info: additional_info,
       gdpr_consent: gdpr_consent,
       guider_id: scheduled ? '' : guider_id,
-      recording_consent: recording_consent,
       bsl: bsl,
       third_party: third_party,
       data_subject_name: data_subject_name,

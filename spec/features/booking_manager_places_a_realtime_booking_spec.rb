@@ -91,7 +91,6 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
-    @page.recording_consent.set(true)
     @page.bsl.set(true)
     @page.third_party.set(true)
 
@@ -144,7 +143,6 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
       age_range: '55-plus',
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
-      recording_consent: true,
       third_party: true,
       bsl: true
     )

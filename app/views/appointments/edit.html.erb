@@ -194,7 +194,6 @@
 
             <hr>
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: @appointment_form.accessibility_information %>
-            <%= f.check_box :recording_consent, class: 't-recording-consent', label: 'Appointment recording consent?' %>
 
             <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>

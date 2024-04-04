@@ -71,7 +71,6 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
-    @page.recording_consent.set(true)
     @page.nudged.set(true)
     @page.bsl.set(true)
 
@@ -124,7 +123,6 @@ RSpec.feature 'Agent places a realtime booking' do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       pension_provider: '',
-      recording_consent: true,
       bsl: true,
       nudged: true,
       third_party: true,

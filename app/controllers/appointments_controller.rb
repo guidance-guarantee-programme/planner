@@ -125,7 +125,6 @@ class AppointmentsController < ApplicationController
         :proceeded_at,
         :status,
         :secondary_status,
-        :recording_consent,
         :third_party,
         booking_request_attributes: %i(
           id
