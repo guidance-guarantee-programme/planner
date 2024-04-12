@@ -9,7 +9,7 @@ RSpec.feature 'SMS appointment reminders' do
     end
   end
 
-  def given_appointments_due_sms_reminders_exist # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def given_appointments_due_sms_reminders_exist # rubocop:disable Metrics/AbcSize
     # on the same day so excluded
     @same_day = create(:appointment, proceeded_at: 2.days.from_now, guider_id: 2)
     # past the reminder window

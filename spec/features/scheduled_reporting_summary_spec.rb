@@ -11,7 +11,7 @@ RSpec.feature 'Scheduled reporting summary' do
     end
   end
 
-  def given_several_booking_locations_exist # rubocop:disable Metrics/MethodLength
+  def given_several_booking_locations_exist
     current_api = BookingLocations.api
     BookingLocations.api = Class.new do
       def all
@@ -47,7 +47,7 @@ RSpec.feature 'Scheduled reporting summary' do
     ScheduledReportingSummary.new.call
   end
 
-  def then_the_correct_daily_statistics_are_persisted # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def then_the_correct_daily_statistics_are_persisted # rubocop:disable Metrics/AbcSize
     @summaries = ReportingSummary.all
 
     expect(@summaries.first).to have_attributes(

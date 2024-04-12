@@ -95,7 +95,7 @@ RSpec.feature 'Viewing Booking Requests' do
     expect(@page.location).to be_visible
   end
 
-  def and_there_are_booking_requests_for_their_location # rubocop:disable Metrics/MethodLength
+  def and_there_are_booking_requests_for_their_location
     @active_booking_requests = create_list(:hackney_booking_request, 8)
     @active_booking_requests << create(:hackney_booking_request, name: 'Morty Smith')
     @active_booking_requests << create(:hackney_booking_request, name: 'Jerry Smith')

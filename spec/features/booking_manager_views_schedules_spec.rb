@@ -22,13 +22,13 @@ RSpec.feature 'Booking manager views schedules' do
     given_the_user_identifies_as(:drumchapel_booking_manager, &block)
   end
 
-  def and_a_large_number_of_schedules_exist # rubocop:disable Metrics/MethodLength
+  def and_a_large_number_of_schedules_exist
     stub_api = Class.new do
       def get(id)
         yield locations[id]
       end
 
-      def locations # rubocop:disable Metrics/MethodLength
+      def locations
         {
           '0c686436-de02-4d92-8dc7-26c97bb7c5bb' => {
             'uid' => '0c686436-de02-4d92-8dc7-26c97bb7c5bb',
