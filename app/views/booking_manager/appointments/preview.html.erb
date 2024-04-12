@@ -34,6 +34,7 @@
   <%= f.hidden_field :recording_consent %>
   <%= f.hidden_field :bsl %>
   <%= f.hidden_field :third_party %>
+  <%= f.hidden_field :welsh %>
   <%= f.hidden_field :data_subject_name %>
   <%= f.hidden_field :data_subject_date_of_birth %>
   <%= f.hidden_field :data_subject_consent_obtained %>
@@ -99,6 +100,10 @@
             <tr>
               <td class="active"><b>Memorable word</b></td>
               <td><%= @appointment.memorable_word %></td>
+            </tr>
+            <tr>
+              <td class="active"><b>Welsh language appointment</b></td>
+              <td><%= @appointment.welsh %></td>
             </tr>
             <tr>
               <td class="active"><b>You need help or an adjustment to access our service</b></td>

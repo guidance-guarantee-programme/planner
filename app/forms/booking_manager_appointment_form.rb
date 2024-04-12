@@ -28,6 +28,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     recording_consent
     bsl
     third_party
+    welsh
     data_subject_name
     data_subject_date_of_birth
     data_subject_consent_obtained
@@ -83,6 +84,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     power_of_attorney
     data_subject_consent_obtained
     bsl
+    welsh
   ).freeze
 
   BOOLEAN_ATTRS.each do |boolean_attr|
@@ -233,6 +235,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       recording_consent: recording_consent,
       bsl: bsl,
       third_party: third_party,
+      welsh: welsh,
       data_subject_name: data_subject_name,
       data_subject_date_of_birth: data_subject_date_of_birth,
       data_subject_consent_obtained: data_subject_consent_obtained,

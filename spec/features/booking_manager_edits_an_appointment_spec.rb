@@ -322,6 +322,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.recording_consent.set(true)
     @page.bsl.set(true)
     @page.third_party.set(true)
+    @page.welsh.set(true)
 
     @page.wait_until_data_subject_name_visible
     @page.data_subject_name.set('Bob Bobson')
@@ -356,6 +357,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.email_consent_form_required).to be_checked
     expect(@page.printed_consent_form_required).to be_checked
     expect(@page.bsl).to be_checked
+    expect(@page.welsh).to be_checked
   end
 
   def and_the_customer_is_notified
