@@ -1,5 +1,11 @@
 <% content_for(:page_title, t('service.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
 
+<% if @appointment_form.welsh? %>
+<div class="alert alert-warning" role="alert">
+  <p>This appointment will be delivered in Welsh.</p>
+</div>
+<% end %>
+
 <% unless @appointment_form.defined_contribution_pot_confirmed %>
 <div class="alert alert-warning" role="alert">
   <p>The customer is not certain they have a defined contribution pot.</p>
