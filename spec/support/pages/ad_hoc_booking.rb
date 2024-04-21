@@ -33,6 +33,7 @@ module Pages
     element :country, '.t-country'
     element :additional_info, '.t-additional-info'
     element :bsl, '.t-bsl-video'
+    element :welsh, '.t-welsh'
 
     element :third_party, '.t-third-party'
     element :data_subject_name, '.t-data-subject-name'

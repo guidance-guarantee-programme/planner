@@ -144,7 +144,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
     expect(@page).to be_displayed
   end
 
-  def and_they_see_the_customer_details # rubocop:disable Metrics/MethodLength
+  def and_they_see_the_customer_details
     expect(@page.name.value).to eq(@booking_request.name)
     expect(@page.reference.text).to eq(@booking_request.reference)
     expect(@page.email.value).to eq(@booking_request.email)

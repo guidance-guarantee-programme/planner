@@ -1,5 +1,11 @@
 <% content_for(:page_title, t('service.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
 
+<% if @appointment_form.welsh? %>
+<div class="alert alert-warning" role="alert">
+  <p>This appointment will be delivered in Welsh.</p>
+</div>
+<% end %>
+
 <% unless @appointment_form.defined_contribution_pot_confirmed %>
 <div class="alert alert-warning" role="alert">
   <p>The customer is not certain they have a defined contribution pot.</p>
@@ -193,9 +199,10 @@
             </div>
 
             <hr>
+            <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
+            <%= booking_subform.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?' %>
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: @appointment_form.accessibility_information %>
 
-            <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
             <div id="consent">

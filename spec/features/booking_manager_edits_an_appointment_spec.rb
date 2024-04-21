@@ -267,7 +267,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.appointments.first.edit.click
   end
 
-  def then_the_appointment_details_are_presented # rubocop:disable Metrics/MethodLength
+  def then_the_appointment_details_are_presented
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
 
@@ -305,7 +305,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.slot_three_period.text).to eq(@booking_request.tertiary_slot.period)
   end
 
-  def when_they_modify_the_appointment_details # rubocop:disable Metrics/MethodLength
+  def when_they_modify_the_appointment_details
     @page.name.set('Bob Jones')
     @page.email.set('bob@example.com')
     @page.phone.set('01189 888 888')
@@ -321,6 +321,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.guider.select('Bob Johnson')
     @page.bsl.set(true)
     @page.third_party.set(true)
+    @page.welsh.set(true)
 
     @page.wait_until_data_subject_name_visible
     @page.data_subject_name.set('Bob Bobson')
@@ -345,7 +346,6 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   def then_the_appointment_is_updated
     @page = Pages::EditAppointment.new
     expect(@page).to be_displayed
-
     expect(@page.name.value).to eq 'Bob Jones'
     expect(@page.date.value).to eq '21/06/2016'
     expect(@page.time_hour.value).to eq '15'
@@ -354,6 +354,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.email_consent_form_required).to be_checked
     expect(@page.printed_consent_form_required).to be_checked
     expect(@page.bsl).to be_checked
+    expect(@page.welsh).to be_checked
   end
 
   def and_the_customer_is_notified

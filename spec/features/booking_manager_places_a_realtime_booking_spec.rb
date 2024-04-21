@@ -93,6 +93,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.additional_info.set('Other notes')
     @page.bsl.set(true)
     @page.third_party.set(true)
+    @page.welsh.set(true)
 
     @page.wait_until_data_subject_name_visible
     @page.data_subject_name.set('Bob Bobson')
@@ -144,7 +145,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       third_party: true,
-      bsl: true
+      bsl: true,
+      welsh: true
     )
   end
 

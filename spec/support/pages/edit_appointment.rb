@@ -20,6 +20,7 @@ module Pages
     element :gdpr_consent, '.t-gdpr-consent'
     element :consent, '.t-consent-button'
     element :bsl, '.t-bsl-video'
+    element :welsh, '.t-welsh'
     element :third_party, '.t-third-party'
     element :data_subject_name, '.t-data-subject-name'
     element :data_subject_date_of_birth, '.t-data-subject-date-of-birth'

@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_19_102601) do
+ActiveRecord::Schema.define(version: 2024_04_12_200044) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -156,6 +157,7 @@ ActiveRecord::Schema.define(version: 2023_09_19_102601) do
     t.string "email_consent", default: "", null: false
     t.date "data_subject_date_of_birth"
     t.boolean "bsl", default: false, null: false
+    t.boolean "welsh", default: false
   end
 
   create_table "guider_lookups", force: :cascade do |t|

@@ -19,6 +19,10 @@ class AgentBookingDecorator < SimpleDelegator
     super.to_date.to_s(:govuk_date)
   end
 
+  def welsh
+    super ? 'Yes' : 'No'
+  end
+
   def accessibility_requirements
     super ? 'Yes' : 'No'
   end

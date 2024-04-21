@@ -9,7 +9,7 @@ AllCops:
     - 'vendor/**/*'
   TargetRubyVersion: 3.2
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Lint/SuppressedException:
@@ -19,7 +19,7 @@ Lint/SuppressedException:
 Lint/AssignmentInCondition:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Style/FrozenStringLiteralComment:
@@ -28,6 +28,7 @@ Style/FrozenStringLiteralComment:
 Metrics/MethodLength:
   Exclude:
     - 'spec/requests/*'
+    - 'spec/features/*'
 
 Style/EmptyMethod:
   Enabled: false
