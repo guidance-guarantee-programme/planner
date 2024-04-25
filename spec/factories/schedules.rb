@@ -6,5 +6,9 @@ FactoryBot.define do
     trait :dalston do
       location_id { '183080c6-642b-4b8f-96fd-891f5cd9f9c7' }
     end
+
+    trait :cardiff_and_vale do
+      location_id { '525da418-ff2c-4522-90a9-bc70ba4ca78b' }
+    end
   end
 end
