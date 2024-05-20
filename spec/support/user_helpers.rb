@@ -24,6 +24,10 @@ module UserHelpers
     given_the_user_identifies_as(:hackney_booking_manager, &block)
   end
 
+  def given_the_user_identifies_as_cardiff_and_vales_booking_manager(&block)
+    given_the_user_identifies_as(:cardiff_and_vale_booking_manager, &block)
+  end
+
   def given_the_user_identifies_as_an_organisation_admin
     @user = create(:org_admin)
     GDS::SSO.test_user = @user

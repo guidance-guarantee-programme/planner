@@ -200,7 +200,10 @@
 
             <hr>
             <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
+
+            <% if welsh_visible?(current_user) %>
             <%= booking_subform.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?' %>
+            <% end %>
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: @appointment_form.accessibility_information %>
 
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>

@@ -59,7 +59,9 @@
           <%= f.text_field :email, class: 'form-control t-email', help: 'OK <em>(name)</em>, I am going to repeat this to you phonetically as we will send your appointment confirmation by email and I want to ensure you receive this.'.html_safe %>
           <%= f.text_field :memorable_word, class: 'form-control t-memorable-word', help: 'We use this each time the customer is called. Avoid using the same word from a different account or service' %>
 
+          <% if welsh_visible?(current_user) %>
           <%= f.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?' %>
+          <% end %>
           <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: location.accessibility_information %>
           <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
 

@@ -22,6 +22,10 @@ FactoryBot.define do
       permissions { Array(User::BOOKING_MANAGER_PERMISSION) }
     end
 
+    factory :cardiff_and_vale_booking_manager, parent: :booking_manager do
+      organisation_content_id { '525da418-ff2c-4522-90a9-bc70ba4ca78b' }
+    end
+
     factory :drumchapel_booking_manager, parent: :booking_manager do
       organisation_content_id { '0c686436-de02-4d92-8dc7-26c97bb7c5bb' }
     end
