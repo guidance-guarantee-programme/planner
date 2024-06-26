@@ -61,7 +61,7 @@ class AppointmentsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength
 
-  def notify_customer(appointment) # rubocop:disable Metrics/MethodLength
+  def notify_customer(appointment)
     if appointment.newly_cancelled?
       AppointmentCancellationNotificationJob.perform_later(appointment)
     elsif appointment.newly_missed?
@@ -72,8 +72,6 @@ class AppointmentsController < ApplicationController
     end
 
     BslCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment) if appointment.bsl_newly_completed?
-    PrintedThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_printed_consent?
-    EmailThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_email_consent?
   end
 
   def location_aware_appointment
@@ -130,19 +128,6 @@ class AppointmentsController < ApplicationController
           id
           data_subject_name
           data_subject_date_of_birth
-          data_subject_consent_obtained
-          data_subject_consent_evidence
-          power_of_attorney_evidence
-          power_of_attorney
-          email_consent_form_required
-          email_consent
-          printed_consent_form_required
-          consent_address_line_one
-          consent_address_line_two
-          consent_address_line_three
-          consent_town
-          consent_county
-          consent_postcode
           bsl
           welsh
         )

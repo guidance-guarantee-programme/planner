@@ -182,9 +182,6 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.data_subject_name.set('Bob Bobson')
     @page.data_subject_date_of_birth.set('02/02/1980')
     @page.data_subject_date_of_birth.send_keys(:return) # close date picker
-    @page.email_consent_form_required.set(true)
-    @page.wait_until_email_consent_visible
-    @page.email_consent.set('bob@example.com')
   end
 
   def and_they_confirm_the_booking
@@ -244,15 +241,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(
-      4,
-      only: [
-        PrintedConfirmationLetterJob,
-        AppointmentChangeNotificationJob,
-        PrintedThirdPartyConsentFormJob,
-        EmailThirdPartyConsentFormJob
-      ]
-    )
+    assert_enqueued_jobs(2, only: [PrintedConfirmationLetterJob, AppointmentChangeNotificationJob])
   end
 
   def and_the_booking_manager_is_notified

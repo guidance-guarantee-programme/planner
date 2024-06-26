@@ -39,22 +39,6 @@ RSpec.describe Appointments do
     end
   end
 
-  describe 'Customer email consent form' do
-    let(:appointment) { build_stubbed(:appointment, :third_party_booking, :third_party_email_consent_form_requested) }
-
-    subject(:mail) { described_class.consent_form(appointment) }
-
-    it_behaves_like 'mailgun identified email'
-
-    it 'sends to the third party requesting the consent form' do
-      expect(mail.to).to eq(['daisy@example.com'])
-    end
-
-    it 'renders the body specifics' do
-      expect(subject.body.encoded).to match(%q(http://localhost:3001/booking_requests/\d+/consent))
-    end
-  end
-
   describe 'Appointment changed' do
     let(:appointment) { create(:appointment, proceeded_at: 3.weeks.from_now) }
     let(:booking_manager) { create(:hackney_booking_manager) }

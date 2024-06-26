@@ -51,33 +51,17 @@ module Agent
             id
             data_subject_name
             data_subject_date_of_birth
-            data_subject_consent_obtained
-            data_subject_consent_evidence
-            power_of_attorney_evidence
-            power_of_attorney
-            email_consent_form_required
-            email_consent
-            printed_consent_form_required
-            consent_address_line_one
-            consent_address_line_two
-            consent_address_line_three
-            consent_town
-            consent_county
-            consent_postcode
             bsl
           )
         )
     end
 
     def notify_customer(appointment)
-      if appointment.notify?
-        BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
-        AppointmentChangeNotificationJob.perform_later(appointment)
-        PrintedConfirmationLetterJob.perform_later(appointment)
-      end
+      return unless appointment.notify?
 
-      PrintedThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_printed_consent?
-      EmailThirdPartyConsentFormJob.perform_later(appointment) if appointment.notify_email_consent?
+      BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
+      AppointmentChangeNotificationJob.perform_later(appointment)
+      PrintedConfirmationLetterJob.perform_later(appointment)
     end
   end
 end

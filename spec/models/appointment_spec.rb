@@ -5,7 +5,7 @@ RSpec.describe Appointment do
 
   context 'removing the third party flag' do
     it 'also removes third party from the booking' do
-      appointment = build_stubbed(:appointment, :third_party_booking, :third_party_consent_form_requested)
+      appointment = build_stubbed(:appointment, :third_party_booking)
 
       appointment.third_party = false
 

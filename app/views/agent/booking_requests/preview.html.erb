@@ -32,17 +32,6 @@
   <%= f.hidden_field :third_party %>
   <%= f.hidden_field :data_subject_name %>
   <%= f.hidden_field :data_subject_date_of_birth %>
-  <%= f.hidden_field :data_subject_consent_obtained %>
-  <%= f.hidden_field :power_of_attorney %>
-  <%= f.hidden_field :email_consent_form_required %>
-  <%= f.hidden_field :email_consent %>
-  <%= f.hidden_field :printed_consent_form_required %>
-  <%= f.hidden_field :consent_address_line_one %>
-  <%= f.hidden_field :consent_address_line_two %>
-  <%= f.hidden_field :consent_address_line_three %>
-  <%= f.hidden_field :consent_town %>
-  <%= f.hidden_field :consent_county %>
-  <%= f.hidden_field :consent_postcode %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
 
@@ -108,28 +97,6 @@
             <tr>
               <td class="active"><b>Data subject date of birth</b></td>
               <td><%= @booking.data_subject_date_of_birth.to_date.to_s(:govuk_date) %></td>
-            </tr>
-            <tr>
-              <td class="active"><b>Email consent form required</b></td>
-              <td><%= @booking.email_consent_form_required %></td>
-            </tr>
-            <% if @booking.email_consent_form_required? %>
-            <tr>
-              <td class="active"><b>Email consent</b></td>
-              <td><%= @booking.email_consent %></td>
-            </tr>
-            <% end %>
-            <tr>
-              <td class="active"><b>Printed consent form required</b></td>
-              <td><%= @booking.printed_consent_form_required %></td>
-            </tr>
-            <tr>
-              <td class="active"><b>Data subject consent obtained</b></td>
-              <td><%= @booking.data_subject_consent_obtained %></td>
-            </tr>
-            <tr>
-              <td class="active"><b>Power of attorney</b></td>
-              <td><%= @booking.power_of_attorney %></td>
             </tr>
             <% end %>
           </tbody>
