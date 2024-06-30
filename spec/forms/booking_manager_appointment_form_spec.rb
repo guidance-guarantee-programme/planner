@@ -25,18 +25,7 @@ RSpec.describe BookingManagerAppointmentForm do
       scheduled: 'true',
       third_party: false,
       bsl: false,
-      data_subject_consent_obtained: false,
-      printed_consent_form_required: false,
-      power_of_attorney: false,
-      email_consent_form_required: false,
-      data_subject_name: '',
-      consent_address_line_one: '',
-      consent_address_line_two: '',
-      consent_address_line_three: '',
-      consent_town: '',
-      consent_county: '',
-      consent_postcode: '',
-      email_consent: ''
+      data_subject_name: ''
     )
   end
 
@@ -48,7 +37,6 @@ RSpec.describe BookingManagerAppointmentForm do
     context 'when third party booked' do
       before do
         subject.third_party = true
-        subject.printed_consent_form_required = false
         subject.data_subject_name = 'Bob Bobson'
         subject.data_subject_date_of_birth = '1950-01-01'.to_date
       end
@@ -63,74 +51,6 @@ RSpec.describe BookingManagerAppointmentForm do
         subject.data_subject_date_of_birth = nil
 
         expect(subject).to be_invalid
-      end
-
-      context 'when a printed consent form is requested' do
-        it 'requires an address' do
-          subject.printed_consent_form_required = true
-
-          expect(subject).to be_invalid
-
-          subject.consent_address_line_one = '13 Some Street'
-          subject.consent_town = 'Some Town'
-          subject.consent_postcode = 'RM1 1AA'
-
-          expect(subject).to be_valid
-
-          subject.power_of_attorney = true
-
-          expect(subject).to be_invalid
-        end
-      end
-
-      context 'when an email consent form is requested' do
-        it 'requires a consent email' do
-          subject.email_consent_form_required = true
-          subject.email_consent = ''
-          expect(subject).to be_invalid
-
-          subject.email_consent = 'ben@example.com'
-          expect(subject).to be_valid
-        end
-      end
-
-      context 'when power of attorney is specified' do
-        it 'cannot also specify data subject consent' do
-          subject.power_of_attorney = true
-          subject.data_subject_consent_obtained = true
-
-          expect(subject).to be_invalid
-
-          subject.data_subject_consent_obtained = false
-
-          expect(subject).to be_valid
-        end
-
-        it 'cannot also specify consent required' do
-          subject.power_of_attorney = true
-          subject.printed_consent_form_required = true
-
-          expect(subject).to be_invalid
-
-          subject.printed_consent_form_required = false
-          subject.email_consent_form_required = true
-          subject.email_consent = 'ben@example.com'
-
-          expect(subject).to be_invalid
-        end
-      end
-
-      context 'when data subject consent is obtained' do
-        it 'cannot also specify power of attorney' do
-          subject.power_of_attorney = true
-          subject.data_subject_consent_obtained = true
-
-          expect(subject).to be_invalid
-
-          subject.power_of_attorney = false
-
-          expect(subject).to be_valid
-        end
       end
     end
 

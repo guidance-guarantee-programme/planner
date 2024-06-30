@@ -8,8 +8,6 @@ module RealtimeProcessable
     BookingManagerConfirmationJob.perform_later(booking_request)
     AppointmentChangeNotificationJob.perform_later(appointment)
     PrintedConfirmationLetterJob.perform_later(appointment)
-    PrintedThirdPartyConsentFormJob.perform_later(appointment)
-    EmailThirdPartyConsentFormJob.perform_later(appointment)
     SlackPingerJob.perform_later(appointment)
   end
 

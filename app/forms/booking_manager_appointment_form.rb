@@ -30,17 +30,6 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     welsh
     data_subject_name
     data_subject_date_of_birth
-    data_subject_consent_obtained
-    power_of_attorney
-    email_consent_form_required
-    email_consent
-    printed_consent_form_required
-    consent_address_line_one
-    consent_address_line_two
-    consent_address_line_three
-    consent_town
-    consent_county
-    consent_postcode
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -62,13 +51,9 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   validates :first_choice_slot, presence: true, if: :scheduled?
   validates :ad_hoc_start_at, presence: true, unless: :scheduled?
   validates :guider_id, presence: true, unless: :scheduled?
-  validates :email_consent, presence: true, email: true, if: :email_consent_form_required?
   validates :data_subject_name, presence: true, if: :third_party?
   validates :data_subject_date_of_birth, presence: true, if: :third_party?
 
-  validate :validate_printed_consent_form_address
-  validate :validate_consent_type
-  validate :validate_power_of_attorney_or_consent
   validate :validate_confirmation_details
   validate :validate_eligibility
   validate :validate_guider_availability, unless: :scheduled?
@@ -77,10 +62,6 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     scheduled
     accessibility_requirements
     third_party
-    email_consent_form_required
-    printed_consent_form_required
-    power_of_attorney
-    data_subject_consent_obtained
     bsl
     welsh
   ).freeze
@@ -101,45 +82,6 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   end
 
   private
-
-  def validate_printed_consent_form_address
-    return unless third_party? && printed_consent_form_required?
-
-    errors.add(:printed_consent_form_required, 'must supply a valid address') unless printed_consent_address?
-  end
-
-  def validate_power_of_attorney_or_consent
-    return unless third_party?
-
-    if printed_consent_form_required? && power_of_attorney?
-      errors.add(:printed_consent_form_required, 'cannot be checked when power of attorney is specified')
-    end
-
-    if email_consent_form_required? && power_of_attorney? # rubocop:disable Style/GuardClause
-      errors.add(:email_consent_form_required, 'cannot be checked when power of attorney is specified')
-    end
-  end
-
-  def validate_consent_type
-    return unless third_party?
-
-    if power_of_attorney? && data_subject_consent_obtained? # rubocop:disable Style/GuardClause
-      errors.add(
-        :third_party,
-        "you may only specify 'data subject consent obtained', 'power of attorney' or neither"
-      )
-    end
-  end
-
-  def email_consent_valid
-    unless /.+@.+\..+/.match?(email_consent.to_s) # rubocop:disable Style/GuardClause
-      errors.add(:email_consent, 'must be valid')
-    end
-  end
-
-  def printed_consent_address?
-    [consent_address_line_one, consent_town, consent_postcode].all?(&:present?)
-  end
 
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
@@ -234,18 +176,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       third_party: third_party,
       welsh: welsh,
       data_subject_name: data_subject_name,
-      data_subject_date_of_birth: data_subject_date_of_birth,
-      data_subject_consent_obtained: data_subject_consent_obtained,
-      power_of_attorney: power_of_attorney,
-      email_consent_form_required: email_consent_form_required,
-      email_consent: email_consent,
-      printed_consent_form_required: printed_consent_form_required,
-      consent_address_line_one: consent_address_line_one,
-      consent_address_line_two: consent_address_line_two,
-      consent_address_line_three: consent_address_line_three,
-      consent_town: consent_town,
-      consent_county: consent_county,
-      consent_postcode: consent_postcode
+      data_subject_date_of_birth: data_subject_date_of_birth
     }
   end
 

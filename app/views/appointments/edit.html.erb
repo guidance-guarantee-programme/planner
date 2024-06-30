@@ -209,7 +209,7 @@
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
             <div id="consent">
-              <p><strong>This appointment will be delivered to a third party on behalf of the data subject:</strong></p>
+              <p><strong>Pension pot holder details:</strong></p>
               <div class="form-group">
                 <%= booking_subform.text_field :data_subject_name, autocomplete: false, class: 't-data-subject-name', label: required_label('Name'), placeholder: 'Name' %>
                 <%= booking_subform.text_field(
@@ -228,61 +228,6 @@
                     }
                   )
                 %>
-              </div>
-
-              <%= booking_subform.check_box :data_subject_consent_obtained, class: 't-data-subject-consent-obtained', data: { target: 'data-subject-consent' } %>
-              <div class="col-md-offset-1" id="data-subject-consent">
-                <% if @appointment_form.data_subject_consent_evidence.attached? %>
-                  <%= link_to rails_blob_path(@appointment_form.data_subject_consent_evidence, disposition: 'attachment'), class: 'btn btn-info t-consent-download' do %>
-                    <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
-                    <span><%= @appointment_form.data_subject_consent_evidence.filename %></span>
-                  <% end %>
-                  <hr>
-                <% end %>
-
-                <%= booking_subform.file_field :data_subject_consent_evidence, class: 't-data-subject-consent-evidence' %>
-              </div>
-
-              <%= booking_subform.check_box :power_of_attorney, class: 't-power-of-attorney', data: { target: 'power-of-attorney' } %>
-              <div class="col-md-offset-1" id="power-of-attorney">
-                <% if @appointment_form.power_of_attorney_evidence.attached? %>
-                  <%= link_to rails_blob_path(@appointment_form.power_of_attorney_evidence, disposition: 'attachment'), class: 'btn btn-info t-power-of-attorney-download' do %>
-                    <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
-                    <span><%= @appointment_form.power_of_attorney_evidence.filename %></span>
-                  <% end %>
-                  <hr>
-                <% end %>
-
-                <%= booking_subform.file_field :power_of_attorney_evidence %>
-              </div>
-
-              <%= booking_subform.check_box :email_consent_form_required, class: 't-email-consent-form-required', data: { target: 'email-consent' } %>
-              <div id="email-consent">
-                <%= booking_subform.email_field :email_consent, autocomplete: 'off', class: 't-email-consent', label: 'Consent email', placeholder: 'A consent form is sent to this email' %>
-              </div>
-
-              <%= booking_subform.check_box :printed_consent_form_required, class: 't-printed-consent-form-required', data: { target: 'printed-consent' } %>
-              <div id="printed-consent">
-                <h2 class="h4" data-module="postcode-lookup"
-                               data-postcode-api-key="<%= postcode_api_key %>"
-                               data-lookup-input="#consent-postcode-lookup-input"
-                               data-lookup-button="#consent-postcode-lookup-button"
-                               data-results-container="#consent-postcode-lookup-results-container"
-                               data-output-field-prefix="#appointment_booking_request_attributes_consent"
-                               >Printed consent form address</h2>
-                <div class="form-group form-inline postcode-lookup" id="consent-postcode-lookup">
-                  <label for="appointment_summary_lookup">Postcode or address to search for</label><br>
-                  <input class="form-control input-md-3 add-right-margin t-printed-consent-form-postcode-lookup" placeholder="Enter postcode or address" type="text" id="consent-postcode-lookup-input" />
-                  <button class="btn btn-success btn-sm" onclick="return false" id="consent-postcode-lookup-button">Find UK address</button>
-                </div>
-                <div class="form-group form-inline" id="consent-postcode-lookup-results-container"></div>
-
-                <%= booking_subform.text_field :consent_address_line_one, autocomplete: 'off', class: 't-consent-address-line-one', label: 'Building and street', placeholder: 'Address line one' %>
-                <%= booking_subform.text_field :consent_address_line_two, autocomplete: 'off', class: 't-consent-address-line-two', use_label: false, placeholder: 'Address line two' %>
-                <%= booking_subform.text_field :consent_address_line_three, autocomplete: 'off', class: 't-consent-address-line-three', use_label: false, placeholder: 'Address line three' %>
-                <%= booking_subform.text_field :consent_town, autocomplete: 'off', class: 't-consent-town', label: 'Town', placeholder: 'Town' %>
-                <%= booking_subform.text_field :consent_county, autocomplete: 'off', class: 't-consent-county', label: 'County (optional)', placeholder: 'County' %>
-                <%= booking_subform.text_field :consent_postcode, autocomplete: 'off', class: 't-consent-postcode', label: 'Postcode', placeholder: 'Postcode' %>
               </div>
             </div>
           <% end %>

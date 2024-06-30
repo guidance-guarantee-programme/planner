@@ -39,18 +39,6 @@ class Appointments < ApplicationMailer
     mail(to: booking_manager.email, subject: 'Pension Wise Appointment SMS Cancellation')
   end
 
-  def consent_form(appointment)
-    @appointment = decorate(appointment)
-
-    mailgun_headers :consent_form
-
-    mail(
-      to: @appointment.booking_request.email_consent,
-      subject: 'Pension Wise Third Party Consent Form',
-      reply_to: @appointment.online_booking_reply_to
-    )
-  end
-
   def customer(appointment, booking_location)
     @appointment = decorate(appointment, booking_location)
 

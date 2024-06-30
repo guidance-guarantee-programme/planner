@@ -35,22 +35,6 @@ class AgentBookingDecorator < SimpleDelegator
     super ? 'Yes' : 'No'
   end
 
-  def email_consent_form_required
-    super ? 'Yes' : 'No'
-  end
-
-  def printed_consent_form_required
-    super ? 'Yes' : 'No'
-  end
-
-  def data_subject_consent_obtained
-    super ? 'Yes' : 'No'
-  end
-
-  def power_of_attorney
-    super ? 'Yes' : 'No'
-  end
-
   def pension_provider
     PensionProvider[super]
   end

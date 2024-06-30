@@ -1,7 +1,6 @@
+dist: focal
 sudo: false
 language: ruby
-addons:
-  chrome: stable
 env:
   global:
   - PATH=$PWD/bin:$PATH

@@ -133,18 +133,6 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     booking_location_id == CAS_BOOKING_LOCATION_ID
   end
 
-  def notify_email_consent?
-    return unless pending? && booking_request.email_consent_form_required?
-
-    booking_request.previous_changes.include?(:email_consent_form_required)
-  end
-
-  def notify_printed_consent?
-    return unless pending? && booking_request.printed_consent_form_required?
-
-    booking_request.previous_changes.include?(:printed_consent_form_required)
-  end
-
   def cancel!
     without_auditing do
       transaction do
