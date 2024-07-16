@@ -78,16 +78,15 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   attr_accessor :current_user
 
-  def duplicates # rubocop:disable Metrics/AbcSize
+  def duplicates
     scope = self.class.joins(:booking_request)
                 .where(booking_requests: { booking_location_id: booking_location_id })
                 .where.not(id: id)
 
-    scope.where(name: name)
-         .or(scope.where(phone: phone))
-         .or(scope.where.not(email: '').where(email: email))
-         .order('booking_requests.id')
-         .pluck('booking_requests.id', :id)
+    scope
+      .where(name:, date_of_birth:, status: :pending)
+      .order('booking_requests.id')
+      .pluck('booking_requests.id', :id)
   end
 
   def duplicates?

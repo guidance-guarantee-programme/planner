@@ -35,23 +35,11 @@ RSpec.describe Appointment do
       expect(appointment).to be_duplicates
     end
 
-    it 'matches emails only when present' do
-      appointment = create(:appointment, :with_agent, name: 'Ben L', email: '', phone: '0121 444 555')
-      other = create(:appointment, :with_agent, name: 'Ben J', email: '', phone: '0131 333 444', guider_id: 2)
+    it 'matches pending statuses' do
+      appointment = create(:appointment, :with_agent, name: 'Ben L', phone: '0131 333 444')
+      create(:appointment, :with_agent, name: 'Ben L', phone: '0131 333 444', guider_id: 2, status: :completed)
 
-      expect(appointment).not_to be_duplicates
-
-      appointment.update(email: 'ben@example.com')
-      other.update(email: 'ben@example.com')
-
-      expect(appointment).to be_duplicates
-    end
-
-    it 'matches phone' do
-      appointment = create(:appointment, :with_agent, name: 'Ben L', email: '', phone: '0131 333 444')
-      create(:appointment, :with_agent, name: 'Ben J', email: '', phone: '0131 333 444', guider_id: 2)
-
-      expect(appointment).to be_duplicates
+      expect(appointment).to_not be_duplicates
     end
   end
 
