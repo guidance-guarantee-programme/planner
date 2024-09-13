@@ -69,7 +69,7 @@ RSpec.describe Appointment do
 
       expect(appointment.status_transitions.pluck(:status)).to match_array('pending')
 
-      appointment.update(status: :cancelled_by_pension_wise)
+      appointment.update(status: :cancelled_by_pension_wise, secondary_status: '24')
 
       expect(appointment.status_transitions.pluck(:status)).to match_array(
         %w(pending cancelled_by_pension_wise)
