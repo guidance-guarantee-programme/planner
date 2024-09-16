@@ -24,6 +24,7 @@ RSpec.feature 'My Appointments calendar' do
   end
 
   def then_they_see_appointments_for_multiple_guiders
+    @page.wait_until_events_visible
     expect(@page).to have_events(count: 2)
     expect(@page.guiders).to match_array(['B Lovell', 'B Johnson', 'J Jones', 'J Smith'])
   end

@@ -36,6 +36,12 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
       '21' => 'Duplicate appointment booked by customer',
       '22' => 'Customer driving whilst having appointment',
       '23' => 'Third-party consent not received'
+    },
+    'cancelled_by_pension_wise' => {
+      '24' => 'Duplicate appointment',
+      '25' => 'Guider absence',
+      '26' => 'Venue issue',
+      '27' => 'Inclement weather'
     }
   }.freeze
 
