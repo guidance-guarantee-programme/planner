@@ -7,7 +7,8 @@ class ScheduledReportingSummary
         location_id: location.id,
         name: location.title,
         four_week_availability: schedule.available_before?,
-        first_available_slot_on: schedule.first_available_slot_on
+        first_available_slot_on: schedule.first_available_slot_on,
+        last_slot_on: schedule.last_slot_on
       )
     end
   end

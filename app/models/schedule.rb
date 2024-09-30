@@ -80,6 +80,10 @@ class Schedule < ActiveRecord::Base
     without_appointments.first&.start_at
   end
 
+  def last_slot_on
+    bookable_slots_in_window.last&.start_at
+  end
+
   def self.allocates?(booking_request)
     schedule = current(booking_request.location_id)
 
