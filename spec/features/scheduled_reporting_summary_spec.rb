@@ -35,6 +35,9 @@ RSpec.feature 'Scheduled reporting summary' do
     # Limited availability
     create(:schedule, location_id: '377e27e1-8f38-437a-baa9-4e90ebd980e8') do |schedule|
       create(:bookable_slot, schedule: schedule, start_at: '2018-04-27 10:00')
+      # this is booked
+      create(:bookable_slot, schedule: schedule, start_at: '2018-04-28 10:00')
+      create(:appointment, location_id: schedule.location_id, proceeded_at: '2018-04-28 10:00')
     end
 
     # Only available after the 4 week window
@@ -54,6 +57,7 @@ RSpec.feature 'Scheduled reporting summary' do
       name: 'Abergavenny',
       four_week_availability: false,
       first_available_slot_on: nil,
+      last_slot_on: nil,
       created_at: Time.zone.now
     )
 
@@ -61,6 +65,7 @@ RSpec.feature 'Scheduled reporting summary' do
       name: 'Hackney',
       four_week_availability: true,
       first_available_slot_on: '2018-04-27'.to_date,
+      last_slot_on: '2018-04-28'.to_date,
       created_at: Time.zone.now
     )
 
@@ -68,6 +73,7 @@ RSpec.feature 'Scheduled reporting summary' do
       name: 'Reading',
       four_week_availability: false,
       first_available_slot_on: '2018-05-25'.to_date,
+      last_slot_on: '2018-05-25'.to_date,
       created_at: Time.zone.now
     )
   end
