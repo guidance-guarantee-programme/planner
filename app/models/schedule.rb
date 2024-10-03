@@ -1,4 +1,4 @@
-class Schedule < ActiveRecord::Base
+class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   SLOT_ATTRIBUTES = %i(
     monday_am
     monday_pm
@@ -51,6 +51,14 @@ class Schedule < ActiveRecord::Base
           AND NOT appointments.status IN (5, 6, 7)
       SQL
     ).where('appointments.proceeded_at IS NULL')
+  end
+
+  def total_slots_created
+    bookable_slots_in_window.size
+  end
+
+  def total_slots_available
+    without_appointments.size
   end
 
   def grouped_slots
