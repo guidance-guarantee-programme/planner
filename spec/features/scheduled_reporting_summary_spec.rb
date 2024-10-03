@@ -58,6 +58,8 @@ RSpec.feature 'Scheduled reporting summary' do
       four_week_availability: false,
       first_available_slot_on: nil,
       last_slot_on: nil,
+      total_slots_created: 0,
+      total_slots_available: 0,
       created_at: Time.zone.now
     )
 
@@ -66,6 +68,8 @@ RSpec.feature 'Scheduled reporting summary' do
       four_week_availability: true,
       first_available_slot_on: '2018-04-27'.to_date,
       last_slot_on: '2018-04-28'.to_date,
+      total_slots_created: 2,
+      total_slots_available: 1,
       created_at: Time.zone.now
     )
 
@@ -74,6 +78,8 @@ RSpec.feature 'Scheduled reporting summary' do
       four_week_availability: false,
       first_available_slot_on: '2018-05-25'.to_date,
       last_slot_on: '2018-05-25'.to_date,
+      total_slots_created: 1,
+      total_slots_available: 1,
       created_at: Time.zone.now
     )
   end
