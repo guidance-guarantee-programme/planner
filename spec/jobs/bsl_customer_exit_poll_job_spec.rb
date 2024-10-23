@@ -11,4 +11,12 @@ RSpec.describe BslCustomerExitPollJob, '#perform' do
 
     expect { subject }.to change { BslCustomerExitPollActivity.count }.by(1)
   end
+
+  context 'when the appointment does not have an associated email' do
+    it 'does nothing' do
+      appointment.email = ''
+
+      expect { subject }.not_to(change { BslCustomerExitPollActivity.count })
+    end
+  end
 end
