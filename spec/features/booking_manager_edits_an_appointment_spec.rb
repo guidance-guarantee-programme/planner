@@ -44,10 +44,18 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
-  scenario 'Viewing the full changes' do
+  scenario 'Viewing the full changes as a booking manager' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment_with_changes
-      when_the_booking_manager_views_the_changes
+      when_they_view_the_changes
+      then_the_full_changes_are_presented
+    end
+  end
+
+  scenario 'Viewing changes as an agent manager' do
+    given_the_user_identifies_as_an_agent_manager do
+      and_there_is_an_appointment_with_changes
+      when_they_view_the_changes_page_for_the_appointment
       then_the_full_changes_are_presented
     end
   end
@@ -212,11 +220,16 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     )
   end
 
-  def when_the_booking_manager_views_the_changes
+  def when_they_view_the_changes
     @page = Pages::EditAppointment.new
     @page.load(id: @appointment.id)
 
     @page.activity_feed.activities.first.changes.click
+  end
+
+  def when_they_view_the_changes_page_for_the_appointment
+    @page = Pages::Changes.new
+    @page.load(id: @appointment.id)
   end
 
   def then_the_full_changes_are_presented

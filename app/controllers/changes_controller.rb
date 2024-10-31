@@ -1,4 +1,10 @@
 class ChangesController < ApplicationController
+  skip_before_action :authorise!
+
+  before_action do
+    authorise_user!(any_of: [User::AGENT_MANAGER_PERMISSION, User::BOOKING_MANAGER_PERMISSION])
+  end
+
   def index
     @audits = AuditPresenter.wrap(appointment.own_and_associated_audits.reverse, booking_location(appointment))
   end
