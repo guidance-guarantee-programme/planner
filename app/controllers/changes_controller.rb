@@ -2,7 +2,11 @@ class ChangesController < ApplicationController
   skip_before_action :authorise!
 
   before_action do
-    authorise_user!(any_of: [User::AGENT_MANAGER_PERMISSION, User::BOOKING_MANAGER_PERMISSION])
+    authorise_user!(any_of: [
+                      User::AGENT_PERMISSION,
+                      User::AGENT_MANAGER_PERMISSION,
+                      User::BOOKING_MANAGER_PERMISSION
+                    ])
   end
 
   def index
