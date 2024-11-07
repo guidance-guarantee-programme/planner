@@ -47,7 +47,7 @@ class Appointments < ApplicationMailer
     mail(
       to: appointment.email,
       subject: 'Your Pension Wise Appointment',
-      reply_to: booking_location.online_booking_reply_to
+      reply_to: @appointment.online_booking_reply_to
     )
   end
 
@@ -59,7 +59,7 @@ class Appointments < ApplicationMailer
     mail(
       to: appointment.email,
       subject: 'Your Pension Wise BSL Video Appointment',
-      reply_to: booking_location.online_booking_reply_to
+      reply_to: @appointment.online_booking_reply_to
     )
   end
 
@@ -71,7 +71,7 @@ class Appointments < ApplicationMailer
     mail(
       to: appointment.email,
       subject: 'Your Pension Wise Appointment Reminder',
-      reply_to: booking_location.online_booking_reply_to
+      reply_to: @appointment.online_booking_reply_to
     )
   end
 

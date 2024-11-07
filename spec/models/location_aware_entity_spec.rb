@@ -3,13 +3,35 @@ require 'rails_helper'
 RSpec.describe LocationAwareEntity do
   context 'when decorating a BookingRequest' do
     let(:booking_location) do
-      instance_double(BookingLocations::Location, name: 'Hackney', hidden?: false)
+      instance_double(
+        BookingLocations::Location, name: 'Hackney', hidden?: false, online_booking_reply_to: 'parent@example.com'
+      )
     end
 
     let(:booking_request) { instance_double(BookingRequest, location_id: 'deadbeef') }
 
     subject do
       described_class.new(booking_location: booking_location, entity: booking_request)
+    end
+
+    describe '#online_booking_reply_to' do
+      context 'when the actual location has specified a reply-to' do
+        it 'returns the actual location reply-to' do
+          allow(booking_location).to receive(:location_for).and_return(
+            double(online_booking_reply_to: 'abc@example.com')
+          )
+
+          expect(subject.online_booking_reply_to).to eq('abc@example.com')
+        end
+      end
+
+      context 'when the actual location does not specify a reply-to' do
+        it 'returns the booking location reply-to' do
+          allow(booking_location).to receive(:location_for).and_return(double(online_booking_reply_to: ''))
+
+          expect(subject.online_booking_reply_to).to eq('parent@example.com')
+        end
+      end
     end
 
     describe '#entity' do
