@@ -123,9 +123,16 @@
             <hr>
 
           <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
+            <div class="form-group">
+              <p><strong>Customer research consent?</strong></p>
+              <%= booking_subform.radio_button :gdpr_consent, 'yes', class: 't-gdpr-consent-yes', label: 'Yes' %>
+              <%= booking_subform.radio_button :gdpr_consent, 'no', class: 't-gdpr-consent-no', label: 'No' %>
+              <%= booking_subform.radio_button :gdpr_consent, '', class: 't-gdpr-consent-no-response', label: 'No response' %>
+            </div>
+            <hr>
+
             <%= booking_subform.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?', readonly: true, disabled: true %>
             <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Accessibility requirements?', help: @appointment.accessibility_information %>
-
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
             <div id="consent">

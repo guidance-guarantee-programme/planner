@@ -92,6 +92,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @page.accessibility_requirements.set(true)
     @page.additional_information.set('Blah, blah, blah.')
     @page.defined_contribution_pot_confirmed_dont_know.set(true)
+    @page.gdpr_consent_yes.set(true)
     @page.bsl.set(true)
 
     @page.third_party.set(true)
