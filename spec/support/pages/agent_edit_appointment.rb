@@ -16,6 +16,9 @@ module Pages
     element :additional_information, '.t-additional-info'
     element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
+    element :gdpr_consent_yes, '.t-gdpr-consent-yes'
+    element :gdpr_consent_no, '.t-gdpr-consent-no'
+    element :gdpr_consent_no_response, '.t-gdpr-consent-no-response'
     element :bsl, '.t-bsl-video'
 
     element :third_party, '.t-third-party'

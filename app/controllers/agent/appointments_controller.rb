@@ -52,6 +52,7 @@ module Agent
             data_subject_name
             data_subject_date_of_birth
             bsl
+            gdpr_consent
           )
         )
     end
