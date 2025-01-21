@@ -175,6 +175,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.additional_info.set('Other notes')
     @page.bsl.set(true)
     @page.third_party.set(true)
+    @page.attended_digital_yes.set(true)
 
     expect(@page).not_to have_welsh
 
@@ -225,7 +226,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       third_party: true,
-      bsl: true
+      bsl: true,
+      attended_digital: 'yes'
     )
   end
 

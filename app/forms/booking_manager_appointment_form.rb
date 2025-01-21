@@ -30,6 +30,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     welsh
     data_subject_name
     data_subject_date_of_birth
+    attended_digital
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -176,7 +177,8 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       third_party: third_party,
       welsh: welsh,
       data_subject_name: data_subject_name,
-      data_subject_date_of_birth: data_subject_date_of_birth
+      data_subject_date_of_birth: data_subject_date_of_birth,
+      attended_digital: attended_digital
     }
   end
 
