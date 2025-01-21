@@ -334,6 +334,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.guider.select('Bob Johnson')
     @page.bsl.set(true)
     @page.third_party.set(true)
+    @page.attended_digital_yes.set(true)
 
     @page.wait_until_data_subject_name_visible
     @page.data_subject_name.set('Bob Bobson')
@@ -352,6 +353,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
     expect(@page.bsl).to be_checked
+    expect(@page.attended_digital_yes).to be_selected
   end
 
   def and_the_customer_is_notified

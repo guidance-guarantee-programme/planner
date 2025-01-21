@@ -48,6 +48,8 @@ module Pages
     element :secondary_status, '.t-secondary-status'
     elements :secondary_status_options, '.t-secondary-status > option:not(:empty)'
 
+    element :attended_digital_yes, '.t-attended-digital-yes'
+
     elements :errors, '.field_with_errors'
     element :error_summary, '.t-errors'
     element :success, '.alert-success'

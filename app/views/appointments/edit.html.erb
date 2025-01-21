@@ -198,8 +198,16 @@
               <%= f.radio_button :defined_contribution_pot_confirmed, false, label: 'Don’t know', class: 't-defined-contribution-pot-confirmed-dont-know' %>
             </div>
 
-            <hr>
             <%= f.fields_for :booking_request, fieldset: false  do |booking_subform| %>
+            <div class="form-group">
+              <p><strong>Have you completed an online Pension Wise appointment?</strong></p>
+              <span class="help-block text-left">This helps us understand how Pension Wise is used.</span>
+              <%= booking_subform.radio_button :attended_digital, 'yes', label: 'Yes', class: 't-attended-digital-yes' %>
+              <%= booking_subform.radio_button :attended_digital, 'no', label: 'No', class: 't-attended-digital-no' %>
+              <%= booking_subform.radio_button :attended_digital, 'not-sure', label: 'Not sure', class: 't-attended-digital-not-sure' %>
+            </div>
+
+            <hr>
 
             <% if welsh_visible?(current_user) %>
             <%= booking_subform.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?' %>
