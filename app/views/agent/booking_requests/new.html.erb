@@ -140,6 +140,14 @@
           { include_blank: true, label: 'Where did you first hear of Pension Wise?' },
           class: 't-where-you-heard form-control'
         %>
+
+        <div class="form-group">
+          <p><strong>Have you completed an online Pension Wise appointment?</strong></p>
+          <span class="help-block text-left">This helps us understand how Pension Wise is used.</span>
+          <%= f.radio_button :attended_digital, 'yes', label: 'Yes', class: 't-attended-digital-yes' %>
+          <%= f.radio_button :attended_digital, 'no', label: 'No', class: 't-attended-digital-no' %>
+          <%= f.radio_button :attended_digital, 'not-sure', label: 'Not sure', class: 't-attended-digital-not-sure' %>
+        </div>
       </div>
     </div>
   </div>

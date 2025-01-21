@@ -43,6 +43,10 @@ module Pages
     element :email_consent_form_required, '.t-email-consent-form-required'
     element :email_consent, '.t-email-consent'
 
+    element :attended_digital_yes, '.t-attended-digital-yes'
+    element :attended_digital_no, '.t-attended-digital-no'
+    element :attended_digital_not_sure, '.t-attended-digital-not-sure'
+
     element :preview, '.t-preview'
   end
 end

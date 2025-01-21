@@ -73,6 +73,7 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.additional_info.set('Other notes')
     @page.nudged.set(true)
     @page.bsl.set(true)
+    @page.attended_digital_yes.set(true)
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible
@@ -114,7 +115,8 @@ RSpec.feature 'Agent places a realtime booking' do
       nudged: true,
       third_party: true,
       data_subject_name: 'Bob Bobson',
-      data_subject_date_of_birth: '02/02/1980'
+      data_subject_date_of_birth: '02/02/1980',
+      attended_digital: 'yes'
     )
   end
 
