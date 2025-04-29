@@ -7,6 +7,10 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
         and_a_schedule_exists_with_realtime_slots
         when_they_view_the_list
         then_they_see_the_slots
+        when_they_convert_a_slot_to_bsl
+        then_the_slot_is_converted
+        when_they_revert_from_bsl
+        then_the_slot_is_reverted
         when_they_delete_a_slot
         then_the_slot_is_deleted
       end
@@ -42,6 +46,22 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     end
 
     expect(@page.slots.last.available).to have_text('No')
+  end
+
+  def when_they_convert_a_slot_to_bsl
+    @page.slots.first.bsl.click
+  end
+
+  def then_the_slot_is_converted
+    expect(@page).to have_success(text: 'The slot is now ready for BSL/double appointments')
+  end
+
+  def when_they_revert_from_bsl
+    @page.slots.first.bsl.click
+  end
+
+  def then_the_slot_is_reverted
+    expect(@page).to have_success(text: 'The slot is now reverted from BSL/double appointments')
   end
 
   def when_they_delete_a_slot

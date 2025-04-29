@@ -36,6 +36,11 @@ Rails.application.routes.draw do
 
   resources :locations, only: :index
 
+  resources :realtime_bookable_slots, only: [] do
+    post :bsl, on: :member, to: 'bsl#create'
+    delete :bsl, on: :member, to: 'bsl#destroy'
+  end
+
   scope '/locations/:location_id' do
     resources :realtime_bookable_slots, only: %w(index create destroy) do
       delete 'future', on: :collection

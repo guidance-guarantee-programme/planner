@@ -8,6 +8,7 @@ module Pages
       element :guider, '.t-guider'
       element :available, '.t-available'
       element :delete, '.t-delete'
+      element :bsl, '.t-bsl'
     end
 
     element :success, '.alert-success'
