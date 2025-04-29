@@ -24,6 +24,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   scenario 'Bookings Manager changes the state of a Booking Request', js: true do
+    skip 'This is no longer used since realtime was introduced'
+
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
       when_the_booking_manager_attempts_to_fulfil

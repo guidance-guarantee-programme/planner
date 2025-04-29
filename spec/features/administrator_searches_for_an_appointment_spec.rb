@@ -44,6 +44,7 @@ RSpec.feature 'Administrator searches for an appointment', js: true do
   end
 
   def then_they_are_presented_with_the_appointment
+    expect(page).to have_text('Manage appointment for')
     expect(page.current_path).to eq(edit_appointment_path(@appointment))
   end
 
