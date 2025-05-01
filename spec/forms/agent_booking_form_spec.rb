@@ -22,7 +22,7 @@ RSpec.describe AgentBookingForm do
       accessibility_requirements: false,
       additional_info: '',
       nudged: true,
-      bsl: true,
+      bsl: false,
       third_party: false,
       data_subject_name: ''
     )
@@ -35,6 +35,21 @@ RSpec.describe AgentBookingForm do
   describe 'validation' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
+    end
+
+    context 'when BSL or a11y requirements specified' do
+      it 'requires a BSL/double slot to be selected' do
+        subject.first_choice_slot = '*2017-01-01-1300-1700'
+        expect(subject).to be_invalid
+
+        subject.bsl = true
+        expect(subject).to be_valid
+
+        subject.bsl = false
+        subject.additional_info = 'I need a longer appointment.'
+        subject.accessibility_requirements = true
+        expect(subject).to be_valid
+      end
     end
 
     context 'when third party booked' do

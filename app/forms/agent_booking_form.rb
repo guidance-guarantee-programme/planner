@@ -49,6 +49,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
 
   validate :validate_confirmation_details
   validate :validate_eligibility
+  validate :validate_bsl_slot_allocation
 
   def scheduled
     true
@@ -81,7 +82,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
 
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
-      build_slot(booking, priority: 1, slot: first_choice_slot)
+      build_slot(booking, priority: 1, slot: first_choice_slot.delete(BookableSlot::BSL_SLOT_DESIGNATOR))
     end
   end
 
@@ -89,6 +90,17 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     date_of_birth.to_date
   rescue ArgumentError
     nil
+  end
+
+  def bsl_slot?
+    first_choice_slot.starts_with?(BookableSlot::BSL_SLOT_DESIGNATOR)
+  end
+
+  def validate_bsl_slot_allocation
+    return unless bsl_slot?
+    return if bsl? || accessibility_requirements?
+
+    errors.add(:base, 'BSL or adjustments must be specified when choosing a BSL/double slot')
   end
 
   def validate_eligibility
@@ -125,7 +137,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   end
 
   def earliest_slot_time
-    first_choice_slot.in_time_zone
+    first_choice_slot.delete(BookableSlot::BSL_SLOT_DESIGNATOR).in_time_zone
   end
 
   def to_attributes # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
