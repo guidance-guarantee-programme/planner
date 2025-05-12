@@ -36,7 +36,7 @@
         </div>
 
         <div id="availability-calendar-on">
-          <% @grouped_slots ||= slots_by_month(slots) %>
+          <% @grouped_slots ||= slots_by_month(slots, include_bsl: true) %>
           <div class="form-group col-md-4">
             <%= f.select :first_choice_slot,
               grouped_options_for_select(@grouped_slots, @appointment.first_choice_slot),

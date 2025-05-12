@@ -57,6 +57,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   validate :validate_confirmation_details
   validate :validate_eligibility
   validate :validate_guider_availability, unless: :scheduled?
+  validate :validate_bsl_slot_allocation
 
   BOOLEAN_ATTRS = %i(
     scheduled
@@ -85,10 +86,21 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
 
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
-      slot = scheduled ? first_choice_slot : ad_hoc_start_at
+      slot = scheduled ? first_choice_slot.delete(BookableSlot::BSL_SLOT_DESIGNATOR) : ad_hoc_start_at
 
       build_slot(booking, priority: 1, slot: slot)
     end
+  end
+
+  def bsl_slot?
+    first_choice_slot.starts_with?(BookableSlot::BSL_SLOT_DESIGNATOR)
+  end
+
+  def validate_bsl_slot_allocation
+    return unless bsl_slot?
+    return if bsl? || accessibility_requirements?
+
+    errors.add(:base, 'BSL or adjustments must be specified when choosing a BSL/double slot')
   end
 
   def parsed_date_of_birth
@@ -146,7 +158,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   end
 
   def earliest_slot_time
-    scheduled ? first_choice_slot.in_time_zone : ad_hoc_start_at&.in_time_zone
+    scheduled ? first_choice_slot.delete(BookableSlot::BSL_SLOT_DESIGNATOR).in_time_zone : ad_hoc_start_at&.in_time_zone
   end
 
   def to_attributes # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
