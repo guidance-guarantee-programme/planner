@@ -34,6 +34,21 @@ RSpec.describe BookingManagerAppointmentForm do
       expect(subject).to be_valid
     end
 
+    context 'when BSL or a11y requirements specified' do
+      it 'requires a BSL/double slot to be selected' do
+        subject.first_choice_slot = '*2017-01-01-1300-1700'
+        expect(subject).to be_invalid
+
+        subject.bsl = true
+        expect(subject).to be_valid
+
+        subject.bsl = false
+        subject.adjustments = 'I need a longer appointment.'
+        subject.accessibility_requirements = true
+        expect(subject).to be_valid
+      end
+    end
+
     context 'when third party booked' do
       before do
         subject.third_party = true
@@ -82,11 +97,11 @@ RSpec.describe BookingManagerAppointmentForm do
     end
 
     context 'when accessibility requirements were specified' do
-      it 'requires additional info' do
+      it 'requires adjustments' do
         subject.accessibility_requirements = true
         expect(subject).to be_invalid
 
-        subject.additional_info = 'Needs wheelchair access'
+        subject.adjustments = 'Needs wheelchair access'
         expect(subject).to be_valid
       end
     end

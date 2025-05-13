@@ -30,6 +30,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     welsh
     data_subject_name
     data_subject_date_of_birth
+    adjustments
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -44,7 +45,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   validates :phone, presence: true, format: /\A([\d+\-\s+()]+)\z/
   validates :memorable_word, presence: true
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
-  validates :additional_info, presence: true, if: :accessibility_requirements
+  validates :adjustments, presence: true, if: :require_adjustments?
   validates :where_you_heard, presence: true
   validates :defined_contribution_pot_confirmed, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
@@ -94,6 +95,10 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
 
   def bsl_slot?
     first_choice_slot.starts_with?(BookableSlot::BSL_SLOT_DESIGNATOR)
+  end
+
+  def require_adjustments?
+    accessibility_requirements?
   end
 
   def validate_bsl_slot_allocation
@@ -188,7 +193,8 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       third_party: third_party,
       welsh: welsh,
       data_subject_name: data_subject_name,
-      data_subject_date_of_birth: data_subject_date_of_birth
+      data_subject_date_of_birth: data_subject_date_of_birth,
+      adjustments: adjustments.to_s
     }
   end
 

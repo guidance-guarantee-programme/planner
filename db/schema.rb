@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_29_124122) do
+ActiveRecord::Schema.define(version: 2025_05_13_074647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 2025_04_29_124122) do
     t.date "data_subject_date_of_birth"
     t.boolean "bsl", default: false, null: false
     t.boolean "welsh", default: false
+    t.string "adjustments", default: "", null: false
   end
 
   create_table "guider_lookups", force: :cascade do |t|

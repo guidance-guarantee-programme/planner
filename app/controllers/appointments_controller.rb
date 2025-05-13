@@ -160,7 +160,8 @@ class AppointmentsController < ApplicationController
         :location_id,
         :date,
         :time,
-        :additional_info
+        :additional_info,
+        :adjustments
       )
   end
   # rubocop:enable Metrics/MethodLength
