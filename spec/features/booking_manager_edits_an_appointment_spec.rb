@@ -229,7 +229,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def when_they_view_the_changes_page_for_the_appointment
     @page = Pages::Changes.new
-    @page.load(id: @appointment.id)
+    @page.load(id: @appointment.booking_request_id)
   end
 
   def then_the_full_changes_are_presented

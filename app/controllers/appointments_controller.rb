@@ -130,6 +130,7 @@ class AppointmentsController < ApplicationController
           data_subject_date_of_birth
           bsl
           welsh
+          adjustments
         )
       ).merge(current_user: current_user)
   end
