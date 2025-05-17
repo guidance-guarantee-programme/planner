@@ -51,7 +51,15 @@
         <%= f.text_field :phone, class: 'form-control t-phone', help: 'We will use this to send an SMS appointment reminder by 8am - 72 hours before the appointment. Customers can cancel appointments via SMS' %>
         <%= f.text_field :email, class: 'form-control t-email', help: 'OK <em>(name)</em>, I am going to repeat this to you phonetically as we will send your appointment confirmation by email and I want to ensure you receive this'.html_safe %>
         <%= f.text_field :memorable_word, class: 'form-control t-memorable-word', help: 'We use this each time the customer is called. Avoid using the same word from a different account or service' %>
-        <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: location.accessibility_information %>
+          <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements',
+            label: "Do you have any access requirements you'd like us to be aware of?", data: { target: 'adjustments' },
+            help: location.accessibility_information
+          %>
+          <div class="" id="adjustments">
+            <%= f.text_area :adjustments, use_label: false, autocomplete: 'off', maxlength: 1000, class: 't-adjustments js-adjustments js-character-limit-input', rows: 6,
+              placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
+            %>
+          </div>
         <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
         <%= f.check_box :nudged, class: 't-nudged', label: 'Stronger Nudge signposting?' %>
         <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
@@ -134,7 +142,13 @@
 
         <hr>
         <h2 class="h3">Additional information</h2>
-        <%= f.text_area :additional_info, class: 'form-control t-additional-info', rows: 5, maxlength: 500, label: 'Notes', help: 'eg accessibility adjustments' %>
+        <div class="form-group">
+          <%= f.text_area :additional_info, use_label: false,
+            class: 'form-control t-additional-info',
+            rows: 5, maxlength: 500,
+            placeholder: 'Please add any additional information here that may be helpful for the appointment'
+          %>
+        </div>
         <%= f.select :where_you_heard,
           options_for_select(WhereYouHeard::OPTIONS.invert.to_a, @booking.where_you_heard),
           { include_blank: true, label: 'Where did you first hear of Pension Wise?' },

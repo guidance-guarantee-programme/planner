@@ -24,7 +24,8 @@ RSpec.describe AgentBookingForm do
       nudged: true,
       bsl: false,
       third_party: false,
-      data_subject_name: ''
+      data_subject_name: '',
+      adjustments: ''
     )
   end
 
@@ -48,6 +49,7 @@ RSpec.describe AgentBookingForm do
         subject.bsl = false
         subject.additional_info = 'I need a longer appointment.'
         subject.accessibility_requirements = true
+        subject.adjustments = 'I need help with access.'
         expect(subject).to be_valid
       end
     end
@@ -78,11 +80,11 @@ RSpec.describe AgentBookingForm do
     end
 
     context 'when accessibility requirements were specified' do
-      it 'requires additional info' do
+      it 'requires adjustments' do
         subject.accessibility_requirements = true
         expect(subject).to be_invalid
 
-        subject.additional_info = 'Needs wheelchair access'
+        subject.adjustments = 'Needs wheelchair access'
         expect(subject).to be_valid
       end
     end

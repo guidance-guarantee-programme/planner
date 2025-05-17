@@ -63,6 +63,8 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.memorable_word.set('spaceships')
     @page.date_of_birth.set('01/01/1950')
     @page.accessibility_requirements.set(true)
+    @page.wait_until_adjustments_visible
+    @page.adjustments.set('These adjustments.')
     @page.gdpr_consent_yes.set(true)
     @page.where_you_heard.select('Other')
     @page.email.set('summer@example.com')
@@ -100,6 +102,7 @@ RSpec.feature 'Agent places a realtime booking' do
       memorable_word: 'spaceships',
       date_of_birth: Date.parse('1950-01-01'),
       accessibility_requirements: true,
+      adjustments: 'These adjustments.',
       defined_contribution_pot_confirmed: true,
       where_you_heard: 17, # Other
       address_line_one: '3 Grange View',

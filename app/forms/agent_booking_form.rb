@@ -26,6 +26,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     third_party
     data_subject_name
     data_subject_date_of_birth
+    adjustments
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -40,7 +41,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   validates :phone, presence: true, format: /\A([\d+\-\s+()]+)\z/
   validates :memorable_word, presence: true
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
-  validates :additional_info, presence: true, if: :accessibility_requirements
+  validates :adjustments, presence: true, if: :require_adjustments?
   validates :where_you_heard, presence: true
   validates :gdpr_consent, inclusion: { in: %w(yes no) }
   validates :first_choice_slot, presence: true
@@ -79,6 +80,10 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   end
 
   private
+
+  def require_adjustments?
+    accessibility_requirements?
+  end
 
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
@@ -166,7 +171,8 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
       bsl: bsl,
       third_party: third_party,
       data_subject_name: data_subject_name,
-      data_subject_date_of_birth: data_subject_date_of_birth
+      data_subject_date_of_birth: data_subject_date_of_birth,
+      adjustments: adjustments
     }
   end
 
