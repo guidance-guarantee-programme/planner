@@ -1,14 +1,16 @@
-Appointment reminder
+Pension Wise Appointment reminder
+
+Reference number: <%= @appointment.reference %>
 
 Dear <%= @appointment.name %>,
 
-This is a reminder that you have a Pension Wise appointment booked for:
+This is a reminder that your Pension Wise appointment is booked for:
 
 <%= render 'shared/email/appointment_details' %>
 
-Call <%= @appointment.online_booking_twilio_number %> or email us to change or cancel your booking. You may be asked for your booking reference number.
+How to change or cancel your appointment
 
-Full details of our privacy policy, including information on your rights in relation to the data we hold can be found at https://www.pensionwise.gov.uk/en/privacy.
+To change or cancel your Pension Wise appointment, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
 
 <%= render '/shared/email/preparing_for_appointment' %>
 

@@ -163,7 +163,6 @@ RSpec.describe Appointments do
         expect(body).to include('20 June 2016')
         expect(body).to include('Dalston')
         expect(body).to include('0800123456')
-        skip 'Pending until this is included'
         expect(body).to include(appointment.reference)
       end
 
