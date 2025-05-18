@@ -27,6 +27,10 @@ class AppointmentsPreview < ActionMailer::Preview
     )
   end
 
+  def missed
+    Appointments.missed(Appointment.first)
+  end
+
   private
 
   def booking_location
