@@ -1,60 +1,15 @@
+<ul>
+  <li><strong>Date:</strong> <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %></li>
+  <li><strong>Time:</strong> <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %></li>
+  <li><strong>Address:</strong> <%= @appointment.location_name %>, <%= @appointment.address_lines.join(', ') %></li>
+</ul>
+
 <%= p do %>
-  Date:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
-  </strong>
+  Your appointment is with <%= @appointment.guider_name.split.first %>
+  and will usually last around 60 minutes. If you’ve asked for an access
+  adjustment, we might contact you beforehand to ask for more details.
 <% end %>
 
 <%= p do %>
-  Time:
-  <br>
-  <strong class="emphasize">
-    <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Appointment lasts:
-  <br>
-  <strong class="emphasize">
-    Around 60 minutes
-  </strong>
-<% end %>
-
-<%= p do %>
-  Appointment location:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.location_name %><br>
-    <% @appointment.address_lines.each do |line| %>
-      <%= line %><br>
-    <% end %>
-  </strong>
-<% end %>
-
-<% if @appointment.accessibility_information.present? %>
-  <%= p do %>
-  Accessibility:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.accessibility_information %>
-  </strong>
-  <% end %>
-<% end %>
-
-<%= p do %>
-  Guidance specialist:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.guider_name.split.first %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Reference number:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.reference %>
-  </strong>
+  The meeting room is large enough for one other person if you’d like someone to come with you.
 <% end %>
