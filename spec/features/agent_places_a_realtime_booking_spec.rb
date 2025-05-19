@@ -19,9 +19,9 @@ RSpec.feature 'Agent places a realtime booking' do
       and_they_choose_a_realtime_slot
       and_they_provide_the_customer_details
       and_they_confirm_the_booking
+      and_the_agent_sees_the_confirmation
       then_the_booking_is_placed
       and_the_appointment_is_automatically_fulfilled
-      and_the_agent_sees_the_confirmation
       and_the_customer_is_notified
       and_the_booking_manager_is_notified
     end
