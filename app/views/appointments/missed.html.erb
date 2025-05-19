@@ -1,5 +1,9 @@
 <%= h2 do %>
-  Missed appointment
+  Would you still like a Pension Wise appointment?
+<% end %>
+
+<%= p do %>
+  <strong>Reference number:</strong> <%= @appointment.reference %>
 <% end %>
 
 <%= p do %>
@@ -7,46 +11,11 @@
 <% end %>
 
 <%= p do %>
-  Our records show that you missed your Pension Wise appointment which was scheduled for:
+  We noticed you missed your Pension Wise appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>.
 <% end %>
 
 <%= p do %>
-  Date:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Time:
-  <br>
-  <strong class="emphasize">
-    <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Appointment location:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.location_name %><br>
-    <% @appointment.address_lines.each do |line| %>
-      <%= line %><br>
-    <% end %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Reference number:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.reference %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Email us if you want to rebook your appointment.
+  You can reply to this email with your availability, <a href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment">book a new date and time</a> or have an <a href="https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start">online Pension Wise appointment</a> at any time.
 <% end %>
 
 <%= render 'shared/email/money_helper' %>

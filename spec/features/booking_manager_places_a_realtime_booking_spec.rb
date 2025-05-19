@@ -211,6 +211,9 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def then_the_booking_is_placed
+    @page = Pages::AppointmentConfirmation.new
+    expect(@page).to be_displayed
+
     @booking = BookingRequest.last
     expect(@booking).to have_attributes(
       name: 'Summer Sanchez',

@@ -1,60 +1,30 @@
-<%= p do %>
-  Date:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
-  </strong>
-<% end %>
+<ul>
+  <li><strong>Date:</strong> <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %></li>
+  <li><strong>Time:</strong> <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %></li>
+  <li><strong>Address:</strong> <%= @appointment.location_name %>, <%= @appointment.address_lines.join(', ') %></li>
+</ul>
 
-<%= p do %>
-  Time:
-  <br>
-  <strong class="emphasize">
-    <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
-  </strong>
-<% end %>
-
-<%= p do %>
-  Appointment lasts:
-  <br>
-  <strong class="emphasize">
-    Around 60 minutes
-  </strong>
-<% end %>
-
-<%= p do %>
-  Appointment location:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.location_name %><br>
-    <% @appointment.address_lines.each do |line| %>
-      <%= line %><br>
-    <% end %>
-  </strong>
-<% end %>
-
-<% if @appointment.accessibility_information.present? %>
+<% if @appointment.booking_request.bsl? %>
   <%= p do %>
-  Accessibility:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.accessibility_information %>
-  </strong>
+    Your appointment is with <%= @appointment.guider_name.split.first %> and a
+    British Sign Language interpreter. It should last around 60 minutes. If
+    you’ve asked for an access adjustment, we might contact you beforehand to
+    ask for more details.
+  <% end %>
+<% else %>
+  <%= p do %>
+    Your appointment is with <%= @appointment.guider_name.split.first %>
+    and will usually last around 60 minutes. If you’ve asked for an access
+    adjustment, we might contact you beforehand to ask for more details.
   <% end %>
 <% end %>
 
 <%= p do %>
-  Guidance specialist:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.guider_name.split.first %>
-  </strong>
+  The meeting room is large enough for one other person if you’d like someone to come with you.
 <% end %>
 
-<%= p do %>
-  Reference number:
-  <br>
-  <strong class="emphasize">
-    <%= @appointment.reference %>
-  </strong>
+<% if @appointment.booking_request.bsl? %>
+  <%= p do %>
+    <a href="https://actiondeafness.org.uk/feedback-form/">Give feedback on the Pension Wise booking process</a> – your comments and suggestions help us improve our services.
+  <% end %>
 <% end %>

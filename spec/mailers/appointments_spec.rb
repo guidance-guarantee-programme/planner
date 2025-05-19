@@ -106,15 +106,6 @@ RSpec.describe Appointments do
         expect(body).to include('cancelled')
 
         expect(body).not_to include('book a phone appointment')
-        expect(body).not_to include('Her Majesty')
-      end
-
-      context 'when the appointment occurs on the HRH bank holiday' do
-        it 'includes the temporary messaging' do
-          appointment.proceeded_at = Time.zone.parse('2022-09-19 13:00')
-
-          expect(body).to include('Her Majesty')
-        end
       end
     end
   end
@@ -171,12 +162,7 @@ RSpec.describe Appointments do
       end
 
       it 'includes the address' do
-        expect(body).to include(
-          '22 Dalston Lane',
-          'Hackney',
-          'London',
-          'E8 3AZ'
-        )
+        expect(body).to include('22 Dalston Lane, Hackney, London, E8 3AZ')
       end
     end
   end
@@ -209,19 +195,10 @@ RSpec.describe Appointments do
       end
 
       it 'includes the address' do
-        expect(body).to include(
-          '22 Dalston Lane',
-          'Hackney',
-          'London',
-          'E8 3AZ'
-        )
+        expect(body).to include('22 Dalston Lane, Hackney, London, E8 3AZ')
       end
 
       context 'when sending the initial appointment notification' do
-        it 'does not include the lead paragraph for updates' do
-          expect(body).to_not include('Your appointment details were updated')
-        end
-
         it 'identifies the message correctly' do
           expect(mail['X-Mailgun-Variables'].value).to include('"message_type":"appointment_confirmation"')
         end
@@ -231,7 +208,7 @@ RSpec.describe Appointments do
         before { allow(appointment).to receive(:updated?).and_return(true) }
 
         it 'includes the lead paragraph for updates' do
-          expect(body).to include('We=E2=80=99ve updated your appointment')
+          expect(body).to include('Your Pension Wise appointment has been updated')
         end
 
         it 'identifies the message correctly' do
