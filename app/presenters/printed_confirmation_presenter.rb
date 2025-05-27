@@ -19,7 +19,8 @@ class PrintedConfirmationPresenter
       address_line_4: appointment.address_line_three,
       address_line_5: appointment.town,
       address_line_6: appointment.county,
-      postcode: appointment.postcode
+      postcode: appointment.postcode,
+      bsl: appointment.booking_request.bsl? ? 'Yes' : 'No'
     }
   end
 
