@@ -59,6 +59,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
   validate :validate_eligibility
   validate :validate_guider_availability, unless: :scheduled?
   validate :validate_bsl_slot_allocation
+  validate :validate_bsl_option
 
   BOOLEAN_ATTRS = %i(
     scheduled
@@ -106,6 +107,12 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     return if bsl? || accessibility_requirements?
 
     errors.add(:base, 'BSL or adjustments must be specified when choosing a BSL/double slot')
+  end
+
+  def validate_bsl_option
+    return unless bsl? && !bsl_slot?
+
+    errors.add(:base, 'BSL/double slot must be selected when the BSL option is checked')
   end
 
   def parsed_date_of_birth

@@ -74,7 +74,6 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.nudged.set(true)
-    @page.bsl.set(true)
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible
@@ -113,7 +112,7 @@ RSpec.feature 'Agent places a realtime booking' do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       pension_provider: '',
-      bsl: true,
+      bsl: false,
       nudged: true,
       third_party: true,
       data_subject_name: 'Bob Bobson',

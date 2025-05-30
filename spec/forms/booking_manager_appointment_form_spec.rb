@@ -34,6 +34,20 @@ RSpec.describe BookingManagerAppointmentForm do
       expect(subject).to be_valid
     end
 
+    context 'when BSL is selected' do
+      it 'requires a BSL slot to be chosen' do
+        subject.first_choice_slot = '2017-01-01-1300-1700'
+        subject.bsl = false
+        expect(subject).to be_valid
+
+        subject.bsl = true
+        expect(subject).to be_invalid
+
+        subject.first_choice_slot = '*2017-01-01-1300-1700'
+        expect(subject).to be_valid
+      end
+    end
+
     context 'when BSL or a11y requirements specified' do
       it 'requires a BSL/double slot to be selected' do
         subject.first_choice_slot = '*2017-01-01-1300-1700'
