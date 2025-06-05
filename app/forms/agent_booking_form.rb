@@ -1,6 +1,7 @@
 class AgentBookingForm # rubocop:disable Metrics/ClassLength
   include ActiveModel::Model
   include BslSlottable
+  include EligibilityValidatable
 
   ATTRIBUTES = %i(
     name
@@ -50,7 +51,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   validates :data_subject_date_of_birth, presence: true, if: :third_party?
 
   validate :validate_confirmation_details
-  validate :validate_eligibility
 
   def scheduled
     true
@@ -91,16 +91,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def parsed_date_of_birth
-    date_of_birth.to_date
-  rescue ArgumentError
-    nil
-  end
-
-  def validate_eligibility
-    errors.add(:date_of_birth, 'must be formatted eg 01/01/1950') if parsed_date_of_birth.blank?
-  end
-
   def validate_confirmation_details
     unless address? || email_provided? # rubocop:disable Style/GuardClause
       errors.add(:base, 'Please supply either an email or confirmation address')
@@ -119,15 +109,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     else
       '55-plus'
     end
-  end
-
-  def age
-    return 0 unless at = earliest_slot_time
-    return 0 unless date_of_birth = parsed_date_of_birth
-
-    age = at.year - date_of_birth.year
-    age -= 1 if at.to_date < date_of_birth + age.years
-    age
   end
 
   def earliest_slot_time

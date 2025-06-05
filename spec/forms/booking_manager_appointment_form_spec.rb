@@ -193,6 +193,7 @@ RSpec.describe BookingManagerAppointmentForm do
           subject.first_choice_slot = ''
 
           expect(subject).to be_invalid
+          expect(subject.errors[:base]).to be_empty # don't trigger the eligiblity validation
         end
       end
     end
