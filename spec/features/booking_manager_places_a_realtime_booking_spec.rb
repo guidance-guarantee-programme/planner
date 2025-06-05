@@ -144,6 +144,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     expect(@page).to be_loaded
 
     @page.availability_calendar.set(true)
+    @page.wait_until_first_choice_slot_visible
     @page.first_choice_slot.select('Wednesday, 07 Nov - 9:00am')
   end
 
@@ -152,6 +153,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     expect(@page).to be_loaded
 
     @page.ad_hoc_calendar.set(true)
+    @page.wait_until_ad_hoc_start_at_visible
     @page.guider.select('Ben Lovell')
     @page.ad_hoc_start_at.set('2019-11-29 13:00')
   end
@@ -164,6 +166,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.memorable_word.set('spaceships')
     @page.date_of_birth.set('01/01/1950')
     @page.accessibility_requirements.set(true)
+    @page.wait_until_adjustments_visible
+    @page.adjustments.set('Their adjustments')
     @page.defined_contribution_pot_confirmed_yes.set(true)
     @page.gdpr_consent_yes.set(true)
     @page.where_you_heard.select('Other')
@@ -173,7 +177,6 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.county.set('Berkshire')
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
-    @page.bsl.set(true)
     @page.third_party.set(true)
 
     expect(@page).not_to have_welsh
@@ -207,6 +210,9 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def then_the_booking_is_placed
+    @page = Pages::AppointmentConfirmation.new
+    expect(@page).to be_displayed
+
     @booking = BookingRequest.last
     expect(@booking).to have_attributes(
       name: 'Summer Sanchez',
@@ -225,7 +231,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       third_party: true,
-      bsl: true
+      bsl: false,
+      adjustments: 'Their adjustments'
     )
   end
 

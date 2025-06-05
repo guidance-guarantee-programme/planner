@@ -204,7 +204,16 @@
             <% if welsh_visible?(current_user) %>
             <%= booking_subform.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?' %>
             <% end %>
-            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: @appointment_form.accessibility_information %>
+
+            <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements',
+                label: required_label('Access requirements?'), data: { target: 'adjustments' },
+                help: @appointment_form.accessibility_information
+            %>
+            <div class="" id="adjustments">
+              <%= booking_subform.text_area :adjustments, use_label: false, autocomplete: 'off', maxlength: 1000, class: 't-adjustments js-adjustments js-character-limit-input', rows: 6,
+                placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
+              %>
+            </div>
 
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>

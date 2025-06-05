@@ -1,5 +1,7 @@
 class AgentBookingForm # rubocop:disable Metrics/ClassLength
   include ActiveModel::Model
+  include BslSlottable
+  include EligibilityValidatable
 
   ATTRIBUTES = %i(
     name
@@ -26,6 +28,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     third_party
     data_subject_name
     data_subject_date_of_birth
+    adjustments
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -40,7 +43,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   validates :phone, presence: true, format: /\A([\d+\-\s+()]+)\z/
   validates :memorable_word, presence: true
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
-  validates :additional_info, presence: true, if: :accessibility_requirements
+  validates :adjustments, presence: true, if: :require_adjustments?
   validates :where_you_heard, presence: true
   validates :gdpr_consent, inclusion: { in: %w(yes no) }
   validates :first_choice_slot, presence: true
@@ -48,7 +51,6 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
   validates :data_subject_date_of_birth, presence: true, if: :third_party?
 
   validate :validate_confirmation_details
-  validate :validate_eligibility
 
   def scheduled
     true
@@ -79,20 +81,14 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
 
   private
 
+  def require_adjustments?
+    accessibility_requirements?
+  end
+
   def booking_request
     @booking_request ||= BookingRequest.new(to_attributes).tap do |booking|
-      build_slot(booking, priority: 1, slot: first_choice_slot)
+      build_slot(booking, priority: 1, slot: first_choice_slot.delete(BookableSlot::BSL_SLOT_DESIGNATOR))
     end
-  end
-
-  def parsed_date_of_birth
-    date_of_birth.to_date
-  rescue ArgumentError
-    nil
-  end
-
-  def validate_eligibility
-    errors.add(:date_of_birth, 'must be formatted eg 01/01/1950') if parsed_date_of_birth.blank?
   end
 
   def validate_confirmation_details
@@ -115,17 +111,8 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def age
-    return 0 unless at = earliest_slot_time
-    return 0 unless date_of_birth = parsed_date_of_birth
-
-    age = at.year - date_of_birth.year
-    age -= 1 if at.to_date < date_of_birth + age.years
-    age
-  end
-
   def earliest_slot_time
-    first_choice_slot.in_time_zone
+    first_choice_slot.delete(BookableSlot::BSL_SLOT_DESIGNATOR).in_time_zone
   end
 
   def to_attributes # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -154,7 +141,8 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
       bsl: bsl,
       third_party: third_party,
       data_subject_name: data_subject_name,
-      data_subject_date_of_birth: data_subject_date_of_birth
+      data_subject_date_of_birth: data_subject_date_of_birth,
+      adjustments: adjustments
     }
   end
 

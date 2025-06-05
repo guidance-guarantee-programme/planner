@@ -12,7 +12,7 @@
           <%= f.label :proceeded_at, 'Date and time' %>
           <%= f.select(
             :proceeded_at,
-            grouped_options_for_select(slots_by_month(appointment.slots)),
+            grouped_options_for_select(slots_by_month(appointment.slots, include_bsl: true)),
             { include_blank: true },
             class: 'form-control t-slot'
           ) %>

@@ -19,9 +19,9 @@ RSpec.feature 'Agent places a realtime booking' do
       and_they_choose_a_realtime_slot
       and_they_provide_the_customer_details
       and_they_confirm_the_booking
+      and_the_agent_sees_the_confirmation
       then_the_booking_is_placed
       and_the_appointment_is_automatically_fulfilled
-      and_the_agent_sees_the_confirmation
       and_the_customer_is_notified
       and_the_booking_manager_is_notified
     end
@@ -63,6 +63,8 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.memorable_word.set('spaceships')
     @page.date_of_birth.set('01/01/1950')
     @page.accessibility_requirements.set(true)
+    @page.wait_until_adjustments_visible
+    @page.adjustments.set('These adjustments.')
     @page.gdpr_consent_yes.set(true)
     @page.where_you_heard.select('Other')
     @page.email.set('summer@example.com')
@@ -72,7 +74,6 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.nudged.set(true)
-    @page.bsl.set(true)
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible
@@ -100,6 +101,7 @@ RSpec.feature 'Agent places a realtime booking' do
       memorable_word: 'spaceships',
       date_of_birth: Date.parse('1950-01-01'),
       accessibility_requirements: true,
+      adjustments: 'These adjustments.',
       defined_contribution_pot_confirmed: true,
       where_you_heard: 17, # Other
       address_line_one: '3 Grange View',
@@ -110,7 +112,7 @@ RSpec.feature 'Agent places a realtime booking' do
       additional_info: 'Other notes',
       gdpr_consent: 'yes',
       pension_provider: '',
-      bsl: true,
+      bsl: false,
       nudged: true,
       third_party: true,
       data_subject_name: 'Bob Bobson',

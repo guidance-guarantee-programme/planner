@@ -90,6 +90,8 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @page.month_of_birth.set('02')
     @page.year_of_birth.set('1960')
     @page.accessibility_requirements.set(true)
+    @page.wait_until_adjustments_visible
+    @page.adjustments.set('I need these adjustments.')
     @page.additional_information.set('Blah, blah, blah.')
     @page.defined_contribution_pot_confirmed_dont_know.set(true)
     @page.gdpr_consent_yes.set(true)
@@ -115,6 +117,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @appointment.reload
 
     expect(@appointment.name).to include('Ben Lovell')
+    expect(@appointment.booking_request.adjustments).to eq('I need these adjustments.')
     expect(@appointment).to be_bsl
   end
 

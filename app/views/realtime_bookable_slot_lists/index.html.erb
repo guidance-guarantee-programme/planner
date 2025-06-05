@@ -66,6 +66,17 @@
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   <span class="sr-only">Delete</span>
                 <% end %>
+                <% if slot.bsl? %>
+                  <%= link_to bsl_realtime_bookable_slot_path(slot), title: 'Revert this slot from BSL/double', class: 'btn btn-danger t-bsl', method: :delete, data: { confirm: 'Are you sure you want to revert this slot from BSL/double?' } do %>
+                    <span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+                    <span class="sr-only">Revert from BSL</span>
+                  <% end %>
+                <% else %>
+                  <%= link_to bsl_realtime_bookable_slot_path(slot), title: 'Convert this slot to BSL/double', class: 'btn btn-info t-bsl', method: :post, data: { confirm: 'Are you sure you want to convert this slot to BSL/double?' } do %>
+                    <span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+                    <span class="sr-only">Convert to BSL</span>
+                  <% end %>
+                <% end %>
               </td>
             </tr>
           <% end %>

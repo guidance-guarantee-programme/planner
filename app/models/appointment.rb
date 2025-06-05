@@ -172,10 +172,6 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     activities.where(type: 'AuditActivity').order(created_at: :desc).first
   end
 
-  def hrh_bank_holiday?
-    proceeded_at.to_date == '2022-09-19'.to_date
-  end
-
   def calculate_statistics
     calculate_fulfilment_time
     calculate_fulfilment_window

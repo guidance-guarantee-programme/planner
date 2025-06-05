@@ -13,22 +13,34 @@ module ScheduleHelper
     [[1, 'Monday'], [2, 'Tuesday'], [3, 'Wednesday'], [4, 'Thursday'], [5, 'Friday']]
   end
 
-  def slots_by_month(slots)
+  def slots_by_month(slots, include_bsl: false)
     [].tap do |result|
       grouped = slots.group_by { |slot| slot.start_at.strftime('%B %Y') }
       grouped.map do |month_year, day_slots|
-        result << [month_year, grouped_day(day_slots)]
+        result << [month_year, grouped_day(day_slots, include_bsl)]
       end
     end
   end
 
-  def grouped_day(day_slots)
+  def grouped_day(day_slots, include_bsl)
     day_slots.group_by(&:start_at).values.map(&:first).map do |slot|
       [
-        "#{slot.start_at.strftime('%A, %d %b')} - #{slot_period(slot)}",
-        "#{slot.start_at.to_date}-#{slot.start_at.strftime('%H%M')}-#{slot.end_at.strftime('%H%M')}"
+        "#{slot.start_at.strftime('%A, %d %b')} - #{slot_period(slot)}#{bsl_labelling(slot) if include_bsl}",
+        "#{bsl_designator(slot) if include_bsl}#{slot_label(slot)}"
       ]
     end
+  end
+
+  def slot_label(slot)
+    "#{slot.start_at.to_date}-#{slot.start_at.strftime('%H%M')}-#{slot.end_at.strftime('%H%M')}"
+  end
+
+  def bsl_labelling(slot)
+    ' (BSL/double)' if slot.bsl?
+  end
+
+  def bsl_designator(slot)
+    '*' if slot.bsl?
   end
 
   def slot_period(slot)

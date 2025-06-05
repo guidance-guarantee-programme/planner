@@ -2,7 +2,7 @@ class EditAppointmentForm < SimpleDelegator
   include PostalAddressable
 
   delegate :realtime?, :primary_slot, :secondary_slot, :tertiary_slot, :agent, :consent, to: :booking_request
-  delegate :welsh?, to: :booking_request
+  delegate :welsh?, :adjustments, to: :booking_request
 
   def update(attributes)
     assign_attributes(attributes)

@@ -22,9 +22,10 @@ RSpec.describe AgentBookingForm do
       accessibility_requirements: false,
       additional_info: '',
       nudged: true,
-      bsl: true,
+      bsl: false,
       third_party: false,
-      data_subject_name: ''
+      data_subject_name: '',
+      adjustments: ''
     )
   end
 
@@ -35,6 +36,36 @@ RSpec.describe AgentBookingForm do
   describe 'validation' do
     it 'is valid with valid attributes' do
       expect(subject).to be_valid
+    end
+
+    context 'when BSL is selected' do
+      it 'requires a BSL slot to be chosen' do
+        subject.first_choice_slot = '2017-01-01-1300-1700'
+        subject.bsl = false
+        expect(subject).to be_valid
+
+        subject.bsl = true
+        expect(subject).to be_invalid
+
+        subject.first_choice_slot = '*2017-01-01-1300-1700'
+        expect(subject).to be_valid
+      end
+    end
+
+    context 'when BSL or a11y requirements specified' do
+      it 'requires a BSL/double slot to be selected' do
+        subject.first_choice_slot = '*2017-01-01-1300-1700'
+        expect(subject).to be_invalid
+
+        subject.bsl = true
+        expect(subject).to be_valid
+
+        subject.bsl = false
+        subject.additional_info = 'I need a longer appointment.'
+        subject.accessibility_requirements = true
+        subject.adjustments = 'I need help with access.'
+        expect(subject).to be_valid
+      end
     end
 
     context 'when third party booked' do
@@ -63,11 +94,11 @@ RSpec.describe AgentBookingForm do
     end
 
     context 'when accessibility requirements were specified' do
-      it 'requires additional info' do
+      it 'requires adjustments' do
         subject.accessibility_requirements = true
         expect(subject).to be_invalid
 
-        subject.additional_info = 'Needs wheelchair access'
+        subject.adjustments = 'Needs wheelchair access'
         expect(subject).to be_valid
       end
     end
@@ -126,25 +157,12 @@ RSpec.describe AgentBookingForm do
         expect(subject).to be_valid
       end
 
-      it 'is valid if I am exactly 49 years old at my first_choice_slot' do
-        subject.date_of_birth = '01/01/2000'
-        subject.first_choice_slot = '2049-12-31-1300-1700'
-
-        expect(subject).to be_valid
-      end
-
-      it 'is valid if I am exactly 49 years old at one of my slots' do
-        subject.date_of_birth = '01/01/2000'
-        subject.first_choice_slot = '2049-12-31-1300-1700'
-
-        expect(subject).to be_valid
-      end
-
       context 'when no slots were selected' do
         it 'is not valid' do
           subject.first_choice_slot = ''
 
           expect(subject).to be_invalid
+          expect(subject.errors[:base]).to be_empty # don't trigger the eligiblity validation
         end
       end
     end

@@ -36,7 +36,7 @@
         </div>
 
         <div id="availability-calendar-on">
-          <% @grouped_slots ||= slots_by_month(slots) %>
+          <% @grouped_slots ||= slots_by_month(slots, include_bsl: true) %>
           <div class="form-group col-md-4">
             <%= f.select :first_choice_slot,
               grouped_options_for_select(@grouped_slots, @appointment.first_choice_slot),
@@ -62,7 +62,17 @@
           <% if welsh_visible?(current_user) %>
           <%= f.check_box :welsh, class: 't-welsh', label: 'Welsh language appointment?' %>
           <% end %>
-          <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements', label: 'Do you require an adjustment to access our service?', help: location.accessibility_information %>
+
+          <%= f.check_box :accessibility_requirements, class: 't-accessibility-requirements',
+            label: "Do you have any access requirements you'd like us to be aware of?", data: { target: 'adjustments' },
+            help: location.accessibility_information
+          %>
+          <div class="" id="adjustments">
+            <%= f.text_area :adjustments, use_label: false, autocomplete: 'off', maxlength: 1000, class: 't-adjustments js-adjustments js-character-limit-input', rows: 6,
+              placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
+            %>
+          </div>
+
           <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
 
           <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
@@ -149,8 +159,11 @@
         <hr>
         <h2 class="h3">Additional information</h2>
         <div class="form-group">
-          <%= f.text_area :additional_info, label: 'Notes', class: 'form-control t-additional-info', rows: 5, maxlength: 500 %>
-          <div class="help-block">eg accessibility adjustments</div>
+          <%= f.text_area :additional_info, use_label: false,
+            class: 'form-control t-additional-info',
+            rows: 5, maxlength: 500,
+            placeholder: 'Please add any additional information here that may be helpful for the appointment'
+          %>
         </div>
         <div class="form-group">
           <%= f.select :where_you_heard,

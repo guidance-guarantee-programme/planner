@@ -79,7 +79,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   end
 
   group :test do
-    gem 'database_cleaner'
+    gem 'database_rewinder'
     gem 'launchy'
     gem 'phantomjs'
     gem 'poltergeist'

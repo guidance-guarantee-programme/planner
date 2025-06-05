@@ -27,6 +27,17 @@ class AppointmentsPreview < ActionMailer::Preview
     )
   end
 
+  def missed
+    Appointments.missed(Appointment.first)
+  end
+
+  def confirmation_with_bsl
+    @appointment = Appointment.first
+    @appointment.booking_request.bsl = true
+
+    Appointments.customer(@appointment, booking_location)
+  end
+
   private
 
   def booking_location

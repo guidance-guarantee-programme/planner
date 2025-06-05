@@ -14,6 +14,7 @@ module Pages
     element :year_of_birth, '.t-date-of-birth-year'
     element :accessibility_requirements, '.t-accessibility-requirements'
     element :additional_information, '.t-additional-info'
+    element :adjustments, '.t-adjustments'
     element :defined_contribution_pot_confirmed_yes, '.t-defined-contribution-pot-confirmed-yes'
     element :defined_contribution_pot_confirmed_dont_know, '.t-defined-contribution-pot-confirmed-dont-know'
     element :gdpr_consent_yes, '.t-gdpr-consent-yes'

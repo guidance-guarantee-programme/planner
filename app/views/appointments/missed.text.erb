@@ -1,20 +1,11 @@
-Missed appointment
-
-Dear <%= @appointment.name %>,
-
-Our records show that you missed your Pension Wise appointment which was scheduled for:
-
-Date: <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
-Time: <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
-
-Appointment location:
-<%= @appointment.location_name %>
-<% @appointment.address_lines.each do |line| %>
-  <%= line %>
-<% end %>
+Would you still like a Pension Wise appointment?
 
 Reference number: <%= @appointment.reference %>
 
-Email us if you want to rebook your appointment.
+Dear <%= @appointment.name %>,
+
+We noticed you missed your Pension Wise appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>.
+
+You can reply to this email with your availability, https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment book a new date and time or have an https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
 
 <%= render 'shared/email/money_helper' %>

@@ -2,7 +2,10 @@ class AppointmentSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
   attribute :id
-  attribute :name, key: :title
+
+  attribute :title do
+    "#{object.name}#{' (BSL)' if object.bsl?}"
+  end
 
   attribute :resourceId do
     object.guider_id

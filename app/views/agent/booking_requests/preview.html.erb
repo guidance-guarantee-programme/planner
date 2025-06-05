@@ -32,6 +32,7 @@
   <%= f.hidden_field :third_party %>
   <%= f.hidden_field :data_subject_name %>
   <%= f.hidden_field :data_subject_date_of_birth %>
+  <%= f.hidden_field :adjustments %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
 
@@ -81,6 +82,12 @@
               <td class="active"><b>You need help or an adjustment to access our service</b></td>
               <td><%= @booking.accessibility_requirements %></td>
             </tr>
+            <% if @booking.adjustments.present? %>
+              <tr>
+                <td class="active" width="35%"><b>Any adjustments that may help you</b></td>
+                <td><%= @booking.adjustments %></td>
+              </tr>
+            <% end %>
             <tr>
               <td class="active"><b>BSL appointment</b></td>
               <td><%= @booking.bsl %></td>

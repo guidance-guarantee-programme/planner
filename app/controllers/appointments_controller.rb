@@ -130,6 +130,7 @@ class AppointmentsController < ApplicationController
           data_subject_date_of_birth
           bsl
           welsh
+          adjustments
         )
       ).merge(current_user: current_user)
   end
@@ -160,7 +161,8 @@ class AppointmentsController < ApplicationController
         :location_id,
         :date,
         :time,
-        :additional_info
+        :additional_info,
+        :adjustments
       )
   end
   # rubocop:enable Metrics/MethodLength

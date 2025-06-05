@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_03_081314) do
+ActiveRecord::Schema.define(version: 2025_05_13_074647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2024_10_03_081314) do
     t.integer "guider_id"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.boolean "bsl", default: false, null: false
     t.index ["schedule_id"], name: "index_bookable_slots_on_schedule_id"
   end
 
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(version: 2024_10_03_081314) do
     t.date "data_subject_date_of_birth"
     t.boolean "bsl", default: false, null: false
     t.boolean "welsh", default: false
+    t.string "adjustments", default: "", null: false
   end
 
   create_table "guider_lookups", force: :cascade do |t|

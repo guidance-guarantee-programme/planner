@@ -34,7 +34,8 @@ RSpec.describe PrintedConfirmationLetterJob, '#perform' do
           address_line_4: '',
           address_line_5: 'Hackney',
           address_line_6: 'London',
-          postcode: 'E8 3AZ'
+          postcode: 'E8 3AZ',
+          bsl: 'No'
         }
       )
 

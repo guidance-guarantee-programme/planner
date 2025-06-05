@@ -21,5 +21,6 @@ Capybara.default_normalize_ws = true
 Capybara.default_max_wait_time = 10 if ENV['TRAVIS']
 Capybara.server = :puma, { Silent: true }
 Capybara.javascript_driver = :chrome_headless
+Capybara.raise_server_errors = false unless ENV['RAISE_SERVER_ERRORS']
 
 Selenium::WebDriver.logger.level = :warn

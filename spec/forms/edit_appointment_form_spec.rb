@@ -22,6 +22,12 @@ RSpec.describe EditAppointmentForm do
     expect(subject.agent).to eq(appointment.booking_request.agent)
   end
 
+  it 'delegates the adjustments' do
+    appointment.booking_request.adjustments = 'These are them'
+
+    expect(subject.adjustments).to eq('These are them')
+  end
+
   context 'when no underlying slot exists after reallocation' do
     it 'creates the missing realtime slot' do
       # creates the missing slot

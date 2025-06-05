@@ -1,4 +1,6 @@
 class BookableSlot < ActiveRecord::Base
+  BSL_SLOT_DESIGNATOR = '*'.freeze
+
   belongs_to :schedule
 
   audited associated_with: :schedule
