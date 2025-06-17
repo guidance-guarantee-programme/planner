@@ -20,6 +20,22 @@ class BookableSlot < ActiveRecord::Base
     where(start_at: date_range)
   end
 
+  def self.bsl_slots_to_revert # rubocop:disable Metrics/MethodLength
+    slot_date = 7.working.days.from_now
+
+    joins(
+      <<-SQL
+        LEFT JOIN appointments ON
+          appointments.guider_id = bookable_slots.guider_id
+          AND (appointments.proceeded_at, interval '1 hour')
+          OVERLAPS (bookable_slots.start_at, interval '1 hour')
+          AND NOT appointments.status IN (5, 6, 7)
+      SQL
+    ).where('appointments.proceeded_at IS NULL')
+      .where(start_at: slot_date.beginning_of_day..slot_date.end_of_day)
+      .where(bsl: true)
+  end
+
   private
 
   def validate_appointment_overlapping # rubocop:disable Metrics/AbcSize
