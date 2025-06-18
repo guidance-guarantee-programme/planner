@@ -56,6 +56,8 @@ RSpec.feature 'Scheduled reporting summary' do
     expect(@summaries.first).to have_attributes(
       name: 'Abergavenny',
       four_week_availability: false,
+      eight_week_availability: false,
+      twelve_week_availability: false,
       first_available_slot_on: nil,
       last_slot_on: nil,
       total_slots_created: 0,
@@ -66,6 +68,8 @@ RSpec.feature 'Scheduled reporting summary' do
     expect(@summaries.second).to have_attributes(
       name: 'Hackney',
       four_week_availability: true,
+      eight_week_availability: true,
+      twelve_week_availability: true,
       first_available_slot_on: '2018-04-27'.to_date,
       last_slot_on: '2018-04-28'.to_date,
       total_slots_created: 2,
@@ -76,6 +80,8 @@ RSpec.feature 'Scheduled reporting summary' do
     expect(@summaries.third).to have_attributes(
       name: 'Reading',
       four_week_availability: false,
+      eight_week_availability: true,
+      twelve_week_availability: true,
       first_available_slot_on: '2018-05-25'.to_date,
       last_slot_on: '2018-05-25'.to_date,
       total_slots_created: 1,

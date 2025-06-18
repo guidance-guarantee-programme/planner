@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_13_074647) do
+ActiveRecord::Schema.define(version: 2025_06_18_165719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -190,6 +190,8 @@ ActiveRecord::Schema.define(version: 2025_05_13_074647) do
     t.date "last_slot_on"
     t.integer "total_slots_created"
     t.integer "total_slots_available"
+    t.boolean "eight_week_availability", default: false, null: false
+    t.boolean "twelve_week_availability", default: false, null: false
   end
 
   create_table "schedules", force: :cascade do |t|
