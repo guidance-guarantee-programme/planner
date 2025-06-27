@@ -22,3 +22,9 @@
 <%= p do %>
   The meeting room is large enough for one other person if you’d like someone to come with you.
 <% end %>
+
+<% if @appointment.booking_request.bsl? %>
+  <%= p do %>
+    <a href="https://actiondeafness.org.uk/feedback-form/">Give feedback on the Pension Wise booking process</a> – your comments and suggestions help us improve our services.
+  <% end %>
+<% end %>
