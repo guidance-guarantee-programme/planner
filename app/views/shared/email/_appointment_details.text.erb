@@ -5,3 +5,7 @@
 Your appointment is with <%= @appointment.guider_name.split.first %> and will usually last around 60 minutes. If you’ve asked for an access adjustment, we might contact you beforehand to ask for more details.
 
 The meeting room is large enough for one other person if you’d like someone to come with you.
+
+<% if @appointment.booking_request.bsl? %>
+Give feedback on the Pension Wise booking process – your comments and suggestions help us improve our services: https://actiondeafness.org.uk/feedback-form/"
+<% end %>
