@@ -223,6 +223,7 @@
                 <%= booking_subform.text_field :data_subject_name, autocomplete: false, class: 't-data-subject-name', label: required_label('Name'), placeholder: 'Name' %>
                 <%= booking_subform.text_field(
                     :data_subject_date_of_birth,
+                    autocomplete: false,
                     label: required_label('Date of birth'),
                     class: 'form-control input-md-2 t-data-subject-date-of-birth js-date-time-picker',
                     placeholder: 'eg 01/01/1950',
@@ -263,6 +264,7 @@
             <div class="form-group">
               <%= f.text_field(
                 :proceeded_at,
+                autocomplete: false,
                 label: 'Date of appointment',
                 class: 'js-date-time-picker t-date form-control',
                 value: @appointment_form.proceeded_at.strftime('%d/%m/%Y'),
