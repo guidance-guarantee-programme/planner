@@ -1,8 +1,10 @@
 class BookingManagerAppointmentChangeNotificationJob < ActiveJob::Base
   queue_as :default
 
+  include BookingManagerable
+
   def perform(appointment)
-    booking_managers = User.booking_managers(appointment.booking_location_id)
+    booking_managers = booking_managers_for(appointment.booking_location_id)
 
     raise BookingManagersNotFoundError if booking_managers.blank?
 
