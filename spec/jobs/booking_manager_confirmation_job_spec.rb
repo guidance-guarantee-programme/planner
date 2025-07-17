@@ -54,7 +54,7 @@ RSpec.describe BookingManagerConfirmationJob, '#perform' do
 
     it 'passes the appointment on to the mailer' do
       expect(BookingRequests).to receive(:booking_manager)
-        .with(appointment, booking_manager)
+        .with(appointment, booking_manager.email)
         .and_return(double.as_null_object)
 
       described_class.new.perform(appointment.booking_request)

@@ -16,7 +16,7 @@ class BookingRequests < ApplicationMailer
     name = booking_request_or_appointment.model_name.human
 
     mailgun_headers('booking_manager_booking_request')
-    mail to: booking_manager.email,
+    mail to: booking_manager,
          subject: "Pension Wise #{name.titleize}" + adjustment_banner(@booking_request_or_appointment)
   end
 
@@ -25,7 +25,7 @@ class BookingRequests < ApplicationMailer
     @booking_manager = booking_manager
 
     mailgun_headers('email_failure_booking_request')
-    mail to: booking_manager.email, subject: 'Email Failure - Pension Wise Booking Request'
+    mail to: booking_manager, subject: 'Email Failure - Pension Wise Booking Request'
   end
 
   private

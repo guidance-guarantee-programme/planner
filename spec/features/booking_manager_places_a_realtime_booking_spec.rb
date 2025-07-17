@@ -111,6 +111,9 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page = Pages::AdHocBookingPreview.new
     expect(@page).to be_displayed
     @page.confirmation.click
+
+    @page = Pages::AppointmentConfirmation.new
+    expect(@page).to be_displayed
   end
 
   def then_the_booking_is_placed_with_cardiff
