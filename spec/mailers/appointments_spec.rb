@@ -45,7 +45,7 @@ RSpec.describe Appointments do
 
     before { appointment.update(name: 'Bob Jones', email: 'bob@bob.com') }
 
-    subject(:mail) { described_class.booking_manager_appointment_changed(appointment, booking_manager) }
+    subject(:mail) { described_class.booking_manager_appointment_changed(appointment, booking_manager.email) }
 
     it_behaves_like 'mailgun identified email'
 
@@ -113,7 +113,7 @@ RSpec.describe Appointments do
   describe 'SMS cancellation' do
     let(:booking_manager) { create(:hackney_booking_manager) }
 
-    subject(:mail) { described_class.booking_manager_cancellation(booking_manager, appointment) }
+    subject(:mail) { described_class.booking_manager_cancellation(booking_manager.email, appointment) }
 
     it_behaves_like 'mailgun identified email'
 

@@ -8,7 +8,7 @@ class EmailDropNotificationJob < ActiveJob::Base
 
     raise BookingManagersNotFoundError if booking_managers.blank?
 
-    return if booking_managers.pluck(:email).include?(booking_request.email)
+    return if booking_managers.include?(booking_request.email)
 
     booking_managers.each do |booking_manager|
       BookingRequests.email_failure(booking_request, booking_manager).deliver_later

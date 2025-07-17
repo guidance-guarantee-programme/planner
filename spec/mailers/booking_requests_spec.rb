@@ -53,7 +53,7 @@ RSpec.describe BookingRequests do
   describe 'Booking Manager Notification' do
     let(:booking_manager) { build_stubbed(:hackney_booking_manager) }
 
-    subject(:mail) { BookingRequests.booking_manager(booking_request, booking_manager) }
+    subject(:mail) { BookingRequests.booking_manager(booking_request, booking_manager.email) }
 
     it_behaves_like 'mailgun identified email'
 
@@ -102,7 +102,7 @@ RSpec.describe BookingRequests do
     let(:booking_request) { build_stubbed(:hackney_booking_request) }
     let(:booking_manager) { build_stubbed(:hackney_booking_manager) }
 
-    subject(:mail) { BookingRequests.email_failure(booking_request, booking_manager) }
+    subject(:mail) { BookingRequests.email_failure(booking_request, booking_manager.email) }
 
     it_behaves_like 'mailgun identified email'
 

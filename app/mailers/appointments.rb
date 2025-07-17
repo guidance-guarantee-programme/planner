@@ -4,7 +4,7 @@ class Appointments < ApplicationMailer
 
     mailgun_headers :booking_manager_appointment_changed
 
-    mail(to: booking_manager.email, subject: appointment_changed_subject(appointment))
+    mail(to: booking_manager, subject: appointment_changed_subject(appointment))
   end
 
   def missed(appointment)
@@ -36,7 +36,7 @@ class Appointments < ApplicationMailer
 
     mailgun_headers :sms_appointment_cancellation
 
-    mail(to: booking_manager.email, subject: 'Pension Wise Appointment SMS Cancellation')
+    mail(to: booking_manager, subject: 'Pension Wise Appointment SMS Cancellation')
   end
 
   def customer(appointment, booking_location)
