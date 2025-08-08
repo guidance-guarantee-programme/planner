@@ -1,4 +1,8 @@
 module AppointmentHelper
+  def appointment_duration(booking)
+    booking.bsl? ? '90' : '60'
+  end
+
   def readonly_additional_info?(current_user)
     true unless current_user.booking_manager? || current_user.agent? || current_user.agent_manager?
   end
