@@ -48,7 +48,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'puma'
   gem 'pusher', '1.3.2'
   gem 'rack-cors'
-  gem 'rails', '~> 6.0'
+  gem 'rails', '~> 8.1'
   gem 'rails-observers'
   gem 'redis'
   gem 'rgeo'
@@ -57,7 +57,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'select2-rails'
   gem 'sidekiq', '~> 7'
   gem 'sinatra', require: false
-  gem 'sprockets', '3.7.2'
+  gem 'sprockets', '4.2.2'
   gem 'sprockets-es6'
   gem 'uglifier', '>= 1.3.0'
   gem 'uk_postcode'
