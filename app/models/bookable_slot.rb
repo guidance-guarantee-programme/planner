@@ -8,12 +8,17 @@ class BookableSlot < ActiveRecord::Base
   validate :validate_date_exclusions
   validate :validate_guider_overlapping
   validate :validate_appointment_overlapping
+  validate :validate_permitted_date
 
   scope :realtime, -> { where.not(guider_id: nil) }
   scope :non_realtime, -> { where(guider_id: nil) }
 
   def realtime?
     guider_id?
+  end
+
+  def permitted_date?
+    start_at < Time.zone.parse('2026-02-28 23:59')
   end
 
   def self.windowed(date_range)
@@ -76,5 +81,9 @@ class BookableSlot < ActiveRecord::Base
     errors.add(:base, 'cannot occur on this date as it is a listed exclusion') if Exclusions
                                                                                   .new
                                                                                   .include?(start_at.to_date)
+  end
+
+  def validate_permitted_date
+    errors.add(:base, 'cannot occur on this date as a block is in place') unless permitted_date?
   end
 end

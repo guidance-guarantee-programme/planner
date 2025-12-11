@@ -18,7 +18,7 @@ node_js:
 - '16.20.2'
 before_install:
 - gem update --system
-- gem install bundler
+- gem install bundler -v 2.4.19
 before_script:
 - "[ -d .downloads ] || mkdir .downloads"
 - "(cd .downloads; [ -d prince-9.0r5-linux-amd64-static ] || curl -s https://www.princexml.com/download/prince-9.0r5-linux-amd64-static.tar.gz | tar xzf -)"
