@@ -65,7 +65,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, :agent, to: :booking_request
   delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
-  delegate :pension_provider, :adjustment?, :bsl?, :welsh?, to: :booking_request
+  delegate :pension_provider, :adjustment?, :bsl?, :welsh?, :video_appointment?, to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true, unless: :agent_id?

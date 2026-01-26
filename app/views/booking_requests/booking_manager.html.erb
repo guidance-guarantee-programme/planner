@@ -2,6 +2,12 @@
   A new <%= @booking_request_or_appointment.model_name.human.downcase %> has come in.
 <% end %>
 
+<% if @booking_request_or_appointment.video_appointment? %>
+  <%= p do %>
+    <strong>The customer has indicated they require a video appointment</strong>
+  <% end %>
+<% end %>
+
 <% if @booking_request_or_appointment.accessibility_requirements? %>
   <%= p do %>
     <strong>The customer has indicated they require help or an accessibility adjustment to access their appointment</strong>

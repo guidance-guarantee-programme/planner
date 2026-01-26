@@ -278,4 +278,14 @@ RSpec.describe BookingRequest do
       end
     end
   end
+
+  describe '#adjustment?' do
+    context 'when the appointment is video' do
+      it 'is true' do
+        booking = build(:booking_request, video_appointment: true)
+
+        expect(booking).to be_adjustment
+      end
+    end
+  end
 end

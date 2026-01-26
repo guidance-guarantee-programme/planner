@@ -1,5 +1,9 @@
 A new <%= @booking_request_or_appointment.model_name.human.downcase %> has come in.
 
+<% if @booking_request_or_appointment.video_appointment? %>
+The customer has indicated they require a video appointment
+<% end %>
+
 <% if @booking_request_or_appointment.accessibility_requirements? %>
 The customer has indicated they require help or an accessibility adjustment to access their appointment
 <% end %>

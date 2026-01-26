@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_06_18_165719) do
+ActiveRecord::Schema.define(version: 2026_01_26_113707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 2025_06_18_165719) do
     t.boolean "bsl", default: false, null: false
     t.boolean "welsh", default: false
     t.string "adjustments", default: "", null: false
+    t.boolean "video_appointment", default: false
+    t.string "video_appointment_url", default: "", null: false
   end
 
   create_table "guider_lookups", force: :cascade do |t|
