@@ -504,7 +504,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     uk_postcode (2.1.4)
     unicode-display_width (2.4.2)
-    uri (0.12.4)
+    uri (0.12.5)
     warden (1.2.9)
       rack (>= 2.0.9)
     warden-oauth2 (0.0.1)
