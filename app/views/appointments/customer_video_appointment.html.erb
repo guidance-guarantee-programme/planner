@@ -1,0 +1,26 @@
+<%= h2 do %>
+  Your Pension Wise video appointment link
+<% end %>
+
+<%= p do %>
+  <strong>Reference number:</strong> <%= @appointment.reference %>
+<% end %>
+
+<%= p do %>
+  Dear <%= @appointment.name %>,
+<% end %>
+
+<%= p do %>
+  Your video appointment can be <%= link_to 'accessed here', @appointment.video_appointment_url %>.
+<% end %>
+
+<%= h2 do %>
+  How to change or cancel your appointment
+<% end %>
+<%= p do %>
+  To change or cancel your Pension Wise appointment, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
+<% end %>
+
+<%= render 'shared/email/preparing_for_appointment' %>
+
+<%= render 'shared/email/money_helper' %>

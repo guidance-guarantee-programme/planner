@@ -1,12 +1,19 @@
 class AppointmentsPreview < ActionMailer::Preview
   def booking_manager_appointment_changed
     @booking_manager = User.first || FactoryBot.create(:hackney_booking_manager)
-    @appointment     = Appointment.first || FactoryBot.create(:appointment)
+    @appointment     = Appointment.first || FactoryBot.create(:appointment, :video)
 
     # force an audit to be present
     @appointment.update(name: 'Bob Jones', email: 'bleh@example.com')
 
     Appointments.booking_manager_appointment_changed(@appointment, @booking_manager)
+  end
+
+  def customer_video_appointment
+    Appointments.customer_video_appointment(
+      Appointment.first,
+      booking_location
+    )
   end
 
   def cancellation

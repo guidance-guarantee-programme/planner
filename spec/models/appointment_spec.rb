@@ -180,6 +180,16 @@ RSpec.describe Appointment do
 
           expect(original).to be_notify
         end
+
+        context 'when video appointment attributes are altered' do
+          it 'returns false' do
+            original.update!(
+              booking_request_attributes: { video_appointment: true, video_appointment_url: 'https://example.com' }
+            )
+
+            expect(original).not_to be_notify
+          end
+        end
       end
 
       context 'when the status was changed' do

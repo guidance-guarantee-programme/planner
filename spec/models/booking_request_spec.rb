@@ -160,6 +160,17 @@ RSpec.describe BookingRequest do
       end
     end
 
+    it 'validates video_appointment_url when provided' do
+      @booking = build(:video_booking_request)
+      expect(@booking).to be_valid
+
+      @booking.video_appointment_url = 'http://localhost'
+      expect(@booking).to be_invalid
+
+      @booking.video_appointment_url = 'https://example.org'
+      expect(@booking).to be_valid
+    end
+
     context 'when created before the default third-party validation cut-off' do
       it 'does not enforce the third party attributes' do
         @booking = create(

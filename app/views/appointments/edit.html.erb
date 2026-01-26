@@ -1,5 +1,11 @@
 <% content_for(:page_title, t('service.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
 
+<% if @appointment_form.video_appointment? %>
+<div class="alert alert-warning" role="alert">
+  <p>This appointment will be delivered by <strong>video call</strong>.</p>
+</div>
+<% end %>
+
 <% if @appointment_form.welsh? %>
 <div class="alert alert-warning" role="alert">
   <p>This appointment will be delivered in Welsh.</p>
@@ -213,6 +219,11 @@
               <%= booking_subform.text_area :adjustments, use_label: false, autocomplete: 'off', maxlength: 1000, class: 't-adjustments js-adjustments js-character-limit-input', rows: 6,
                 placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
               %>
+            </div>
+
+            <%= booking_subform.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?', data: { target: 'video_appointment_url' } %>
+            <div id="video_appointment_url">
+              <%= booking_subform.url_field :video_appointment_url, class: 't-video-appointment-url', label: 'Video appointment URL', data: { target: 'video_appointment_url' } %>
             </div>
 
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>

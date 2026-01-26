@@ -65,7 +65,9 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   delegate :realtime?, :reference, :activities, :agent_id?, :booking_location_id, :agent, to: :booking_request
   delegate :address_line_one, :address_line_two, :address_line_three, :town, :county, :postcode, to: :booking_request
-  delegate :pension_provider, :adjustment?, :bsl?, :welsh?, :video_appointment?, to: :booking_request
+  delegate :pension_provider, :adjustment?, :bsl?, :welsh?, :video_appointment?, :video_appointment_url?,
+           :video_appointment_url,
+           to: :booking_request
 
   validates :name, presence: true
   validates :email, presence: true, email: true, unless: :agent_id?
@@ -136,6 +138,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     !cas? && bsl? && completed? && previous_changes.include?(:status)
   end
 
+  def video_appointment_url_assigned?
+    video_appointment? && video_appointment_url? && booking_request.previous_changes.include?(:video_appointment_url)
+  end
+
   def cas?
     booking_location_id == CAS_BOOKING_LOCATION_ID
   end
@@ -161,10 +167,12 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     own_and_associated_audits.present?
   end
 
-  def notify?
+  def notify? # rubocop:disable Metrics/AbcSize
     return false if proceeded_at.past?
     return true  if previous_changes.any? && previous_changes.exclude?(:status)
-    return true  if booking_request.previous_changes.any? && booking_request.previous_changes.exclude?(:updated_at)
+    return true  if booking_request.previous_changes.any? && booking_request.previous_changes.slice(
+      :updated_at, :video_appointment, :video_appointment_url
+    ).none?
 
     previous_changes[:status] && pending?
   end

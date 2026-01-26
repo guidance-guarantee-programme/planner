@@ -24,6 +24,8 @@ module Pages
     element :third_party, '.t-third-party'
     element :data_subject_name, '.t-data-subject-name'
     element :data_subject_date_of_birth, '.t-data-subject-date-of-birth'
+    element :video_appointment, '.t-video-appointment'
+    element :video_appointment_url, '.t-video-appointment-url'
 
     element :date, '.t-date'
     element :time_hour, '#appointment_proceeded_at_4i'

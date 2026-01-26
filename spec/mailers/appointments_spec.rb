@@ -167,6 +167,28 @@ RSpec.describe Appointments do
     end
   end
 
+  describe 'Customer video appointment' do
+    let(:appointment) { create(:appointment, :video) }
+    subject(:mail) { described_class.customer_video_appointment(appointment, hackney) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Your Pension Wise Video Appointment Link')
+      expect(mail.to).to eq([appointment.email])
+      expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
+      expect(mail.reply_to).to eq(['dave@example.com'])
+    end
+
+    describe 'rendering the body' do
+      let(:body) { subject.body.encoded }
+
+      it 'includes the appointment particulars' do
+        expect(body).to include(appointment.video_appointment_url)
+      end
+    end
+  end
+
   describe 'Customer notification' do
     subject(:mail) { described_class.customer(appointment, hackney) }
 

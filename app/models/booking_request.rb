@@ -33,6 +33,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :where_you_heard, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
+  validates :video_appointment_url, url: { allow_blank: true, no_local: true, schemes: ['https'] }
 
   validates :data_subject_name, presence: true, if: :validate_third_party?
   validates :data_subject_date_of_birth, presence: true, if: :validate_third_party?

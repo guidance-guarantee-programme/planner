@@ -7,6 +7,18 @@ class Appointments < ApplicationMailer
     mail(to: booking_manager, subject: appointment_changed_subject(appointment))
   end
 
+  def customer_video_appointment(appointment, booking_location)
+    @appointment = decorate(appointment, booking_location)
+
+    mailgun_headers :customer_video_appointment
+
+    mail(
+      to: @appointment.email,
+      subject: 'Your Pension Wise Video Appointment Link',
+      reply_to: @appointment.online_booking_reply_to
+    )
+  end
+
   def missed(appointment)
     @appointment = decorate(appointment)
 
