@@ -54,16 +54,20 @@ module Agent
             bsl
             gdpr_consent
             adjustments
+            video_appointment
+            video_appointment_url
           )
         )
     end
 
     def notify_customer(appointment)
-      return unless appointment.notify?
+      if appointment.notify?
+        BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
+        AppointmentChangeNotificationJob.perform_later(appointment)
+        PrintedConfirmationLetterJob.perform_later(appointment)
+      end
 
-      BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
-      AppointmentChangeNotificationJob.perform_later(appointment)
-      PrintedConfirmationLetterJob.perform_later(appointment)
+      AppointmentVideoUrlNotificationJob.perform_later(appointment) if appointment.video_appointment_url_assigned?
     end
   end
 end
