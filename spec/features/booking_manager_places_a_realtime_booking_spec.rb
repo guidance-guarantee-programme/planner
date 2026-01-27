@@ -182,6 +182,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.third_party.set(true)
+    @page.video_appointment.set(true)
 
     expect(@page).not_to have_welsh
 
@@ -236,7 +237,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
       gdpr_consent: 'yes',
       third_party: true,
       bsl: false,
-      adjustments: 'Their adjustments'
+      adjustments: 'Their adjustments',
+      video_appointment: true
     )
   end
 

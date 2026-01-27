@@ -35,6 +35,8 @@ module Pages
     element :additional_info, '.t-additional-info'
     element :bsl, '.t-bsl-video'
     element :welsh, '.t-welsh'
+    element :video_appointment, '.t-video-appointment'
+    element :video_appointment_url, '.t-video-appointment-url'
 
     element :third_party, '.t-third-party'
     element :data_subject_name, '.t-data-subject-name'

@@ -25,7 +25,8 @@ RSpec.describe BookingManagerAppointmentForm do
       scheduled: 'true',
       third_party: false,
       bsl: false,
-      data_subject_name: ''
+      data_subject_name: '',
+      video_appointment: false
     )
   end
 
