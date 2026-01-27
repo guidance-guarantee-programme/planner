@@ -14,7 +14,7 @@ RSpec.describe Appointments do
     it_behaves_like 'mailgun identified email'
 
     it 'includes the feedback link' do
-      expect(subject.body.encoded).to include('actiondeafness.org.uk/feedback-form')
+      expect(subject.body.encoded).to include('www.pensionwise.gov.uk/bsl-exit-poll')
     end
   end
 
