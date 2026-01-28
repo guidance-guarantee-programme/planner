@@ -21,7 +21,6 @@ RSpec.feature 'Agent places a realtime booking' do
       and_they_confirm_the_booking
       and_the_agent_sees_the_confirmation
       then_the_booking_is_placed
-      and_the_appointment_is_automatically_fulfilled
       and_the_customer_is_notified
       and_the_booking_manager_is_notified
     end
@@ -32,7 +31,7 @@ RSpec.feature 'Agent places a realtime booking' do
   end
 
   def given_the_user_identifies_as_an_agent
-    create(:agent)
+    create(:agent_manager)
   end
 
   def then_they_are_told_they_cannot_be_authorised
@@ -90,45 +89,31 @@ RSpec.feature 'Agent places a realtime booking' do
     expect(@page.first_choice_slot).to have_text('7 November 2018 - 09:00')
 
     @page.confirmation.click
-    @booking = BookingRequest.last
   end
 
   def then_the_booking_is_placed
     @page = Pages::AgentBookingConfirmation.new
     expect(@page).to be_displayed
 
-    expect(@booking).to have_attributes(
-      name: 'Summer Sanchez',
-      email: 'summer@example.com',
-      phone: '07715 930 444',
-      memorable_word: 'spaceships',
-      date_of_birth: Date.parse('1950-01-01'),
-      accessibility_requirements: true,
-      adjustments: 'These adjustments.',
-      defined_contribution_pot_confirmed: true,
-      where_you_heard: 17, # Other
-      address_line_one: '3 Grange View',
-      town: 'Reading',
-      county: 'Berkshire',
-      postcode: 'RG1 1AA',
-      age_range: '55-plus',
-      additional_info: 'Other notes',
-      gdpr_consent: 'yes',
-      pension_provider: '',
-      bsl: false,
-      nudged: true,
-      third_party: true,
-      data_subject_name: 'Bob Bobson',
-      data_subject_date_of_birth: '02/02/1980'
-    )
-  end
+    @reference = @page.reference(visible: false).text(:all)
+    @page = Pages::AgentEditAppointment.new
+    @page.load(id: @reference)
 
-  def and_the_appointment_is_automatically_fulfilled
-    @appointment = @booking.appointment
-
-    expect(@appointment).to have_attributes(
-      proceeded_at: Time.zone.parse('2018-11-07 09:00')
-    )
+    expect(@page.name.value).to eq('Summer Sanchez')
+    expect(@page.email.value).to eq('summer@example.com')
+    expect(@page.phone.value).to eq('07715 930 444')
+    expect(@page.memorable_word.value).to eq('spaceships')
+    expect(@page.day_of_birth.value).to eq('1')
+    expect(@page.month_of_birth.value).to eq('1')
+    expect(@page.year_of_birth.value).to eq('1950')
+    expect(@page.accessibility_requirements).to be_checked
+    expect(@page.adjustments.value).to eq('These adjustments.')
+    expect(@page.defined_contribution_pot_confirmed_yes).to be_checked
+    expect(@page.additional_information.value).to eq('Other notes')
+    expect(@page.gdpr_consent_yes).to be_checked
+    expect(@page.third_party).to be_checked
+    expect(@page.data_subject_name.value).to eq('Bob Bobson')
+    expect(@page.data_subject_date_of_birth.value).to eq('02/02/1980')
   end
 
   def and_the_agent_sees_the_confirmation

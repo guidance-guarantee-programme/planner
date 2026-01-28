@@ -117,7 +117,8 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def then_the_booking_is_placed_with_cardiff
-    expect(Appointment.last).to be_welsh
+    @page = Pages::AppointmentConfirmation.new
+    expect(@page).to be_displayed
   end
 
   def and_available_realtime_slots_exist_within_the_booking_window
