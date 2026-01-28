@@ -115,6 +115,7 @@ RSpec.feature 'Agent places a realtime booking' do
     expect(@page.third_party).to be_checked
     expect(@page.data_subject_name.value).to eq('Bob Bobson')
     expect(@page.data_subject_date_of_birth.value).to eq('02/02/1980')
+    expect(@page.video_appointment).to be_checked
   end
 
   def and_the_agent_sees_the_confirmation
