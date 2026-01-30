@@ -169,6 +169,9 @@ RSpec.describe BookingRequest do
 
       @booking.video_appointment_url = 'https://example.org'
       expect(@booking).to be_valid
+
+      @booking.video_appointment_url = ' https://nice.org  '
+      expect(@booking).to be_valid
     end
 
     context 'when created before the default third-party validation cut-off' do

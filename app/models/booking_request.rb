@@ -45,6 +45,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   has_one_attached :data_subject_consent_evidence
   has_one_attached :power_of_attorney_evidence
 
+  before_validation :trim_video_appointment_url
   before_validation :purge_conditional_third_party_data, on: :update
 
   alias reference to_param
@@ -139,5 +140,9 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     return unless third_party?
 
     created_at && created_at > Time.zone.parse(ENV.fetch('THIRD_PARTY_CUT_OFF') { '2023-07-31 08:00:00' })
+  end
+
+  def trim_video_appointment_url
+    video_appointment_url.squish! if video_appointment_url?
   end
 end
