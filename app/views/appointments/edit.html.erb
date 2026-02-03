@@ -221,10 +221,12 @@
               %>
             </div>
 
+            <% if video_visible?(current_user) %>
             <%= booking_subform.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?', data: { target: 'video_appointment_url' } %>
             <div id="video_appointment_url">
               <%= booking_subform.url_field :video_appointment_url, class: 't-video-appointment-url', label: 'Video appointment URL', data: { target: 'video_appointment_url' } %>
             </div>
+            <% end %>
 
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>

@@ -10,5 +10,9 @@ FactoryBot.define do
     trait :cardiff_and_vale do
       location_id { '525da418-ff2c-4522-90a9-bc70ba4ca78b' }
     end
+
+    trait :ops do
+      location_id { '14a48488-a42f-422d-969d-526e30922fe4' }
+    end
   end
 end

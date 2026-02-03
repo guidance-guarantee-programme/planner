@@ -296,8 +296,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.defined_contribution_pot_confirmed_yes).to be_checked
     expect(@page.accessibility_requirements.value).to eq('1')
     expect(@page.gdpr_consent).to have_text('Yes')
-    expect(@page).to have_video_appointment
-    expect(@page.video_appointment_url).to be_visible
+    expect(@page).not_to have_video_appointment
 
     # ensure Hackney is pre-selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
@@ -336,7 +335,6 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @page.guider.select('Bob Johnson')
     @page.bsl.set(true)
     @page.third_party.set(true)
-    @page.video_appointment_url.set('https://example.com')
 
     @page.wait_until_data_subject_name_visible
     @page.data_subject_name.set('Bob Bobson')
@@ -355,7 +353,6 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.time_minute.value).to eq '15'
     expect(@page.guider.find('option', text: 'Bob Johnson').selected?).to eq true
     expect(@page.bsl).to be_checked
-    expect(@page.video_appointment_url.value).to eq('https://example.com')
   end
 
   def and_the_customer_is_notified
@@ -365,8 +362,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_customer_is_notified_correctly
     expect(ActionMailer::Base.deliveries.map(&:subject)).to include(
-      'Your Pension Wise Appointment',
-      'Your Pension Wise Video Appointment Link'
+      'Your Pension Wise Appointment'
     )
   end
 
@@ -375,11 +371,10 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def and_the_booking_request_has_associated_audit_and_mail_activity
-    expect(@booking_request.activities.count).to eq(3)
+    expect(@booking_request.activities.count).to eq(2)
     expect(@booking_request.activities.map(&:class)).to include(
       AppointmentMailActivity,
-      AuditActivity,
-      VideoAppointmentUrlActivity
+      AuditActivity
     )
   end
 
