@@ -1,17 +1,24 @@
-Your Pension Wise appointment has been cancelled
+Your Pension Wise <%= @appointment.type_label %> appointment has been cancelled
 
 Reference number: <%= @appointment.reference %>
 
 Dear <%= @appointment.name %>,
 
 <% if @appointment.cancelled_by_pension_wise? %>
-Unfortunately, we need to cancel your Pension Wise appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>. We will contact you to arrange a new date and time within one working day.
+Unfortunately, we need to cancel your Pension Wise <%= @appointment.type_label %> appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>. We will contact you to arrange a new date and time within one working day.
 
-You can also reply to this email with your availability, https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment book a new date and time or have an "https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
+<% if @appointment.video_appointment? %>
+You can also reply to this email with your availability, book a new date and time by calling 0800 138 1585 (+44 20 3733 3495 if you’re outside the UK) or have an https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
 <% else %>
-Your Pension Wise appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %> has been cancelled.
-
-You can book a new date and time or have an https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
+You can also reply to this email with your availability, https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment book a new date and time or have an https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
+<% end %>
+<% else %>
+Your Pension Wise <%= @appointment.type_label %> appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %> has been cancelled.
+<% if @appointment.video_appointment? %>
+You can book a new date and time by calling 0800 138 1585 (+44 20 3733 3495 if you’re outside the UK) or have an https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
+<% else %>
+You can https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment book a new date and time or have an https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start online Pension Wise appointment at any time.
+<% end %>
 <% end %>
 
-<%= render '/shared/email/money_helper' %>
+<%= render 'shared/email/money_helper' %>

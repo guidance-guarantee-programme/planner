@@ -4,12 +4,30 @@ Reference number: <%= @appointment.reference %>
 
 Dear <%= @appointment.name %>,
 
-Your video appointment can be access here: <%= @appointment.video_appointment_url %>
+This is the link to join your Pension Wise video appointment on: 
 
-How to change or cancel your appointment
+Date: <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
+Time: <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
 
-To change or cancel your Pension Wise appointment, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
+Link to join: <%= @appointment.video_appointment_url %>
 
-<%= render 'shared/email/preparing_for_appointment' %>
+When you join the appointment, our specialist will repeat the memorable word you gave us so you know you’re speaking to Pension Wise.
+
+We’ll wait for up to 10 minutes for you to join. After this, your appointment will need to be rescheduled as there won’t be enough time to cover everything.
+
+Check you have the right software
+
+Our video appointments use Microsoft Teams, so you’ll either need a device with:
+
+* an internet browser – Google Chrome and Microsoft Edge usually work best with Teams
+* the free Microsoft Teams app – you can download this from your device’s app store
+
+How to join your video appointment
+
+1. Choose a quiet place with good lighting. Make sure your device is plugged in or fully charged
+2. Click the link to join. If a box pops up asking to use your camera and microphone, click allow
+3. Enter your full name
+4. Turn your camera and microphone on. If not already on, you can use the toggle buttons next to the camera and microphone icon
+5. Click the join now button. You’ll be put in a virtual waiting room until our pension specialist starts the meeting.
 
 <%= render 'shared/email/money_helper' %>

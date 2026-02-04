@@ -1,6 +1,8 @@
 * Date: <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
 * Time: <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
+<% unless @appointment.video_appointment? %>
 * Address: <%= @appointment.location_name %>, <%= @appointment.address_lines.join(', ') %>
+<% end %>
 
 <% if @appointment.booking_request.bsl? %>
 Your appointment is with <%= @appointment.guider_name.split.first %> and a British Sign Language interpreter. It should last around 90 minutes. If you’ve asked for an access adjustment, we might contact you beforehand to ask for more details.
@@ -8,7 +10,23 @@ Your appointment is with <%= @appointment.guider_name.split.first %> and a Briti
 Your appointment is with <%= @appointment.guider_name.split.first %> and will usually last around 60 minutes. If you’ve asked for an access adjustment, we might contact you beforehand to ask for more details.
 <% end %>
 
+<% if @appointment.video_appointment? %>
+How to join your video appointment
+
+You’ll be sent a link to access your video appointment at least 2 days before
+your appointment time, with instructions on how to use it. Only you and our
+pensions specialist will have access to the link.
+
+When you join the appointment, our specialist will repeat the memorable word
+you gave us so you know you’re speaking to Pension Wise.
+
+We’ll wait for up to 10 minutes for you to join. After this, your appointment
+will need to be rescheduled as there won’t be enough time to cover everything.
+<% end %>
+
+<% unless @appointment.video_appointment? %>
 The meeting room is large enough for one other person if you’d like someone to come with you.
+<% end %>
 
 <% if @appointment.booking_request.bsl? %>
 Give feedback on the Pension Wise booking process – your comments and suggestions help us improve our services: https://www.pensionwise.gov.uk/bsl-exit-poll

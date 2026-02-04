@@ -1,8 +1,8 @@
 <%= h2 do %>
   <% if @appointment.updated? %>
-    Your Pension Wise appointment has been updated
+    Your Pension Wise <%= @appointment.type_label %> appointment has been updated
   <% else %>
-    Your Pension Wise appointment is confirmed
+    Your Pension Wise <%= @appointment.type_label %> appointment is confirmed
   <% end %>
 <% end %>
 
@@ -16,9 +16,9 @@
 
 <%= p do %>
   <% if @appointment.updated? %>
-    Your new Pension Wise appointment is booked for: 
+    Your new Pension Wise <%= @appointment.type_label %> appointment is booked for: 
   <% else %>
-    Your Pension Wise appointment is booked for: 
+    Your Pension Wise <%= @appointment.type_label %> appointment is booked for: 
   <% end %>
 <% end %>
 
@@ -28,7 +28,7 @@
   How to change or cancel your appointment
 <% end %>
 <%= p do %>
-  To change or cancel your Pension Wise appointment, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
+  To change or cancel your Pension Wise <%= @appointment.type_label %> appointment, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
 <% end %>
 
 <%= render 'shared/email/preparing_for_appointment' %>

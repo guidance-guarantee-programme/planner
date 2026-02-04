@@ -26,7 +26,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: @appointment.email,
-      subject: 'Your Pension Wise Appointment',
+      subject: @appointment.subject,
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -38,7 +38,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: @appointment.email,
-      subject: 'Your Pension Wise Appointment Cancellation',
+      subject: @appointment.subject(suffix: ' Cancellation'),
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -58,7 +58,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: appointment.email,
-      subject: 'Your Pension Wise Appointment',
+      subject: @appointment.subject,
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -82,7 +82,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: appointment.email,
-      subject: 'Your Pension Wise Appointment Reminder',
+      subject: @appointment.subject(suffix: ' Reminder'),
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -104,9 +104,11 @@ class Appointments < ApplicationMailer
   def decorate(appointment, booking_location = nil)
     booking_location ||= BookingLocations.find(appointment.location_id)
 
-    LocationAwareEntity.new(
-      entity: appointment,
-      booking_location: booking_location
+    AppointmentEmailDecorator.new(
+      LocationAwareEntity.new(
+        entity: appointment,
+        booking_location: booking_location
+      )
     )
   end
 
