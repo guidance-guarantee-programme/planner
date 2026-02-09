@@ -58,6 +58,15 @@ class AppointmentsPreview < ActionMailer::Preview
     Appointments.customer(@appointment, booking_location)
   end
 
+  def video_customer_exit_poll
+    appointment = Appointment.first
+    appointment.booking_request.video_appointment = true
+    appointment.booking_request.bsl = false
+    appointment.booking_request.video_appointment_url = 'https://teams.microsoft.com/12345678?p=deadbeef'
+
+    Appointments.video_customer_exit_poll(appointment)
+  end
+
   private
 
   def booking_location

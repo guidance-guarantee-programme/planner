@@ -6,6 +6,18 @@ RSpec.describe Appointments do
   end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
 
+  describe 'Video customer exit poll' do
+    let(:appointment) { build_stubbed(:appointment, :video, status: :completed) }
+
+    subject(:mail) { described_class.video_customer_exit_poll(appointment) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'includes the feedback link' do
+      expect(subject.body.encoded).to include('www.pensionwise.gov.uk/video-exit-poll')
+    end
+  end
+
   describe 'BSL customer exit poll' do
     let(:appointment) { build_stubbed(:appointment, :bsl, status: :completed) }
 

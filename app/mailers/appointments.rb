@@ -75,6 +75,18 @@ class Appointments < ApplicationMailer
     )
   end
 
+  def video_customer_exit_poll(appointment)
+    @appointment = decorate(appointment)
+
+    mailgun_headers :video_customer_exit_poll
+
+    mail(
+      to: appointment.email,
+      subject: 'Pension Wise Video Appointment',
+      reply_to: @appointment.online_booking_reply_to
+    )
+  end
+
   def reminder(appointment, booking_location)
     @appointment = decorate(appointment, booking_location)
 

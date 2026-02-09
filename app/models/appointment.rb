@@ -138,6 +138,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     !cas? && bsl? && completed? && previous_changes.include?(:status)
   end
 
+  def video_newly_completed?
+    video_appointment? && completed? && previous_changes.include?(:status)
+  end
+
   def video_appointment_url_assigned?
     video_appointment? && video_appointment_url? && booking_request.previous_changes.include?(:video_appointment_url)
   end
