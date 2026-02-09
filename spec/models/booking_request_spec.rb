@@ -167,10 +167,10 @@ RSpec.describe BookingRequest do
       @booking.video_appointment_url = 'http://localhost'
       expect(@booking).to be_invalid
 
-      @booking.video_appointment_url = 'https://example.org'
+      @booking.video_appointment_url = 'https://teams.microsoft.com/meet/12345677654321?p=abcd1234'
       expect(@booking).to be_valid
 
-      @booking.video_appointment_url = ' https://nice.org  '
+      @booking.video_appointment_url = '   https://teams.microsoft.com/meet/12345677654321?p=abcd1234   '
       expect(@booking).to be_valid
     end
 

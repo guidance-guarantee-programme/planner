@@ -34,7 +34,7 @@ FactoryBot.define do
 
     factory :video_booking_request do
       video_appointment { true }
-      video_appointment_url { 'https://example.com/video' }
+      video_appointment_url { 'https://teams.microsoft.com/meet/12345677654321?p=abcd1234' }
     end
 
     factory :agent_booking_request do

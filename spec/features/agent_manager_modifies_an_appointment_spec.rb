@@ -96,7 +96,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @page.defined_contribution_pot_confirmed_dont_know.set(true)
     @page.gdpr_consent_yes.set(true)
     @page.video_appointment.set(true)
-    @page.video_appointment_url.set('https://example.com')
+    @page.video_appointment_url.set('https://teams.microsoft.com/meet/12345677654321?p=abcd')
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible

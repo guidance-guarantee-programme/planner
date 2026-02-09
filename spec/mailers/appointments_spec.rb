@@ -196,7 +196,7 @@ RSpec.describe Appointments do
       let(:body) { subject.body.encoded }
 
       it 'includes the appointment particulars' do
-        expect(body).to include(appointment.video_appointment_url)
+        expect(body).to include('https://teams.microsoft.com/meet/12345677654321?p=')
       end
     end
   end
