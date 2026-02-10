@@ -25,6 +25,7 @@ class WhereYouHeard
     '22' => 'Virtual 121 sessions on Pensions Awareness Day website',
     '25' => 'External (Stronger Nudge)',
     '26' => 'Talk Money Week',
+    '27' => 'MoneyHelper Pensions Dashboard',
     '17' => 'Other'
   }.freeze
 end
