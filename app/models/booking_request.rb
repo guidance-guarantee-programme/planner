@@ -36,7 +36,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   validates :video_appointment_url, allow_blank: true, format: {
     with: %r{\Ahttps://teams\.microsoft\.com/meet/\d{14}\?p=.+\z},
     message: 'must be a valid MS Teams meeting URL'
-  }
+  }, uniqueness: true
 
   validates :data_subject_name, presence: true, if: :validate_third_party?
   validates :data_subject_date_of_birth, presence: true, if: :validate_third_party?

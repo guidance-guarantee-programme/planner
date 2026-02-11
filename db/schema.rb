@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_01_26_113707) do
+ActiveRecord::Schema.define(version: 2026_02_11_142842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 2026_01_26_113707) do
     t.string "adjustments", default: "", null: false
     t.boolean "video_appointment", default: false
     t.string "video_appointment_url", default: "", null: false
+    t.index ["video_appointment_url"], name: "index_booking_requests_on_video_appointment_url", unique: true, where: "(((video_appointment_url)::text <> ''::text) AND (video_appointment_url IS NOT NULL))"
   end
 
   create_table "guider_lookups", force: :cascade do |t|
