@@ -12,7 +12,7 @@ module Agent
 
     def update
       if @appointment.update(edit_appointment_params)
-        notify_customer(@appointment.entity)
+        notify_customer(@appointment.entity) if @appointment.notify?
 
         redirect_to edit_agent_appointment_path(@appointment),
                     success: 'The appointment was updated.'
@@ -55,19 +55,14 @@ module Agent
             gdpr_consent
             adjustments
             video_appointment
-            video_appointment_url
           )
         )
     end
 
     def notify_customer(appointment)
-      if appointment.notify?
-        BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
-        AppointmentChangeNotificationJob.perform_later(appointment)
-        PrintedConfirmationLetterJob.perform_later(appointment)
-      end
-
-      AppointmentVideoUrlNotificationJob.perform_later(appointment) if appointment.video_appointment_url_assigned?
+      BookingManagerAppointmentChangeNotificationJob.perform_later(appointment)
+      AppointmentChangeNotificationJob.perform_later(appointment)
+      PrintedConfirmationLetterJob.perform_later(appointment)
     end
   end
 end
