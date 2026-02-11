@@ -56,7 +56,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     stub_api = Class.new do
       def get(*)
         result = {
-          'uid' => '14a48488-a42f-422d-969d-526e30922fe4',
+          'uid' => Appointment::OPS_BOOKING_LOCATION_ID,
           'name' => 'Pension Wise Video Appointment',
           'accessibility_information' => 'Access via the lift is currently unavailable',
           'geometry' => {

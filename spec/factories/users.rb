@@ -23,7 +23,7 @@ FactoryBot.define do
     end
 
     factory :ops_booking_manager, parent: :booking_manager do
-      organisation_content_id { '14a48488-a42f-422d-969d-526e30922fe4' }
+      organisation_content_id { Appointment::OPS_BOOKING_LOCATION_ID }
     end
 
     factory :cardiff_and_vale_booking_manager, parent: :booking_manager do

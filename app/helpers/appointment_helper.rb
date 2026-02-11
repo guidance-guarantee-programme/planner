@@ -8,7 +8,7 @@ module AppointmentHelper
   end
 
   def video_visible?(current_user)
-    current_user.organisation_content_id == '14a48488-a42f-422d-969d-526e30922fe4' # ops
+    current_user.organisation_content_id == Appointment::OPS_BOOKING_LOCATION_ID
   end
 
   def welsh_visible?(current_user)
