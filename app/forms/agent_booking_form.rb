@@ -29,6 +29,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     data_subject_name
     data_subject_date_of_birth
     adjustments
+    video_appointment
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -62,6 +63,7 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
     nudged
     accessibility_requirements
     third_party
+    video_appointment
   ).freeze
 
   BOOLEAN_ATTRS.each do |boolean_attr|
@@ -142,7 +144,8 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
       third_party: third_party,
       data_subject_name: data_subject_name,
       data_subject_date_of_birth: data_subject_date_of_birth,
-      adjustments: adjustments
+      adjustments: adjustments,
+      video_appointment: video_appointment
     }
   end
 

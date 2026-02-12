@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resource :postal_address, only: %i(edit update)
 
     resource :confirmation, only: :create
+    resource :video_confirmation, only: :create
 
     resource :consent, only: %i(update show)
   end

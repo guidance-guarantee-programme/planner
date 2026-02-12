@@ -71,6 +71,12 @@ class AppointmentsController < ApplicationController
       PrintedConfirmationLetterJob.perform_later(appointment)
     end
 
+    AppointmentVideoUrlNotificationJob.perform_later(appointment) if appointment.video_appointment_url_assigned?
+    schedule_exit_polls(appointment)
+  end
+
+  def schedule_exit_polls(appointment)
+    VideoCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment) if appointment.video_newly_completed?
     BslCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment) if appointment.bsl_newly_completed?
   end
 
@@ -131,6 +137,8 @@ class AppointmentsController < ApplicationController
           bsl
           welsh
           adjustments
+          video_appointment
+          video_appointment_url
         )
       ).merge(current_user: current_user)
   end

@@ -76,6 +76,16 @@
             data: { confirm: 'Are you sure?' }
         )
       %>
+      <% if @appointment.video_appointment_url? %>
+        <hr>
+        <%= button_to(
+              'Resend video link instructions',
+              booking_request_video_confirmation_path(@appointment.booking_request),
+              class: 'btn btn-default btn-block t-resend-video-confirmation',
+              data: { confirm: 'Are you sure?' }
+          )
+        %>
+      <% end %>
     <% end %>
     <% unless @appointment.cancelled? %>
       <hr>
@@ -141,6 +151,13 @@
                 placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
               %>
             </div>
+
+            <%= booking_subform.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?' %>
+
+            <div class="form-group">
+              <p><strong>Video appointment link supplied?</strong> <%= @appointment.video_appointment_url? ? 'Yes' : 'No' %></p>
+            </div>
+
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?', readonly: true, disabled: true %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
             <div id="consent">

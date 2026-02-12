@@ -19,6 +19,19 @@ RSpec.describe BookingManagerConfirmationJob, '#perform' do
     end
   end
 
+  context 'when the booking belongs to Ops' do
+    let(:booking_request) { create(:video_booking_request) }
+
+    it 'sends a single notification to their alias' do
+      expect(BookingRequests).to receive(:booking_manager).with(
+        booking_request,
+        Appointment::OPS_BOOKING_MANAGER_ALIAS
+      ).and_return(double(deliver_later: true))
+
+      subject
+    end
+  end
+
   context 'when the booking manager(s) cannot be found' do
     it 'raises an error thus forcing retries' do
       expect { subject }.to raise_error(BookingManagersNotFoundError)

@@ -3,6 +3,28 @@ require 'rails_helper'
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment, current_user: build_stubbed(:agent)) }
 
+  describe '#video_newly_completed?' do
+    let(:appointment) { create(:appointment, :video) }
+
+    context 'for video appointments' do
+      context 'when status changes to something other than `completed`' do
+        it 'is false' do
+          appointment.no_show!
+
+          expect(appointment).not_to be_video_newly_completed
+        end
+      end
+
+      context 'when the status is `completed`' do
+        it 'is true' do
+          appointment.completed!
+
+          expect(appointment).to be_video_newly_completed
+        end
+      end
+    end
+  end
+
   context 'removing the third party flag' do
     it 'also removes third party from the booking' do
       appointment = build_stubbed(:appointment, :third_party_booking)
@@ -179,6 +201,16 @@ RSpec.describe Appointment do
           original.update!(booking_request_attributes: { bsl: true })
 
           expect(original).to be_notify
+        end
+
+        context 'when video appointment attributes are altered' do
+          it 'returns false' do
+            original.update!(
+              booking_request_attributes: { video_appointment: true }
+            )
+
+            expect(original).not_to be_notify
+          end
         end
       end
 

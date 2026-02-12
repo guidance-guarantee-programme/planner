@@ -35,6 +35,10 @@ class AgentBookingDecorator < SimpleDelegator
     super ? 'Yes' : 'No'
   end
 
+  def video_appointment
+    super ? 'Yes' : 'No'
+  end
+
   def pension_provider
     PensionProvider[super]
   end

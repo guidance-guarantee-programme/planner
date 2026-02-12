@@ -1,5 +1,5 @@
 <%= h2 do %>
-  Would you still like a Pension Wise appointment?
+  Would you still like a Pension Wise <%= @appointment.type_label %> appointment?
 <% end %>
 
 <%= p do %>
@@ -11,11 +11,17 @@
 <% end %>
 
 <%= p do %>
-  We noticed you missed your Pension Wise appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>.
+  We noticed you missed your Pension Wise <%= @appointment.type_label %> appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>.
 <% end %>
 
-<%= p do %>
-  You can reply to this email with your availability, <a href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment">book a new date and time</a> or have an <a href="https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start">online Pension Wise appointment</a> at any time.
+<% if @appointment.video_appointment? %>
+  <%= p do %>
+    To book a new date and time, you can reply to this email with your availability or call 0800 138 1585 (+44 20 3733 3495 if you’re outside the UK) or have an <a href="https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start">online Pension Wise appointment</a> at any time.
+  <% end %>
+<% else %>
+  <%= p do %>
+    You can reply to this email with your availability, <a href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment">book a new date and time</a> or have an <a href="https://prd-pwtriage.moneyhelper.org.uk/en/pension-wise-triage/start">online Pension Wise appointment</a> at any time.
+  <% end %>
 <% end %>
 
 <%= render 'shared/email/money_helper' %>

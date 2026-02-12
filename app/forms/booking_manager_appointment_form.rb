@@ -33,6 +33,8 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     data_subject_name
     data_subject_date_of_birth
     adjustments
+    video_appointment
+    video_appointment_url
   ).freeze
 
   attr_accessor(*ATTRIBUTES)
@@ -67,6 +69,7 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     third_party
     bsl
     welsh
+    video_appointment
   ).freeze
 
   BOOLEAN_ATTRS.each do |boolean_attr|
@@ -160,7 +163,8 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
       welsh: welsh,
       data_subject_name: data_subject_name,
       data_subject_date_of_birth: data_subject_date_of_birth,
-      adjustments: adjustments.to_s
+      adjustments: adjustments.to_s,
+      video_appointment: video_appointment
     }
   end
 

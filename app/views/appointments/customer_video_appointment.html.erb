@@ -1,0 +1,55 @@
+<%= h2 do %>
+  Your Pension Wise video appointment link
+<% end %>
+
+<%= p do %>
+  <strong>Reference number:</strong> <%= @appointment.reference %>
+<% end %>
+
+<%= p do %>
+  Dear <%= @appointment.name %>,
+<% end %>
+
+<%= p do %>
+  This is the link to join your Pension Wise video appointment on: 
+<% end %>
+
+<ul>
+  <li><strong>Date:</strong> <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %></li>
+  <li><strong>Time:</strong> <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %></li>
+</ul>
+
+<%= p do %>
+  <strong>Link to join: </strong><%= link_to @appointment.video_appointment_url, @appointment.video_appointment_url %>
+<% end %>
+
+<%= p do %>
+  When you join the appointment, our specialist will repeat the memorable word you gave us so you know you’re speaking to Pension Wise.
+<% end %>
+<%= p do %>
+  We’ll wait for up to 10 minutes for you to join. After this, your appointment will need to be rescheduled as there won’t be enough time to cover everything.
+<% end %>
+
+<%= h2 do %>
+  Check you have the right software
+<% end %>
+<%= p do %>
+  Our video appointments use Microsoft Teams, so you’ll either need a device with:
+<% end %>
+<ul>
+  <li>an internet browser – Google Chrome and Microsoft Edge usually work best with Teams</li>
+  <li>the free Microsoft Teams app – you can download this from your device’s app store.</li>
+</ul>
+
+<%= h2 do %>
+  How to join your video appointment
+<% end %>
+<ol>
+  <li><strong>Choose a quiet place with good lighting.</strong> Make sure your device is plugged in or fully charged</li>
+  <li><strong>Click the link to join.</strong> If a box pops up asking to use your camera and microphone, click allow</li>
+  <li><strong>Enter your full name</strong></li>
+  <li><strong>Turn your camera and microphone on.</strong> If not already on, you can use the toggle buttons next to the camera and microphone icon</li>
+  <li><strong>Click the join now button.</strong> You’ll be put in a virtual waiting room until our pension specialist starts the meeting.</li>
+</ol>
+
+<%= render 'shared/email/money_helper' %>

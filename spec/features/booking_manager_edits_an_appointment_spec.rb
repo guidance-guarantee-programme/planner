@@ -149,7 +149,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_there_is_a_realtime_appointment
     @slot    = create(:bookable_slot, start_at: '2018-11-15 09:00')
-    @booking = build(:hackney_booking_request, number_of_slots: 0)
+    @booking = build(:hackney_booking_request, video_appointment: true, number_of_slots: 0)
     @booking.slots.build(date: '2018-11-15', from: '0900', to: '1000', priority: 1)
 
     @appointment = create(:appointment, booking_request: @booking, proceeded_at: @slot.start_at)
@@ -254,7 +254,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   def and_there_is_an_appointment
     @appointment = create(
       :appointment,
-      booking_request: build(:hackney_booking_request, number_of_slots: 3)
+      booking_request: build(:hackney_booking_request, video_appointment: true, number_of_slots: 3)
     )
   end
 
@@ -296,6 +296,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page.defined_contribution_pot_confirmed_yes).to be_checked
     expect(@page.accessibility_requirements.value).to eq('1')
     expect(@page.gdpr_consent).to have_text('Yes')
+    expect(@page).not_to have_video_appointment
 
     # ensure Hackney is pre-selected
     expect(@page.location.value).to eq('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef')
@@ -356,12 +357,12 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_customer_is_notified
     expect(ActionMailer::Base.deliveries.count).to eq(1)
-    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise Appointment Cancellation')
+    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise Video Appointment Cancellation')
   end
 
   def and_the_customer_is_notified_correctly
     expect(ActionMailer::Base.deliveries.map(&:subject)).to include(
-      'Your Pension Wise Appointment'
+      'Your Pension Wise Video Appointment'
     )
   end
 

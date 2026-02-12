@@ -33,6 +33,10 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   validates :additional_info, length: { maximum: 320 }, allow_blank: true
   validates :where_you_heard, presence: true
   validates :gdpr_consent, inclusion: { in: ['yes', 'no', ''] }
+  validates :video_appointment_url, allow_blank: true, format: {
+    with: %r{\Ahttps://teams\.microsoft\.com/meet/\d{14}\?p=.+\z},
+    message: 'must be a valid MS Teams meeting URL'
+  }, uniqueness: true
 
   validates :data_subject_name, presence: true, if: :validate_third_party?
   validates :data_subject_date_of_birth, presence: true, if: :validate_third_party?
@@ -44,6 +48,7 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   has_one_attached :data_subject_consent_evidence
   has_one_attached :power_of_attorney_evidence
 
+  before_validation :trim_video_appointment_url
   before_validation :purge_conditional_third_party_data, on: :update
 
   alias reference to_param
@@ -138,5 +143,9 @@ class BookingRequest < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     return unless third_party?
 
     created_at && created_at > Time.zone.parse(ENV.fetch('THIRD_PARTY_CUT_OFF') { '2023-07-31 08:00:00' })
+  end
+
+  def trim_video_appointment_url
+    video_appointment_url.squish! if video_appointment_url?
   end
 end

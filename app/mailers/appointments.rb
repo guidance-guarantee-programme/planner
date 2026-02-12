@@ -7,6 +7,18 @@ class Appointments < ApplicationMailer
     mail(to: booking_manager, subject: appointment_changed_subject(appointment))
   end
 
+  def customer_video_appointment(appointment, booking_location)
+    @appointment = decorate(appointment, booking_location)
+
+    mailgun_headers :customer_video_appointment
+
+    mail(
+      to: @appointment.email,
+      subject: 'Your Pension Wise Video Appointment Link',
+      reply_to: @appointment.online_booking_reply_to
+    )
+  end
+
   def missed(appointment)
     @appointment = decorate(appointment)
 
@@ -14,7 +26,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: @appointment.email,
-      subject: 'Your Pension Wise Appointment',
+      subject: @appointment.subject,
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -26,7 +38,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: @appointment.email,
-      subject: 'Your Pension Wise Appointment Cancellation',
+      subject: @appointment.subject(suffix: ' Cancellation'),
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -46,7 +58,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: appointment.email,
-      subject: 'Your Pension Wise Appointment',
+      subject: @appointment.subject,
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -63,6 +75,18 @@ class Appointments < ApplicationMailer
     )
   end
 
+  def video_customer_exit_poll(appointment)
+    @appointment = decorate(appointment)
+
+    mailgun_headers :video_customer_exit_poll
+
+    mail(
+      to: appointment.email,
+      subject: 'Pension Wise Video Appointment',
+      reply_to: @appointment.online_booking_reply_to
+    )
+  end
+
   def reminder(appointment, booking_location)
     @appointment = decorate(appointment, booking_location)
 
@@ -70,7 +94,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: appointment.email,
-      subject: 'Your Pension Wise Appointment Reminder',
+      subject: @appointment.subject(suffix: ' Reminder'),
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -92,9 +116,11 @@ class Appointments < ApplicationMailer
   def decorate(appointment, booking_location = nil)
     booking_location ||= BookingLocations.find(appointment.location_id)
 
-    LocationAwareEntity.new(
-      entity: appointment,
-      booking_location: booking_location
+    AppointmentEmailDecorator.new(
+      LocationAwareEntity.new(
+        entity: appointment,
+        booking_location: booking_location
+      )
     )
   end
 

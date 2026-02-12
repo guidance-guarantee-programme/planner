@@ -7,6 +7,10 @@ module AppointmentHelper
     true unless current_user.booking_manager? || current_user.agent? || current_user.agent_manager?
   end
 
+  def video_visible?(current_user)
+    current_user.organisation_content_id == Appointment::OPS_BOOKING_LOCATION_ID
+  end
+
   def welsh_visible?(current_user)
     current_user.organisation_content_id == '525da418-ff2c-4522-90a9-bc70ba4ca78b'
   end

@@ -96,6 +96,16 @@ RSpec.describe BookingRequests do
         expect(subject.body.encoded).to include('The customer has indicated they require help')
       end
     end
+
+    context 'for an appointment requiring video call' do
+      let(:booking_request) { create(:appointment, :video) }
+
+      it 'renders the video call adjustment particulars' do
+        expect(mail.subject).to eq('Pension Wise Appointment (Adjustment)')
+
+        expect(subject.body.encoded).to include('require a video appointment')
+      end
+    end
   end
 
   describe 'Email failure notification' do

@@ -1,5 +1,5 @@
 <%= h2 do %>
-  Pension Wise Appointment reminder
+  Reminder of your Pension Wise <%= @appointment.type_label %> appointment
 <% end %>
 
 <%= p do %>
@@ -11,7 +11,7 @@
 <% end %>
 
 <%= p do %>
-  This is a reminder that your Pension Wise appointment is booked for:
+  This is a reminder that your Pension Wise <%= @appointment.type_label %> appointment is booked for:
 <% end %>
 
 <%= render 'shared/email/appointment_details' %>

@@ -33,6 +33,7 @@
   <%= f.hidden_field :data_subject_name %>
   <%= f.hidden_field :data_subject_date_of_birth %>
   <%= f.hidden_field :adjustments %>
+  <%= f.hidden_field :video_appointment %>
 
   <% @booking = AgentBookingDecorator.new(@booking) %>
 
@@ -88,6 +89,10 @@
                 <td><%= @booking.adjustments %></td>
               </tr>
             <% end %>
+            <tr>
+              <td class="active"><b>Video appointment</b></td>
+              <td><%= @booking.video_appointment %></td>
+            </tr>
             <tr>
               <td class="active"><b>BSL appointment</b></td>
               <td><%= @booking.bsl %></td>

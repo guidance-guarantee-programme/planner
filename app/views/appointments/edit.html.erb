@@ -1,5 +1,11 @@
 <% content_for(:page_title, t('service.title', page_title: "Manage appointment for #{@appointment_form.name}")) %>
 
+<% if @appointment_form.video_appointment? %>
+<div class="alert alert-warning" role="alert">
+  <p>This appointment will be delivered by <strong>video call</strong>.</p>
+</div>
+<% end %>
+
 <% if @appointment_form.welsh? %>
 <div class="alert alert-warning" role="alert">
   <p>This appointment will be delivered in Welsh.</p>
@@ -166,6 +172,16 @@
             data: { confirm: 'Are you sure?' }
         )
       %>
+      <% if @appointment_form.video_appointment_url? %>
+        <hr>
+        <%= button_to(
+              'Resend video link instructions',
+              booking_request_video_confirmation_path(@appointment_form.booking_request),
+              class: 'btn btn-default btn-block t-resend-video-confirmation',
+              data: { confirm: 'Are you sure?' }
+          )
+        %>
+      <% end %>
     <% end %>
   </div>
 
@@ -214,6 +230,13 @@
                 placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
               %>
             </div>
+
+            <% if video_visible?(current_user) %>
+            <%= booking_subform.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?', data: { target: 'video_appointment_url' } %>
+            <div id="video_appointment_url">
+              <%= booking_subform.url_field :video_appointment_url, autocomplete: 'off', class: 't-video-appointment-url', label: 'Video appointment URL', data: { target: 'video_appointment_url' } %>
+            </div>
+            <% end %>
 
             <%= booking_subform.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
             <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>

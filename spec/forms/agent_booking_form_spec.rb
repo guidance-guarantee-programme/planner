@@ -25,7 +25,8 @@ RSpec.describe AgentBookingForm do
       bsl: false,
       third_party: false,
       data_subject_name: '',
-      adjustments: ''
+      adjustments: '',
+      video_appointment: false
     )
   end
 

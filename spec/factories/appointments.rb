@@ -12,6 +12,10 @@ FactoryBot.define do
     guider_id { 1 }
     proceeded_at { Time.zone.parse('2016-06-20 14:00') }
 
+    trait :video do
+      association :booking_request, factory: :video_booking_request
+    end
+
     trait :bsl do
       association :booking_request, factory: :bsl_booking_request
     end
