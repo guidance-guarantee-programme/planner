@@ -39,6 +39,15 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
+  scenario 'Resending the video link instructions' do
+    given_the_user_identifies_as_an_agent_manager do
+      and_a_video_appointment_exists
+      when_they_view_the_appointment
+      and_resend_the_video_link_instructions
+      then_the_video_link_instructions_are_sent
+    end
+  end
+
   def when_they_leave_an_activity_update
     @page.activity_feed.message.set 'This is an update.'
     @page.activity_feed.submit.click
@@ -61,6 +70,18 @@ RSpec.feature 'Agent manager modifies an appointment' do
 
   def then_the_email_confirmation_is_sent
     expect(@page.success).to have_text('re-sent successfully')
+  end
+
+  def and_a_video_appointment_exists
+    @appointment = create(:appointment, :video)
+  end
+
+  def and_resend_the_video_link_instructions
+    @page.resend_video_instructions.click
+  end
+
+  def then_the_video_link_instructions_are_sent
+    expect(@page.success).to have_text('video link instructions were re-sent')
   end
 
   def when_they_blank_the_name_field

@@ -42,6 +42,7 @@ module Pages
 
     element :submit, '.t-submit'
     element :resend_confirmation, '.t-resend-confirmation'
+    element :resend_video_instructions, '.t-resend-video-confirmation'
     element :cancel, '.t-cancel'
 
     elements :errors, '.field_with_errors'

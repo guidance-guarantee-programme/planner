@@ -76,6 +76,16 @@
             data: { confirm: 'Are you sure?' }
         )
       %>
+      <% if @appointment.video_appointment_url? %>
+        <hr>
+        <%= button_to(
+              'Resend video link instructions',
+              booking_request_video_confirmation_path(@appointment.booking_request),
+              class: 'btn btn-default btn-block t-resend-video-confirmation',
+              data: { confirm: 'Are you sure?' }
+          )
+        %>
+      <% end %>
     <% end %>
     <% unless @appointment.cancelled? %>
       <hr>
