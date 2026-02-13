@@ -52,5 +52,11 @@ module Pages
     element :booking_location, '.t-booking-location'
 
     section :activity_feed, Sections::ActivityFeed, '.t-activity-feed'
+
+    element :reschedule, '.t-reschedule-button'
+    section :rescheduling_modal, '.t-rescheduling-modal' do
+      element :slot, '.t-slot'
+      element :reschedule, '.t-reschedule'
+    end
   end
 end

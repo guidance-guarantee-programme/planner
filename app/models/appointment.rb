@@ -116,6 +116,13 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     end
   end
 
+  def slots
+    Schedule
+      .current(location_id)
+      .without_appointments
+      .realtime
+  end
+
   def allocate!(slot_date_time)
     return unless slot = Schedule.allocate_slot(self, slot_date_time)
 
