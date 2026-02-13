@@ -24,6 +24,10 @@ module UserHelpers
     given_the_user_identifies_as(:ops_booking_manager, &block)
   end
 
+  def given_the_user_identifies_as_an_ops_agent_manager(&block)
+    given_the_user_identifies_as(:ops_agent_manager, &block)
+  end
+
   def given_the_user_identifies_as_hackneys_booking_manager(&block)
     given_the_user_identifies_as(:hackney_booking_manager, &block)
   end

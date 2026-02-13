@@ -62,7 +62,9 @@ Rails.application.routes.draw do
 
   namespace :agent, path: '/agents' do
     resources :booking_requests, only: :index, as: :search
-    resources :appointments, only: %i(edit update)
+    resources :appointments, only: %i(edit update) do
+      resource :reschedule, only: %w(create show)
+    end
   end
 
   namespace :booking_manager, path: '/locations/:location_id' do

@@ -1,0 +1,32 @@
+<hr>
+<div class="modal <%= 'fade' unless Rails.env.test? %> js-rescheduling-modal t-rescheduling-modal" tabindex="-1" role="dialog" aria-labelledby="rescheduling-modal">
+  <div class="modal-dialog" role="document">
+    <%= form_for appointment, method: :post, url: agent_appointment_reschedule_path(appointment) do |f| %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 id="rescheduling-modal" class="modal-title">Reschedule appointment and notify <%= appointment.name %></h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <%= f.label :proceeded_at, 'Date and time' %>
+          <%= f.select(
+            :proceeded_at,
+            grouped_options_for_select(slots_by_month(appointment.slots, include_bsl: false)),
+            { include_blank: true },
+            class: 'form-control t-slot'
+          ) %>
+        </div>
+
+        <%= f.button class: 'btn btn-primary btn-block t-reschedule' do %>
+          Reschedule appointment and notify <%= appointment.name %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<button type="button" class="btn btn-default btn-block reschedule-btn js-reschedule-button t-reschedule-button">
+  Reschedule appointment
+</button>

@@ -48,6 +48,51 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
+  scenario 'Rescheduling a video appointment', js: true do
+    travel_to '2026-02-13 13:00' do
+      given_the_user_identifies_as_an_ops_agent_manager do
+        and_a_video_appointment_exists
+        and_other_slots_exist
+        when_they_view_the_appointment
+        and_they_reschedule_the_appointment
+        then_the_appointment_is_rescheduled
+        and_the_booking_managers_are_notified
+        and_the_customer_is_notified_with_the_video_url
+      end
+    end
+  end
+
+  def and_other_slots_exist
+    @schedule = Schedule.current(@appointment.location_id)
+
+    @slot = create(:bookable_slot, schedule: @schedule, start_at: Time.zone.parse('2026-02-20 13:00'))
+  end
+
+  def and_they_reschedule_the_appointment
+    @page.reschedule.click
+    @page.wait_until_rescheduling_modal_visible
+    @page.rescheduling_modal.slot.select('Friday, 20 Feb - 1:00pm')
+    @page.rescheduling_modal.reschedule.click
+  end
+
+  def then_the_appointment_is_rescheduled
+    @page.wait_until_rescheduling_modal_invisible
+    expect(@page).to have_text('The appointment was rescheduled')
+
+    expect(@appointment.reload).to have_attributes(
+      proceeded_at: @slot.start_at,
+      guider_id: @slot.guider_id
+    )
+  end
+
+  def and_the_booking_managers_are_notified
+    assert_enqueued_jobs(1, only: BookingManagerAppointmentChangedNotificationJob)
+  end
+
+  def and_the_customer_is_notified_with_the_video_url
+    assert_enqueued_jobs(1, only: AppointmentVideoUrlNotificationJob)
+  end
+
   def when_they_leave_an_activity_update
     @page.activity_feed.message.set 'This is an update.'
     @page.activity_feed.submit.click
@@ -143,11 +188,11 @@ RSpec.feature 'Agent manager modifies an appointment' do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(1, only: [AppointmentChangeNotificationJob])
+    assert_enqueued_jobs(1, only: AppointmentChangeNotificationJob)
   end
 
   def and_the_booking_managers_are_notified
-    assert_enqueued_jobs 1, only: BookingManagerAppointmentChangeNotificationJob
+    assert_enqueued_jobs(1, only: BookingManagerAppointmentChangeNotificationJob)
   end
 
   def when_they_attempt_to_edit_an_appointment
