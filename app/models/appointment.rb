@@ -6,7 +6,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   CAS_BOOKING_MANAGER_ALIAS = 'cas_pwbooking@cas.org.uk'.freeze
   CAS_BOOKING_LOCATION_ID   = '0c686436-de02-4d92-8dc7-26c97bb7c5bb'.freeze
-  OPS_BOOKING_MANAGER_ALIAS = 'pg.supervisors@maps.org.uk'.freeze
+  OPS_BOOKING_MANAGER_ALIAS = 'supervisors@maps.org.uk'.freeze
   OPS_BOOKING_LOCATION_ID   = '14a48488-a42f-422d-969d-526e30922fe4'.freeze
 
   AGENT_PERMITTED_SECONDARY = '15'.freeze
