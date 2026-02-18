@@ -3,6 +3,35 @@ require 'rails_helper'
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment, current_user: build_stubbed(:agent)) }
 
+  describe '#can_resend_video_link?' do
+    context 'when the appointment was persisted' do
+      context 'when it has a valid video URL' do
+        it 'is true' do
+          @appointment = create(:appointment, :video)
+
+          expect(@appointment).to be_can_resend_video_link
+        end
+      end
+
+      context 'when the video URL is invalid' do
+        it 'is false' do
+          @appointment = create(:appointment, :video)
+          @appointment.booking_request.video_appointment_url = 'http://welp.com'
+
+          expect(@appointment).not_to be_can_resend_video_link
+        end
+      end
+    end
+
+    context 'when the appointment has yet to be persisted and has a video URL' do
+      it 'is false' do
+        @appointment = build(:appointment, :video)
+
+        expect(@appointment).not_to be_can_resend_video_link
+      end
+    end
+  end
+
   describe '#video_newly_completed?' do
     let(:appointment) { create(:appointment, :video) }
 

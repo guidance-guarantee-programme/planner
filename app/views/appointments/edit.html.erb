@@ -172,7 +172,7 @@
             data: { confirm: 'Are you sure?' }
         )
       %>
-      <% if @appointment_form.video_appointment_url? %>
+    <% if @appointment_form.can_resend_video_link? %>
         <hr>
         <%= button_to(
               'Resend video link instructions',
