@@ -106,6 +106,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     duplicates.size.positive?
   end
 
+  def can_resend_video_link?
+    persisted? && video_appointment_url? && booking_request.valid?
+  end
+
   def process!(by)
     return if processed_at?
 
