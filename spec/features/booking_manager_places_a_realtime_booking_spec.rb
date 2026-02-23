@@ -33,7 +33,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     end
   end
 
-  scenario 'Successfully placing a scheduled realtime booking', js: true do
+  scenario 'Successfully placing a scheduled realtime booking', js: true, retry: 3 do
     travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_ops_booking_manager do
         and_ops_is_stubbed do

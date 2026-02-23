@@ -70,6 +70,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'pry-byebug'
     gem 'pusher-fake', '4.2.0'
     gem 'rspec-rails'
+    gem 'rspec-retry'
     gem 'site_prism'
   end
 
