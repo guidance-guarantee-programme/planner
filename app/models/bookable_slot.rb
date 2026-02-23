@@ -18,6 +18,8 @@ class BookableSlot < ActiveRecord::Base
   end
 
   def permitted_date?
+    return true if schedule.video?
+
     start_at < Time.zone.parse('2026-02-28 23:59')
   end
 

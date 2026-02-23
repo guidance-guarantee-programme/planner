@@ -17,6 +17,10 @@ class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   has_associated_audits
   audited on: :create
 
+  def video?
+    location_id == Appointment::OPS_BOOKING_LOCATION_ID
+  end
+
   def realtime?
     without_appointments.realtime.size.positive?
   end
