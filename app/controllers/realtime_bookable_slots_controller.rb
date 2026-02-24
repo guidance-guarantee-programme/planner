@@ -51,7 +51,7 @@ class RealtimeBookableSlotsController < ApplicationController
   private
 
   def load_window
-    @window = GracePeriod.new(params[:location_id])
+    @window = GracePeriod.new
   end
 
   def load_schedule
