@@ -67,10 +67,21 @@ class BookableSlot < ActiveRecord::Base
     if overlapping.schedule_id == schedule_id
       errors.add(:base, 'overlaps with a slot in the same schedule')
     else
-      errors.add(:base, 'overlaps with a slot in a different schedule')
+      errors.add(:base, "overlaps with a slot in #{location_name_for(overlapping.schedule)}")
     end
 
     logger.info("Guider overlaps: #{overlapping.schedule_id}, #{schedule_id}, #{start_at}")
+  end
+
+  def location_name_for(schedule)
+    booking_location = BookingLocations.find(schedule.location_id)
+
+    location = LocationAwareEntity.new(
+      booking_location: booking_location,
+      entity: OpenStruct.new(location_id: schedule.location_id)
+    )
+
+    location.location_name
   end
 
   def report_overlapping_slot_error
