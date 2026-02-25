@@ -19,6 +19,8 @@ module Pages
       elements :bad_slots, '.t-preview-slot-bad'
     end
 
+    element :alert, '.t-alertify'
+
     def wait_for_calendar_events
       Timeout.timeout(Capybara.default_max_wait_time) do
         loop until page.evaluate_script('jQuery.active').zero?
