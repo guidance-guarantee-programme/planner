@@ -125,6 +125,6 @@ class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   private
 
   def grace_period
-    @grace_period ||= GracePeriod.new(location_id)
+    @grace_period ||= GracePeriod.new
   end
 end
