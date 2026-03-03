@@ -7,3 +7,7 @@ form {
     border-color: $state-danger-text;
   }
 }
+
+.no-check {
+  pointer-events: none;
+}

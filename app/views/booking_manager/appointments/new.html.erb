@@ -74,7 +74,8 @@
           </div>
 
           <% if video_visible?(current_user) %>
-          <%= f.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?' %>
+            <%= f.hidden_field :video_appointment, value: true %>
+            <%= f.check_box :video_appointment, readonly: true, disabled: true, checked: true, class: 't-video-appointment', label: 'Video appointment?' %>
           <% end %>
           <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
 

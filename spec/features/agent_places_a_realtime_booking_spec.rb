@@ -26,12 +26,95 @@ RSpec.feature 'Agent places a realtime booking' do
     end
   end
 
+  scenario 'Successfully placing a video appointment', js: true do
+    travel_to '2018-11-01 13:00' do
+      given_the_user_identifies_as_an_ops_agent do
+        and_ops_is_stubbed do
+          and_available_slots_exist_for_the_video_location
+          when_they_place_a_video_booking
+          then_the_appointment_is_booked
+        end
+      end
+    end
+  end
+
+  def and_available_slots_exist_for_the_video_location
+    @schedule = create(:schedule, :ops)
+    create(:bookable_slot, start_at: '2018-11-07 09:00', end_at: '2018-11-07 10:00', guider_id: 67, schedule: @schedule)
+  end
+
+  def when_they_place_a_video_booking
+    @page = Pages::AgentBooking.new
+    @page.load(location_id: @schedule.location_id)
+
+    expect(@page).to be_displayed
+    @page.first_choice_slot.select('Wednesday, 07 Nov - 9:00am')
+
+    @page.name.set('Summer Sanchez')
+    @page.phone.set('07715 930 444')
+    @page.memorable_word.set('spaceships')
+    @page.gdpr_consent_yes.set(true)
+    @page.where_you_heard.select('Other')
+    @page.email.set('summer@example.com')
+    @page.date_of_birth.set('01/01/1950')
+
+    expect(@page.video_appointment).to be_checked
+    @page.preview.click
+
+    @page = Pages::AgentBookingPreview.new
+    expect(@page).to be_displayed
+    @page.confirmation.click
+  end
+
+  def then_the_appointment_is_booked
+    @page = Pages::AgentBookingConfirmation.new
+    expect(@page).to be_displayed
+    @reference = @page.reference(visible: false).text(:all)
+
+    @page = Pages::AgentEditAppointment.new
+    @page.load(id: @reference)
+    expect(@page).to be_displayed
+    expect(@page.video_appointment).to be_checked
+  end
+
   def given_the_user_identifies_as_a_resource_manager
     create(:booking_manager)
   end
 
   def given_the_user_identifies_as_an_agent
     create(:agent_manager)
+  end
+
+  def and_ops_is_stubbed
+    stub_api = Class.new do
+      def get(*)
+        result = {
+          'uid' => Appointment::OPS_BOOKING_LOCATION_ID,
+          'name' => 'Pension Wise Video Appointment',
+          'accessibility_information' => 'Access via the lift is currently unavailable',
+          'geometry' => {
+            'coordinates' => [-0.469742, 52.131253]
+          },
+          'locations' => [],
+          'guiders' => [
+            {
+              'id' => 67,
+              'name' => 'George Lowell',
+              'email' => 'george@example.com'
+            }
+          ]
+        }
+
+        yield result
+      end
+    end
+
+    current_api = BookingLocations.api
+    BookingLocations.api = stub_api.new
+
+    yield
+  ensure
+    BookingLocations.api = current_api
   end
 
   def then_they_are_told_they_cannot_be_authorised
@@ -73,7 +156,7 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.nudged.set(true)
-    @page.video_appointment.set(true)
+    expect(@page).to have_no_video_appointment
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible
@@ -115,7 +198,6 @@ RSpec.feature 'Agent places a realtime booking' do
     expect(@page.third_party).to be_checked
     expect(@page.data_subject_name.value).to eq('Bob Bobson')
     expect(@page.data_subject_date_of_birth.value).to eq('02/02/1980')
-    expect(@page.video_appointment).to be_checked
   end
 
   def and_the_agent_sees_the_confirmation

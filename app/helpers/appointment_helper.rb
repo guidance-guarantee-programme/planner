@@ -11,6 +11,10 @@ module AppointmentHelper
     current_user.organisation_content_id == Appointment::OPS_BOOKING_LOCATION_ID
   end
 
+  def can_book_video?(booking)
+    booking.booking_location_id == Appointment::OPS_BOOKING_LOCATION_ID
+  end
+
   def welsh_visible?(current_user)
     current_user.organisation_content_id == '525da418-ff2c-4522-90a9-bc70ba4ca78b'
   end
