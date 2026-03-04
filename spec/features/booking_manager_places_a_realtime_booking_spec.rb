@@ -234,7 +234,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.postcode.set('RG1 1AA')
     @page.additional_info.set('Other notes')
     @page.third_party.set(true)
-    @page.video_appointment.set(true)
+    expect(@page.video_appointment).to be_checked
 
     expect(@page).not_to have_welsh
 

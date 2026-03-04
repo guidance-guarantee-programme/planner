@@ -60,7 +60,11 @@
               placeholder: 'Any adjustments that may help you. We might contact you before your appointment for more information', data: { module: 'character-limit', maxlength: 1000 }
             %>
           </div>
-        <%= f.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?' %>
+
+        <% if can_book_video?(@booking) %>
+          <%= f.hidden_field :video_appointment, value: true %>
+          <%= f.check_box :video_appointment, readonly: true, disabled: true, checked: true, class: 't-video-appointment', label: 'Video appointment?' %>
+        <% end %>
         <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
         <%= f.check_box :nudged, class: 't-nudged', label: 'Stronger Nudge signposting?' %>
         <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>

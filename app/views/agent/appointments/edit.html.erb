@@ -156,7 +156,8 @@
               %>
             </div>
 
-            <%= booking_subform.check_box :video_appointment, class: 't-video-appointment', label: 'Video appointment?' %>
+            <%= booking_subform.hidden_field :video_appointment, value: true %>
+            <%= booking_subform.check_box :video_appointment, checked: true, readonly: true, disabled: true, class: 't-video-appointment', label: 'Video appointment?' %>
 
             <div class="form-group">
               <p><strong>Video appointment link supplied?</strong> <%= @appointment.video_appointment_url? ? 'Yes' : 'No' %></p>
