@@ -18,17 +18,15 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   scenario 'Successfully placing an adhoc realtime booking' do
     travel_to '2019-11-28 13:00' do
       given_the_user_identifies_as_ops_booking_manager do
-        and_ops_is_stubbed do
-          when_they_search_with_an_ops_postcode
-          and_they_choose_an_adhoc_realtime_slot
-          and_they_provide_the_customer_details
-          and_they_confirm_the_ad_hoc_booking
-          then_the_booking_is_placed
-          and_the_appointment_is_automatically_fulfilled('2019-11-29 13:00')
-          and_the_booking_manager_sees_the_confirmation
-          and_the_customer_is_notified
-          and_the_booking_manager_is_notified
-        end
+        when_they_search_with_an_ops_postcode
+        and_they_choose_an_adhoc_realtime_slot
+        and_they_provide_the_customer_details
+        and_they_confirm_the_ad_hoc_booking
+        then_the_booking_is_placed
+        and_the_appointment_is_automatically_fulfilled('2019-11-29 13:00')
+        and_the_booking_manager_sees_the_confirmation
+        and_the_customer_is_notified
+        and_the_booking_manager_is_notified
       end
     end
   end
@@ -36,52 +34,18 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   scenario 'Successfully placing a scheduled realtime booking', js: true, retry: 3 do
     travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_ops_booking_manager do
-        and_ops_is_stubbed do
-          and_available_realtime_slots_exist_within_the_booking_window
-          when_they_search_with_an_ops_postcode
-          and_they_choose_a_realtime_slot
-          and_they_provide_the_customer_details
-          and_they_confirm_the_booking
-          then_the_booking_is_placed
-          and_the_appointment_is_automatically_fulfilled('2018-11-07 09:00')
-          and_the_booking_manager_sees_the_confirmation
-          and_the_customer_is_notified
-          and_the_booking_manager_is_notified
-        end
+        and_available_realtime_slots_exist_within_the_booking_window
+        when_they_search_with_an_ops_postcode
+        and_they_choose_a_realtime_slot
+        and_they_provide_the_customer_details
+        and_they_confirm_the_booking
+        then_the_booking_is_placed
+        and_the_appointment_is_automatically_fulfilled('2018-11-07 09:00')
+        and_the_booking_manager_sees_the_confirmation
+        and_the_customer_is_notified
+        and_the_booking_manager_is_notified
       end
     end
-  end
-
-  def and_ops_is_stubbed
-    stub_api = Class.new do
-      def get(*)
-        result = {
-          'uid' => Appointment::OPS_BOOKING_LOCATION_ID,
-          'name' => 'Pension Wise Video Appointment',
-          'accessibility_information' => 'Access via the lift is currently unavailable',
-          'geometry' => {
-            'coordinates' => [-0.469742, 52.131253]
-          },
-          'locations' => [],
-          'guiders' => [
-            {
-              'id' => 67,
-              'name' => 'George Lowell',
-              'email' => 'george@example.com'
-            }
-          ]
-        }
-
-        yield result
-      end
-    end
-
-    current_api = BookingLocations.api
-    BookingLocations.api = stub_api.new
-
-    yield
-  ensure
-    BookingLocations.api = current_api
   end
 
   def and_cardiff_is_stubbed
@@ -210,7 +174,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
 
     @page.ad_hoc_calendar.set(true)
     @page.wait_until_ad_hoc_start_at_visible
-    @page.guider.select('George Lowell')
+    @page.guider.select('George Lovell')
     @page.ad_hoc_start_at.set('2019-11-29 13:00')
   end
 
@@ -260,7 +224,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
 
     @page = Pages::AdHocBookingPreview.new
     expect(@page).to be_displayed
-    expect(@page.guider).to have_text('George Lowell')
+    expect(@page.guider).to have_text('George Lovell')
     expect(@page.first_choice_slot).to have_text('1:00pm, 29 November 2019')
 
     @page.confirmation.click
