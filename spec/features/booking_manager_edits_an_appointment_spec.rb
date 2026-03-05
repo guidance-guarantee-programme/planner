@@ -12,7 +12,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   scenario 'Rescheduling a realtime appointment', js: true do
-    travel_to '2018-11-11 13:00' do
+    travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
         and_there_is_a_realtime_appointment
         and_available_realtime_slots_exist
@@ -24,7 +24,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   scenario 'Altering consent on an appointment', js: true do
-    travel_to '2018-11-11 13:00' do
+    travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
         and_there_is_a_realtime_appointment
         when_the_booking_manager_edits_the_appointment

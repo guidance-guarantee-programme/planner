@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.feature 'Booking manager places a realtime booking', js: true do
   scenario 'Placing a Welsh language booking' do
-    travel_to '2024-04-25 09:00' do
+    travel_to '2024-04-15 09:00' do
       given_the_user_identifies_as_cardiff_and_vales_booking_manager do
         and_cardiff_is_stubbed do
           and_available_slots_exist_for_cardiff
@@ -32,7 +32,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   scenario 'Successfully placing a scheduled realtime booking', js: true, retry: 3 do
-    travel_to '2018-11-01 13:00' do
+    travel_to '2018-10-01 13:00' do
       given_the_user_identifies_as_ops_booking_manager do
         and_available_realtime_slots_exist_within_the_booking_window
         when_they_search_with_an_ops_postcode
