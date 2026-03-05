@@ -9,6 +9,8 @@ class CompanyCalendar extends Calendar {
       columnFormat: 'ddd D/M',
       defaultView: 'agendaDay',
       resourceLabelText: 'Guiders',
+      maxTime: '20:00:00',
+      minTime: '08:00:00',
       header: {
         right: 'fullscreen sort filter agendaDay timelineDay today jumpToDate prev,next'
       },
