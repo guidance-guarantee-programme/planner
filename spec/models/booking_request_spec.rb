@@ -189,7 +189,7 @@ RSpec.describe BookingRequest do
     end
 
     describe 'allocation of slots' do
-      before { travel_to('2018-11-05 13:00') }
+      before { travel_to('2018-11-01 13:00') }
       after { travel_back }
 
       context 'when a realtime slot is chosen' do
