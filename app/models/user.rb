@@ -60,4 +60,8 @@ class User < ActiveRecord::Base
   def org_admin?
     has_permission?(ORG_ADMIN_PERMISSION)
   end
+
+  def can_video_appointment?
+    organisation_content_id == Appointment::OPS_BOOKING_LOCATION_ID
+  end
 end

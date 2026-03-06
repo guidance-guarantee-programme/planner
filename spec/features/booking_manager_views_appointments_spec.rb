@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking manager views appointments' do
+  scenario 'Viewing a list of video appointments' do
+    given_the_user_identifies_as_ops_booking_manager do
+      and_various_video_appointments_exist
+      when_they_visit_the_appointments_list
+      then_they_see_the_video_appointments
+      when_they_filter_by_video_appointment_url
+      then_the_video_appointments_are_filtered
+    end
+  end
+
   scenario 'Viewing a list of their associated appointments' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_are_appointments_for_their_location
@@ -23,6 +33,29 @@ RSpec.feature 'Booking manager views appointments' do
       when_they_filter_by_guider
       then_they_are_shown_the_appointment_matching_the_guider
     end
+  end
+
+  def and_various_video_appointments_exist
+    @video_with_link    = create(:appointment, :video, proceeded_at: 1.day.from_now)
+    @video_without_link = create(
+      :appointment,
+      booking_request: build(:video_booking_request, video_appointment_url: '')
+    )
+  end
+
+  def then_they_see_the_video_appointments
+    expect(@page.appointments.first.video_link).to have_text('Yes')
+    expect(@page.appointments.second.video_link).to have_text('No')
+  end
+
+  def when_they_filter_by_video_appointment_url
+    @page.search.video_link.select('Yes')
+    @page.search.submit.click
+  end
+
+  def then_the_video_appointments_are_filtered
+    expect(@page).to have_appointments(count: 1)
+    expect(@page.appointments.first.video_link).to have_text('Yes')
   end
 
   def when_they_filter_by_guider
@@ -111,11 +144,11 @@ RSpec.feature 'Booking manager views appointments' do
   end
 
   def when_they_visit_the_appointments_list
-    visit '/appointments'
+    @page = Pages::Appointments.new
+    @page.load
   end
 
   def then_they_are_shown_appointments_for_their_location
-    @page = Pages::Appointments.new
     expect(@page).to be_displayed
     expect(@page).to have_appointments(count: 10)
     expect(@page).to have_content('Hackney')

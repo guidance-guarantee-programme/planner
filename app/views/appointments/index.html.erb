@@ -34,6 +34,11 @@
           <li class="filters__item">
             <%= f.label :dc_pot_confirmed, 'DC Pot Confirmed', class: 'filters__label' %><%= f.select :dc_pot_confirmed, [['Yes', 'true'], ['Don’t know', 'false']], { include_blank: 'All Options' }, { class: 'form-control filters__form-control t-dc-pot-confirmed' } %>
           </li>
+          <% if current_user.can_video_appointment? %>
+          <li class="filters__item">
+            <%= f.label :video_link, 'Video Link', class: 'filters__label' %><%= f.select :video_link, [['No', 'false'], ['Yes', 'true']], { include_blank: 'All Video Links' }, { class: 'form-control filters__form-control t-video-link' } %>
+          </li>
+          <% end %>
           <li class="filters__item">
            <%= f.button class: 't-submit btn btn-default filters__button' do %>
              <span aria-hidden="true" class="glyphicon glyphicon-search"></span> Search
@@ -62,6 +67,9 @@
             <th>Location</th>
             <th>Reference</th>
             <th>Status</th>
+            <% if current_user.can_video_appointment? %>
+              <th>Video link</th>
+            <% end %>
             <th></th>
           </tr>
         </thead>
@@ -86,6 +94,9 @@
               <td>
                 <%= appointment.status.titleize %>
               </td>
+              <% if current_user.can_video_appointment? %>
+                <td class="t-video-link"><%= appointment.video_appointment_url? ? 'Yes' : 'No' %></td>
+              <% end %>
               <td>
                 <%= link_to(edit_appointment_path(appointment), title: 'Manage', class: 'btn btn-info t-edit') do %>
                   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>

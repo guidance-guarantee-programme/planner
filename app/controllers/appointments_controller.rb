@@ -53,7 +53,8 @@ class AppointmentsController < ApplicationController
         :location,
         :guider,
         :processed,
-        :dc_pot_confirmed
+        :dc_pot_confirmed,
+        :video_link
       ).merge(
         current_user: current_user,
         page: params[:page]

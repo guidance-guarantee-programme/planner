@@ -4,6 +4,7 @@ module Pages
 
     sections :appointments, '.t-appointment' do
       element :edit, '.t-edit'
+      element :video_link, '.t-video-link'
     end
 
     section :search, '.t-search' do
@@ -11,6 +12,7 @@ module Pages
       element :status, '.t-status'
       element :location, '.t-location'
       element :guider, '.t-guider'
+      element :video_link, '.t-video-link'
 
       element :submit, '.t-submit'
     end
