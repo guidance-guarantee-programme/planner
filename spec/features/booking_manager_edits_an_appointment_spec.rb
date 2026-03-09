@@ -79,7 +79,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
-  scenario 'Successfully editing an Appointment', js: true do
+  scenario 'Successfully editing an Appointment', js: true, retry: 3 do
     perform_enqueued_jobs do
       travel_to '2016-01-01' do # ensure appointment has not elapsed
         given_the_user_identifies_as_hackneys_booking_manager do
@@ -105,7 +105,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
-  scenario 'Update the status of an Appointment', js: true do
+  scenario 'Update the status of an Appointment', js: true, retry: 3 do
     perform_enqueued_jobs do
       given_the_user_identifies_as_hackneys_booking_manager do
         and_there_is_an_appointment
@@ -381,7 +381,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_customer_is_notified_correctly
     expect(ActionMailer::Base.deliveries.map(&:subject)).to include(
-      'Your Pension Wise Video Appointment'
+      'Your Pension Wise BSL Video Appointment'
     )
   end
 

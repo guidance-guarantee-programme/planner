@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class Appointments < ApplicationMailer
   def booking_manager_appointment_changed(appointment, booking_manager)
     @appointment = appointment
@@ -142,3 +143,4 @@ class Appointments < ApplicationMailer
     mailgun_headers(value)
   end
 end
+# rubocop:enable Metrics/ClassLength

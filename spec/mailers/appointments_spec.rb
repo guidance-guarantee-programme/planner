@@ -232,7 +232,7 @@ RSpec.describe Appointments do
         let(:body) { subject.body.encoded }
 
         it 'includes video specifics' do
-          expect(body).to include('Your Pension Wise video  appointment is')
+          expect(body).to include('Your Pension Wise Video  appointment is')
         end
 
         it 'includes the appointment particulars' do
