@@ -40,6 +40,8 @@ module Agent
 
       return if proceeded_at.blank?
 
+      proceeded_at.delete!(BookableSlot::BSL_SLOT_DESIGNATOR)
+
       Time.zone.strptime(proceeded_at, '%Y-%m-%d-%H%M')
     end
   end
