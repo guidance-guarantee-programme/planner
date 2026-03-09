@@ -19,6 +19,18 @@ RSpec.describe Appointments do
     end
   end
 
+  describe 'BSL Video customer exit poll' do
+    let(:appointment) { build_stubbed(:appointment, :video, :bsl, status: :completed) }
+
+    subject(:mail) { described_class.bsl_video_customer_exit_poll(appointment) }
+
+    it_behaves_like 'mailgun identified email'
+
+    it 'includes the feedback link' do
+      expect(subject.body.encoded).to include('www.pensionwise.gov.uk/bsl-video-exit-poll')
+    end
+  end
+
   describe 'BSL customer exit poll' do
     let(:appointment) { build_stubbed(:appointment, :bsl, status: :completed) }
 
