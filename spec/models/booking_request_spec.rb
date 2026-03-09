@@ -172,6 +172,9 @@ RSpec.describe BookingRequest do
 
       @booking.video_appointment_url = '   https://teams.microsoft.com/meet/12345677654321?p=abcd1234   '
       expect(@booking).to be_valid
+
+      @booking.video_appointment_url = 'https://teams.microsoft.com/meet/123456789012?p=abcd1234'
+      expect(@booking).to be_valid
     end
 
     context 'when created before the default third-party validation cut-off' do
