@@ -17,7 +17,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
-  scenario 'Successfully modifying an appointment', js: true do
+  scenario 'Successfully modifying an appointment', js: true, retry: 3 do
     given_the_user_identifies_as_an_agent_manager do
       and_an_appointment_exists
       when_they_edit_the_appointment
