@@ -11,6 +11,14 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Video appointments are not processed' do
+    given_the_user_identifies_as_ops_booking_manager do
+      and_a_video_appointment_exists
+      when_the_booking_manager_edits_the_appointment
+      then_they_do_not_see_the_process_button
+    end
+  end
+
   scenario 'Rescheduling a realtime appointment', js: true do
     travel_to '2018-11-01 13:00' do
       given_the_user_identifies_as_hackneys_booking_manager do
@@ -117,6 +125,17 @@ RSpec.feature 'Booking Manager edits an Appointment' do
       and_cancels_for_the_customer
       then_the_customer_receives_the_cancellation_email
     end
+  end
+
+  def and_a_video_appointment_exists
+    @appointment = create(:appointment, :video)
+  end
+
+  def then_they_do_not_see_the_process_button
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    expect(@page).to have_no_process
   end
 
   def and_cancels_for_the_customer
