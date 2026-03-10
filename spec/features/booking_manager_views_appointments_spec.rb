@@ -8,6 +8,7 @@ RSpec.feature 'Booking manager views appointments' do
       then_they_see_the_video_appointments
       when_they_filter_by_video_appointment_url
       then_the_video_appointments_are_filtered
+      and_they_do_not_see_the_process_filter
     end
   end
 
@@ -16,6 +17,7 @@ RSpec.feature 'Booking manager views appointments' do
       and_there_are_appointments_for_their_location
       when_they_visit_the_appointments_list
       then_they_are_shown_appointments_for_their_location
+      and_they_see_the_process_filter
     end
   end
 
@@ -33,6 +35,14 @@ RSpec.feature 'Booking manager views appointments' do
       when_they_filter_by_guider
       then_they_are_shown_the_appointment_matching_the_guider
     end
+  end
+
+  def and_they_do_not_see_the_process_filter
+    expect(@page.search).to have_no_processed
+  end
+
+  def and_they_see_the_process_filter
+    expect(@page.search).to have_processed
   end
 
   def and_various_video_appointments_exist

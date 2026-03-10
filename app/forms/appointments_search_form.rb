@@ -37,6 +37,8 @@ class AppointmentsSearchForm
   end
 
   def processed_scope(scope)
+    return scope if current_user.can_video_appointment?
+
     if ActiveRecord::Type::Boolean.new.cast(processed)
       scope.where.not(processed_at: nil)
     else

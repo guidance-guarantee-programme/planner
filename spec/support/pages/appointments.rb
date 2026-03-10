@@ -13,6 +13,7 @@ module Pages
       element :location, '.t-location'
       element :guider, '.t-guider'
       element :video_link, '.t-video-link'
+      element :processed, '.t-processed'
 
       element :submit, '.t-submit'
     end

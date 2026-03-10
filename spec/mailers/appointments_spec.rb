@@ -5,6 +5,7 @@ RSpec.describe Appointments do
     build_stubbed(:appointment, location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7')
   end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
+  let(:video_location) { BookingLocations.find(Appointment::OPS_BOOKING_LOCATION_ID) }
 
   describe 'Video customer exit poll' do
     let(:appointment) { build_stubbed(:appointment, :video, status: :completed) }
@@ -181,7 +182,7 @@ RSpec.describe Appointments do
 
   describe 'Customer video appointment' do
     let(:appointment) { create(:appointment, :video) }
-    subject(:mail) { described_class.customer_video_appointment(appointment, hackney) }
+    subject(:mail) { described_class.customer_video_appointment(appointment, video_location) }
 
     it_behaves_like 'mailgun identified email'
 
@@ -189,7 +190,7 @@ RSpec.describe Appointments do
       expect(mail.subject).to eq('Your Pension Wise Video Appointment Link')
       expect(mail.to).to eq([appointment.email])
       expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
-      expect(mail.reply_to).to eq(['dave@example.com'])
+      expect(mail.reply_to).to eq(['booking.pensionwise@moneyhelper.org.uk'])
     end
 
     describe 'rendering the body' do
@@ -207,6 +208,8 @@ RSpec.describe Appointments do
     it_behaves_like 'mailgun identified email'
 
     context 'when a video appointment' do
+      subject(:mail) { described_class.customer(appointment, video_location) }
+
       let(:appointment) { create(:appointment, :video) }
 
       it 'renders the headers' do
@@ -225,7 +228,7 @@ RSpec.describe Appointments do
         end
 
         it 'includes the guider first name' do
-          expect(body).to include('Ben')
+          expect(body).to include('George')
         end
 
         it 'does not include the address' do
