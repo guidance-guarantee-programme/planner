@@ -11,6 +11,9 @@ class DropForm
     appointment_reminder
     appointment_cancellation
     customer_booking_request
+    customer_video_appointment
+    bsl_customer_exit_poll
+    video_customer_exit_poll
   ).freeze
 
   attr_accessor :event, :recipient, :description, :message_type, :environment, :online_booking,
