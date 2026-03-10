@@ -14,6 +14,7 @@ class DropForm
     customer_video_appointment
     bsl_customer_exit_poll
     video_customer_exit_poll
+    bsl_video_customer_exit_poll
   ).freeze
 
   attr_accessor :event, :recipient, :description, :message_type, :environment, :online_booking,
