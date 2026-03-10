@@ -70,7 +70,7 @@
     </div>
 
     <div class="col-md-5 action-buttons">
-      <% unless @appointment_form.processed_at? %>
+      <% unless @appointment_form.processed_at? || !current_user.can_process_appointments? %>
         <%= link_to appointment_process_path(@appointment_form), method: :post, title: 'Mark as processed', class: 'btn btn-info t-process' do %>
           <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
           <span>Mark as processed</span>

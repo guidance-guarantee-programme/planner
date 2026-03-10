@@ -30,7 +30,7 @@ RSpec.describe SmsCancellationSuccessJob, '#perform' do
         reference: appointment.reference,
         personalisation: {
           date: '2:00pm, 20 Jun 2016',
-          location: 'Hackney'
+          location: 'Pension Wise Video Appointment'
         }
       )
 

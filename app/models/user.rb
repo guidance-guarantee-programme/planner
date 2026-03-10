@@ -64,4 +64,8 @@ class User < ActiveRecord::Base
   def can_video_appointment?
     organisation_content_id == Appointment::OPS_BOOKING_LOCATION_ID
   end
+
+  def can_process_appointments?
+    !can_video_appointment?
+  end
 end
