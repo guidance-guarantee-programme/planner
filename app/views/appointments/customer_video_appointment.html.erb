@@ -11,7 +11,7 @@
 <% end %>
 
 <%= p do %>
-  This is the link to join your Pension Wise video appointment on: 
+  This is the link to join your Pension Wise <%= @appointment.type_label %> on: 
 <% end %>
 
 <ul>
@@ -24,7 +24,7 @@
 <% end %>
 
 <%= p do %>
-  When you join the appointment, our specialist will repeat the memorable word you gave us so you know you’re speaking to Pension Wise.
+  When you join the appointment, <%= @appointment.bsl_video? ? 'the BSL interpreter' : 'our specialist' %> will repeat the memorable word you gave us so you know you’re speaking to Pension Wise.
 <% end %>
 <%= p do %>
   We’ll wait for up to 10 minutes for you to join. After this, your appointment will need to be rescheduled as there won’t be enough time to cover everything.
@@ -48,7 +48,11 @@
   <li><strong>Choose a quiet place with good lighting.</strong> Make sure your device is plugged in or fully charged</li>
   <li><strong>Click the link to join.</strong> If a box pops up asking to use your camera and microphone, click allow</li>
   <li><strong>Enter your full name</strong></li>
+  <% if @appointment.bsl_video? %>
+  <li><strong>Turn your camera on.</strong> If not already on, you can use the toggle button next to the camera icon</li>
+  <% else %>
   <li><strong>Turn your camera and microphone on.</strong> If not already on, you can use the toggle buttons next to the camera and microphone icon</li>
+  <% end %>
   <li><strong>Click the join now button.</strong> You’ll be put in a virtual waiting room until our pension specialist starts the meeting.</li>
 </ol>
 

@@ -376,12 +376,12 @@ RSpec.feature 'Booking Manager edits an Appointment' do
 
   def and_the_customer_is_notified
     expect(ActionMailer::Base.deliveries.count).to eq(1)
-    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise Video Appointment Cancellation')
+    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise video appointment cancellation')
   end
 
   def and_the_customer_is_notified_correctly
     expect(ActionMailer::Base.deliveries.map(&:subject)).to include(
-      'Your Pension Wise BSL Video Appointment'
+      'Your Pension Wise video appointment in BSL'
     )
   end
 
