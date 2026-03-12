@@ -12,7 +12,7 @@ class AppointmentsPreview < ActionMailer::Preview
   def customer_video_appointment
     appointment = Appointment.first
     appointment.booking_request.video_appointment = true
-    appointment.booking_request.bsl = false
+    appointment.booking_request.bsl = true
     appointment.booking_request.video_appointment_url = 'https://teams.microsoft.com/12345678?p=deadbeef'
 
     Appointments.customer_video_appointment(
@@ -23,12 +23,16 @@ class AppointmentsPreview < ActionMailer::Preview
 
   def cancellation
     appointment = Appointment.first
+    appointment.booking_request.video_appointment = true
+    appointment.booking_request.bsl = true
 
     Appointments.cancellation(appointment)
   end
 
   def customer
     appointment = Appointment.first
+    appointment.booking_request.video_appointment = true
+    appointment.booking_request.bsl = true
 
     Appointments.customer(
       appointment,
@@ -38,6 +42,8 @@ class AppointmentsPreview < ActionMailer::Preview
 
   def reminder
     appointment = Appointment.first
+    appointment.booking_request.video_appointment = true
+    appointment.booking_request.bsl = true
 
     Appointments.reminder(
       appointment,
@@ -47,6 +53,8 @@ class AppointmentsPreview < ActionMailer::Preview
 
   def missed
     appointment = Appointment.first
+    appointment.booking_request.video_appointment = true
+    appointment.booking_request.bsl = true
 
     Appointments.missed(appointment)
   end

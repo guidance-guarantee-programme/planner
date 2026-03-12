@@ -123,7 +123,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
   end
 
   def and_the_customer_receives_a_confirmation_email
-    expect(ActionMailer::Base.deliveries.map(&:subject)).to include('Your Pension Wise Appointment')
+    expect(ActionMailer::Base.deliveries.map(&:subject)).to include('Your Pension Wise appointment')
   end
 
   def and_the_booking_manager_receives_an_email_notification

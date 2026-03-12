@@ -39,7 +39,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: @appointment.email,
-      subject: @appointment.subject(suffix: ' Cancellation'),
+      subject: @appointment.subject(suffix: ' cancellation'),
       reply_to: @appointment.online_booking_reply_to
     )
   end
@@ -107,7 +107,7 @@ class Appointments < ApplicationMailer
 
     mail(
       to: appointment.email,
-      subject: @appointment.subject(suffix: ' Reminder'),
+      subject: @appointment.subject(suffix: ' reminder'),
       reply_to: @appointment.online_booking_reply_to
     )
   end

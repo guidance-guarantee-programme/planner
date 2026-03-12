@@ -81,7 +81,7 @@ RSpec.feature 'Scheduled appointment reminders' do
     expect(ActionMailer::Base.deliveries.count).to eq(1)
 
     expect(ActionMailer::Base.deliveries.first.subject)
-      .to eq('Your Pension Wise Appointment Reminder')
+      .to eq('Your Pension Wise appointment reminder')
   end
 
   def and_a_reminder_activity_is_logged

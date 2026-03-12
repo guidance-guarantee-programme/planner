@@ -1,16 +1,16 @@
 class AppointmentEmailDecorator < SimpleDelegator
   def type_label
     if entity.bsl_video?
-      'BSL Video '
+      'video appointment in BSL '
     elsif entity.video_appointment?
-      'Video '
+      'video appointment '
     else
-      ''
+      'appointment '
     end
   end
 
   def subject(suffix: '')
-    "Your Pension Wise #{type_label}Appointment#{suffix}".squish
+    "Your Pension Wise #{type_label}#{suffix}".squish
   end
 
   def online_booking_twilio_number

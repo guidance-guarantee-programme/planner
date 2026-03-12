@@ -1,5 +1,5 @@
 <%= h2 do %>
-  Reminder of your Pension Wise <%= @appointment.type_label %> appointment
+  Reminder of your Pension Wise <%= @appointment.type_label %>
 <% end %>
 
 <%= p do %>
@@ -11,17 +11,12 @@
 <% end %>
 
 <%= p do %>
-  This is a reminder that your Pension Wise <%= @appointment.type_label %> appointment is booked for:
+  This is a reminder that your Pension Wise <%= @appointment.type_label %> is booked for:
 <% end %>
 
 <%= render 'shared/email/appointment_details' %>
 
-<%= h2 do %>
-  How to change or cancel your appointment
-<% end %>
-<%= p do %>
-  To change or cancel your Pension Wise appointment, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
-<% end %>
+<%= render 'shared/email/change_or_cancel' %>
 
 <%= render 'shared/email/preparing_for_appointment' %>
 

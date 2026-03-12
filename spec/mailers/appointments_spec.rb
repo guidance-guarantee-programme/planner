@@ -49,7 +49,7 @@ RSpec.describe Appointments do
     it_behaves_like 'mailgun identified email'
 
     it 'renders the headers' do
-      expect(mail.subject).to eq('Your Pension Wise Appointment')
+      expect(mail.subject).to eq('Your Pension Wise appointment')
       expect(mail.to).to eq([appointment.email])
       expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
@@ -59,7 +59,7 @@ RSpec.describe Appointments do
 
       it 'includes the appointment particulars' do
         expect(body).to include(appointment.reference)
-        expect(body).to include('missed your Pension Wise  appointment')
+        expect(body).to include('missed your Pension Wise appointment')
       end
     end
   end
@@ -118,7 +118,7 @@ RSpec.describe Appointments do
     it_behaves_like 'mailgun identified email'
 
     it 'renders the headers' do
-      expect(mail.subject).to eq('Your Pension Wise Appointment Cancellation')
+      expect(mail.subject).to eq('Your Pension Wise appointment cancellation')
       expect(mail.to).to eq([appointment.email])
       expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
     end
@@ -165,7 +165,7 @@ RSpec.describe Appointments do
     it_behaves_like 'mailgun identified email'
 
     it 'renders the headers' do
-      expect(mail.subject).to eq('Your Pension Wise Appointment Reminder')
+      expect(mail.subject).to eq('Your Pension Wise appointment reminder')
       expect(mail.to).to eq([appointment.email])
       expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
       expect(mail.reply_to).to eq(['dave@example.com'])
@@ -225,14 +225,14 @@ RSpec.describe Appointments do
       let(:appointment) { create(:appointment, :video) }
 
       it 'renders the headers' do
-        expect(mail.subject).to eq('Your Pension Wise Video Appointment')
+        expect(mail.subject).to eq('Your Pension Wise video appointment')
       end
 
       describe 'rendering the body' do
         let(:body) { subject.body.encoded }
 
         it 'includes video specifics' do
-          expect(body).to include('Your Pension Wise Video  appointment is')
+          expect(body).to include('Your Pension Wise video appointment')
         end
 
         it 'includes the appointment particulars' do
@@ -251,7 +251,7 @@ RSpec.describe Appointments do
 
     context 'when a regular appointment' do
       it 'renders the headers' do
-        expect(mail.subject).to eq('Your Pension Wise Appointment')
+        expect(mail.subject).to eq('Your Pension Wise appointment')
         expect(mail.to).to eq([appointment.email])
         expect(mail.from).to eq(['appointments.pensionwise@moneyhelper.org.uk'])
         expect(mail.reply_to).to eq(['dave@example.com'])
@@ -286,7 +286,7 @@ RSpec.describe Appointments do
           before { allow(appointment).to receive(:updated?).and_return(true) }
 
           it 'includes the lead paragraph for updates' do
-            expect(body).to include('Your Pension Wise  appointment has been updated')
+            expect(body).to include('Your Pension Wise appointment  has been updated')
           end
 
           it 'identifies the message correctly' do
