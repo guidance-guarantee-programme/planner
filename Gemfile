@@ -85,6 +85,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
     gem 'database_rewinder'
     gem 'launchy'
     gem 'phantomjs'
+    gem 'phantomjs-binaries'
     gem 'poltergeist'
     gem 'selenium-webdriver'
     gem 'webmock'
