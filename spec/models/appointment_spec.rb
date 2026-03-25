@@ -243,6 +243,26 @@ RSpec.describe Appointment do
         end
       end
 
+      context 'when the additional info was changed' do
+        it 'does not notify' do
+          travel_to '2016-01-01 13:00' do
+            original.update!(additional_info: 'I really do not care for this!')
+
+            expect(original).to_not be_notify
+          end
+        end
+      end
+
+      context 'when other important fields are changed' do
+        it 'does notify' do
+          travel_to '2016-01-01 13:00' do
+            original.update!(phone: '08008118181')
+
+            expect(original).to be_notify
+          end
+        end
+      end
+
       context 'when the status was changed' do
         it 'handles correctly' do
           travel_to '2016-01-01 13:00' do
