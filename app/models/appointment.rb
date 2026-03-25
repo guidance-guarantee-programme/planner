@@ -187,7 +187,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   def notify? # rubocop:disable Metrics/AbcSize
     return false if proceeded_at.past?
-    return true  if previous_changes.any? && previous_changes.exclude?(:status)
+    return true  if previous_changes.any? && previous_changes.except(:status, :additional_info).any?
     return true  if booking_request.previous_changes.any? && booking_request.previous_changes.slice(
       :updated_at, :video_appointment, :video_appointment_url
     ).none?
