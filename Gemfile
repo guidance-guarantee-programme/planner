@@ -34,7 +34,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'faraday_middleware'
   gem 'font-awesome-rails'
   gem 'foreman'
-  gem 'gds-sso'
+  gem 'gds-sso', '~> 18.0'
   gem 'govuk_admin_template'
   gem 'kaminari'
   gem 'momentjs-rails'
