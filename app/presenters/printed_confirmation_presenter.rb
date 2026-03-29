@@ -27,11 +27,11 @@ class PrintedConfirmationPresenter
   private
 
   def date
-    appointment.proceeded_at.to_date.to_s(:govuk_date)
+    appointment.proceeded_at.to_date.to_fs(:govuk_date)
   end
 
   def time
-    "#{appointment.proceeded_at.to_s(:govuk_time)} (#{appointment.timezone})"
+    "#{appointment.proceeded_at.to_fs(:govuk_time)} (#{appointment.timezone})"
   end
 
   def location

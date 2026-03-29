@@ -57,10 +57,10 @@
           <% @slots.each do |slot| %>
             <% slot = LocationAwareEntity.new(entity: slot, booking_location: booking_location) %>
             <tr class="t-slot">
-              <td class="t-start-at"><%= slot.start_at.to_s(:govuk_date) %></td>
+              <td class="t-start-at"><%= slot.start_at.to_fs(:govuk_date) %></td>
               <td class="t-guider"><%= slot.guider_name %></td>
               <td class="t-available"><%= slot.appointment_count.zero? ? 'Yes' : 'No' %></td>
-              <td class="t-created-at"><%= slot.created_at.in_time_zone('London').to_s(:govuk_date) %></td>
+              <td class="t-created-at"><%= slot.created_at.in_time_zone('London').to_fs(:govuk_date) %></td>
               <td>
                 <%= link_to realtime_bookable_slot_path(slot, location_id: location.id), title: 'Delete this slot', class: 'btn btn-danger t-delete', method: :delete, data: { confirm: 'Are you sure?' } do %>
                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

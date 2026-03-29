@@ -7,7 +7,7 @@
 <% end %>
 
 <%= p do %>
-  You recently had a Pension Wise video appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>.
+  You recently had a Pension Wise video appointment on <%= @appointment.proceeded_at.to_date.to_fs(:govuk_date) %>.
 <% end %>
 
 <%= p do %>

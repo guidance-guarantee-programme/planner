@@ -100,7 +100,7 @@ class AppointmentForm # rubocop:disable Metrics/ClassLength
   def validate_guider_availability
     return unless [guider_id, date, time].all?(&:present?)
 
-    proceeded_at = "#{date} #{time.to_s(:time)}"
+    proceeded_at = "#{date} #{time.to_fs(:time)}"
 
     if Appointment.overlaps?(
       guider_id: guider_id, proceeded_at: proceeded_at, location_id: location_id

@@ -1,5 +1,5 @@
-* Date: <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %>
-* Time: <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>
+* Date: <%= @appointment.proceeded_at.to_date.to_fs(:govuk_date) %>
+* Time: <%= "#{@appointment.proceeded_at.to_fs(:govuk_time)} (#{@appointment.timezone})" %>
 <% unless @appointment.video_appointment? %>
 * Address: <%= @appointment.location_name %>, <%= @appointment.address_lines.join(', ') %>
 <% end %>

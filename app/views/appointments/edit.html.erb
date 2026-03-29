@@ -132,7 +132,7 @@
     <hr>
     <h3 class="h4">Created at</h3>
     <p class="lead">
-      <strong><%= @appointment_form.created_at.in_time_zone('London').to_s(:govuk_date) %></strong>
+      <strong><%= @appointment_form.created_at.in_time_zone('London').to_fs(:govuk_date) %></strong>
     </p>
 
     <hr>

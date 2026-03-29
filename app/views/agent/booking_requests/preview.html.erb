@@ -108,7 +108,7 @@
             </tr>
             <tr>
               <td class="active"><b>Data subject date of birth</b></td>
-              <td><%= @booking.data_subject_date_of_birth.to_date.to_s(:govuk_date) %></td>
+              <td><%= @booking.data_subject_date_of_birth.to_date.to_fs(:govuk_date) %></td>
             </tr>
             <% end %>
           </tbody>
