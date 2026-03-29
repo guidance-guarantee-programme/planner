@@ -21,7 +21,7 @@ class SmsCancellationSuccessJob < NotifyJobBase
       template_id: appointment.video_appointment? ? VIDEO_TEMPLATE_ID : TEMPLATE_ID,
       reference: appointment.reference,
       personalisation: {
-        date: appointment.proceeded_at.to_s(:govuk_date_short),
+        date: appointment.proceeded_at.to_fs(:govuk_date_short),
         location: appointment.location_name
       }
     )

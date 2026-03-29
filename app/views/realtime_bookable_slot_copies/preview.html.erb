@@ -13,7 +13,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
     <h4 class="modal-title t-title">
-      Copy slots for <%= @form.guider_name %> <small><%= @form.date.to_date.to_s(:govuk_date) %></small>
+      Copy slots for <%= @form.guider_name %> <small><%= @form.date.to_date.to_fs(:govuk_date) %></small>
     </h4>
   </div>
 
@@ -25,14 +25,14 @@
       <div class="col-md-6">
         <h4>Slots to create</h4>
         <% @good.each do |slot| %>
-          <span class="t-preview-slot-good"><%= slot.start_at.to_s(:govuk_date) %></span><br>
+          <span class="t-preview-slot-good"><%= slot.start_at.to_fs(:govuk_date) %></span><br>
         <% end %>
       </div>
 
       <div class="col-md-6">
         <h4>Skipped slots</h4>
         <% @bad.each do |slot| %>
-          <span class="t-preview-slot-bad"><%= slot.start_at.to_s(:govuk_date) %></span><br>
+          <span class="t-preview-slot-bad"><%= slot.start_at.to_fs(:govuk_date) %></span><br>
           <% slot.errors.full_messages.each do |message| %>
             <span class="text-danger"><%= message %></span><br>
           <% end %>

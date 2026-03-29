@@ -44,7 +44,7 @@ module ScheduleHelper
   end
 
   def slot_period(slot)
-    return slot.start_at.to_s(:govuk_time) if slot.realtime?
+    return slot.start_at.to_fs(:govuk_time) if slot.realtime?
 
     slot.period == 'am' ? 'Morning' : 'Afternoon'
   end

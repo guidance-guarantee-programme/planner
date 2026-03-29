@@ -57,7 +57,7 @@ class Slot < ActiveRecord::Base
   end
 
   def formatted_date
-    date.to_s(:gov_uk)
+    date.to_fs(:gov_uk)
   end
 
   def period

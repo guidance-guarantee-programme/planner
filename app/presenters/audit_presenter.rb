@@ -10,7 +10,7 @@ class AuditPresenter < SimpleDelegator
   end
 
   def timestamp
-    created_at.to_s(:govuk_date_short)
+    created_at.to_fs(:govuk_date_short)
   end
 
   def username
@@ -48,7 +48,7 @@ class AuditPresenter < SimpleDelegator
     when 'status'
       value.humanize
     when 'proceeded_at'
-      Time.zone.parse(value).to_s(:govuk_date)
+      Time.zone.parse(value).to_fs(:govuk_date)
     else
       value
     end

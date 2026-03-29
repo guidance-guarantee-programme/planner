@@ -1,6 +1,6 @@
 <ul>
-  <li><strong>Date:</strong> <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %></li>
-  <li><strong>Time:</strong> <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %></li>
+  <li><strong>Date:</strong> <%= @appointment.proceeded_at.to_date.to_fs(:govuk_date) %></li>
+  <li><strong>Time:</strong> <%= "#{@appointment.proceeded_at.to_fs(:govuk_time)} (#{@appointment.timezone})" %></li>
   <% unless @appointment.video_appointment? %>
   <li><strong>Address:</strong> <%= @appointment.location_name %>, <%= @appointment.address_lines.join(', ') %></li>
   <% end %>

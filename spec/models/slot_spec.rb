@@ -42,7 +42,7 @@ RSpec.describe Slot do
   end
 
   describe '#mid_point' do
-    subject { Slot.new(from: from, date: '2016-01-01').mid_point.to_s(:db) }
+    subject { Slot.new(from: from, date: '2016-01-01').mid_point.to_fs(:db) }
 
     context 'for a morning slot' do
       let(:from) { '0900' }

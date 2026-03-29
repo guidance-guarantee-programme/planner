@@ -11,7 +11,7 @@
 <% end %>
 
 <%= p do %>
-  We noticed you missed your Pension Wise <%= @appointment.type_label %> appointment on <%= @appointment.proceeded_at.to_date.to_s(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_s(:govuk_time)} (#{@appointment.timezone})" %>.
+  We noticed you missed your Pension Wise <%= @appointment.type_label %> appointment on <%= @appointment.proceeded_at.to_date.to_fs(:govuk_date) %> at <%= "#{@appointment.proceeded_at.to_fs(:govuk_time)} (#{@appointment.timezone})" %>.
 <% end %>
 
 <% if @appointment.video_appointment? %>

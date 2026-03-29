@@ -4,7 +4,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
   <h4 class="modal-title t-title">
-    Copy slots for <%= @form.guider_name %> <small><%= @form.date.to_date.to_s(:govuk_date) %></small>
+    Copy slots for <%= @form.guider_name %> <small><%= @form.date.to_date.to_fs(:govuk_date) %></small>
   </h4>
 </div>
 
@@ -26,7 +26,7 @@
       <%= f.collection_check_boxes(:slots, @form.time_slots, :start_at, :start_at, include_hidden: false, checked: @form.slots) do |b| %>
         <%= b.label(class: 'checkbox-inline') do %>
           <%= b.check_box %>
-          <%= b.object.start_at.to_s(:govuk_time) %>
+          <%= b.object.start_at.to_fs(:govuk_time) %>
         <% end %>
       <% end %>
     </div>

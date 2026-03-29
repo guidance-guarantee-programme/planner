@@ -3,7 +3,7 @@ class AgentBookingDecorator < SimpleDelegator
     if scheduled
       slot_text(super)
     else
-      Time.zone.parse(ad_hoc_start_at).to_s(:govuk_date)
+      Time.zone.parse(ad_hoc_start_at).to_fs(:govuk_date)
     end
   end
 
@@ -16,7 +16,7 @@ class AgentBookingDecorator < SimpleDelegator
   end
 
   def date_of_birth
-    super.to_date.to_s(:govuk_date)
+    super.to_date.to_fs(:govuk_date)
   end
 
   def welsh
