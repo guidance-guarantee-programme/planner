@@ -204,7 +204,7 @@ GEM
     cliver (0.3.2)
     coderay (1.1.3)
     concurrent-ruby (1.3.4)
-    connection_pool (3.0.2)
+    connection_pool (2.4.1)
     cookiejar (0.3.3)
     crack (0.4.5)
       rexml
@@ -621,6 +621,7 @@ DEPENDENCIES
   bugsnag!
   capybara!
   concurrent-ruby (= 1.3.4)!
+  connection_pool (~> 2.4.1)!
   database_rewinder!
   email_validator (= 1.6.0)!
   eventmachine!

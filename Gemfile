@@ -27,6 +27,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
   gem 'concurrent-ruby', '1.3.4'
+  gem 'connection_pool', '~> 2.4.1'
   gem 'email_validator', '1.6.0'
   gem 'eventmachine', github: 'eventmachine/eventmachine'
   gem 'faraday'
