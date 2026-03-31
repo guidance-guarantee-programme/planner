@@ -23,15 +23,30 @@
 
 <% if @appointment.video_appointment? %>
   <%= h2 do %>How to join your video appointment<% end %>
-  <%= p do %>
-    You’ll be sent a link to access your video appointment at least 2 days before
-    your appointment time, with instructions on how to use it. Only you and our
-    pensions specialist will have access to the link.
+
+  <% if @appointment.bsl? %>
+    <%= p do %>
+      You’ll be sent a link to access your video appointment at least 2 days
+      before your appointment time, with instructions on how to use it. Only you,
+      our pensions specialist and the BSL interpreter will have access to the
+      link.
+    <% end %>
+    <%= p do %>
+      When you join the appointment, the BSL interpreter will repeat the
+      memorable word you gave us, so you know you’re speaking to Pension Wise.
+    <% end %>
+  <% else %>
+    <%= p do %>
+      You’ll be sent a link to access your video appointment at least 2 days before
+      your appointment time, with instructions on how to use it. Only you and our
+      pensions specialist will have access to the link.
+    <% end %>
+    <%= p do %>
+      When you join the appointment, our specialist will repeat the memorable word
+      you gave us, so you know you’re speaking to Pension Wise.
+    <% end %>
   <% end %>
-  <%= p do %>
-    When you join the appointment, our specialist will repeat the memorable word
-    you gave us so you know you’re speaking to Pension Wise.
-  <% end %>
+
   <%= p do %>
     We’ll wait for up to 10 minutes for you to join. After this, your appointment
     will need to be rescheduled as there won’t be enough time to cover everything.
@@ -41,11 +56,5 @@
 <% unless @appointment.video_appointment? %>
   <%= p do %>
     The meeting room is large enough for one other person if you’d like someone to come with you.
-  <% end %>
-<% end %>
-
-<% if @appointment.booking_request.bsl? %>
-  <%= p do %>
-    <a href="https://www.pensionwise.gov.uk/bsl-exit-poll">Give feedback on the Pension Wise booking process</a> – your comments and suggestions help us improve our services.
   <% end %>
 <% end %>

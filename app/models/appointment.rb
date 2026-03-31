@@ -160,6 +160,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     video_appointment? && video_appointment_url? && booking_request.previous_changes.include?(:video_appointment_url)
   end
 
+  def bsl_video?
+    bsl? && video_appointment?
+  end
+
   def cas?
     booking_location_id == CAS_BOOKING_LOCATION_ID
   end

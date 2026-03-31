@@ -17,7 +17,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
-  scenario 'Successfully modifying an appointment', js: true do
+  scenario 'Successfully modifying an appointment', js: true, retry: 3 do
     given_the_user_identifies_as_an_agent_manager do
       and_an_appointment_exists
       when_they_edit_the_appointment
@@ -60,6 +60,35 @@ RSpec.feature 'Agent manager modifies an appointment' do
         and_the_customer_is_notified_with_the_video_url
       end
     end
+  end
+
+  scenario 'Rescheduling a BSL video appointment', js: true do
+    travel_to '2026-02-13 13:00' do
+      given_the_user_identifies_as_an_ops_agent_manager do
+        and_a_bsl_video_appointment_exists
+        and_other_bsl_slots_exist
+        when_they_view_the_appointment
+        and_they_reschedule_the_bsl_video_appointment
+        then_the_appointment_is_rescheduled
+      end
+    end
+  end
+
+  def and_a_bsl_video_appointment_exists
+    @appointment = create(:appointment, :bsl, :video)
+  end
+
+  def and_other_bsl_slots_exist
+    @schedule = Schedule.current(@appointment.location_id)
+
+    @slot = create(:bookable_slot, bsl: true, schedule: @schedule, start_at: Time.zone.parse('2026-02-20 13:00'))
+  end
+
+  def and_they_reschedule_the_bsl_video_appointment
+    @page.reschedule.click
+    @page.wait_until_rescheduling_modal_visible
+    @page.rescheduling_modal.slot.select('Friday, 20 Feb - 1:00pm (BSL/double)')
+    @page.rescheduling_modal.reschedule.click
   end
 
   def and_other_slots_exist

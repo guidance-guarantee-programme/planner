@@ -1,0 +1,19 @@
+<%= h2 do %>
+  How to change or cancel your appointment
+<% end %>
+<% if @appointment.bsl_video? %>
+  <%= p do %>
+    To change or cancel your Pension Wise <%= @appointment.type_label %>, including any information you’ve given us, you can: 
+  <% end %>
+  <ul>
+    <li>reply to this email</li>
+    <li><a href="https://www.moneyhelper.org.uk/en/contact-us#menuAccessibilityHeading">contact us using our BSL interpreter service</a> and select ‘Pension Wise’.</li>
+  </ul>
+  <%= p do %>
+    The next available BSL video appointment will usually be at least 2 weeks away.
+  <% end %>
+<% else %>
+  <%= p do %>
+    To change or cancel your Pension Wise <%= @appointment.type_label %>, including any information you’ve given us, call <%= @appointment.online_booking_twilio_number %>.
+  <% end %>
+<% end %>
