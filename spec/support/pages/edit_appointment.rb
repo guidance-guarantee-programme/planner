@@ -31,12 +31,7 @@ module Pages
     element :time_hour, '#appointment_proceeded_at_4i'
     element :time_minute, '#appointment_proceeded_at_5i'
 
-    element :slot_one_date,     '.t-slot-1-date'
-    element :slot_one_period,   '.t-slot-1-period'
-    element :slot_two_date,     '.t-slot-2-date'
-    element :slot_two_period,   '.t-slot-2-period'
-    element :slot_three_date,   '.t-slot-3-date'
-    element :slot_three_period, '.t-slot-3-period'
+    element :booked_appointment, '.t-appointment-date'
 
     element :process, '.t-process'
     element :submit, '.t-submit'

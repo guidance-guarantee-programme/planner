@@ -86,48 +86,15 @@
 } %>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" data-module="rescheduling-modal">
     <h2 class="h3">Booked appointment</h2>
+    <p class="lead">
+      <strong class="t-appointment-date"><%= @appointment_form.proceeded_at.to_fs(:govuk_date) %></strong>
+    </p>
 
-    <div class="is-chosen SlotPicker--selected" data-module="rescheduling-modal">
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>1</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-1-date"><%= @appointment_form.primary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-1-period"><%= @appointment_form.primary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-
-      <% if @appointment_form.realtime? %>
-        <%= render partial: 'realtime_rescheduling_modal', locals: { appointment: @appointment_form } %>
-      <% end %>
-
-      <% if @appointment_form.secondary_slot %>
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>2</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-2-date"><%= @appointment_form.secondary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-2-period"><%= @appointment_form.secondary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-      <% end %>
-
-      <% if @appointment_form.tertiary_slot %>
-      <div class="SlotPicker-choice is-chosen">
-        <div class="SlotPicker-choiceInner">
-          <div class="SlotPicker-position"><span>3</span></div>
-          <div class="SlotPicker-choiceContent">
-            <p class="SlotPicker-date t-slot-3-date"><%= @appointment_form.tertiary_slot.formatted_date %></p>
-            <p class="SlotPicker-time t-slot-3-period"><%= @appointment_form.tertiary_slot.period %></p>
-          </div>
-        </div>
-      </div>
-      <% end %>
-    </div>
+    <% if @appointment_form.realtime? %>
+      <%= render partial: 'realtime_rescheduling_modal', locals: { appointment: @appointment_form } %>
+    <% end %>
 
     <hr>
     <h3 class="h4">Created at</h3>
@@ -150,6 +117,8 @@
     <p class="lead">
       <strong class="t-gdpr-consent"><%= @appointment_form.consent %></strong>
     </p>
+
+    <hr>
     <div data-module="consent-modal">
       <%= render partial: 'gdpr_consent_modal', locals: { booking_request: @appointment_form.booking_request } %>
     </div>
