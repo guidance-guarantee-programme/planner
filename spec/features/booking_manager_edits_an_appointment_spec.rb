@@ -328,14 +328,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   def and_they_see_the_requested_slots
     @booking_request = @appointment.booking_request
 
-    expect(@page.slot_one_date.text).to eq(@booking_request.primary_slot.formatted_date)
-    expect(@page.slot_one_period.text).to eq(@booking_request.primary_slot.period)
-
-    expect(@page.slot_two_date.text).to eq(@booking_request.secondary_slot.formatted_date)
-    expect(@page.slot_two_period.text).to eq(@booking_request.secondary_slot.period)
-
-    expect(@page.slot_three_date.text).to eq(@booking_request.tertiary_slot.formatted_date)
-    expect(@page.slot_three_period.text).to eq(@booking_request.tertiary_slot.period)
+    expect(@page.booked_appointment.text).to eq('2:00pm, 20 June 2016')
   end
 
   def when_they_modify_the_appointment_details
