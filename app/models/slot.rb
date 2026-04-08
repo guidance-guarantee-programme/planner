@@ -17,7 +17,7 @@ class Slot < ActiveRecord::Base
                        slot.match(SLOT_REGEX).captures
                      else
                        starting = Time.zone.parse(slot)
-                       ending   = starting.advance(hours: 1)
+                       ending   = starting.advance(minutes: 90)
 
                        [starting.to_date, starting.strftime('%H%M'), ending.strftime('%H%M')]
                      end
