@@ -9,6 +9,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   OPS_BOOKING_MANAGER_ALIAS = 'supervisors@maps.org.uk'.freeze
   OPS_BOOKING_LOCATION_ID   = '14a48488-a42f-422d-969d-526e30922fe4'.freeze
 
+  MOBILE_REGEX = /^(07|\+447|00447)/
+  MOBILE_REGEX_POSIX = '^(07|\+447|00447)'.freeze
+  MOBILE_PREFIXES = %w[+44 0044 44 0].freeze
+
   AGENT_PERMITTED_SECONDARY = '15'.freeze
   SECONDARY_STATUSES = {
     'incomplete_other' => {
@@ -85,8 +89,8 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   validate  :validate_secondary_status
 
   scope :not_booked_today, -> { where.not(created_at: Time.current.beginning_of_day..Time.current.end_of_day) }
-  scope :with_mobile, -> { where("phone like '07%'") }
-  scope :without_mobile, -> { where.not("phone like '07%'") }
+  scope :with_mobile, -> { where("phone ~ '#{MOBILE_REGEX_POSIX}'") }
+  scope :without_mobile, -> { where.not("phone ~ '#{MOBILE_REGEX_POSIX}'") }
   scope :with_email, -> { where.not(email: '') }
 
   attr_accessor :current_user
@@ -225,9 +229,20 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def self.for_sms_cancellation(number)
+    numbers = Array(normalise_number(number.dup))
+    numbers = numbers.map { |num| Arel::Nodes.build_quoted(num).to_sql }.join(',')
+
     pending
       .order(:created_at)
-      .find_by("REPLACE(phone, ' ', '') = :number", number: number)
+      .find_by("REPLACE(phone, ' ', '') IN (#{numbers})")
+  end
+
+  def self.normalise_number(number)
+    number.remove!(/\s+/)
+    return number unless (found = MOBILE_PREFIXES.find { |p| number.starts_with?(p) })
+
+    number.sub!(found, '')
+    MOBILE_PREFIXES.map { |p| "#{p}#{number}" }
   end
 
   def self.day_range(days)

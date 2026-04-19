@@ -19,7 +19,7 @@ RSpec.feature 'SMS appointment reminders' do
     # in the window with a mobile number
     @mobile = create(
       :appointment,
-      phone: '07715930455',
+      phone: '+447715930455',
       proceeded_at: 3.days.from_now,
       created_at: 1.day.ago,
       guider_id: 3
