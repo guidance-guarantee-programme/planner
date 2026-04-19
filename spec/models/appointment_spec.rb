@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+NORMALISED_NUMBERS = %w[+447715930455 447715930455 07715930455 00447715930455].freeze
+
 RSpec.describe Appointment do
   subject { build_stubbed(:appointment, current_user: build_stubbed(:agent)) }
 
@@ -110,6 +112,18 @@ RSpec.describe Appointment do
         appointment = create(:appointment, proceeded_at: 7.days.from_now)
 
         expect(described_class.needing_reminder).to_not include(appointment)
+      end
+    end
+  end
+
+  describe '.for_sms_cancellation' do
+    context 'normalises client numbers into the various forms' do
+      NORMALISED_NUMBERS.each do |normalised_number|
+        it "returns the right appointment when number is in the form '#{normalised_number}'" do
+          @appointment = create(:appointment, phone: NORMALISED_NUMBERS.sample)
+
+          expect(described_class.for_sms_cancellation(normalised_number)).to eq(@appointment)
+        end
       end
     end
   end

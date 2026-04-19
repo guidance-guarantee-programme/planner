@@ -11,6 +11,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   MOBILE_REGEX = /^(07|\+447|00447)/
   MOBILE_REGEX_POSIX = '^(07|\+447|00447)'.freeze
+  MOBILE_PREFIXES = %w[+44 0044 44 0].freeze
 
   AGENT_PERMITTED_SECONDARY = '15'.freeze
   SECONDARY_STATUSES = {
@@ -228,9 +229,20 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   end
 
   def self.for_sms_cancellation(number)
+    numbers = Array(normalise_number(number.dup))
+    numbers = numbers.map { |num| Arel::Nodes.build_quoted(num).to_sql }.join(',')
+
     pending
       .order(:created_at)
-      .find_by("REPLACE(phone, ' ', '') = :number", number: number)
+      .find_by("REPLACE(phone, ' ', '') IN (#{numbers})")
+  end
+
+  def self.normalise_number(number)
+    number.remove!(/\s+/)
+    return number unless (found = MOBILE_PREFIXES.find { |p| number.starts_with?(p) })
+
+    number.sub!(found, '')
+    MOBILE_PREFIXES.map { |p| "#{p}#{number}" }
   end
 
   def self.day_range(days)
