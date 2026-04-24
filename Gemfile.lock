@@ -227,7 +227,7 @@ GEM
       http_parser.rb (~> 0)
     email_validator (1.6.0)
       activemodel
-    erb (6.0.2)
+    erb (6.0.4)
     erubi (1.13.1)
     excon (0.103.0)
     execjs (2.9.1)
