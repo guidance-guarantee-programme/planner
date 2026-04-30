@@ -77,7 +77,7 @@ class AppointmentsController < ApplicationController
   end
 
   def schedule_exit_polls(appointment)
-    if appointment.bsl_newly_completed? && video_newly_completed?
+    if appointment.bsl_newly_completed? && appointment.video_newly_completed?
       BslVideoCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment)
     elsif appointment.video_newly_completed?
       VideoCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment)

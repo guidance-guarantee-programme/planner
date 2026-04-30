@@ -127,6 +127,32 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  scenario 'Completing a BSL Video appointment schedules an exit poll' do
+    given_the_user_identifies_as_ops_booking_manager do
+      and_there_is_a_bsl_video_appointment
+      when_the_booking_manager_edits_the_appointment
+      and_completes_the_appointment
+      then_the_bsl_video_exit_poll_is_scheduled
+    end
+  end
+
+  def and_there_is_a_bsl_video_appointment
+    @appointment = create(:appointment, :video)
+    @appointment.booking_request.update(bsl: true)
+  end
+
+  def and_completes_the_appointment
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+
+    @page.status.select('Completed')
+    @page.submit.click
+  end
+
+  def then_the_bsl_video_exit_poll_is_scheduled
+    assert_enqueued_jobs(1, only: BslVideoCustomerExitPollJob)
+  end
+
   def and_a_video_appointment_exists
     @appointment = create(:appointment, :video)
   end
