@@ -26,7 +26,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: '771eded'
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
-  gem 'concurrent-ruby', '1.3.4'
+  gem 'concurrent-ruby', '1.3.7'
   gem 'connection_pool', '~> 2.4.1'
   gem 'email_validator', '1.6.0'
   gem 'eventmachine', github: 'eventmachine/eventmachine'
