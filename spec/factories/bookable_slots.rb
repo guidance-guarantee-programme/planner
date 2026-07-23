@@ -3,6 +3,6 @@ FactoryBot.define do
     schedule
     guider_id { 1 }
     start_at { Time.current.change(hour: 9) }
-    end_at { start_at.to_time.advance(hour: 1) }
+    end_at { start_at.to_time.advance(minutes: 90) }
   end
 end

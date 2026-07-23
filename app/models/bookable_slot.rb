@@ -34,8 +34,8 @@ class BookableSlot < ActiveRecord::Base
       <<-SQL
         LEFT JOIN appointments ON
           appointments.guider_id = bookable_slots.guider_id
-          AND (appointments.proceeded_at, interval '1 hour')
-          OVERLAPS (bookable_slots.start_at, interval '1 hour')
+          AND (appointments.proceeded_at, interval '90 minutes')
+          OVERLAPS (bookable_slots.start_at, interval '90 minutes')
           AND NOT appointments.status IN (5, 6, 7)
       SQL
     ).where('appointments.proceeded_at IS NULL')
@@ -61,7 +61,7 @@ class BookableSlot < ActiveRecord::Base
   def validate_guider_overlapping # rubocop:disable Metrics/AbcSize
     return unless guider_id?
     return unless overlapping = self.class.where(
-      "(start_at, interval '1 hour') overlaps (?, interval '1 hour')", start_at
+      "(start_at, interval '90 minutes') overlaps (?, interval '90 minutes')", start_at
     ).find_by(guider_id: guider_id)
 
     if overlapping.schedule_id == schedule_id

@@ -29,7 +29,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     bookable_slots.build(
       guider_id: guider_id,
       start_at: start_at,
-      end_at: start_at.advance(hours: 1)
+      end_at: start_at.advance(minutes: 90)
     )
   end
 
@@ -37,7 +37,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     bookable_slots.create(
       guider_id: guider_id,
       start_at: start_at,
-      end_at: start_at.advance(hours: 1)
+      end_at: start_at.advance(minutes: 90)
     )
   end
 
@@ -50,8 +50,8 @@ class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
       <<-SQL
         LEFT JOIN appointments ON
           appointments.guider_id = bookable_slots.guider_id
-          AND (appointments.proceeded_at, interval '1 hour')
-          OVERLAPS (bookable_slots.start_at, interval '1 hour')
+          AND (appointments.proceeded_at, interval '90 minutes')
+          OVERLAPS (bookable_slots.start_at, interval '90 minutes')
           AND NOT appointments.status IN (5, 6, 7)
       SQL
     ).where('appointments.proceeded_at IS NULL')

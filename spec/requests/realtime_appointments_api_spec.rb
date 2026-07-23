@@ -45,7 +45,7 @@ RSpec.describe 'GET /locations/{location_id}/realtime_appointments' do
             'title' => 'Mortimer Smith',
             'resourceId' => 1,
             'start' => '2018-11-07T09:00:00.000Z',
-            'end' => '2018-11-07T10:00:00.000Z',
+            'end' => '2018-11-07T10:30:00.000Z',
             'cancelled' => false,
             'url' => "/appointments/#{@appointment.id}/edit",
             'location' => 'Hackney'
