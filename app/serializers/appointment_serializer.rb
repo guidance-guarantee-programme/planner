@@ -16,7 +16,7 @@ class AppointmentSerializer < ActiveModel::Serializer
   end
 
   attribute :end do
-    object.proceeded_at.advance(hours: 1)
+    object.proceeded_at.advance(minutes: 90)
   end
 
   attribute :cancelled do
