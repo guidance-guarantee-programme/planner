@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking manager manages realtime availability' do
-  scenario 'Attempting to add a slot that would overlap in another schedule', driver: :poltergeist do
+  scenario 'Attempting to add a slot that would overlap in another schedule', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       travel_to '2026-02-22 09:00' do
         and_a_schedule_exists
@@ -15,7 +15,7 @@ RSpec.feature 'Booking manager manages realtime availability' do
     end
   end
 
-  scenario 'Adding realtime slots to an existing schedule', driver: :poltergeist do
+  scenario 'Adding realtime slots to an existing schedule', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       travel_to '2018-10-26 13:00' do
         and_a_schedule_exists
