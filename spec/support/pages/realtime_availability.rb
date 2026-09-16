@@ -44,7 +44,7 @@ module Pages
         }();
       JS
 
-      page.driver.click(x, y)
+      page.find('body').click(x: x.to_i, y: y.to_i)
     end
   end
 end
