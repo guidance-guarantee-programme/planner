@@ -5,18 +5,6 @@ source 'https://rubygems.org'
 # force Bundler to use SSL
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# temporarily switch to this since Travis can't resolve the new certificate chain
-source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap-daterangepicker'
-  gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
-  gem 'rails-assets-fullcalendar', '3.9.0'
-  gem 'rails-assets-fullcalendar-scheduler', '1.9.4'
-  gem 'rails-assets-growl'
-  gem 'rails-assets-moment'
-  gem 'rails-assets-pusher'
-  gem 'rails-assets-qTip2'
-end
-
 source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'active_model_serializers'
   gem 'alertifyjs-rails'

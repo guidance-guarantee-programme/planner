@@ -3,6 +3,8 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
+Rails.application.config.assets.paths += Dir[Rails.root.join('vendor/assets/rails-assets/**/*')]
+
 Rails.application.config.assets.paths << Rails.root.join(
   'vendor/assets/bower_components/moj.slot-picker/dist/stylesheets/images'
 )
