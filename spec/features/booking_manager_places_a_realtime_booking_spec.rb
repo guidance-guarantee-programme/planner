@@ -154,9 +154,9 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.submit.click
 
     expect(@page).to have_locations
-    expect(@page.locations.first.name).to have_text('Pension Wise Video Appointment')
+    expect(@page.locations.second.name).to have_text('Pension Wise Video Appointment')
 
-    @page.locations.first.book.click
+    @page.locations.second.book.click
   end
 
   def and_they_choose_a_realtime_slot
@@ -179,8 +179,6 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def and_they_provide_the_customer_details
-    expect(@page).to have_text('Access via the lift is currently unavailable')
-
     @page.name.set('Summer Sanchez')
     @page.phone.set('07715 930 444')
     @page.memorable_word.set('spaceships')

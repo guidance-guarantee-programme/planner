@@ -14,7 +14,7 @@ FactoryBot.define do
 
     trait :video do
       association :booking_request, factory: :video_booking_request
-      location_id { Appointment::OPS_BOOKING_LOCATION_ID }
+      location_id { Appointment::OPS_VIDEO_LOCATION_ID }
       guider_id { 67 }
     end
 

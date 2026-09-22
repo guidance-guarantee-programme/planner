@@ -90,12 +90,21 @@ RSpec.feature 'Agent places a realtime booking' do
       def get(*)
         result = {
           'uid' => Appointment::OPS_BOOKING_LOCATION_ID,
-          'name' => 'Pension Wise Video Appointment',
+          'name' => 'Money & Pensions Service',
           'accessibility_information' => 'Access via the lift is currently unavailable',
           'geometry' => {
             'coordinates' => [-0.469742, 52.131253]
           },
-          'locations' => [],
+          'locations' => [
+            {
+              'uid' => Appointment::OPS_VIDEO_LOCATION_ID,
+              'name' => 'Pension Wise Video Appointment',
+              'accessibility_information' => 'Access via the lift is currently unavailable',
+              'geometry' => {
+                'coordinates' => [-0.469742, 52.131253]
+              }
+            }
+          ],
           'guiders' => [
             {
               'id' => 67,

@@ -12,7 +12,7 @@ FactoryBot.define do
     end
 
     trait :ops do
-      location_id { Appointment::OPS_BOOKING_LOCATION_ID }
+      location_id { Appointment::OPS_VIDEO_LOCATION_ID }
     end
   end
 end

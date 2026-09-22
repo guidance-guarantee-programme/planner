@@ -11,7 +11,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'audited'
   gem 'azure-storage-blob'
   gem 'bh'
-  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: '771eded'
+  gem 'booking_locations', github: 'guidance-guarantee-programme/booking_locations', ref: 'd8d22a7'
   gem 'bootstrap-kaminari-views'
   gem 'bugsnag'
   gem 'concurrent-ruby', '1.3.7'

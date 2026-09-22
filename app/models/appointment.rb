@@ -8,6 +8,7 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   CAS_BOOKING_LOCATION_ID   = '0c686436-de02-4d92-8dc7-26c97bb7c5bb'.freeze
   OPS_BOOKING_MANAGER_ALIAS = 'supervisors@maps.org.uk'.freeze
   OPS_BOOKING_LOCATION_ID   = '14a48488-a42f-422d-969d-526e30922fe4'.freeze
+  OPS_VIDEO_LOCATION_ID     = '3cc5b709-4192-48c8-b484-c308365d4134'.freeze
 
   MOBILE_REGEX = /^(07|\+447|00447)/
   MOBILE_REGEX_POSIX = '^(07|\+447|00447)'.freeze
