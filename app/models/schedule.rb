@@ -18,7 +18,7 @@ class Schedule < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
   audited on: :create
 
   def video?
-    location_id == Appointment::OPS_BOOKING_LOCATION_ID
+    location_id == Appointment::OPS_VIDEO_LOCATION_ID
   end
 
   def realtime?

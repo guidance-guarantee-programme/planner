@@ -29,6 +29,8 @@ FactoryBot.define do
     end
 
     factory :bsl_booking_request do
+      booking_location_id { Appointment::OPS_BOOKING_LOCATION_ID }
+      location_id { Appointment::OPS_VIDEO_LOCATION_ID }
       bsl { true }
     end
 
@@ -36,7 +38,7 @@ FactoryBot.define do
       video_appointment { true }
       video_appointment_url { 'https://teams.microsoft.com/meet/12345677654321?p=abcd1234' }
       booking_location_id { Appointment::OPS_BOOKING_LOCATION_ID }
-      location_id { Appointment::OPS_BOOKING_LOCATION_ID }
+      location_id { Appointment::OPS_VIDEO_LOCATION_ID }
     end
 
     factory :agent_booking_request do
