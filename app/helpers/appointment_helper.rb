@@ -12,7 +12,7 @@ module AppointmentHelper
   end
 
   def can_book_video?(booking)
-    booking.booking_location_id == Appointment::OPS_BOOKING_LOCATION_ID
+    booking.location_id == Appointment::OPS_VIDEO_LOCATION_ID
   end
 
   def welsh_visible?(current_user)
