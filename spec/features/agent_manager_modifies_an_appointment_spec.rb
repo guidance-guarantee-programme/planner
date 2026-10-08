@@ -190,7 +190,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     @page.additional_information.set('Blah, blah, blah.')
     @page.defined_contribution_pot_confirmed_dont_know.set(true)
     @page.gdpr_consent_yes.set(true)
-    expect(@page.video_appointment).to be_checked
+    expect(@page).to have_no_video_appointment
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible
@@ -213,7 +213,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
 
     expect(@appointment.name).to include('Ben Lovell')
     expect(@appointment.booking_request.adjustments).to eq('I need these adjustments.')
-    expect(@appointment).to be_video_appointment
+    expect(@appointment).to_not be_video_appointment
   end
 
   def and_the_customer_is_notified
