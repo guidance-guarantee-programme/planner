@@ -6,8 +6,9 @@ class GuidersController < ApplicationController
   private
 
   def active_guiders
-    booking_location
-      .guiders
-      .reject { |guider| guider.name.start_with?('[INACTIVE]') }
+    @guiders = booking_location.location_for(params[:location_id]).guiders
+    @guiders = booking_location.guiders if @guiders.empty?
+
+    @guiders.reject { |guider| guider.name.start_with?('[INACTIVE]') }
   end
 end
