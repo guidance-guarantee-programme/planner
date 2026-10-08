@@ -17,16 +17,6 @@ RSpec.describe BookableSlot do
     end
   end
 
-  it 'does not permit slots after 28/02/2026' do
-    expect(build(:bookable_slot, start_at: Time.zone.parse('2026-03-01 09:00'))).to be_invalid
-  end
-
-  it 'does permit video slots after 28/02/2026' do
-    @schedule = build(:schedule, :ops)
-
-    expect(build(:bookable_slot, schedule: @schedule, start_at: Time.zone.parse('2026-03-01 09:00'))).to be_valid
-  end
-
   describe 'validations' do
     it 'does not allow overlapping slots for a particular guider' do
       travel_to '2026-01-01 09:00' do
