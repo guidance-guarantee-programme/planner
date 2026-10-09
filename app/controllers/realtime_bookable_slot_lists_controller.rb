@@ -1,4 +1,6 @@
 class RealtimeBookableSlotListsController < ApplicationController
+  include Guiderable
+
   def index
     @search = BookableSlotSearch.new(search_params)
     @slots  = @search.results
@@ -20,11 +22,4 @@ class RealtimeBookableSlotListsController < ApplicationController
     @location ||= booking_location.location_for(params[:location_id])
   end
   helper_method :location
-
-  def guiders
-    booking_location
-      .guiders
-      .reject { |guider| guider.name.start_with?('[INACTIVE]') }
-  end
-  helper_method :guiders
 end
