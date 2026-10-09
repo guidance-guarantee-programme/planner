@@ -44,4 +44,19 @@ module AppointmentHelper
     guiders = guiders.reject { |tuple| tuple.first.starts_with?('[INACTIVE]') } unless include_inactive
     guiders
   end
+
+  def grouped_guider_options(booking_location)
+    grouped_options = {}
+
+    booking_location.locations.each do |location|
+      guiders = location.guiders
+      guiders = booking_location.guiders if location.id == Appointment::OPS_VIDEO_LOCATION_ID
+
+      next if guiders.empty?
+
+      grouped_options[location.name] = guiders.map { |guider| [guider.name, guider.id] }.sort_by(&:first)
+    end
+
+    grouped_options_for_select(grouped_options)
+  end
 end

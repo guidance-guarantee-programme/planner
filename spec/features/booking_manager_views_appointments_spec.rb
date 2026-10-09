@@ -72,7 +72,7 @@ RSpec.feature 'Booking manager views appointments' do
     # reset the existing filters first
     @page.load
 
-    @page.search.guider.select('Jenny Smith')
+    @page.search.guider.select('Bobby Childs')
     @page.search.submit.click
   end
 
@@ -110,7 +110,7 @@ RSpec.feature 'Booking manager views appointments' do
       location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7'
     )
 
-    @found_by_guider            = create(:appointment, name: 'Mrs Smith', guider_id: 2)
+    @found_by_guider            = create(:appointment, name: 'Mrs Smith', guider_id: 67)
     @found_by_booking_reference = create(:appointment, name: 'Mr Reference', guider_id: 4)
     @found_by_customer_name     = create(:appointment, name: 'Bob Bobson', guider_id: 5)
     @found_by_customer_name_and_status = create(
