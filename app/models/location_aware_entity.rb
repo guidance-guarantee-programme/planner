@@ -34,6 +34,12 @@ class LocationAwareEntity < SimpleDelegator
     actual_location.address.split(', ')
   end
 
+  def guiders
+    @guiders = actual_location.guiders
+    @guiders = booking_location.guiders if @guiders.empty?
+    @guiders
+  end
+
   def self.model_name
     OpenStruct.new(name: 'LocationAwareEntity')
   end
