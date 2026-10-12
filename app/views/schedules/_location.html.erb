@@ -4,6 +4,15 @@
   </td>
   <td>
     <%= realtime_availability_button(location) %>
+    <%= link_to(
+      my_appointments_path(location_id: location.id),
+      title: 'View appointment calendar',
+      class: 'btn btn-info t-appointment-calendar',
+      method: :get
+    ) do %>
+    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+    <span class="sr-only">View appointment calendar</span>
+    <% end %>
     <% if current_user.administrator? %>
       <%= link_to(
             future_realtime_bookable_slots_path(location_id: location.id),

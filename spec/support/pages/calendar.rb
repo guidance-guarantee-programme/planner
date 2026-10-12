@@ -1,6 +1,6 @@
 module Pages
   class Calendar < SitePrism::Page
-    set_url '/my_appointments'
+    set_url '/locations/{location_id}/my_appointments'
 
     elements :events, '.fc-event'
     elements :resource_cells, '.fc-resource-cell'

@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     resources :drops, only: :create
   end
 
-  resources :my_appointments, only: :index
-
   resources :users, only: :update
 
   resources :appointments, only: %i(index edit update) do
@@ -43,6 +41,7 @@ Rails.application.routes.draw do
   end
 
   scope '/locations/:location_id' do
+    resource :my_appointments, only: :show
     resources :realtime_bookable_slots, only: %w(index create destroy) do
       delete 'future', on: :collection
     end
