@@ -8,7 +8,10 @@ class RealtimeBookableSlotCopyForm
   validates :date_range, presence: true
 
   def guider_name
-    booking_location.guider_name_for(guider_id.to_i)
+    location = booking_location.location_for(location_id)
+    location = booking_location if location.guiders.empty?
+
+    location.guider_name_for(guider_id.to_i)
   end
 
   def time_slots
