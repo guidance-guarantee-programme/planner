@@ -1,9 +1,10 @@
-<% content_for(:page_title, t('service.title', page_title: 'Calendar')) %>
+<% content_for(:page_title, t('service.title', page_title: location.name)) %>
 
 <div class="page-header">
   <ol class="breadcrumb">
     <li><a href="<%= root_path %>">Planner</a></li>
-    <li class="active">Calendar</li>
+    <li><a href="<%= schedules_path %>">Calendars & Schedules</a></li>
+    <li class="active"><%= location.name %></li>
   </ol>
 </div>
 
@@ -12,7 +13,7 @@
   <%=
     select_tag(
       :filter_guiders,
-      options_for_select(guider_options(booking_location, include_inactive: false)),
+      options_for_select(guider_options(canonical_guiders_location, include_inactive: false)),
       multiple: 'multiple',
       class: 't-users',
       data: { module: 'advanced-select', placeholder: 'Guider' }
@@ -24,6 +25,7 @@
   class="js-calendar-reload-on-events t-calendar"
   data-module="my-appointments-calendar"
   data-default-date="<%= Time.zone.now.rfc3339 %>"
-  data-guiders-path="<%= guiders_path(location_id: current_user.booking_location_id) %>"
+  data-guiders-path="<%= guiders_path(location_id: location_id) %>"
+  data-appointments-path="<%= my_appointments_path(location_id: location_id, format: :json) %>"
   data-filter-select-id="filter_guiders"
 ></div>

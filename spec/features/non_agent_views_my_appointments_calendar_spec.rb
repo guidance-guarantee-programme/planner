@@ -14,13 +14,13 @@ RSpec.feature 'My Appointments calendar' do
   end
 
   def and_there_are_appointments_for_their_location
-    create(:appointment, name: 'George Smith', proceeded_at: Time.zone.parse('2022-08-01 08:30'))
+    @appointment = create(:appointment, name: 'George Smith', proceeded_at: Time.zone.parse('2022-08-01 08:30'))
     create(:appointment, name: 'Daisy Smith', proceeded_at: Time.zone.parse('2022-08-01 08:30'), guider_id: 2)
   end
 
   def when_they_view_the_calendar
     @page = Pages::Calendar.new
-    @page.load
+    @page.load(location_id: @appointment.location_id)
   end
 
   def then_they_see_appointments_for_multiple_guiders

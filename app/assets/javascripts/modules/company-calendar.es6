@@ -36,7 +36,7 @@ class CompanyCalendar extends Calendar {
       eventTextColor: '#fff',
       eventSources: [
         {
-          url: '/my_appointments.json',
+          url: this.$el.data('appointments-path'),
           eventType: 'appointment'
         }
       ],
