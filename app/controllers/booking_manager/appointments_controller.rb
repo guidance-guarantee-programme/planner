@@ -50,6 +50,11 @@ module BookingManager
     end
     helper_method :slots
 
+    def permit_bsl?
+      schedule.video?
+    end
+    helper_method :permit_bsl?
+
     def appointment_params
       params
         .fetch(:appointment, {})

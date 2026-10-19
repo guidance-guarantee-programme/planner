@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Booking manager views realtime bookable slot list' do
   scenario 'Viewing for a particular location' do
-    given_the_user_identifies_as_hackneys_booking_manager do
+    given_the_user_identifies_as_ops_booking_manager do
       travel_to '2019-05-10 13:00 UTC' do
         and_a_schedule_exists_with_realtime_slots
         when_they_view_the_list
@@ -17,15 +17,34 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
     end
   end
 
+  scenario 'Viewing for a non-video location' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_a_schedule_exists_for_non_video_location
+      when_they_view_the_list
+      then_they_do_not_see_the_bsl_conversion_button
+    end
+  end
+
+  def and_a_schedule_exists_for_non_video_location
+    @slot = create(:bookable_slot)
+  end
+
+  def then_they_do_not_see_the_bsl_conversion_button
+    expect(@page).to be_displayed
+    expect(@page).to have_slots(count: 1)
+
+    expect(@page.slots.first).to_not have_bsl
+  end
+
   def and_a_schedule_exists_with_realtime_slots
     # this will be available
-    @slot = create(:bookable_slot)
+    @slot = create(:bookable_slot, guider_id: 67, schedule: build(:schedule, :ops))
 
     # this will be unavailable due to associated booking
     create_appointment_with_booking_slot(
       schedule: @slot.schedule,
       start_at: '2019-05-21 10:00',
-      guider_id: 1
+      guider_id: 67
     )
   end
 
@@ -40,7 +59,7 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
 
     @page.slots.first.tap do |slot|
       expect(slot.start_at).to have_text('9:00am, 10 May 2019')
-      expect(slot.guider).to have_text('Ben Lovell')
+      expect(slot.guider).to have_text('George Lovell')
       expect(slot.available).to have_text('Yes')
       expect(slot.created_at).to have_text('2:00pm, 10 May 2019')
     end
@@ -75,7 +94,7 @@ RSpec.feature 'Booking manager views realtime bookable slot list' do
 
   def create_appointment_with_booking_slot(schedule:, start_at:, guider_id:, status: :pending)
     slot    = create(:bookable_slot, schedule: schedule, start_at: start_at, guider_id: guider_id)
-    booking = build(:hackney_booking_request, number_of_slots: 0)
+    booking = build(:video_booking_request, number_of_slots: 0)
     booking.slots.build(date: start_at.to_date, from: '1000', to: '1100', priority: 1)
 
     create(
