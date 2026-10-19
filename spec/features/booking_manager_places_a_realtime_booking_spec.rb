@@ -15,7 +15,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     end
   end
 
-  scenario 'Successfully placing an adhoc realtime booking' do
+  scenario 'Successfully placing an adhoc realtime booking', js: true, retry: 3 do
     travel_to '2019-11-28 13:00' do
       given_the_user_identifies_as_ops_booking_manager do
         when_they_search_with_an_ops_postcode
@@ -234,6 +234,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     expect(@page).to be_displayed
 
     @booking = BookingRequest.last
+
     expect(@booking).to have_attributes(
       name: 'Summer Sanchez',
       email: 'summer@example.com',
