@@ -96,6 +96,14 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   attr_accessor :current_user
 
+  def first_name
+    name.split(' ').first
+  end
+
+  def last_name
+    name.split(' ')[1..].join(' ')
+  end
+
   def duplicates
     scope = self.class.joins(:booking_request)
                 .where(booking_requests: { booking_location_id: booking_location_id })
