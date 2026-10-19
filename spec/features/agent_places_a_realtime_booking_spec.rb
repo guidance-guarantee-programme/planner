@@ -166,6 +166,7 @@ RSpec.feature 'Agent places a realtime booking' do
     @page.additional_info.set('Other notes')
     @page.nudged.set(true)
     expect(@page).to have_no_video_appointment
+    expect(@page).to have_no_bsl
 
     @page.third_party.set(true)
     @page.wait_until_data_subject_name_visible

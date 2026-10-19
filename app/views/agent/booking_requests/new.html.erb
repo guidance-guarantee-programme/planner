@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2 class="h3">Choose available slot</h2>
-        <% @grouped_slots ||= slots_by_month(slots, include_bsl: true) %>
+        <% @grouped_slots ||= slots_by_month(slots, include_bsl: permit_bsl?) %>
         <div class="form-group col-md-4">
           <%= f.select :first_choice_slot,
             grouped_options_for_select(@grouped_slots, @booking.first_choice_slot),
@@ -65,7 +65,11 @@
           <%= f.hidden_field :video_appointment, value: true %>
           <%= f.check_box :video_appointment, readonly: true, disabled: true, checked: true, class: 't-video-appointment', label: 'Video appointment?' %>
         <% end %>
-        <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
+        <% if permit_bsl? %>
+          <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
+        <% else %>
+          <%= f.hidden_field :bsl, value: false %>
+        <% end %>
         <%= f.check_box :nudged, class: 't-nudged', label: 'Stronger Nudge signposting?' %>
         <%= f.check_box :third_party, class: 't-third-party', label: 'Third party appointment?', data: { target: 'consent' } %>
 

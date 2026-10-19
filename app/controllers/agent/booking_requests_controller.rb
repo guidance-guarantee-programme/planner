@@ -68,6 +68,11 @@ module Agent
     end
     helper_method :realtime?
 
+    def permit_bsl?
+      schedule.video?
+    end
+    helper_method :permit_bsl?
+
     def booking_params
       params
         .fetch(:booking, {})
