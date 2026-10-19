@@ -19,6 +19,8 @@ Bundler.require(*Rails.groups)
 
 module Planner
   class Application < Rails::Application
+    config.autoload_once_paths = ["#{root}/app/lib"]
+
     config.load_defaults 6.0
 
     config.active_support.cache_format_version = 7.1
