@@ -198,6 +198,7 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     @page.third_party.set(true)
     expect(@page.video_appointment).to be_checked
 
+    expect(@page).to have_bsl
     expect(@page).not_to have_welsh
 
     @page.wait_until_data_subject_name_visible
