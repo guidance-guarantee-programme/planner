@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Appointments do
   let(:appointment) do
-    build_stubbed(:appointment, location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7')
+    build_stubbed(:appointment, guider_id: 67, location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7')
   end
   let(:hackney) { BookingLocations.find('ac7112c3-e3cf-45cd-a8ff-9ba827b8e7ef') }
   let(:video_location) { BookingLocations.find(Appointment::OPS_BOOKING_LOCATION_ID) }
@@ -154,7 +154,7 @@ RSpec.describe Appointments do
       it 'includes the appointment particulars' do
         expect(body).to include(appointment.reference)
         expect(body).to include("/appointments/#{appointment.id}/edit")
-        expect(body).to include('Ben Lovell') # guider
+        expect(body).to include('Bobby Childs') # guider
       end
     end
   end
@@ -183,7 +183,7 @@ RSpec.describe Appointments do
       end
 
       it 'includes the guider first name' do
-        expect(body).to include('Ben')
+        expect(body).to include('Bobby')
       end
 
       it 'includes the address' do
@@ -269,7 +269,7 @@ RSpec.describe Appointments do
         end
 
         it 'includes the guider first name' do
-          expect(body).to include('Ben')
+          expect(body).to include('Bobby')
         end
 
         it 'includes the address' do

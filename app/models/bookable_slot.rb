@@ -12,6 +12,8 @@ class BookableSlot < ActiveRecord::Base
   scope :realtime, -> { where.not(guider_id: nil) }
   scope :non_realtime, -> { where(guider_id: nil) }
 
+  delegate :location_id, to: :schedule
+
   def realtime?
     guider_id?
   end

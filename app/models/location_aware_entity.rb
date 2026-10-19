@@ -27,7 +27,8 @@ class LocationAwareEntity < SimpleDelegator
   def guider_name
     return '' unless respond_to?(:guider_id) && guider_id
 
-    booking_location.guider_name_for(guider_id)
+    guider = guiders.find { |g| g.id == guider_id }
+    guider&.name.to_s
   end
 
   def address_lines
