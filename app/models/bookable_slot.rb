@@ -16,6 +16,10 @@ class BookableSlot < ActiveRecord::Base
     guider_id?
   end
 
+  def video_location?
+    schedule.video?
+  end
+
   def self.windowed(date_range)
     where(start_at: date_range)
   end

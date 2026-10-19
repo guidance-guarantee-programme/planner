@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe BookableSlot do
+  describe '#video_location?' do
+    context 'when it belongs to a video location' do
+      it 'is true' do
+        slot = build(:bookable_slot, schedule: build(:schedule, :ops))
+
+        expect(slot).to be_video_location
+      end
+    end
+
+    context 'when it belongs to another location' do
+      it 'is false' do
+        slot = build(:bookable_slot)
+
+        expect(slot).not_to be_video_location
+      end
+    end
+  end
+
   it 'is valid with valid attributes' do
     travel_to '2018-07-19 13:00 UTC' do
       expect(build(:bookable_slot)).to be_valid
