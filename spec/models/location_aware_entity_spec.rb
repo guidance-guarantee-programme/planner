@@ -73,10 +73,9 @@ RSpec.describe LocationAwareEntity do
     end
 
     describe '#guider_name' do
-      it 'delegates `guider_name` to the entity' do
-        expect(booking_location).to receive(:guider_name_for)
-          .with(appointment.guider_id)
-          .and_return('Ben Lovell')
+      it 'delegates `guider_name` to the correct location’s guiders' do
+        allow(booking_location).to receive(:location_for).and_return(actual_location)
+        allow(actual_location).to receive(:guiders).and_return([double(id: 1, name: 'Ben Lovell')])
 
         expect(subject.guider_name).to eq('Ben Lovell')
       end
