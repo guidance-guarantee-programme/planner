@@ -83,6 +83,7 @@ Rails.application.routes.draw do
       resources :searches, only: :index
       resources :booking_requests, only: :create do
         resource :summary_document, only: :create
+        resource :dropped_summary_document, only: :create
         patch :batch_reassign, on: :collection
       end
     end
