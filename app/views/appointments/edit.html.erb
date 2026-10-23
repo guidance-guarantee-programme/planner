@@ -70,6 +70,13 @@
     </div>
 
     <div class="col-md-5 action-buttons">
+      <% if @appointment_form.can_create_summary? %>
+        <%= link_to SummaryDocumentLink.generate(@appointment_form), title: 'Create summary', class: 'btn btn-info t-summary-document', target: '_blank' do %>
+          <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+          <span>Create Summary</span>
+        <% end %>
+      <% end %>
+
       <% unless @appointment_form.processed_at? || !current_user.can_process_appointments? %>
         <%= link_to appointment_process_path(@appointment_form), method: :post, title: 'Mark as processed', class: 'btn btn-info t-process' do %>
           <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>

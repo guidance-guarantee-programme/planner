@@ -1,0 +1,6 @@
+<li class="activity-feed__item t-activity" id="activity-<%= summary_document_activity.id %>">
+  <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+  <strong><%= summary_document_activity.owner_name %></strong>
+  generated a <%= summary_document_activity.message %> summary document
+  <span class="activity-feed__date"><%= timestamp(summary_document_activity.created_at) %></span>
+</li>
