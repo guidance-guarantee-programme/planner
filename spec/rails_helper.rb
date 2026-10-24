@@ -32,3 +32,4 @@ RSpec.configure do |config|
 end
 
 Capybara.server = :puma, { Silent: true }
+Sidekiq.default_configuration.logger.level = Logger::WARN
