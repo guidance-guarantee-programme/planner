@@ -1,5 +1,3 @@
-require 'mailgun_headers'
-
 class ApplicationMailer < ActionMailer::Base
   include MailgunHeaders
 
