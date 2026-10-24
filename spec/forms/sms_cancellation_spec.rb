@@ -28,11 +28,12 @@ RSpec.describe SmsCancellation do
 
     context 'when the underlying appointment is not pending' do
       it 'does not attempt to cancel and notifies the customer' do
+        allow(SmsCancellationFailureJob).to receive(:perform_later)
+
         subject.call
 
         expect(appointment.reload).to be_completed
-
-        assert_enqueued_jobs(1, only: SmsCancellationFailureJob)
+        expect(SmsCancellationFailureJob).to have_received(:perform_later).with(subject.source_number)
       end
     end
   end

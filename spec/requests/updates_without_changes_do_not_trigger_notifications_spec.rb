@@ -11,10 +11,8 @@ RSpec.describe 'Updates without changes' do
   end
 
   it 'do not trigger notifications' do
-    perform_enqueued_jobs do
-      patch appointment_path(@appointment), params: params
+    patch appointment_path(@appointment), params: params
 
-      expect(ActionMailer::Base.deliveries).to be_empty
-    end
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 end

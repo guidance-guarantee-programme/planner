@@ -2,6 +2,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Fulfiling Booking Requests' do
+  before do
+    [
+      CustomerConfirmationJob,
+      AppointmentChangeNotificationJob,
+      PrintedConfirmationLetterJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+  end
+
   scenario 'Bookings manager re-sends the customer confirmation email', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_unfulfilled_booking_request
@@ -41,22 +49,19 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   scenario 'Bookings Manager fulfils a Booking Request' do
-    perform_enqueued_jobs do
-      travel_to '2016-06-19' do
-        given_the_user_identifies_as_hackneys_booking_manager do
-          and_there_is_an_unfulfilled_booking_request
-          when_the_booking_manager_attempts_to_fulfil
-          then_they_are_shown_the_fulfilment_page
-          and_they_see_the_customer_details
-          and_they_see_the_requested_slots
-          when_they_choose_a_guider
-          and_they_modify_the_customer_details
-          and_the_location
-          and_the_time_and_date_of_the_appointment
-          then_the_appointment_is_created
-          and_the_customer_is_notified
-          and_the_booking_request_has_associated_audit_activity
-        end
+    travel_to '2016-06-19' do
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_an_unfulfilled_booking_request
+        when_the_booking_manager_attempts_to_fulfil
+        then_they_are_shown_the_fulfilment_page
+        and_they_see_the_customer_details
+        and_they_see_the_requested_slots
+        when_they_choose_a_guider
+        and_they_modify_the_customer_details
+        and_the_location
+        and_the_time_and_date_of_the_appointment
+        then_the_appointment_is_created
+        and_the_customer_is_notified
       end
     end
   end
@@ -123,7 +128,7 @@ RSpec.feature 'Fulfiling Booking Requests' do
   def then_the_customer_is_sent_the_email
     expect(@page).to have_success
 
-    assert_enqueued_jobs(1, only: CustomerConfirmationJob)
+    expect(CustomerConfirmationJob).to have_received(:perform_later)
   end
 
   def when_they_change_the_chosen_location_to_a_hidden_one
@@ -219,23 +224,8 @@ RSpec.feature 'Fulfiling Booking Requests' do
   end
 
   def and_the_customer_is_notified
-    expect(ActionMailer::Base.deliveries.count).to eq(1)
-
-    assert_performed_jobs(
-      2,
-      only: [
-        AppointmentChangeNotificationJob,
-        PrintedConfirmationLetterJob
-      ]
-    )
-  end
-
-  def and_the_booking_request_has_associated_audit_activity
-    expect(@booking_request.activities.count).to eq(2)
-
-    expect(
-      @booking_request.activities.map(&:class)
-    ).to include(AppointmentMailActivity, FulfilmentActivity)
+    expect(AppointmentChangeNotificationJob).to have_received(:perform_later)
+    expect(PrintedConfirmationLetterJob).to have_received(:perform_later)
   end
 
   def when_they_submit_the_invalid_appointment

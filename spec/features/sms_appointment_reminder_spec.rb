@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'SMS appointment reminders' do
+  before do
+    allow(SmsAppointmentReminderJob).to receive(:perform_later)
+  end
+
   scenario 'Executing the SMS appointment reminders job' do
     travel_to '2018-05-28 08:00 UTC' do
       given_appointments_due_sms_reminders_exist
@@ -33,6 +37,6 @@ RSpec.feature 'SMS appointment reminders' do
   end
 
   def then_the_required_jobs_are_scheduled
-    assert_enqueued_jobs(2, only: SmsAppointmentReminderJob)
+    expect(SmsAppointmentReminderJob).to have_received(:perform_later).twice
   end
 end

@@ -39,6 +39,16 @@ RSpec.describe BookingManagerConfirmationJob, '#perform' do
   end
 
   context 'when booking manager(s) are found' do
+    include ActiveJob::TestHelper
+
+    around do |example|
+      old_adapter = ActiveJob::Base.queue_adapter
+      ActiveJob::Base.queue_adapter = :test
+      example.run
+    ensure
+      ActiveJob::Base.queue_adapter = old_adapter
+    end
+
     before { create(:hackney_booking_manager) }
 
     it 'fans out a notification job for each booking manager' do
