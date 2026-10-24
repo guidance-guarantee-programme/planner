@@ -2,7 +2,7 @@ rack_env = ENV.fetch('RACK_ENV', 'development')
 
 rackup      DefaultRackup if defined?(DefaultRackup)
 environment rack_env
-workers     @workers = ENV.fetch('WEB_CONCURRENCY', 2) unless rack_env == 'development'
+workers     @workers = ENV.fetch('WEB_CONCURRENCY', 2) unless %w[development test].include?(rack_env)
 threads     ENV.fetch('MAX_THREADS', 5), ENV.fetch('MAX_THREADS', 5)
 port        ENV.fetch('PORT', 3000)
 
