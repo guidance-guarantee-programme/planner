@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   include GDS::SSO::User
 
-  serialize :permissions, type: Array
+  serialize :permissions, type: Array, coder: YAML
 
   has_many :agent_bookings,
            class_name: 'BookingRequest',

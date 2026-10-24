@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Customer misses an appointment' do
+  before do
+    allow(AppointmentMissedNotificationJob).to receive(:perform_later)
+  end
+
   scenario 'Agent marks the appointment as no show', js: true do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_an_appointment_exists
@@ -27,6 +31,6 @@ RSpec.feature 'Customer misses an appointment' do
   end
 
   def then_the_customer_is_notified
-    assert_enqueued_jobs 1, only: AppointmentMissedNotificationJob
+    expect(AppointmentMissedNotificationJob).to have_received(:perform_later)
   end
 end

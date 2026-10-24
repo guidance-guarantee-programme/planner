@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe EmailDropNotificationJob, '#perform' do
+  include ActiveJob::TestHelper
+
+  around do |example|
+    old_adapter = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :test
+    example.run
+  ensure
+    ActiveJob::Base.queue_adapter = old_adapter
+  end
+
   let(:booking_request) { create(:hackney_booking_request) }
 
   subject { described_class.new.perform(booking_request) }

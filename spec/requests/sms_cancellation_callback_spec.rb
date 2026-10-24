@@ -2,6 +2,13 @@ require 'rails_helper'
 require 'securerandom'
 
 RSpec.describe 'POST /sms_cancellations', type: :request do
+  before do
+    [
+      SmsCancellationSuccessJob,
+      BookingManagerSmsCancellationJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+  end
+
   scenario 'unauthorised access' do
     when_the_client_makes_an_unauthorised_request
     then_the_service_does_not_grant_access
@@ -46,11 +53,11 @@ RSpec.describe 'POST /sms_cancellations', type: :request do
   end
 
   def and_the_customer_is_sent_a_confirmation_sms
-    assert_enqueued_jobs(1, only: SmsCancellationSuccessJob)
+    expect(SmsCancellationSuccessJob).to have_received(:perform_later)
   end
 
   def and_the_booking_managers_are_notified_by_email
-    assert_enqueued_jobs(1, only: BookingManagerSmsCancellationJob)
+    expect(BookingManagerSmsCancellationJob).to have_received(:perform_later)
   end
 
   def when_the_client_makes_an_unauthorised_request

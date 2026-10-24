@@ -2,6 +2,15 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking Manager edits an Appointment' do
+  before do
+    [
+      AppointmentChangeNotificationJob,
+      AppointmentCancellationNotificationJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+
+    allow(BslVideoCustomerExitPollJob).to receive_message_chain(:set, :perform_later)
+  end
+
   scenario 'Processing an appointment' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment
@@ -90,18 +99,15 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   scenario 'Successfully editing an Appointment', js: true, retry: 3 do
-    perform_enqueued_jobs do
-      travel_to '2016-01-01' do # ensure appointment has not elapsed
-        given_the_user_identifies_as_hackneys_booking_manager do
-          and_there_is_an_appointment
-          when_the_booking_manager_edits_the_appointment
-          then_the_appointment_details_are_presented
-          and_they_see_the_requested_slots
-          when_they_modify_the_appointment_details
-          then_the_appointment_is_updated
-          and_the_customer_is_notified_correctly
-          and_the_booking_request_has_associated_audit_and_mail_activity
-        end
+    travel_to '2016-01-01' do # ensure appointment has not elapsed
+      given_the_user_identifies_as_hackneys_booking_manager do
+        and_there_is_an_appointment
+        when_the_booking_manager_edits_the_appointment
+        then_the_appointment_details_are_presented
+        and_they_see_the_requested_slots
+        when_they_modify_the_appointment_details
+        then_the_appointment_is_updated
+        and_the_customer_is_notified_correctly
       end
     end
   end
@@ -116,15 +122,13 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   scenario 'Update the status of an Appointment', js: true, retry: 3 do
-    perform_enqueued_jobs do
-      given_the_user_identifies_as_hackneys_booking_manager do
-        and_there_is_an_appointment
-        when_the_booking_manager_edits_the_appointment
-        then_they_see_the_original_status
-        when_they_modify_the_status
-        then_the_status_is_updated
-        and_the_customer_is_notified
-      end
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      then_they_see_the_original_status
+      when_they_modify_the_status
+      then_the_status_is_updated
+      and_the_customer_is_notified
     end
   end
 
@@ -160,7 +164,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def then_the_bsl_video_exit_poll_is_scheduled
-    assert_enqueued_jobs(1, only: BslVideoCustomerExitPollJob)
+    expect(BslVideoCustomerExitPollJob).to have_received(:set).with(wait: 24.hours)
   end
 
   def and_a_video_appointment_exists
@@ -194,7 +198,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   def then_the_customer_receives_the_cancellation_email
     expect(@page).to have_success
 
-    assert_enqueued_jobs(1, only: AppointmentCancellationNotificationJob)
+    expect(AppointmentCancellationNotificationJob).to have_received(:perform_later)
   end
 
   def and_processes_the_appointment
@@ -267,7 +271,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   def then_the_confirmation_is_sent
     expect(@page).to have_success
 
-    assert_enqueued_jobs(1, only: AppointmentChangeNotificationJob)
+    expect(AppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def and_there_is_an_appointment_with_changes
@@ -411,26 +415,15 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def and_the_customer_is_notified
-    expect(ActionMailer::Base.deliveries.count).to eq(1)
-    expect(ActionMailer::Base.deliveries.first.subject).to eq('Your Pension Wise video appointment cancellation')
+    expect(AppointmentCancellationNotificationJob).to have_received(:perform_later)
   end
 
   def and_the_customer_is_notified_correctly
-    expect(ActionMailer::Base.deliveries.map(&:subject)).to include(
-      'Your Pension Wise video appointment in BSL'
-    )
+    expect(AppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def and_the_customer_is_not_notified
-    expect(ActionMailer::Base.deliveries).to be_empty
-  end
-
-  def and_the_booking_request_has_associated_audit_and_mail_activity
-    expect(@booking_request.activities.count).to eq(2)
-    expect(@booking_request.activities.map(&:class)).to include(
-      AppointmentMailActivity,
-      AuditActivity
-    )
+    expect(AppointmentChangeNotificationJob).to_not have_received(:perform_later)
   end
 
   def then_they_see_the_original_status

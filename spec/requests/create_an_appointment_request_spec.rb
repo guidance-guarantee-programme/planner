@@ -3,18 +3,16 @@ require 'rails_helper'
 RSpec.describe 'POST /api/v1/booking_requests' do
   scenario 'creating a valid appointment from a realtime slot' do
     travel_to '2018-11-01 13:00' do
-      perform_enqueued_jobs do
-        given_the_client_identifies_as_pension_wise
-        and_the_hackney_booking_manager_exists
-        and_a_schedule_with_realtime_slots_exists
-        when_a_valid_booking_request_is_made
-        then_the_service_responds_with_a_201
-        and_the_appointment_details_are_serialized
-        and_the_booking_request_is_created
-        and_the_appointment_is_created
-        and_the_customer_receives_a_confirmation_email
-        and_the_booking_manager_receives_an_email_notification
-      end
+      given_the_client_identifies_as_pension_wise
+      and_the_hackney_booking_manager_exists
+      and_a_schedule_with_realtime_slots_exists
+      when_a_valid_booking_request_is_made
+      then_the_service_responds_with_a_201
+      and_the_appointment_details_are_serialized
+      and_the_booking_request_is_created
+      and_the_appointment_is_created
+      and_the_customer_receives_a_confirmation_email
+      and_the_booking_manager_receives_an_email_notification
     end
   end
 

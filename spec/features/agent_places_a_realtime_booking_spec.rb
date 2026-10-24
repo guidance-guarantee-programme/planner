@@ -2,6 +2,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Agent places a realtime booking' do
+  before do
+    [
+      PrintedConfirmationLetterJob,
+      AppointmentChangeNotificationJob,
+      BookingManagerConfirmationJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+  end
+
   scenario 'Seeing a descriptive failure message when unauthorised' do
     travel_to '2018-11-03 13:00' do
       given_the_user_identifies_as_a_resource_manager
@@ -216,11 +224,12 @@ RSpec.feature 'Agent places a realtime booking' do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(2, only: [PrintedConfirmationLetterJob, AppointmentChangeNotificationJob])
+    expect(PrintedConfirmationLetterJob).to have_received(:perform_later)
+    expect(AppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def and_the_booking_manager_is_notified
-    assert_enqueued_jobs(1, only: BookingManagerConfirmationJob)
+    expect(BookingManagerConfirmationJob).to have_received(:perform_later)
   end
 end
 # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

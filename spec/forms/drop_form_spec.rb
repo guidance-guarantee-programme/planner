@@ -26,6 +26,8 @@ RSpec.describe DropForm, '#create_activity' do
     ENV['MAILGUN_API_TOKEN'] = existing
   end
 
+  before { create(:hackney_booking_manager) }
+
   subject { described_class.new(params) }
 
   context 'when the signature is not verified' do

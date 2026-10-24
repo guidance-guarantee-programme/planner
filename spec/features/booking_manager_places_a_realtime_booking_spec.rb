@@ -2,6 +2,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Booking manager places a realtime booking', js: true do
+  before do
+    [
+      PrintedConfirmationLetterJob,
+      AppointmentChangeNotificationJob,
+      BookingManagerConfirmationJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+  end
+
   scenario 'Placing a Welsh language booking' do
     travel_to '2024-04-15 09:00' do
       given_the_user_identifies_as_cardiff_and_vales_booking_manager do
@@ -270,11 +278,12 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(2, only: [PrintedConfirmationLetterJob, AppointmentChangeNotificationJob])
+    expect(PrintedConfirmationLetterJob).to have_received(:perform_later)
+    expect(AppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def and_the_booking_manager_is_notified
-    assert_enqueued_jobs(1, only: BookingManagerConfirmationJob)
+    expect(BookingManagerConfirmationJob).to have_received(:perform_later)
   end
 end
 # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

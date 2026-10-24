@@ -26,9 +26,9 @@ RSpec.configure do |config|
   config.include TimeHelpers
   config.include PostcodeHelpers
   config.include ActiveSupport::Testing::TimeHelpers
-  config.include ActiveJob::TestHelper
 
   config.before(:each) { ActionMailer::Base.deliveries.clear }
 end
 
 Capybara.server = :puma, { Silent: true }
+Sidekiq.default_configuration.logger.level = Logger::WARN

@@ -2,17 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'POST /api/v1/booking_requests' do
   scenario 'create a valid booking request' do
-    perform_enqueued_jobs do
-      given_the_client_identifies_as_pension_wise
-      and_the_hackney_booking_manager_exists
-      when_a_valid_booking_request_is_made
-      then_the_booking_request_is_created
-      and_the_booking_has_associated_slots
-      and_the_service_responds_with_a_201
-      and_an_empty_json_response
-      and_the_customer_receives_a_confirmation_email
-      and_the_booking_manager_receives_a_notification_email
-    end
+    given_the_client_identifies_as_pension_wise
+    and_the_hackney_booking_manager_exists
+    when_a_valid_booking_request_is_made
+    then_the_booking_request_is_created
+    and_the_booking_has_associated_slots
+    and_the_service_responds_with_a_201
+    and_an_empty_json_response
+    and_the_customer_receives_a_confirmation_email
+    and_the_booking_manager_receives_a_notification_email
   end
 
   scenario 'attempting to create an invalid booking request' do

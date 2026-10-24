@@ -2,15 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'POST /mail_gun/drops' do
   scenario 'inbound hooks create activity entries' do
-    perform_enqueued_jobs do
-      with_a_configured_token('deadbeef') do
-        given_a_hackney_booking_request
-        when_mail_gun_posts_a_drop_notification
-        then_an_activity_is_created
-        and_an_email_is_sent_to_the_booking_manager
-        and_a_push_notification_is_sent_to_online_booking_managers
-        and_the_service_responds_ok
-      end
+    with_a_configured_token('deadbeef') do
+      given_a_hackney_booking_request
+      when_mail_gun_posts_a_drop_notification
+      then_an_activity_is_created
+      and_an_email_is_sent_to_the_booking_manager
+      and_a_push_notification_is_sent_to_online_booking_managers
+      and_the_service_responds_ok
     end
   end
 

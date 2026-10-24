@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.feature 'Agent manager modifies an appointment' do
+  before do
+    [
+      BookingManagerAppointmentChangeNotificationJob,
+      AppointmentVideoUrlNotificationJob,
+      AppointmentChangeNotificationJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+  end
+
   scenario 'Attempting to access as an agent' do
     given_the_user_identifies_as_an_agent do
       and_an_appointment_exists
@@ -115,11 +123,11 @@ RSpec.feature 'Agent manager modifies an appointment' do
   end
 
   def and_the_booking_managers_are_notified
-    assert_enqueued_jobs(1, only: BookingManagerAppointmentChangedNotificationJob)
+    expect(BookingManagerAppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def and_the_customer_is_notified_with_the_video_url
-    assert_enqueued_jobs(1, only: AppointmentVideoUrlNotificationJob)
+    expect(AppointmentVideoUrlNotificationJob).to have_received(:perform_later)
   end
 
   def when_they_leave_an_activity_update
@@ -217,11 +225,11 @@ RSpec.feature 'Agent manager modifies an appointment' do
   end
 
   def and_the_customer_is_notified
-    assert_enqueued_jobs(1, only: AppointmentChangeNotificationJob)
+    expect(AppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def and_the_booking_managers_are_notified
-    assert_enqueued_jobs(1, only: BookingManagerAppointmentChangeNotificationJob)
+    expect(BookingManagerAppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 
   def when_they_attempt_to_edit_an_appointment

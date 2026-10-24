@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.feature 'Agent cancels an appointment' do
+  before do
+    [
+      AppointmentCancellationNotificationJob,
+      BookingManagerAppointmentChangeNotificationJob
+    ].each { |klass| allow(klass).to receive(:perform_later) }
+  end
+
   scenario 'Agent successfully cancels an appointment', js: true do
     given_the_user_identifies_as_an_agent_manager do
       and_an_appointment_exists
@@ -39,9 +46,7 @@ RSpec.feature 'Agent cancels an appointment' do
   end
 
   def and_the_necessary_parties_are_notified
-    assert_enqueued_jobs(
-      2,
-      only: [AppointmentCancellationNotificationJob, BookingManagerAppointmentChangeNotificationJob]
-    )
+    expect(AppointmentCancellationNotificationJob).to have_received(:perform_later)
+    expect(BookingManagerAppointmentChangeNotificationJob).to have_received(:perform_later)
   end
 end
