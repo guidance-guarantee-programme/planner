@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize
 require 'rails_helper'
 
 RSpec.feature 'Booking manager places a realtime booking', js: true do
@@ -286,4 +286,4 @@ RSpec.feature 'Booking manager places a realtime booking', js: true do
     expect(BookingManagerConfirmationJob).to have_received(:perform_later)
   end
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:enable Metrics/AbcSize
