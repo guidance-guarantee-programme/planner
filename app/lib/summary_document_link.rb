@@ -36,7 +36,7 @@ class SummaryDocumentLink
       location = booking_location.location_for(appointment.location_id)
 
       guider_location = location.guiders.empty? ? booking_location : location
-      guider_location.guider_name_for(appointment.guider_id)
+      guider_location.guider_name_for(appointment.guider_id).split(' ').first
     end
   end
 end
