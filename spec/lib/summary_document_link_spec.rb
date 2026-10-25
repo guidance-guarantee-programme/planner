@@ -5,6 +5,10 @@ RSpec.describe SummaryDocumentLink do
 
   subject { described_class.query(appointment) }
 
+  it 'includes the guider first name' do
+    expect(subject).to include('%5Bguider_name%5D=Ben')
+  end
+
   it 'includes the first name' do
     expect(subject).to include('%5Bfirst_name%5D=Mortimer')
   end
