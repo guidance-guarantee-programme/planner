@@ -34,57 +34,6 @@ RSpec.feature 'Agent places a realtime booking' do
     end
   end
 
-  scenario 'Successfully placing a video appointment', js: true do
-    travel_to '2018-10-01 13:00' do
-      given_the_user_identifies_as_an_ops_agent do
-        and_ops_is_stubbed do
-          and_available_slots_exist_for_the_video_location
-          when_they_place_a_video_booking
-          then_the_appointment_is_booked
-        end
-      end
-    end
-  end
-
-  def and_available_slots_exist_for_the_video_location
-    @schedule = create(:schedule, :ops)
-    create(:bookable_slot, start_at: '2018-11-07 09:00', end_at: '2018-11-07 10:00', guider_id: 67, schedule: @schedule)
-  end
-
-  def when_they_place_a_video_booking
-    @page = Pages::AgentBooking.new
-    @page.load(location_id: @schedule.location_id)
-
-    expect(@page).to be_displayed
-    @page.first_choice_slot.select('Wednesday, 07 Nov - 9:00am')
-
-    @page.name.set('Summer Sanchez')
-    @page.phone.set('07715 930 444')
-    @page.memorable_word.set('spaceships')
-    @page.gdpr_consent_yes.set(true)
-    @page.where_you_heard.select('Other')
-    @page.email.set('summer@example.com')
-    @page.date_of_birth.set('01/01/1950')
-
-    expect(@page.video_appointment).to be_checked
-    @page.preview.click
-
-    @page = Pages::AgentBookingPreview.new
-    expect(@page).to be_displayed
-    @page.confirmation.click
-  end
-
-  def then_the_appointment_is_booked
-    @page = Pages::AgentBookingConfirmation.new
-    expect(@page).to be_displayed
-    @reference = @page.reference(visible: false).text(:all)
-
-    @page = Pages::AgentEditAppointment.new
-    @page.load(id: @reference)
-    expect(@page).to be_displayed
-    expect(@page.video_appointment).to be_checked
-  end
-
   def given_the_user_identifies_as_a_resource_manager
     create(:booking_manager)
   end
