@@ -10,6 +10,18 @@ RSpec.feature 'Agent places a realtime booking' do
     ].each { |klass| allow(klass).to receive(:perform_later) }
   end
 
+  scenario 'Agent places a video appointment', js: true, retry: 3 do
+    travel_to '2018-10-01 13:00' do
+      given_the_user_identifies_as_an_agent
+      and_ops_is_stubbed do
+        and_available_video_slots_exist
+        when_they_attempt_to_place_a_video_booking
+        and_confirm_the_video_booking
+        then_the_video_booking_is_placed
+      end
+    end
+  end
+
   scenario 'Seeing a descriptive failure message when unauthorised' do
     travel_to '2018-11-03 13:00' do
       given_the_user_identifies_as_a_resource_manager
@@ -81,6 +93,54 @@ RSpec.feature 'Agent places a realtime booking' do
     yield
   ensure
     BookingLocations.api = current_api
+  end
+
+  def and_available_video_slots_exist
+    @schedule = create(:schedule, :ops)
+
+    create(
+      :bookable_slot,
+      guider_id: 67,
+      start_at: '2018-11-07 09:00',
+      end_at: '2018-11-07 10:00',
+      schedule: @schedule
+    )
+  end
+
+  def when_they_attempt_to_place_a_video_booking
+    @page = Pages::AgentBooking.new
+    @page.load(location_id: Appointment::OPS_VIDEO_LOCATION_ID)
+    expect(@page).to be_displayed
+
+    @page.first_choice_slot.select('Wednesday, 07 Nov - 9:00am')
+    @page.name.set('Summer Sanchez')
+    @page.phone.set('07715 930 444')
+    @page.memorable_word.set('spaceships')
+    @page.date_of_birth.set('01/01/1950')
+    @page.date_of_birth.send_keys(:return) # close date picker
+    @page.gdpr_consent_yes.set(true)
+    @page.where_you_heard.select('Other')
+    @page.email.set('summer@example.com')
+    @page.preview.click
+  end
+
+  def and_confirm_the_video_booking
+    @page = Pages::AgentBookingPreview.new
+    expect(@page).to be_displayed
+    expect(@page.first_choice_slot).to have_text('7 November 2018 - 09:00')
+
+    @page.confirmation.click
+  end
+
+  def then_the_video_booking_is_placed
+    @page = Pages::AgentBookingConfirmation.new
+    expect(@page).to be_displayed
+
+    @reference = @page.reference(visible: false).text(:all)
+    @page = Pages::AgentEditAppointment.new
+    @page.load(id: @reference)
+
+    expect(BookingRequest.last).to be_video_appointment
   end
 
   def then_they_are_told_they_cannot_be_authorised
