@@ -53,6 +53,10 @@ class AgentBookingForm # rubocop:disable Metrics/ClassLength
 
   validate :validate_confirmation_details
 
+  def video_location?
+    location_id == Appointment::OPS_VIDEO_LOCATION_ID
+  end
+
   def scheduled
     true
   end

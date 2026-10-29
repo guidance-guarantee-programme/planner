@@ -61,7 +61,7 @@
             %>
           </div>
 
-        <%= f.hidden_field :video_appointment, value: false %>
+        <%= f.hidden_field :video_appointment, value: @booking.video_location? %>
         <% if permit_bsl? %>
           <%= f.check_box :bsl, class: 't-bsl-video', label: 'BSL appointment?' %>
         <% else %>
