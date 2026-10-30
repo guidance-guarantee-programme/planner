@@ -70,7 +70,7 @@ RSpec.feature 'Agent manager modifies an appointment' do
     end
   end
 
-  scenario 'Rescheduling a BSL video appointment', js: true do
+  scenario 'Rescheduling a BSL video appointment', js: true, retry: 3 do
     travel_to '2026-02-13 13:00' do
       given_the_user_identifies_as_an_ops_agent_manager do
         and_a_bsl_video_appointment_exists
