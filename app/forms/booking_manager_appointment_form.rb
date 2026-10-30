@@ -79,6 +79,10 @@ class BookingManagerAppointmentForm # rubocop:disable Metrics/ClassLength
     alias_method "#{boolean_attr}?", boolean_attr
   end
 
+  def video_location?
+    location_id == Appointment::OPS_VIDEO_LOCATION_ID
+  end
+
   def address?
     [address_line_one, town, postcode].all?(&:present?)
   end
