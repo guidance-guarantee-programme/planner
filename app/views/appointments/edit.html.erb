@@ -241,7 +241,7 @@
             <div class="form-group">
               <%= f.select(
                 :guider_id,
-                guider_options(@appointment_form.booking_location),
+                guider_options(@appointment_form.guiders),
                 options = {},
                 class: 'form-control t-guider'
               ) %>
