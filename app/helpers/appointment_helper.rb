@@ -39,8 +39,9 @@ module AppointmentHelper
     statuses.map { |k, _| [k.titleize, k] }.to_h
   end
 
-  def guider_options(location, include_inactive: true)
-    guiders = location.guiders.map { |guider| [guider.name, guider.id] }.sort_by(&:first)
+  def guider_options(location_or_guiders, include_inactive: true)
+    source  = location_or_guiders.respond_to?(:guiders) ? location_or_guiders.guiders : location_or_guiders
+    guiders = source.map { |guider| [guider.name, guider.id] }.sort_by(&:first)
     guiders = guiders.reject { |tuple| tuple.first.starts_with?('[INACTIVE]') } unless include_inactive
     guiders
   end
