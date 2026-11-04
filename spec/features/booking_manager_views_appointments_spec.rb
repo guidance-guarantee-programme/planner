@@ -160,7 +160,7 @@ RSpec.feature 'Booking manager views appointments' do
 
   def then_they_are_shown_appointments_for_their_location
     expect(@page).to be_displayed
-    expect(@page).to have_appointments(count: 10)
+    expect(@page).to have_appointments(count: 11)
     expect(@page).to have_content('Hackney')
   end
 end

@@ -120,13 +120,13 @@ RSpec.feature 'Viewing Booking Requests' do
   def then_they_are_shown_booking_requests_for_their_locations
     @page = Pages::BookingRequests.new
     expect(@page).to be_displayed
-    expect(@page).to have_booking_requests(count: 10)
+    expect(@page).to have_booking_requests(count: 11)
     expect(@page.booking_requests.first).to have_content('Hackney')
   end
 
   def when_they_search_by_booking_reference
     @page = Pages::BookingRequests.new.tap(&:load)
-    expect(@page).to have_booking_requests(count: 10)
+    expect(@page).to have_booking_requests(count: 11)
 
     @found_by_booking_reference = @active_booking_requests.first
     @page.search.reference.set(@found_by_booking_reference.id)
