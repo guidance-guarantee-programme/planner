@@ -137,7 +137,7 @@ RSpec.feature 'Booking manager views schedules' do
 
   def then_they_see_the_first_page_of_schedules # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
-    expect(@page).to have_schedules(count: 10)
+    expect(@page).to have_schedules(count: 20)
     expect(@page.pagination.first.current_page).to have_text('1')
 
     # the booking location
@@ -153,11 +153,11 @@ RSpec.feature 'Booking manager views schedules' do
 
   def then_they_see_the_second_page_of_schedules # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
-    expect(@page).to have_schedules(count: 10)
+    expect(@page).to have_schedules(count: 20)
     expect(@page.pagination.first.current_page).to have_text('2')
 
     # the tenth child location
-    expect(@page.schedules.first.location.text).to eq('Barrhead (East Renfrewshire)')
+    expect(@page.schedules.first.location.text).to eq('Dalkeith')
   end
 
   def when_they_click_the_previous_page_button
@@ -171,7 +171,7 @@ RSpec.feature 'Booking manager views schedules' do
   def then_they_see_the_last_page_of_schedules # rubocop:disable Metrics/AbcSize
     expect(@page).to be_loaded
     expect(@page).to have_schedules(count: 3)
-    expect(@page.pagination.first.current_page).to have_text('9')
+    expect(@page.pagination.first.current_page).to have_text('5')
 
     # the eightieth  child location
     expect(@page.schedules.first.location.text).to eq('Uist')
