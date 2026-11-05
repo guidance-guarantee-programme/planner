@@ -37,6 +37,7 @@ module Pages
     element :submit, '.t-submit'
     element :resend_confirmation, '.t-resend-confirmation'
     element :reschedule, '.t-reschedule-button'
+    element :summary_document, '.t-summary-document'
 
     element :postal_address, '.t-postal-address'
     element :edit_postal_address, '.t-edit-postal-address'
