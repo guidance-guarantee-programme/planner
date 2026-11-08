@@ -11,6 +11,17 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     allow(BslVideoCustomerExitPollJob).to receive_message_chain(:set, :perform_later)
   end
 
+  scenario 'Summarising an appointment' do
+    given_the_user_identifies_as_hackneys_booking_manager do
+      and_there_is_an_appointment
+      when_the_booking_manager_edits_the_appointment
+      then_they_do_not_see_the_summary_document_button
+      when_the_appointment_is_completed
+      when_the_booking_manager_edits_the_appointment
+      then_they_see_the_summary_document_button
+    end
+  end
+
   scenario 'Processing an appointment' do
     given_the_user_identifies_as_hackneys_booking_manager do
       and_there_is_an_appointment
@@ -150,6 +161,22 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     end
   end
 
+  def then_they_do_not_see_the_summary_document_button
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+    expect(@page).to have_no_summary_document
+  end
+
+  def when_the_appointment_is_completed
+    @appointment.update!(status: :completed)
+  end
+
+  def then_they_see_the_summary_document_button
+    @page = Pages::EditAppointment.new
+    expect(@page).to be_displayed
+    expect(@page).to have_summary_document
+  end
+
   def and_there_is_a_bsl_video_appointment
     @appointment = create(:appointment, :video)
     @appointment.booking_request.update(bsl: true)
@@ -280,8 +307,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     @appointment.update(
       name: 'Morty Smith',
       memorable_word: 'hamburgers',
-      location_id: '183080c6-642b-4b8f-96fd-891f5cd9f9c7',
-      guider_id: 2,
+      guider_id: 4,
       status: :completed
     )
   end
@@ -303,10 +329,9 @@ RSpec.feature 'Booking Manager edits an Appointment' do
     expect(@page).to be_displayed
 
     verify_row(0, 'Name', 'Mortimer Smith', 'Morty Smith')
-    verify_row(1, 'Guider', 'Ben Lovell', 'Jenny Smith')
-    verify_row(2, 'Location', 'Hackney', 'Dalston')
-    verify_row(3, 'Status', 'Pending', 'Completed')
-    verify_row(4, 'Memorable word', 'spaceships', 'hamburgers')
+    verify_row(1, 'Guider', 'Ben Lovell', 'Janice Jones')
+    verify_row(2, 'Status', 'Pending', 'Completed')
+    verify_row(3, 'Memorable word', 'spaceships', 'hamburgers')
   end
 
   def verify_row(index, label, before, after)

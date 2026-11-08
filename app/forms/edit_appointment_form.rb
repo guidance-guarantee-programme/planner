@@ -22,6 +22,10 @@ class EditAppointmentForm < SimpleDelegator
       .realtime
   end
 
+  def can_create_summary?
+    completed? || ineligible_age? || ineligible_pension_type?
+  end
+
   private
 
   def allocation_changed?
