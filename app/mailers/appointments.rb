@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class Appointments < ApplicationMailer
   def booking_manager_appointment_changed(appointment, booking_manager)
     @appointment = appointment
@@ -76,18 +75,6 @@ class Appointments < ApplicationMailer
     )
   end
 
-  def video_customer_exit_poll(appointment)
-    @appointment = decorate(appointment)
-
-    mailgun_headers :video_customer_exit_poll
-
-    mail(
-      to: appointment.email,
-      subject: 'Pension Wise Video Appointment',
-      reply_to: @appointment.online_booking_reply_to
-    )
-  end
-
   def bsl_video_customer_exit_poll(appointment)
     @appointment = decorate(appointment)
 
@@ -143,4 +130,3 @@ class Appointments < ApplicationMailer
     mailgun_headers(value)
   end
 end
-# rubocop:enable Metrics/ClassLength
