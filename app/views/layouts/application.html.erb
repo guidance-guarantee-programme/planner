@@ -71,6 +71,12 @@
   <% end %>
 <% end %>
 
+<% content_for :content do %>
+  <p class="alert alert-warning"><strong>Notice:</strong> Emails to Microsoft-hosted email accounts will be experiencing delayed delivery due to an ongoing service outage.</p>
+
+  <%= yield %>
+<% end %>
+
 <% content_for :body_end do %>
   <%= javascript_include_tag 'application' %>
   <%= pusher_setup %>
