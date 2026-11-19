@@ -354,8 +354,8 @@ GEM
       prettyprint
     prettyprint (0.2.1)
     princely (2.1.0)
-    prism (2.0.0-arm64-darwin)
-    prism (2.0.0-x86_64-linux-gnu)
+    prism (2.1.0-arm64-darwin)
+    prism (2.1.0-x86_64-linux-gnu)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -478,9 +478,11 @@ GEM
       rubocop-ast (>= 1.49.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.50.0)
+    rubocop-ast (1.53.0)
+      ast (~> 2.4)
       parser (>= 3.3.7.2)
-      prism (~> 1.7)
+      prism (>= 1.7)
+      racc
     rubocop-rails (2.21.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -574,6 +576,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   arm64-darwin-24
+  arm64-darwin-27
   x86_64-linux
 
 DEPENDENCIES
@@ -644,7 +647,7 @@ DEPENDENCIES
   working_hours!
 
 RUBY VERSION
-   ruby 3.4.2p28
+   ruby 3.4.13p195
 
 BUNDLED WITH
    2.4.19
