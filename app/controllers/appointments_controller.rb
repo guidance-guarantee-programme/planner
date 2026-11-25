@@ -73,15 +73,7 @@ class AppointmentsController < ApplicationController
     end
 
     AppointmentVideoUrlNotificationJob.perform_later(appointment) if appointment.video_appointment_url_assigned?
-    schedule_exit_polls(appointment)
-  end
-
-  def schedule_exit_polls(appointment)
-    if appointment.bsl_newly_completed? && appointment.video_newly_completed?
-      BslVideoCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment)
-    elsif appointment.bsl_newly_completed?
-      BslCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment)
-    end
+    QualtricsAppointmentCompletedJob.perform_later(appointment) if appointment.newly_completed?
   end
 
   def location_aware_appointment

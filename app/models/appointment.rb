@@ -96,6 +96,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   attr_accessor :current_user
 
+  def survey_consent?
+    booking_request.gdpr_consent == 'yes'
+  end
+
   def first_name
     name.split(' ').first
   end
@@ -161,12 +165,16 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
     cancelled? && previous_changes.include?(:status)
   end
 
+  def newly_completed?
+    completed? && previous_changes.include?(:status)
+  end
+
   def bsl_newly_completed?
-    !cas? && bsl? && completed? && previous_changes.include?(:status)
+    !cas? && bsl? && newly_completed?
   end
 
   def video_newly_completed?
-    video_appointment? && completed? && previous_changes.include?(:status)
+    video_appointment? && newly_completed?
   end
 
   def video_appointment_url_assigned?

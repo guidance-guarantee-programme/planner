@@ -5,10 +5,9 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   before do
     [
       AppointmentChangeNotificationJob,
-      AppointmentCancellationNotificationJob
+      AppointmentCancellationNotificationJob,
+      QualtricsAppointmentCompletedJob
     ].each { |klass| allow(klass).to receive(:perform_later) }
-
-    allow(BslVideoCustomerExitPollJob).to receive_message_chain(:set, :perform_later)
   end
 
   scenario 'Summarising an appointment' do
@@ -191,7 +190,7 @@ RSpec.feature 'Booking Manager edits an Appointment' do
   end
 
   def then_the_bsl_video_exit_poll_is_scheduled
-    expect(BslVideoCustomerExitPollJob).to have_received(:set).with(wait: 24.hours)
+    expect(QualtricsAppointmentCompletedJob).to have_received(:perform_later)
   end
 
   def and_a_video_appointment_exists

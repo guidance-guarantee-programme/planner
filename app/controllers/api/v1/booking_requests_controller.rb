@@ -30,6 +30,10 @@ module Api
 
       private
 
+      def customer_journey?
+        true
+      end
+
       def render_response(booking_request)
         if booking_request.appointment
           appointment = location_aware_appointment(booking_request.appointment)
