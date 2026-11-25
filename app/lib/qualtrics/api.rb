@@ -7,6 +7,13 @@ module Qualtrics
       )
     end
 
+    def appointment_completed(json_payload)
+      connection.post(
+        'triggers?urlTokenId=d97a5384-95e9-490e-9334-c1ea35bba95c',
+        json_payload
+      )
+    end
+
     private
 
     def connection

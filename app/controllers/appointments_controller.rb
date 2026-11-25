@@ -77,6 +77,8 @@ class AppointmentsController < ApplicationController
   end
 
   def schedule_exit_polls(appointment)
+    QualtricsAppointmentCompletedJob.perform_later(appointment) if appointment.newly_completed?
+
     if appointment.bsl_newly_completed? && appointment.video_newly_completed?
       BslVideoCustomerExitPollJob.set(wait: 24.hours).perform_later(appointment)
     elsif appointment.bsl_newly_completed?

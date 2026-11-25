@@ -21,7 +21,7 @@ module Qualtrics
       attr_reader :appointment
 
       def type
-        if appointment.video_appointment? && appointment.bsl?
+        if appointment.bsl_video?
           'f2f-bsl-video'
         elsif appointment.video_appointment?
           'f2f-video'
