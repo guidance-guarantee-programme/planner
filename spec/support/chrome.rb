@@ -1,5 +1,23 @@
 require 'selenium/webdriver'
 
+# monkey patch https://github.com/teamcapybara/capybara/issues/2865
+if Gem.loaded_specs.fetch('capybara').version == Gem::Version.new('3.40.0')
+  Capybara::Selenium::Driver::ChromeDriver.prepend(Module.new do
+    def reset!
+      return unless @browser
+      return super if chromedriver_version < 158
+
+      standard_reset = Capybara::Selenium::Driver.instance_method(:reset!)
+      switch_to_window(window_handles.first)
+      window_handles.drop(1).each do |handle|
+        within_given_window(handle) { standard_reset.bind_call(self) }
+        close_window(handle)
+      end
+      standard_reset.bind_call(self)
+    end
+  end)
+end
+
 Capybara.register_driver :chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new(
     args: %w[
