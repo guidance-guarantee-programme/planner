@@ -9,6 +9,8 @@ module RealtimeProcessable
     AppointmentChangeNotificationJob.perform_later(appointment)
     PrintedConfirmationLetterJob.perform_later(appointment)
     SlackPingerJob.perform_later(appointment)
+
+    QualtricsAppointmentBookedJob.perform_later(appointment) if defined?(customer_journey?)
   end
 
   def fulfil_appointment(booking_request)

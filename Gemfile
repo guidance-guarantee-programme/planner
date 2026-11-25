@@ -21,6 +21,7 @@ source 'https://rubygems.org' do # rubocop:disable Metrics/BlockLength
   gem 'eventmachine', github: 'eventmachine/eventmachine'
   gem 'faraday'
   gem 'faraday-conductivity'
+  gem 'faraday-http'
   gem 'faraday_middleware'
   gem 'font-awesome-rails'
   gem 'foreman'

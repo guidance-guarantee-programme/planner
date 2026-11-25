@@ -96,6 +96,10 @@ class Appointment < ActiveRecord::Base # rubocop:disable Metrics/ClassLength
 
   attr_accessor :current_user
 
+  def survey_consent?
+    booking_request.gdpr_consent == 'yes'
+  end
+
   def first_name
     name.split(' ').first
   end

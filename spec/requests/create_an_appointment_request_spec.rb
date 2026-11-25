@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'POST /api/v1/booking_requests' do
+  before do
+    allow(QualtricsAppointmentBookedJob).to receive(:perform_later)
+  end
+
   scenario 'creating a valid appointment from a realtime slot' do
     travel_to '2018-11-01 13:00' do
       given_the_client_identifies_as_pension_wise
@@ -13,6 +17,7 @@ RSpec.describe 'POST /api/v1/booking_requests' do
       and_the_appointment_is_created
       and_the_customer_receives_a_confirmation_email
       and_the_booking_manager_receives_an_email_notification
+      and_the_qualtrics_booking_job_is_enqueued
     end
   end
 
@@ -126,5 +131,9 @@ RSpec.describe 'POST /api/v1/booking_requests' do
 
   def and_the_booking_manager_receives_an_email_notification
     expect(ActionMailer::Base.deliveries.map(&:subject)).to include('Pension Wise Appointment')
+  end
+
+  def and_the_qualtrics_booking_job_is_enqueued
+    expect(QualtricsAppointmentBookedJob).to have_received(:perform_later)
   end
 end
